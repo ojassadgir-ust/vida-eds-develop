@@ -180,6 +180,21 @@
     ]
   },
   {
+    "id": "faq-item",
+    "fields": [
+      {
+        "component": "text",
+        "name": "question",
+        "label": "Question"
+      },
+      {
+        "component": "richtext",
+        "name": "answer",
+        "label": "Answer"
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
