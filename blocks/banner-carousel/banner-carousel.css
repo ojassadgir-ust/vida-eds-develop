@@ -7,7 +7,7 @@
   overflow: hidden;
   background: linear-gradient(
     360deg,
-    rgba(162, 177, 216, 0.8) -135.11%,
+    rgb(162 177 216 / 80%) -135.11%,
     #f5f8ff 22.61%
   );
 }
@@ -78,7 +78,6 @@
   bottom: 24px;
   left: 0;
   z-index: 5;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,7 +124,7 @@
   display: none;
 }
 
-@media (max-width: 1023px) {
+@media (width <= 1023px) {
   .banner-carousel {
     height: 600px;
   }
@@ -143,7 +142,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .banner-carousel {
     width: 100%;
     max-width: none;
