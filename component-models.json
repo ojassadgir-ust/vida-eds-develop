@@ -142,6 +142,41 @@
     ]
   },
   {
+    "id": "banner-carousel",
+    "fields": []
+  },
+  {
+    "id": "banner-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content",
+        "label": "Title / Subtitle"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {

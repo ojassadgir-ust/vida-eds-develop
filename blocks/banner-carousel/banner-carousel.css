@@ -1,7 +1,3 @@
-/* =========================================
-   BANNER CAROUSEL
-========================================= */
-
 .banner-carousel {
   position: relative;
   width: 100%;
@@ -11,76 +7,37 @@
   overflow: hidden;
   background: linear-gradient(
     360deg,
-    rgb(162 177 216 / 80%) -135.11%,
+    rgba(162, 177, 216, 0.8) -135.11%,
     #f5f8ff 22.61%
   );
 }
 
-
-/* =========================================
-   CAROUSEL TRACK
-========================================= */
-
-.banner-carousel-track {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  overflow: auto hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.banner-carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-
-/* =========================================
-   SLIDE
-========================================= */
-
-.banner-carousel-slide {
+.banner-carousel-item {
   position: relative;
-  flex: 0 0 100%;
   width: 100%;
   height: 740px;
   overflow: hidden;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
 }
 
-
-/* =========================================
-   BACKGROUND IMAGE
-========================================= */
-
-.banner-carousel-background {
+.banner-carousel-media {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
 }
 
-.banner-carousel-background picture {
+.banner-carousel-media picture {
   display: block;
   width: 100%;
   height: 100%;
 }
 
-.banner-carousel-background img {
+.banner-carousel-media img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
-
-/* =========================================
-   CONTENT
-========================================= */
 
 .banner-carousel-content {
   position: absolute;
@@ -89,190 +46,121 @@
   z-index: 2;
   width: 80%;
   max-width: 600px;
-  transform: translate(
-    -50%,
-    -50%
-  );
+  transform: translate(-50%, -50%);
   text-align: center;
 }
 
-
-/* =========================================
-   TITLE
-========================================= */
-
 .banner-carousel-title {
-  margin: 0 0 12px;
-  font-size: clamp(
-    24px,
-    3vw,
-    48px
-  );
-  line-height: 1.1;
-  font-weight: 600;
+  margin: 0 0 16px;
+  font-size: 48px;
+  line-height: 1.15;
+  font-weight: 700;
 }
-
-
-/* =========================================
-   SUBTITLE
-========================================= */
 
 .banner-carousel-subtitle {
-  margin: 0 0 20px;
-  font-size: clamp(
-    14px,
-    1.5vw,
-    22px
-  );
-  line-height: 1.4;
+  margin: 0 0 24px;
+  font-size: 18px;
+  line-height: 1.5;
 }
-
-
-/* =========================================
-   CTA
-========================================= */
 
 .banner-carousel-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 90px;
-  min-height: 36px;
-  padding: 8px 22px;
-  border: 0;
-  border-radius: 20px;
-  background: #fff;
-  color: #000;
-  font-size: 13px;
-  font-weight: 600;
+  min-height: 48px;
+  padding: 12px 24px;
   text-decoration: none;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
 }
 
-.banner-carousel-cta:hover {
-  background: #000;
-  color: #fff;
-}
-
-.banner-carousel-cta:focus-visible {
-  outline: 2px solid #000;
-  outline-offset: 3px;
-}
-
-
-/* =========================================
-   PAGINATION CONTROLLER
-========================================= */
-
-.banner-carousel-controller {
+.banner-carousel-controls {
   position: absolute;
-  left: 50%;
-  bottom: 14px;
-  z-index: 10;
+  right: 0;
+  bottom: 24px;
+  left: 0;
+  z-index: 5;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  padding: 5px 9px;
-  transform: translateX(-50%);
-  border-radius: 20px;
-  background: rgb(0 0 0 / 45%);
+  gap: 16px;
 }
 
-
-/* =========================================
-   PAGINATION DOT
-========================================= */
+.banner-carousel-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
 .banner-carousel-dot {
   width: 8px;
   height: 8px;
-  margin: 0;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: #fff;
-  opacity: 0.6;
   cursor: pointer;
-  transition:
-    width 0.2s ease,
-    opacity 0.2s ease;
 }
-
-
-/* Active dot */
 
 .banner-carousel-dot.active {
   width: 20px;
   border-radius: 10px;
-  opacity: 1;
 }
 
-
-/* Focus */
-
-.banner-carousel-dot:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
+.banner-carousel-prev,
+.banner-carousel-next {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
 }
 
+.banner-carousel-prev:disabled,
+.banner-carousel-next:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
 
-/* =========================================
-   TABLET
-========================================= */
+.banner-carousel-item[hidden] {
+  display: none;
+}
 
-@media (width <= 1023px) {
+@media (max-width: 1023px) {
   .banner-carousel {
     height: 600px;
   }
 
-  .banner-carousel-slide {
+  .banner-carousel-item {
     height: 600px;
-  }
-
-  .banner-carousel-content {
-    width: 75%;
   }
 
   .banner-carousel-title {
-    font-size: 32px;
+    font-size: 36px;
   }
 
   .banner-carousel-subtitle {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (width <= 767px) {
+@media (max-width: 767px) {
   .banner-carousel {
     width: 100%;
-    height: 808px;
     max-width: none;
+    height: 808px;
     margin: 0;
     background: #b6b4e0;
   }
 
-  .banner-carousel-track {
+  .banner-carousel-item {
     height: 808px;
   }
 
-  .banner-carousel-slide {
+  .banner-carousel-media {
     height: 808px;
   }
 
-  .banner-carousel-background {
-    height: 808px;
-  }
-
-  .banner-carousel-background img {
+  .banner-carousel-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -285,28 +173,25 @@
   }
 
   .banner-carousel-title {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     font-size: 24px;
-    line-height: 1.15;
+    line-height: 1.2;
   }
 
   .banner-carousel-subtitle {
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     font-size: 14px;
     line-height: 1.4;
   }
 
   .banner-carousel-cta {
-    min-width: 80px;
-    min-height: 32px;
-    padding: 6px 18px;
+    min-height: 40px;
+    padding: 10px 16px;
     font-size: 12px;
   }
 
-  .banner-carousel-controller {
+  .banner-carousel-controls {
     bottom: 10px;
-    gap: 4px;
-    padding: 4px 8px;
   }
 
   .banner-carousel-dot {
@@ -317,20 +202,16 @@
   .banner-carousel-dot.active {
     width: 18px;
   }
+
+  .banner-carousel-prev,
+  .banner-carousel-next {
+    width: 32px;
+    height: 32px;
+  }
 }
 
-
-/* =========================================
-   REDUCED MOTION
-========================================= */
-
 @media (prefers-reduced-motion: reduce) {
-  .banner-carousel-track {
+  .banner-carousel {
     scroll-behavior: auto;
-  }
-
-  .banner-carousel-dot,
-  .banner-carousel-cta {
-    transition: none;
   }
 }

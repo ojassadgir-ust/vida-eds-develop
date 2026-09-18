@@ -1,271 +1,309 @@
-function getText(cell) {
-  return cell?.textContent.trim() || '';
+function getImageUrl(element) {
+  return element?.textContent?.trim() || '';
 }
 
-function getLink(cell) {
-  const link = cell?.querySelector('a');
-
-  if (link) {
-    return link.href;
+function getContentData(element) {
+  if (!element) {
+    return {
+      title: '',
+      subtitle: '',
+    };
   }
 
-  return getText(cell);
+  const headings = element.querySelectorAll(
+    'h1, h2, h3, h4, h5, h6',
+  );
+
+  const paragraphs = element.querySelectorAll(
+    'p',
+  );
+
+  const title = headings.length
+    ? headings[0].textContent.trim()
+    : '';
+
+  const subtitle = paragraphs.length
+    ? paragraphs[0].innerHTML.trim()
+    : '';
+
+  return {
+    title,
+    subtitle,
+  };
 }
 
-function createPicture(desktopImage, mobileImage, index) {
+function getCtaData(element) {
+  if (!element) {
+    return {
+      label: '',
+      link: '',
+    };
+  }
+
+  const anchor = element.querySelector('a');
+
+  if (anchor) {
+    return {
+      label: anchor.textContent.trim(),
+      link: anchor.href,
+    };
+  }
+
+  return {
+    label: element.textContent.trim(),
+    link: '',
+  };
+}
+
+function createPicture(
+  desktopImage,
+  mobileImage,
+  index,
+) {
   const picture = document.createElement('picture');
 
-  /*
-   * Mobile image
-   */
   if (mobileImage) {
-    const mobileSource = document.createElement('source');
+    const source = document.createElement('source');
 
-    mobileSource.media = '(max-width: 767px)';
-    mobileSource.srcset = mobileImage.src;
+    source.media = '(max-width: 767px)';
+    source.srcset = mobileImage;
 
-    picture.appendChild(mobileSource);
+    picture.appendChild(source);
   }
 
-  /*
-   * Desktop image
-   */
-  const image = document.createElement('img');
+  if (desktopImage) {
+    const image = document.createElement('img');
 
-  image.src = desktopImage.src;
-  image.alt = desktopImage.alt || '';
+    image.src = desktopImage;
+    image.alt = '';
 
-  /*
-   * First image is loaded immediately because
-   * it is likely to be the LCP image.
-   */
-  if (index === 0) {
-    image.loading = 'eager';
-    image.fetchPriority = 'high';
-  } else {
-    image.loading = 'lazy';
+    if (index === 0) {
+      image.loading = 'eager';
+      image.fetchPriority = 'high';
+    } else {
+      image.loading = 'lazy';
+    }
+
+    picture.appendChild(image);
   }
-
-  picture.appendChild(image);
 
   return picture;
 }
 
-function createSlide(row, index) {
-  const cells = [...row.children];
+function createSlide(item, index) {
+  const fields = [...item.children];
 
   /*
-   * Authoring structure:
+   * 4 cells:
    *
    * 0 = Desktop Image
    * 1 = Mobile Image
-   * 2 = Title
-   * 3 = Subtitle
-   * 4 = CTA Text
-   * 5 = CTA Link
+   * 2 = Title / Subtitle
+   * 3 = CTA
    */
 
-  const desktopImage = cells[0]?.querySelector('img');
+  const desktopImage = getImageUrl(fields[0]);
+  const mobileImage = getImageUrl(fields[1]);
 
-  const mobileImage = cells[1]?.querySelector('img');
+  const contentData = getContentData(fields[2]);
 
-  const title = getText(cells[2]);
+  const ctaData = getCtaData(fields[3]);
 
-  const subtitle = cells[3]?.innerHTML.trim() || '';
+  item.classList.add('banner-carousel-item');
 
-  const ctaText = getText(cells[4]);
-
-  const ctaLink = getLink(cells[5]);
+  item.innerHTML = '';
 
   /*
-   * Slide
+   * Media
    */
-  const slide = document.createElement('div');
 
-  slide.className = 'banner-carousel-slide';
+  const media = document.createElement('div');
 
-  /*
-   * Background image
-   */
-  if (desktopImage) {
-    const background = document.createElement('div');
+  media.className = 'banner-carousel-media';
 
-    background.className = 'banner-carousel-background';
-
-    background.appendChild(
+  if (desktopImage || mobileImage) {
+    media.appendChild(
       createPicture(
         desktopImage,
         mobileImage,
         index,
       ),
     );
-
-    slide.appendChild(background);
   }
+
+  item.appendChild(media);
 
   /*
    * Content
    */
+
   const content = document.createElement('div');
 
   content.className = 'banner-carousel-content';
 
-  /*
-   * Title
-   */
-  if (title) {
-    const heading = document.createElement('h2');
+  if (contentData.title) {
+    const title = document.createElement('h2');
 
-    heading.className = 'banner-carousel-title';
+    title.className = 'banner-carousel-title';
+    title.textContent = contentData.title;
 
-    heading.textContent = title;
-
-    content.appendChild(heading);
+    content.appendChild(title);
   }
 
-  /*
-   * Subtitle
-   *
-   * innerHTML is used so the author can use
-   * line breaks or basic markup.
-   */
-  if (subtitle) {
-    const description = document.createElement('div');
+  if (contentData.subtitle) {
+    const subtitle = document.createElement('div');
 
-    description.className = 'banner-carousel-subtitle';
+    subtitle.className = 'banner-carousel-subtitle';
+    subtitle.innerHTML = contentData.subtitle;
 
-    description.innerHTML = subtitle;
-
-    content.appendChild(description);
+    content.appendChild(subtitle);
   }
 
   /*
    * CTA
    */
-  if (ctaText && ctaLink) {
+
+  if (ctaData.label && ctaData.link) {
     const cta = document.createElement('a');
 
     cta.className = 'banner-carousel-cta';
-
-    cta.href = ctaLink;
-
-    cta.textContent = ctaText;
+    cta.href = ctaData.link;
+    cta.textContent = ctaData.label;
 
     content.appendChild(cta);
   }
 
-  slide.appendChild(content);
+  item.appendChild(content);
 
-  return slide;
+  return item;
 }
 
-function createController(track, slides) {
-  const controller = document.createElement('div');
+function createControls(block, slideCount) {
+  const controls = document.createElement('div');
 
-  controller.className = 'banner-carousel-controller';
+  controls.className = 'banner-carousel-controls';
 
-  controller.setAttribute(
+  /*
+   * Previous
+   */
+
+  const previousButton = document.createElement('button');
+
+  previousButton.type = 'button';
+  previousButton.className = 'banner-carousel-prev';
+  previousButton.setAttribute(
     'aria-label',
-    'Carousel Pagination',
+    'Previous banner',
   );
 
-  slides.forEach((slide, index) => {
-    const button = document.createElement('button');
+  /*
+   * Pagination
+   */
 
-    button.type = 'button';
+  const pagination = document.createElement('div');
 
-    button.className = 'banner-carousel-dot';
+  pagination.className = 'banner-carousel-pagination';
 
-    button.setAttribute(
+  pagination.setAttribute(
+    'aria-label',
+    'Banner carousel navigation',
+  );
+
+  /*
+   * Dots
+   */
+
+  for (let i = 0; i < slideCount; i += 1) {
+    const dot = document.createElement('button');
+
+    dot.type = 'button';
+    dot.className = 'banner-carousel-dot';
+
+    dot.setAttribute(
       'aria-label',
-      `Go to banner ${index + 1}`,
+      `Go to banner ${i + 1}`,
     );
 
-    button.dataset.slide = index;
+    pagination.appendChild(dot);
+  }
 
-    /*
-     * First dot active
-     */
-    if (index === 0) {
-      button.classList.add('active');
+  /*
+   * Next
+   */
 
-      button.setAttribute(
-        'aria-current',
-        'true',
-      );
-    }
+  const nextButton = document.createElement('button');
 
-    /*
-     * Navigate to slide
-     */
-    button.addEventListener(
-      'click',
-      () => {
-        track.scrollTo({
-          left: slide.offsetLeft,
-          behavior: 'smooth',
-        });
-      },
-    );
+  nextButton.type = 'button';
+  nextButton.className = 'banner-carousel-next';
 
-    controller.appendChild(button);
-  });
+  nextButton.setAttribute(
+    'aria-label',
+    'Next banner',
+  );
 
-  return controller;
+  controls.appendChild(previousButton);
+  controls.appendChild(pagination);
+  controls.appendChild(nextButton);
+
+  block.appendChild(controls);
+
+  return {
+    previousButton,
+    pagination,
+    nextButton,
+  };
 }
 
-function updateController(
-  track,
-  controller,
-) {
+function initCarousel(block) {
   const slides = [
-    ...track.querySelectorAll(
-      '.banner-carousel-slide',
-    ),
-  ];
-
-  const dots = [
-    ...controller.querySelectorAll(
-      '.banner-carousel-dot',
-    ),
+    ...block.querySelectorAll('.banner-carousel-item'),
   ];
 
   if (!slides.length) {
     return;
   }
 
-  let activeIndex = 0;
+  let currentIndex = 0;
+  let autoplayTimer;
 
-  let smallestDistance = Infinity;
-
-  slides.forEach(
-    (slide, index) => {
-      const distance = Math.abs(
-        track.scrollLeft
-            - slide.offsetLeft,
-      );
-
-      if (
-        distance
-        < smallestDistance
-      ) {
-        smallestDistance = distance;
-
-        activeIndex = index;
-      }
-    },
+  const {
+    previousButton,
+    pagination,
+    nextButton,
+  } = createControls(
+    block,
+    slides.length,
   );
 
-  dots.forEach(
-    (dot, index) => {
-      const active = index === activeIndex;
+  const dots = [
+    ...pagination.querySelectorAll(
+      '.banner-carousel-dot',
+    ),
+  ];
+
+  function showSlide(index) {
+    currentIndex = index;
+
+    slides.forEach((slide, slideIndex) => {
+      const isActive = slideIndex === currentIndex;
+
+      slide.hidden = !isActive;
+
+      slide.setAttribute(
+        'aria-hidden',
+        String(!isActive),
+      );
+    });
+
+    dots.forEach((dot, dotIndex) => {
+      const isActive = dotIndex === currentIndex;
 
       dot.classList.toggle(
         'active',
-        active,
+        isActive,
       );
 
-      if (active) {
+      if (isActive) {
         dot.setAttribute(
           'aria-current',
           'true',
@@ -275,206 +313,105 @@ function updateController(
           'aria-current',
         );
       }
-    },
-  );
-}
+    });
 
-function setupAutoplay(
-  track,
-  slides,
-) {
-  if (slides.length <= 1) {
-    return;
+    previousButton.disabled = currentIndex === 0;
+
+    nextButton.disabled = currentIndex === slides.length - 1;
   }
 
-  let currentIndex = 0;
-
-  let timer;
-
-  const start = () => {
-    window.clearInterval(timer);
-
-    timer = window.setInterval(
+  function startAutoplay() {
+    autoplayTimer = window.setInterval(
       () => {
-        currentIndex += 1;
-
-        /*
-         * Return to first banner
-         * after the last banner.
-         */
-        if (
-          currentIndex
-          >= slides.length
-        ) {
-          currentIndex = 0;
+        if (currentIndex === slides.length - 1) {
+          showSlide(0);
+        } else {
+          showSlide(currentIndex + 1);
         }
-
-        track.scrollTo({
-          left:
-            slides[currentIndex]
-              .offsetLeft,
-          behavior: 'smooth',
-        });
       },
       5000,
     );
-  };
+  }
 
-  const stop = () => {
-    window.clearInterval(timer);
-  };
+  function stopAutoplay() {
+    window.clearInterval(
+      autoplayTimer,
+    );
+  }
 
-  /*
-   * Pause on mouse hover
-   */
-  track.addEventListener(
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  previousButton.addEventListener(
+    'click',
+    () => {
+      if (currentIndex > 0) {
+        showSlide(currentIndex - 1);
+        restartAutoplay();
+      }
+    },
+  );
+
+  nextButton.addEventListener(
+    'click',
+    () => {
+      if (currentIndex < slides.length - 1) {
+        showSlide(currentIndex + 1);
+        restartAutoplay();
+      }
+    },
+  );
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener(
+      'click',
+      () => {
+        showSlide(index);
+        restartAutoplay();
+      },
+    );
+  });
+
+  block.addEventListener(
     'mouseenter',
-    stop,
+    stopAutoplay,
   );
 
-  track.addEventListener(
+  block.addEventListener(
     'mouseleave',
-    start,
+    startAutoplay,
   );
 
-  /*
-   * Pause when keyboard focus
-   * enters the carousel.
-   */
-  track.addEventListener(
+  block.addEventListener(
     'focusin',
-    stop,
+    stopAutoplay,
   );
 
-  track.addEventListener(
+  block.addEventListener(
     'focusout',
-    start,
+    startAutoplay,
   );
 
-  /*
-   * Pause while touching/swiping.
-   */
-  track.addEventListener(
-    'touchstart',
-    stop,
-    {
-      passive: true,
-    },
-  );
-
-  track.addEventListener(
-    'touchend',
-    start,
-    {
-      passive: true,
-    },
-  );
-
-  start();
+  showSlide(0);
+  startAutoplay();
 }
 
 export default function decorate(block) {
-  /*
-   * Each row represents one banner.
-   *
-   * Example:
-   *
-   * Row 1 = Banner 1
-   * Row 2 = Banner 2
-   * ...
-   * Row 10 = Banner 10
-   */
-  const rows = [
-    ...block.children,
-  ];
+  const items = [...block.children];
 
-  /*
-   * Track
-   */
-  const track = document.createElement('div');
+  if (!items.length) {
+    return;
+  }
 
-  track.className = 'banner-carousel-track';
-
-  /*
-   * Create slides.
-   */
-  const slides = rows
-    .map(
-      (row, index) => createSlide(
-        row,
-        index,
-      ),
-    )
-    .filter(
-      (slide) => slide.querySelector(
-        '.banner-carousel-background',
-      ),
-    );
-
-  slides.forEach(
-    (slide) => {
-      track.appendChild(slide);
-    },
+  block.classList.add(
+    'banner-carousel',
   );
 
-  /*
-   * Create pagination controller.
-   */
-  const controller = createController(
-    track,
-    slides,
-  );
+  items.forEach((item, index) => {
+    createSlide(item, index);
+  });
 
-  /*
-   * Remove the original authored table.
-   */
-  block.textContent = '';
-
-  /*
-   * Add carousel track.
-   */
-  block.appendChild(track);
-
-  /*
-   * Add pagination.
-   */
-  block.appendChild(
-    controller,
-  );
-
-  /*
-   * Update pagination when the
-   * user swipes/scrolls.
-   */
-  let scrollTimeout;
-
-  track.addEventListener(
-    'scroll',
-    () => {
-      window.clearTimeout(
-        scrollTimeout,
-      );
-
-      scrollTimeout = window.setTimeout(
-        () => {
-          updateController(
-            track,
-            controller,
-          );
-        },
-        50,
-      );
-    },
-    {
-      passive: true,
-    },
-  );
-
-  /*
-   * Start autoplay.
-   */
-  setupAutoplay(
-    track,
-    slides,
-  );
+  initCarousel(block);
 }

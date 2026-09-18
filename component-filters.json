@@ -20,6 +20,12 @@
     ]
   },
   {
+    "id": "banner-carousel",
+    "components": [
+      "banner-carousel-item"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
