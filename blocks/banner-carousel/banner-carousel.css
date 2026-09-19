@@ -5,7 +5,7 @@
 }
 
 /*
- * Slides
+ * Slides container
  */
 
 .banner-carousel .carousel-slides-container {
@@ -21,7 +21,12 @@
   padding: 0;
   list-style: none;
   overflow: hidden;
+  scroll-behavior: smooth;
 }
+
+/*
+ * Individual slide
+ */
 
 .banner-carousel .carousel-slide {
   position: relative;
@@ -35,11 +40,15 @@
 
 /*
  * Banner image
+ *
+ * The complete banner artwork is one authorable image.
  */
 
 .banner-carousel .carousel-slide-picture {
   display: block;
   width: 100%;
+  margin: 0;
+  padding: 0;
   line-height: 0;
 }
 
@@ -47,21 +56,22 @@
   display: block;
   width: 100%;
   height: auto;
-  min-height: 100%;
+  margin: 0;
+  padding: 0;
   object-fit: cover;
 }
 
 /*
  * CTA
  *
- * CTA is HTML content positioned
- * over the authorable banner image.
+ * CTA is HTML content positioned over
+ * the authorable banner image.
  */
 
 .banner-carousel .carousel-slide-cta-wrapper {
   position: absolute;
   right: 8%;
-  bottom: 26%;
+  bottom: 18%;
   z-index: 2;
 }
 
@@ -70,13 +80,13 @@
   align-items: center;
   justify-content: center;
   min-width: 112px;
-  padding: 10px 26px;
+  padding: 11px 28px;
   border-radius: 999px;
   background: #fff;
   color: #222;
   font-size: 16px;
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
@@ -89,8 +99,7 @@
   transform: translateY(-1px);
 }
 
-.banner-carousel
-  .carousel-slide-cta:focus-visible {
+.banner-carousel .carousel-slide-cta:focus-visible {
   outline: 2px solid #222;
   outline-offset: 3px;
 }
@@ -101,13 +110,13 @@
 
 .banner-carousel .carousel-slide-controls {
   position: absolute;
-  bottom: 14px;
-  left: 50%;
+  right: 0;
+  bottom: 20px;
+  left: 0;
   z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateX(-50%);
 }
 
 /*
@@ -117,11 +126,11 @@
 .banner-carousel .carousel-slide-indicators {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   margin: 0;
-  padding: 5px 8px;
+  padding: 6px 9px;
   border-radius: 999px;
-  background: rgb(100 100 100 / 65%);
+  background: rgb(60 60 60 / 55%);
   list-style: none;
   backdrop-filter: blur(4px);
 }
@@ -132,24 +141,23 @@
 
 .banner-carousel .carousel-slide-indicator {
   display: flex;
+  width: 8px;
+  height: 8px;
   align-items: center;
   justify-content: center;
-  width: 9px;
-  height: 9px;
-  transition:
-    width 0.3s ease;
+  margin: 0;
+  padding: 0;
+  transition: width 0.3s ease;
 }
 
 /*
  * Normal dot
  */
 
-.banner-carousel
-  .carousel-slide-indicator
-  button {
+.banner-carousel .carousel-slide-indicator button {
   display: block;
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   margin: 0;
   padding: 0;
   border: 0;
@@ -162,21 +170,18 @@
 }
 
 /*
- * ACTIVE DOT
+ * Active dot
  *
- * Small circle becomes expanded pill.
+ * The active circle expands into a pill.
  */
 
-.banner-carousel
-  .carousel-slide-indicator.active {
+.banner-carousel .carousel-slide-indicator.active {
   width: 22px;
 }
 
-.banner-carousel
-  .carousel-slide-indicator.active
-  button {
+.banner-carousel .carousel-slide-indicator.active button {
   width: 22px;
-  height: 9px;
+  height: 8px;
   border-radius: 999px;
   background: #fff;
 }
@@ -203,39 +208,38 @@
 }
 
 /*
- * TABLET
+ * Tablet
  */
 
 @media (width <= 1024px) {
-  .banner-carousel
-    .carousel-slide-cta-wrapper {
-    right: 10%;
-    bottom: 25%;
+  .banner-carousel .carousel-slide-cta-wrapper {
+    right: 7%;
+    bottom: 17%;
   }
 
-  .banner-carousel
-    .carousel-slide-cta {
+  .banner-carousel .carousel-slide-cta {
     min-width: 100px;
-    padding: 9px 22px;
+    padding: 10px 23px;
     font-size: 14px;
+  }
+
+  .banner-carousel .carousel-slide-controls {
+    bottom: 16px;
   }
 }
 
 /*
- * MOBILE
+ * Mobile
  */
 
 @media (width <= 767px) {
-  .banner-carousel
-    .carousel-slide-picture {
+  .banner-carousel .carousel-slide-picture {
     width: 100%;
   }
 
-  .banner-carousel
-    .carousel-slide-image {
+  .banner-carousel .carousel-slide-image {
     width: 100%;
     height: auto;
-    min-height: 0;
     object-fit: cover;
   }
 
@@ -243,64 +247,58 @@
    * CTA position on mobile
    */
 
-  .banner-carousel
-    .carousel-slide-cta-wrapper {
+  .banner-carousel .carousel-slide-cta-wrapper {
     right: 50%;
-    bottom: 18%;
+    bottom: 15%;
     transform: translateX(50%);
   }
 
-  .banner-carousel
-    .carousel-slide-cta {
+  .banner-carousel .carousel-slide-cta {
     min-width: 96px;
     padding: 9px 20px;
     font-size: 13px;
   }
 
   /*
-   * Controller
+   * Controller position
    */
 
-  .banner-carousel
-    .carousel-slide-controls {
-    bottom: 10px;
-  }
-
-  .banner-carousel
-    .carousel-slide-indicators {
-    gap: 3px;
-    padding: 4px 7px;
+  .banner-carousel .carousel-slide-controls {
+    bottom: 12px;
   }
 
   /*
-   * Mobile inactive dot
+   * Controller background
    */
 
-  .banner-carousel
-    .carousel-slide-indicator {
+  .banner-carousel .carousel-slide-indicators {
+    gap: 4px;
+    padding: 5px 8px;
+  }
+
+  /*
+   * Mobile normal dot
+   */
+
+  .banner-carousel .carousel-slide-indicator {
     width: 7px;
     height: 7px;
   }
 
-  .banner-carousel
-    .carousel-slide-indicator
-    button {
+  .banner-carousel .carousel-slide-indicator button {
     width: 7px;
     height: 7px;
   }
 
   /*
-   * Mobile active expanded dot
+   * Mobile active dot
    */
 
-  .banner-carousel
-    .carousel-slide-indicator.active {
+  .banner-carousel .carousel-slide-indicator.active {
     width: 18px;
   }
 
-  .banner-carousel
-    .carousel-slide-indicator.active
-    button {
+  .banner-carousel .carousel-slide-indicator.active button {
     width: 18px;
     height: 7px;
   }
@@ -311,10 +309,12 @@
  */
 
 @media (prefers-reduced-motion: reduce) {
-  .banner-carousel
-    .carousel-slide-cta,
-  .banner-carousel
-    .carousel-slide-indicator,
+  .banner-carousel .carousel-slides {
+    scroll-behavior: auto;
+  }
+
+  .banner-carousel .carousel-slide-cta,
+  .banner-carousel .carousel-slide-indicator,
   .banner-carousel
     .carousel-slide-indicator
     button {

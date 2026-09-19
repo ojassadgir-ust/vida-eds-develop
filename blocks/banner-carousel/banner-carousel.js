@@ -21,7 +21,7 @@ function getFieldLink(field) {
 
   const link = field.querySelector('a');
 
-  if (link && link.href) {
+  if (link?.href) {
     return link.href;
   }
 
@@ -31,76 +31,53 @@ function getFieldLink(field) {
 function createSlide(item, index, id) {
   const slide = document.createElement('li');
 
-  slide.classList.add('carousel-slide');
-
+  slide.className = 'carousel-slide';
   slide.dataset.slideIndex = index;
-
   slide.id = `banner-carousel-${id}-slide-${index}`;
 
-  slide.setAttribute(
-    'aria-hidden',
-    'true',
-  );
-
   /*
-   * Authoring structure:
+   * Authoring order:
    *
-   * 0 = Desktop Image
-   * 1 = Mobile Image
-   * 2 = CTA Link Text
+   * 0 = Desktop Feature Image
+   * 1 = Mobile Feature Image
+   * 2 = CTA Label
    * 3 = CTA Link
    */
 
   const desktopField = getField(item, 0);
-
   const mobileField = getField(item, 1);
-
-  const ctaTextField = getField(item, 2);
-
+  const ctaLabelField = getField(item, 2);
   const ctaLinkField = getField(item, 3);
 
   const desktopImage = getImage(desktopField);
-
   const mobileImage = getImage(mobileField);
 
   /*
-   * IMAGE
+   * Banner image
    */
 
   if (desktopImage || mobileImage) {
     const picture = document.createElement('picture');
 
-    picture.classList.add(
-      'carousel-slide-picture',
-    );
+    picture.className = 'carousel-slide-picture';
 
-    /*
-     * Mobile image
-     */
     if (mobileImage) {
       const source = document.createElement('source');
 
       source.media = '(max-width: 767px)';
-
       source.srcset = mobileImage.src;
 
       picture.append(source);
     }
 
-    /*
-     * Desktop image
-     */
     const image = desktopImage || mobileImage;
 
-    image.classList.add(
-      'carousel-slide-image',
-    );
+    image.classList.add('carousel-slide-image');
 
     image.removeAttribute('width');
     image.removeAttribute('height');
 
     picture.append(image);
-
     slide.append(picture);
   }
 
@@ -108,173 +85,93 @@ function createSlide(item, index, id) {
    * CTA
    */
 
-  const ctaText = getFieldText(ctaTextField);
-
+  const ctaLabel = getFieldText(ctaLabelField);
   const ctaLink = getFieldLink(ctaLinkField);
 
-  if (ctaText && ctaLink) {
+  if (ctaLabel && ctaLink) {
     const ctaWrapper = document.createElement('div');
 
-    ctaWrapper.classList.add(
-      'carousel-slide-cta-wrapper',
-    );
+    ctaWrapper.className = 'carousel-slide-cta-wrapper';
 
     const cta = document.createElement('a');
 
-    cta.classList.add(
-      'carousel-slide-cta',
-    );
-
+    cta.className = 'carousel-slide-cta';
     cta.href = ctaLink;
-
-    cta.textContent = ctaText;
+    cta.textContent = ctaLabel;
 
     ctaWrapper.append(cta);
-
     slide.append(ctaWrapper);
   }
 
   return slide;
 }
 
-function updateActiveSlide(
-  block,
-  index,
-) {
-  const slides = block.querySelectorAll(
-    '.carousel-slide',
-  );
-
+function updateActiveSlide(block, index) {
+  const slides = block.querySelectorAll('.carousel-slide');
   const indicators = block.querySelectorAll(
     '.carousel-slide-indicator',
   );
 
-  slides.forEach(
-    (slide, slideIndex) => {
-      const isActive = slideIndex === index;
+  slides.forEach((slide, slideIndex) => {
+    const active = slideIndex === index;
 
-      slide.classList.toggle(
-        'active',
-        isActive,
-      );
+    slide.classList.toggle('active', active);
+    slide.setAttribute('aria-hidden', String(!active));
 
-      slide.setAttribute(
-        'aria-hidden',
-        String(!isActive),
-      );
-
-      const links = slide.querySelectorAll('a');
-
-      links.forEach((link) => {
-        if (isActive) {
-          link.removeAttribute(
-            'tabindex',
-          );
-        } else {
-          link.setAttribute(
-            'tabindex',
-            '-1',
-          );
-        }
-      });
-    },
-  );
-
-  indicators.forEach(
-    (indicator, indicatorIndex) => {
-      const button = indicator.querySelector(
-        'button',
-      );
-
-      const isActive = indicatorIndex === index;
-
-      indicator.classList.toggle(
-        'active',
-        isActive,
-      );
-
-      if (isActive) {
-        button.setAttribute(
-          'aria-current',
-          'true',
-        );
+    slide.querySelectorAll('a').forEach((link) => {
+      if (active) {
+        link.removeAttribute('tabindex');
       } else {
-        button.removeAttribute(
-          'aria-current',
-        );
+        link.setAttribute('tabindex', '-1');
       }
-    },
-  );
+    });
+  });
+
+  indicators.forEach((indicator, indicatorIndex) => {
+    const button = indicator.querySelector('button');
+    const active = indicatorIndex === index;
+
+    indicator.classList.toggle('active', active);
+
+    if (active) {
+      button.setAttribute('aria-current', 'true');
+    } else {
+      button.removeAttribute('aria-current');
+    }
+  });
 
   block.dataset.activeSlide = index;
 }
 
-function showSlide(
-  block,
-  index,
-  smooth = true,
-) {
-  const slides = block.querySelectorAll(
-    '.carousel-slide',
-  );
+function showSlide(block, index, smooth = true) {
+  const slides = block.querySelectorAll('.carousel-slide');
+  const wrapper = block.querySelector('.carousel-slides');
 
-  const wrapper = block.querySelector(
-    '.carousel-slides',
-  );
-
-  if (
-    !slides.length
-    || !wrapper
-  ) {
-    return;
-  }
+  if (!slides.length || !wrapper) return;
 
   let newIndex = index;
 
-  /*
-   * Loop to first banner
-   */
-  if (
-    newIndex >= slides.length
-  ) {
+  if (newIndex >= slides.length) {
     newIndex = 0;
   }
 
-  /*
-   * Loop to last banner
-   */
   if (newIndex < 0) {
     newIndex = slides.length - 1;
   }
 
   const slide = slides[newIndex];
 
-  updateActiveSlide(
-    block,
-    newIndex,
-  );
-
-  const scrollPosition = slide.offsetLeft
-    - (
-      wrapper.clientWidth
-      - slide.clientWidth
-    ) / 2;
+  updateActiveSlide(block, newIndex);
 
   wrapper.scrollTo({
-    left: scrollPosition,
-    behavior:
-      smooth
-        ? 'smooth'
-        : 'auto',
+    left: slide.offsetLeft,
+    behavior: smooth ? 'smooth' : 'auto',
   });
 }
 
 function stopAutoplay(block) {
   if (block.carouselTimer) {
-    clearInterval(
-      block.carouselTimer,
-    );
-
+    clearInterval(block.carouselTimer);
     block.carouselTimer = null;
   }
 }
@@ -282,39 +179,20 @@ function stopAutoplay(block) {
 function startAutoplay(block) {
   stopAutoplay(block);
 
-  /*
-   * 5 second autoplay
-   */
   block.carouselTimer = setInterval(() => {
     const currentIndex = parseInt(
-      block.dataset.activeSlide
-            || '0',
+      block.dataset.activeSlide || '0',
       10,
     );
 
-    showSlide(
-      block,
-      currentIndex + 1,
-      true,
-    );
+    showSlide(block, currentIndex + 1);
   }, 5000);
 }
 
-function restartAutoplay(block) {
-  stopAutoplay(block);
-  startAutoplay(block);
-}
-
-function createIndicators(
-  block,
-  count,
-) {
+function createIndicators(block, count) {
   const nav = document.createElement('nav');
 
-  nav.classList.add(
-    'carousel-slide-controls',
-  );
-
+  nav.className = 'carousel-slide-controls';
   nav.setAttribute(
     'aria-label',
     'Banner carousel controls',
@@ -322,224 +200,80 @@ function createIndicators(
 
   const indicators = document.createElement('ol');
 
-  indicators.classList.add(
-    'carousel-slide-indicators',
-  );
+  indicators.className = 'carousel-slide-indicators';
 
-  for (
-    let index = 0;
-    index < count;
-    index += 1
-  ) {
+  for (let index = 0; index < count; index += 1) {
     const indicator = document.createElement('li');
 
-    indicator.classList.add(
-      'carousel-slide-indicator',
-    );
+    indicator.className = 'carousel-slide-indicator';
 
     const button = document.createElement('button');
 
     button.type = 'button';
-
     button.setAttribute(
       'aria-label',
       `Go to banner ${index + 1}`,
     );
 
-    button.addEventListener(
-      'click',
-      () => {
-        showSlide(
-          block,
-          index,
-          true,
-        );
-
-        /*
-         * Restart 5 second timer
-         */
-        restartAutoplay(block);
-      },
-    );
+    button.addEventListener('click', () => {
+      showSlide(block, index);
+      startAutoplay(block);
+    });
 
     indicator.append(button);
-
     indicators.append(indicator);
   }
 
   nav.append(indicators);
-
   block.append(nav);
 }
 
-function bindEvents(block) {
-  /*
-   * Pause when mouse enters
-   */
-  block.addEventListener(
-    'mouseenter',
-    () => {
-      stopAutoplay(block);
-    },
-  );
-
-  /*
-   * Resume when mouse leaves
-   */
-  block.addEventListener(
-    'mouseleave',
-    () => {
-      startAutoplay(block);
-    },
-  );
-
-  /*
-   * Pause when keyboard focus enters
-   */
-  block.addEventListener(
-    'focusin',
-    () => {
-      stopAutoplay(block);
-    },
-  );
-
-  /*
-   * Resume when keyboard focus leaves
-   */
-  block.addEventListener(
-    'focusout',
-    () => {
-      startAutoplay(block);
-    },
-  );
-
-  /*
-   * Mobile touch
-   */
-  block.addEventListener(
-    'touchstart',
-    () => {
-      stopAutoplay(block);
-    },
-    {
-      passive: true,
-    },
-  );
-
-  block.addEventListener(
-    'touchend',
-    () => {
-      startAutoplay(block);
-    },
-    {
-      passive: true,
-    },
-  );
-}
-
-export default function decorate(
-  block,
-) {
+export default function decorate(block) {
   carouselId += 1;
 
   block.id = `banner-carousel-${carouselId}`;
 
-  /*
-   * Every direct child is one
-   * Banner Carousel Item.
-   */
   const items = [
-    ...block.querySelectorAll(
-      ':scope > div',
-    ),
+    ...block.querySelectorAll(':scope > div'),
   ];
 
-  if (!items.length) {
-    return;
-  }
+  if (!items.length) return;
 
-  block.setAttribute(
-    'role',
-    'region',
-  );
-
+  block.setAttribute('role', 'region');
   block.setAttribute(
     'aria-roledescription',
     'Carousel',
   );
-
   block.setAttribute(
     'aria-label',
     'Banner carousel',
   );
 
-  /*
-   * Slides container
-   */
   const slidesContainer = document.createElement('div');
 
-  slidesContainer.classList.add(
-    'carousel-slides-container',
-  );
+  slidesContainer.className = 'carousel-slides-container';
 
-  /*
-   * Slides list
-   */
   const slidesWrapper = document.createElement('ul');
 
-  slidesWrapper.classList.add(
-    'carousel-slides',
-  );
+  slidesWrapper.className = 'carousel-slides';
 
-  /*
-   * Create all slides
-   */
-  items.forEach(
-    (item, index) => {
-      const slide = createSlide(
-        item,
-        index,
-        carouselId,
-      );
+  items.forEach((item, index) => {
+    const slide = createSlide(
+      item,
+      index,
+      carouselId,
+    );
 
-      slidesWrapper.append(slide);
+    slidesWrapper.append(slide);
+    item.remove();
+  });
 
-      item.remove();
-    },
-  );
+  slidesContainer.append(slidesWrapper);
+  block.prepend(slidesContainer);
 
-  slidesContainer.append(
-    slidesWrapper,
-  );
+  createIndicators(block, items.length);
 
-  block.prepend(
-    slidesContainer,
-  );
+  showSlide(block, 0, false);
 
-  /*
-   * Create dots
-   */
-  createIndicators(
-    block,
-    items.length,
-  );
-
-  /*
-   * Start at Banner 1
-   */
-  showSlide(
-    block,
-    0,
-    false,
-  );
-
-  /*
-   * Events
-   */
-  bindEvents(block);
-
-  /*
-   * Start autoplay
-   */
   startAutoplay(block);
 }

@@ -44,21 +44,21 @@
           "component": "reference",
           "valueType": "string",
           "name": "desktop-image",
-          "label": "Desktop Image",
+          "label": "Desktop Feature Image",
           "multi": false
         },
         {
           "component": "reference",
           "valueType": "string",
           "name": "mobile-image",
-          "label": "Mobile Image",
+          "label": "Mobile Feature Image",
           "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "cta-text",
-          "label": "CTA Link Text"
+          "name": "cta-label",
+          "label": "CTA Label"
         },
         {
           "component": "text",
