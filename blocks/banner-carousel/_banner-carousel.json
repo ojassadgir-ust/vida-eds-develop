@@ -55,16 +55,16 @@
           "multi": false
         },
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
-          "name": "content",
-          "label": "Title / Subtitle"
+          "name": "cta-text",
+          "label": "CTA Link Text"
         },
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
-          "name": "cta",
-          "label": "CTA"
+          "name": "cta-link",
+          "label": "CTA Link"
         }
       ]
     }
