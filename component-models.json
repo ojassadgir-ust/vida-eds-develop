@@ -166,13 +166,15 @@
         "component": "text",
         "valueType": "string",
         "name": "cta-label",
-        "label": "CTA Label"
+        "label": "CTA Label",
+        "value": ""
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "cta-link",
-        "label": "CTA Link"
+        "label": "CTA Link",
+        "value": ""
       }
     ]
   },

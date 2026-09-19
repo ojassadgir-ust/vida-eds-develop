@@ -1,125 +1,24 @@
-let carouselId = 0;
+let bannerCarouselId = 0;
 
-function getField(item, index) {
-  return item.children[index] || null;
-}
+function updateActiveSlide(block, slideIndex) {
+  const slides = block.querySelectorAll('.banner-carousel-slide');
+  const indicators = block.querySelectorAll('.banner-carousel-control');
 
-function getImage(field) {
-  if (!field) return null;
+  if (!slides.length) return;
 
-  return field.querySelector('img');
-}
+  const realIndex = ((slideIndex % slides.length) + slides.length) % slides.length;
 
-function getFieldText(field) {
-  if (!field) return '';
+  block.dataset.activeIndex = realIndex;
 
-  return field.textContent.trim();
-}
+  slides.forEach((slide, index) => {
+    const isActive = index === realIndex;
 
-function getFieldLink(field) {
-  if (!field) return '';
-
-  const link = field.querySelector('a');
-
-  if (link?.href) {
-    return link.href;
-  }
-
-  return field.textContent.trim();
-}
-
-function createSlide(item, index, id) {
-  const slide = document.createElement('li');
-
-  slide.className = 'carousel-slide';
-  slide.dataset.slideIndex = index;
-  slide.id = `banner-carousel-${id}-slide-${index}`;
-
-  /*
-   * Authoring order:
-   *
-   * 0 = Desktop Feature Image
-   * 1 = Mobile Feature Image
-   * 2 = CTA Label
-   * 3 = CTA Link
-   */
-
-  const desktopField = getField(item, 0);
-  const mobileField = getField(item, 1);
-  const ctaLabelField = getField(item, 2);
-  const ctaLinkField = getField(item, 3);
-
-  const desktopImage = getImage(desktopField);
-  const mobileImage = getImage(mobileField);
-
-  /*
-   * Banner image
-   */
-
-  if (desktopImage || mobileImage) {
-    const picture = document.createElement('picture');
-
-    picture.className = 'carousel-slide-picture';
-
-    if (mobileImage) {
-      const source = document.createElement('source');
-
-      source.media = '(max-width: 767px)';
-      source.srcset = mobileImage.src;
-
-      picture.append(source);
-    }
-
-    const image = desktopImage || mobileImage;
-
-    image.classList.add('carousel-slide-image');
-
-    image.removeAttribute('width');
-    image.removeAttribute('height');
-
-    picture.append(image);
-    slide.append(picture);
-  }
-
-  /*
-   * CTA
-   */
-
-  const ctaLabel = getFieldText(ctaLabelField);
-  const ctaLink = getFieldLink(ctaLinkField);
-
-  if (ctaLabel && ctaLink) {
-    const ctaWrapper = document.createElement('div');
-
-    ctaWrapper.className = 'carousel-slide-cta-wrapper';
-
-    const cta = document.createElement('a');
-
-    cta.className = 'carousel-slide-cta';
-    cta.href = ctaLink;
-    cta.textContent = ctaLabel;
-
-    ctaWrapper.append(cta);
-    slide.append(ctaWrapper);
-  }
-
-  return slide;
-}
-
-function updateActiveSlide(block, index) {
-  const slides = block.querySelectorAll('.carousel-slide');
-  const indicators = block.querySelectorAll(
-    '.carousel-slide-indicator',
-  );
-
-  slides.forEach((slide, slideIndex) => {
-    const active = slideIndex === index;
-
-    slide.classList.toggle('active', active);
-    slide.setAttribute('aria-hidden', String(!active));
+    slide.classList.toggle('is-active', isActive);
+    slide.setAttribute('aria-hidden', String(!isActive));
+    slide.setAttribute('tabindex', isActive ? '0' : '-1');
 
     slide.querySelectorAll('a').forEach((link) => {
-      if (active) {
+      if (isActive) {
         link.removeAttribute('tabindex');
       } else {
         link.setAttribute('tabindex', '-1');
@@ -127,153 +26,465 @@ function updateActiveSlide(block, index) {
     });
   });
 
-  indicators.forEach((indicator, indicatorIndex) => {
+  indicators.forEach((indicator, index) => {
     const button = indicator.querySelector('button');
-    const active = indicatorIndex === index;
+    const isActive = index === realIndex;
 
-    indicator.classList.toggle('active', active);
+    indicator.classList.toggle('is-active', isActive);
 
-    if (active) {
-      button.setAttribute('aria-current', 'true');
-    } else {
-      button.removeAttribute('aria-current');
+    if (button) {
+      button.setAttribute(
+        'aria-current',
+        isActive ? 'true' : 'false',
+      );
+
+      button.disabled = isActive;
     }
   });
-
-  block.dataset.activeSlide = index;
 }
 
-function showSlide(block, index, smooth = true) {
-  const slides = block.querySelectorAll('.carousel-slide');
-  const wrapper = block.querySelector('.carousel-slides');
+function showSlide(block, slideIndex) {
+  const slides = block.querySelectorAll('.banner-carousel-slide');
 
-  if (!slides.length || !wrapper) return;
+  if (!slides.length) return;
 
-  let newIndex = index;
+  const realIndex = ((slideIndex % slides.length) + slides.length) % slides.length;
 
-  if (newIndex >= slides.length) {
-    newIndex = 0;
-  }
-
-  if (newIndex < 0) {
-    newIndex = slides.length - 1;
-  }
-
-  const slide = slides[newIndex];
-
-  updateActiveSlide(block, newIndex);
-
-  wrapper.scrollTo({
-    left: slide.offsetLeft,
-    behavior: smooth ? 'smooth' : 'auto',
-  });
+  updateActiveSlide(block, realIndex);
 }
 
-function stopAutoplay(block) {
-  if (block.carouselTimer) {
-    clearInterval(block.carouselTimer);
-    block.carouselTimer = null;
+function createCta(labelColumn, linkColumn, slideIndex, isPlaceholder) {
+  const label = labelColumn?.textContent.trim() || '';
+  const linkElement = linkColumn?.querySelector('a');
+
+  const href = linkElement?.getAttribute('href')
+    || linkColumn?.textContent.trim()
+    || '';
+
+  if (!label && !href && !isPlaceholder) {
+    return null;
   }
+
+  const cta = document.createElement('a');
+
+  cta.classList.add('banner-carousel-cta');
+
+  cta.textContent = label || 'CTA';
+  cta.href = href || '#';
+
+  if (!href) {
+    cta.addEventListener('click', (event) => {
+      event.preventDefault();
+    });
+  }
+
+  cta.setAttribute('aria-label', label || `Banner ${slideIndex + 1} CTA`);
+
+  return cta;
 }
 
-function startAutoplay(block) {
-  stopAutoplay(block);
+function createSlide(row, slideIndex, carouselId, isPlaceholder = false) {
+  const slide = document.createElement('article');
 
-  block.carouselTimer = setInterval(() => {
-    const currentIndex = parseInt(
-      block.dataset.activeSlide || '0',
-      10,
+  slide.classList.add('banner-carousel-slide');
+
+  slide.dataset.slideIndex = slideIndex;
+
+  slide.id = `banner-carousel-${carouselId}-slide-${slideIndex}`;
+
+  slide.setAttribute('role', 'tabpanel');
+  slide.setAttribute('aria-label', `Banner ${slideIndex + 1}`);
+  slide.setAttribute('aria-hidden', slideIndex === 0 ? 'false' : 'true');
+  slide.setAttribute('tabindex', slideIndex === 0 ? '0' : '-1');
+
+  const columns = row.querySelectorAll(':scope > div');
+
+  const desktopImageColumn = columns[0];
+  const mobileImageColumn = columns[1];
+  const ctaLabelColumn = columns[2];
+  const ctaLinkColumn = columns[3];
+
+  /* -------------------------------------------
+     Desktop image
+  ------------------------------------------- */
+
+  const imageContainer = document.createElement('div');
+
+  imageContainer.classList.add('banner-carousel-slide-image');
+
+  if (desktopImageColumn) {
+    const picture = desktopImageColumn.querySelector('picture');
+    const image = desktopImageColumn.querySelector('img');
+
+    if (picture) {
+      imageContainer.append(picture);
+    } else if (image) {
+      imageContainer.append(image);
+    }
+  }
+
+  /* -------------------------------------------
+     Mobile image
+  ------------------------------------------- */
+
+  const mobileImageContainer = document.createElement(
+    'div',
+  );
+
+  mobileImageContainer.classList.add(
+    'banner-carousel-slide-mobile-image',
+  );
+
+  if (mobileImageColumn) {
+    const mobilePicture = mobileImageColumn.querySelector('picture');
+    const mobileImage = mobileImageColumn.querySelector('img');
+
+    if (mobilePicture) {
+      mobileImageContainer.append(mobilePicture);
+    } else if (mobileImage) {
+      mobileImageContainer.append(mobileImage);
+    }
+  }
+
+  /* -------------------------------------------
+     Add mobile image as <source>
+  ------------------------------------------- */
+
+  const desktopImage = imageContainer.querySelector('img');
+  const mobileImage = mobileImageContainer.querySelector('img');
+
+  if (desktopImage) {
+    desktopImage.classList.add('banner-carousel-image');
+
+    let picture = desktopImage.closest('picture');
+
+    if (!picture) {
+      picture = document.createElement('picture');
+
+      desktopImage.replaceWith(picture);
+
+      picture.append(desktopImage);
+    }
+
+    if (mobileImage) {
+      const mobileSource = document.createElement('source');
+
+      mobileSource.media = '(max-width: 767px)';
+      mobileSource.srcset = mobileImage.currentSrc || mobileImage.src;
+
+      picture.prepend(mobileSource);
+    }
+  }
+
+  /* -------------------------------------------
+     Placeholder image
+  ------------------------------------------- */
+
+  if (!desktopImage && isPlaceholder) {
+    const placeholder = document.createElement('span');
+
+    placeholder.classList.add(
+      'banner-carousel-placeholder',
     );
 
-    showSlide(block, currentIndex + 1);
-  }, 5000);
+    placeholder.textContent = `Banner ${slideIndex + 1}`;
+
+    imageContainer.append(placeholder);
+  }
+
+  /* -------------------------------------------
+     CTA
+  ------------------------------------------- */
+
+  const contentContainer = document.createElement('div');
+
+  contentContainer.classList.add(
+    'banner-carousel-slide-content',
+  );
+
+  const cta = createCta(
+    ctaLabelColumn,
+    ctaLinkColumn,
+    slideIndex,
+    isPlaceholder,
+  );
+
+  if (cta) {
+    contentContainer.append(cta);
+  }
+
+  /* -------------------------------------------
+     Build slide
+  ------------------------------------------- */
+
+  slide.append(imageContainer);
+  slide.append(mobileImageContainer);
+  slide.append(contentContainer);
+
+  return slide;
 }
 
-function createIndicators(block, count) {
-  const nav = document.createElement('nav');
+function createControls(block, slideCount) {
+  if (slideCount < 2) return;
 
-  nav.className = 'carousel-slide-controls';
-  nav.setAttribute(
+  const controlsWrapper = document.createElement('div');
+
+  controlsWrapper.classList.add(
+    'banner-carousel-controls',
+  );
+
+  const indicators = document.createElement('div');
+
+  indicators.classList.add(
+    'banner-carousel-indicators',
+  );
+
+  indicators.setAttribute('role', 'tablist');
+
+  indicators.setAttribute(
     'aria-label',
     'Banner carousel controls',
   );
 
-  const indicators = document.createElement('ol');
+  for (let index = 0; index < slideCount; index += 1) {
+    const indicator = document.createElement('div');
 
-  indicators.className = 'carousel-slide-indicators';
+    indicator.classList.add(
+      'banner-carousel-control',
+    );
 
-  for (let index = 0; index < count; index += 1) {
-    const indicator = document.createElement('li');
-
-    indicator.className = 'carousel-slide-indicator';
+    indicator.dataset.targetSlide = index;
 
     const button = document.createElement('button');
 
     button.type = 'button';
+
+    button.setAttribute('role', 'tab');
+
     button.setAttribute(
       'aria-label',
-      `Go to banner ${index + 1}`,
+      `Show banner ${index + 1}`,
     );
 
-    button.addEventListener('click', () => {
-      showSlide(block, index);
-      startAutoplay(block);
-    });
+    button.setAttribute(
+      'aria-current',
+      index === 0 ? 'true' : 'false',
+    );
 
     indicator.append(button);
+
     indicators.append(indicator);
   }
 
-  nav.append(indicators);
-  block.append(nav);
+  controlsWrapper.append(indicators);
+
+  block.append(controlsWrapper);
+}
+
+function bindEvents(block) {
+  const controls = block.querySelectorAll(
+    '.banner-carousel-control',
+  );
+
+  controls.forEach((control) => {
+    control.addEventListener('click', () => {
+      const targetIndex = Number(
+        control.dataset.targetSlide,
+      );
+
+      showSlide(block, targetIndex);
+    });
+  });
+
+  /* -------------------------------------------
+     Keyboard navigation
+  ------------------------------------------- */
+
+  block.addEventListener('keydown', (event) => {
+    const activeIndex = Number(
+      block.dataset.activeIndex || 0,
+    );
+
+    switch (event.key) {
+      case 'ArrowLeft':
+        event.preventDefault();
+        showSlide(block, activeIndex - 1);
+        break;
+
+      case 'ArrowRight':
+        event.preventDefault();
+        showSlide(block, activeIndex + 1);
+        break;
+
+      case 'Home':
+        event.preventDefault();
+        showSlide(block, 0);
+        break;
+
+      case 'End':
+        event.preventDefault();
+
+        showSlide(
+          block,
+          block.querySelectorAll(
+            '.banner-carousel-slide',
+          ).length - 1,
+        );
+
+        break;
+
+      default:
+        break;
+    }
+  });
+
+  /* -------------------------------------------
+     Touch / swipe
+  ------------------------------------------- */
+
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  const slidesWrapper = block.querySelector(
+    '.banner-carousel-slides',
+  );
+
+  if (!slidesWrapper) return;
+
+  slidesWrapper.addEventListener(
+    'touchstart',
+    (event) => {
+      touchStartX = event.changedTouches[0].screenX;
+    },
+    { passive: true },
+  );
+
+  slidesWrapper.addEventListener(
+    'touchend',
+    (event) => {
+      touchEndX = event.changedTouches[0].screenX;
+
+      const distance = touchEndX - touchStartX;
+
+      if (Math.abs(distance) < 50) return;
+
+      const activeIndex = Number(
+        block.dataset.activeIndex || 0,
+      );
+
+      if (distance < 0) {
+        showSlide(block, activeIndex + 1);
+      } else {
+        showSlide(block, activeIndex - 1);
+      }
+    },
+    { passive: true },
+  );
 }
 
 export default function decorate(block) {
-  carouselId += 1;
+  bannerCarouselId += 1;
+
+  const carouselId = bannerCarouselId;
 
   block.id = `banner-carousel-${carouselId}`;
 
-  const items = [
-    ...block.querySelectorAll(':scope > div'),
-  ];
-
-  if (!items.length) return;
-
   block.setAttribute('role', 'region');
+
   block.setAttribute(
     'aria-roledescription',
     'Carousel',
   );
-  block.setAttribute(
-    'aria-label',
-    'Banner carousel',
+
+  block.dataset.activeIndex = '0';
+
+  let rows = [
+    ...block.querySelectorAll(':scope > div'),
+  ];
+
+  /* -------------------------------------------
+     Temporary 10-slide placeholder
+  ------------------------------------------- */
+
+  const hasAuthoredContent = rows.some(
+    (row) => row.textContent.trim()
+      || row.querySelector('img'),
   );
+
+  let placeholderMode = false;
+
+  if (!hasAuthoredContent) {
+    placeholderMode = true;
+
+    rows.forEach((row) => row.remove());
+
+    rows = Array.from(
+      { length: 10 },
+      () => {
+        const row = document.createElement('div');
+
+        for (let index = 0; index < 4; index += 1) {
+          row.append(
+            document.createElement('div'),
+          );
+        }
+
+        return row;
+      },
+    );
+  }
+
+  /* -------------------------------------------
+     Slides
+  ------------------------------------------- */
 
   const slidesContainer = document.createElement('div');
 
-  slidesContainer.className = 'carousel-slides-container';
+  slidesContainer.classList.add(
+    'banner-carousel-slides-container',
+  );
 
-  const slidesWrapper = document.createElement('ul');
+  const slidesWrapper = document.createElement('div');
 
-  slidesWrapper.className = 'carousel-slides';
+  slidesWrapper.classList.add(
+    'banner-carousel-slides',
+  );
 
-  items.forEach((item, index) => {
+  rows.forEach((row, index) => {
     const slide = createSlide(
-      item,
+      row,
       index,
       carouselId,
+      placeholderMode,
     );
 
     slidesWrapper.append(slide);
-    item.remove();
+
+    if (!placeholderMode) {
+      row.remove();
+    }
   });
 
   slidesContainer.append(slidesWrapper);
+
   block.prepend(slidesContainer);
 
-  createIndicators(block, items.length);
+  /* -------------------------------------------
+     Controller pills
+  ------------------------------------------- */
 
-  showSlide(block, 0, false);
+  createControls(
+    block,
+    rows.length,
+  );
 
-  startAutoplay(block);
+  updateActiveSlide(block, 0);
+
+  /* -------------------------------------------
+     Events
+  ------------------------------------------- */
+
+  if (rows.length > 1) {
+    bindEvents(block);
+  }
 }
