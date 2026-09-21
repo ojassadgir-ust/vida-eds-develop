@@ -109,7 +109,6 @@
   border-radius: 50px;
   background: #a3a3a399;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   transform: translateX(-50%);
   pointer-events: none;
 }
