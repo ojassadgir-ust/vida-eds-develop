@@ -216,7 +216,7 @@
     ]
   },
   {
-    "id": "removable-battery",
+    "id": "vida-recharge",
     "fields": [
       {
         "component": "reference",

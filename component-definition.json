@@ -158,15 +158,15 @@
           }
         },
         {
-          "title": "Removable Battery",
-          "id": "removable-battery",
+          "title": "Vida Recharge",
+          "id": "vida-recharge",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
-                  "name": "Removable Battery",
-                  "model": "removable-battery"
+                  "name": "Vida Recharge",
+                  "model": "vida-recharge"
                 }
               }
             }
