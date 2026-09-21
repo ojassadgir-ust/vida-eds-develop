@@ -214,5 +214,58 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "removable-battery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Image for desktop",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Image for mobile",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading text",
+        "required": true
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subheading",
+        "label": "Subheading text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "richText",
+        "label": "Rich text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "ctaLink",
+        "label": "CTA link"
+      }
+    ],
+    "filters": []
   }
 ]
