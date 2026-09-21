@@ -1,6 +1,4 @@
 .banner-carousel {
-  --banner-height: clamp(520px, 51.4vw, 740px);
-
   position: relative;
   width: 100vw;
   max-width: none;
@@ -12,14 +10,18 @@
 .banner-carousel-slides-container {
   position: relative;
   width: 100%;
-  height: var(--banner-height);
+  aspect-ratio: 1440 / 836;
+  overflow: hidden;
 }
 
 .banner-carousel-slides {
   position: relative;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
+  list-style: none;
 }
 
 .banner-carousel-slide {
@@ -43,10 +45,16 @@
   visibility: visible;
 }
 
-/* -------------------------------------------
-   Desktop image
-------------------------------------------- */
+/* Full banner clickable area */
+.banner-carousel-slide-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
 
+/* Banner image container */
 .banner-carousel-slide-image {
   position: absolute;
   inset: 0;
@@ -57,247 +65,221 @@
   overflow: hidden;
 }
 
+/* Picture element */
 .banner-carousel-slide-image picture {
   display: block;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+/* Banner image */
 .banner-carousel-slide-image img,
 .banner-carousel-image {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  margin: 0;
+  padding: 0;
+  object-fit: fill;
   object-position: center;
 }
 
-/* -------------------------------------------
-   Mobile image
-------------------------------------------- */
-
+/* Hidden mobile image helper */
 .banner-carousel-slide-mobile-image {
   display: none;
 }
 
-/* -------------------------------------------
-   CTA
-------------------------------------------- */
-
-.banner-carousel-slide-content {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  min-height: 180px;
-  padding: 32px 48px;
-  pointer-events: none;
-}
-
-.banner-carousel-slide-content a {
-  pointer-events: auto;
-}
-
-.banner-carousel-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0 28px;
-  border-radius: 999px;
-  background: #fff;
-  color: #111;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
-  text-decoration: none;
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.banner-carousel-cta:hover,
-.banner-carousel-cta:focus-visible {
-  background: #f0f0f0;
-  transform: translateY(-2px);
-}
-
-/* -------------------------------------------
-   Controller pill
-------------------------------------------- */
-
+/* Controller */
 .banner-carousel-controls {
   position: absolute;
-  right: 0;
+  left: 50%;
   bottom: 28px;
-  left: 0;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: max-content;
+  min-width: 0;
+  height: 43px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px;
+  border-radius: 50px;
+  background: #a3a3a399;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
+/* Controller dots container */
 .banner-carousel-indicators {
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: flex-start;
+  width: max-content;
+  height: 11px;
+  gap: 10px;
   margin: 0;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 90%);
-  backdrop-filter: blur(8px);
+  padding: 0;
+  list-style: none;
   pointer-events: auto;
 }
 
+/* Individual controller */
 .banner-carousel-control {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  flex: 0 0 11px;
+  width: 11px;
+  height: 11px;
   margin: 0;
   padding: 0;
 }
 
+/* Inactive controller */
 .banner-carousel-control button {
-  width: 7px;
-  height: 7px;
+  display: block;
+  width: 11px;
+  height: 11px;
   margin: 0;
   padding: 0;
   border: 0;
-  border-radius: 50%;
-  background: #777;
+  border-radius: 12px;
+  background: #e9e9e9;
   cursor: pointer;
   transition:
     width 0.3s ease,
     background-color 0.3s ease;
 }
 
-.banner-carousel-control.is-active button {
-  width: 25px;
-  border-radius: 999px;
-  background: #111;
+/* Active controller container */
+.banner-carousel-control.is-active {
+  flex-basis: 26px;
+  width: 26px;
 }
 
+/* Active controller */
+.banner-carousel-control.is-active button {
+  width: 26px;
+  height: 11px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Keyboard focus */
 .banner-carousel-control button:focus-visible {
-  outline: 2px solid #111;
+  outline: 2px solid #fff;
   outline-offset: 3px;
 }
 
-/* -------------------------------------------
-   Placeholder
-------------------------------------------- */
-
-.banner-carousel-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255 255 255 / 75%);
-  font-size: clamp(20px, 2vw, 32px);
-  font-weight: 600;
-  pointer-events: none;
-}
-
-/* -------------------------------------------
-   Tablet
-------------------------------------------- */
-
+/* Tablet */
 @media (width <= 1023px) {
-  .banner-carousel {
-    --banner-height: clamp(520px, 68vw, 680px);
-  }
-
-  .banner-carousel-slide-content {
-    padding: 28px;
+  .banner-carousel-slides-container {
+    aspect-ratio: 1440 / 836;
   }
 }
 
-/* -------------------------------------------
-   Mobile
-------------------------------------------- */
-
+/* Mobile */
 @media (width <= 767px) {
   .banner-carousel {
-    --banner-height: min(808px, 206vw);
-
     width: 100vw;
     margin: 0 calc(50% - 50vw);
   }
 
   .banner-carousel-slides-container {
-    height: var(--banner-height);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 393 / 808;
   }
 
-  .banner-carousel-slide-image img {
-    object-position: center top;
+  .banner-carousel-slide {
+    width: 100%;
+    height: 100%;
   }
 
-  .banner-carousel-slide-content {
-    right: 0;
-    bottom: 0;
-    left: 0;
-    min-height: auto;
-    padding: 24px;
+  .banner-carousel-slide-image {
+    width: 100%;
+    height: 100%;
   }
 
-  .banner-carousel-cta {
-    min-height: 46px;
-    padding: 0 24px;
-    font-size: 15px;
+  .banner-carousel-slide-image picture {
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-carousel-slide-image img,
+  .banner-carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+  }
+
+  /* Dynamic controller on mobile */
+  .banner-carousel-controls {
+    bottom: 20px;
+    width: max-content;
+    min-width: 0;
+    height: 43px;
+    padding: 16px;
+  }
+
+  .banner-carousel-indicators {
+    width: max-content;
+    height: 11px;
+    gap: 10px;
+  }
+
+  .banner-carousel-control {
+    flex-basis: 11px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .banner-carousel-control.is-active {
+    flex-basis: 26px;
+    width: 26px;
+  }
+
+  .banner-carousel-control button {
+    width: 11px;
+    height: 11px;
+  }
+
+  .banner-carousel-control.is-active button {
+    width: 26px;
+    height: 11px;
+  }
+}
+
+/* Small mobile */
+@media (width <= 420px) {
+  .banner-carousel-slides-container {
+    aspect-ratio: 393 / 808;
   }
 
   .banner-carousel-controls {
     bottom: 20px;
+    width: max-content;
+    min-width: 0;
+    height: 43px;
+    padding: 16px;
   }
 
   .banner-carousel-indicators {
-    gap: 4px;
-    padding: 7px 10px;
-  }
-
-  .banner-carousel-control {
-    width: 17px;
-    height: 17px;
-  }
-
-  .banner-carousel-control button {
-    width: 6px;
-    height: 6px;
-  }
-
-  .banner-carousel-control.is-active button {
-    width: 21px;
+    width: max-content;
+    gap: 10px;
   }
 }
 
-/* -------------------------------------------
-   Small mobile
-------------------------------------------- */
-
-@media (width <= 420px) {
-  .banner-carousel {
-    --banner-height: 206vw;
-  }
-
-  .banner-carousel-slide-content {
-    padding: 20px;
-  }
-}
-
-/* -------------------------------------------
-   Reduced motion
-------------------------------------------- */
-
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .banner-carousel-slide,
-  .banner-carousel-control button,
-  .banner-carousel-cta {
+  .banner-carousel-control button {
     transition: none;
   }
 }
