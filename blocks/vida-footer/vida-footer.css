@@ -1,315 +1,686 @@
-.vida-footer {
-    width: 100%;
-    margin-top: 64px;
-    background: #000;
-    color: #fff;
-  }
+/* stylelint-disable selector-class-pattern, no-descending-specificity */
+
+.vida_footer {
+  --vida-footer-background: #1d1b1b;
+  --vida-footer-text: #dfdfdf;
+  --vida-footer-secondary: #a7a6a6;
+  --vida-footer-border: #5c5a5a;
+  --vida-footer-section-border: #85888c;
+  --vida-footer-social: #b8b8b8;
+  --vida-footer-nav-link-color:#fff;
+
+  width: 100%;
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background: var(--vida-footer-background);
+  color: var(--vida-footer-text);
+  font-family: 'PP Neue Montreal', sans-serif;
+}
+
+.vida_footer *,
+.vida_footer *::before,
+.vida_footer *::after {
+  box-sizing: border-box;
+}
+
+.vida_footer a,
+.vida_footer button,
+.vida_footer p,
+.vida_footer h3,
+.vida_footer h4,
+.vida_footer li,
+.vida_footer address {
+  font-family: 'PP Neue Montreal', sans-serif;
+}
+
+.vida_footer a {
+  text-decoration: none;
+}
+
+.vida_footer button {
+  appearance: none;
+  font: inherit;
+}
+
+.vida_footer__container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* ==================================================
+   INDIA ACCORDION
+   ================================================== */
+
+.vida_footer__india {
+  width: 100%;
+  border-bottom: 1px solid var(--vida-footer-border);
+}
+
+.vida_footer__india .vida_footer__accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 72px;
+  padding: 24px 0;
+  border: 0;
+  background: transparent;
+  color: var(--vida-footer-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.vida_footer__india .vida_footer__accordion-title {
+  color: var(--vida-footer-text);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.vida_footer__india-panel {
+  width: 100%;
+  padding: 0 0 24px;
+}
+
+.vida_footer__india-panel[hidden] {
+  display: none !important;
+}
+
+.vida_footer__india-subtitle {
+  margin: 0 0 24px;
+  color: var(--vida-footer-text);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+/*
+ * Every P and UL gets a separator.
+ * This includes the paragraph/list spacing.
+ */
+.vida_footer__india-panel > p,
+.vida_footer__india-panel > ul {
+  margin-top: 0;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--vida-footer-section-border);
+}
+
+/*
+ * IMPORTANT:
+ * Last child of the India panel has NO border.
+ */
+.vida_footer__india-panel > :last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.vida_footer__india-text {
+  color: var(--vida-footer-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.vida_footer__india-list {
+  padding-left: 20px;
+  list-style: disc;
+}
+
+.vida_footer__india-list-item {
+  margin: 0 0 8px;
+  color: var(--vida-footer-text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.vida_footer__india-list-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ==================================================
+   ARROW
+   ================================================== */
+
+.vida_footer__arrow {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+  transition: transform 0.2s ease;
+}
+
+.vida_footer__arrow svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vida_footer__accordion-trigger[aria-expanded='true']
+  .vida_footer__arrow {
+  transform: rotate(180deg);
+}
+
+/* ==================================================
+   MOBILE NAVIGATION
+   ================================================== */
+
+.vida_footer__mobile-navigation {
+  width: 100%;
+}
+
+.vida_footer__accordion {
+  width: 100%;
+  border-bottom: 1px solid var(--vida-footer-border);
+}
+
+/*
+ * Last mobile accordion has NO border.
+ */
+.vida_footer__mobile-navigation
+  .vida_footer__accordion:last-child {
+  border-bottom: 0;
+}
+
+.vida_footer__accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 72px;
+  padding: 32px 0;
+  border: 0;
+  background: transparent;
+  color: var(--vida-footer-text);
+  cursor: pointer;
+  text-align: left;
+}
+
+.vida_footer__accordion-title {
+  color: var(--vida-footer-text);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.vida_footer__accordion-panel {
+  width: 100%;
+  padding: 0 0 24px;
+}
+
+.vida_footer__accordion-panel[hidden] {
+  display: none !important;
+}
+
+.vida_footer__accordion-link {
+  display: block;
+  padding: 7px 0;
+  color: var(--vida-footer-nav-link-color);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ==================================================
+   DESKTOP NAVIGATION
+   ================================================== */
+
+.vida_footer__desktop-navigation {
+  display: none;
+}
+
+/* ==================================================
+   DESKTOP NEARBY
+   ================================================== */
+
+.vida_footer__nearby {
+  display: none;
+}
+
+/* ==================================================
+   LEGAL + SOCIAL
+   ================================================== */
+
+.vida_footer__legal-social {
+  width: 100%;
+  border-bottom: 1px solid var(--vida-footer-border);
+}
+
+.vida_footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 24px 0;
+}
+
+.vida_footer__legal-link {
+  color: var(--vida-footer-secondary);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ==================================================
+   SOCIAL ICONS
+   ================================================== */
+
+.vida_footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0 24px;
+}
+
+.vida_footer__social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
   
-  .vida-footer-container {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 88px;
+}
+
+.vida_footer__social-icon {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+}
+
+.vida_footer__social-icon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vida_footer__social-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ==================================================
+   MOBILE BRAND
+   ================================================== */
+
+.vida_footer__mobile-brand {
+  padding: 24px 0;
+}
+
+.vida_footer__brand-link {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.vida_footer__logo {
+  display: block;
+  width: 130px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ==================================================
+   COMPANY
+   ================================================== */
+
+.vida_footer__company {
+  padding: 24px 0 32px;
+}
+
+.vida_footer__company-item {
+  margin: 0 0 16px;
+}
+
+.vida_footer__company-title {
+  margin: 0 0 4px;
+  color: var(--vida-footer-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.vida_footer__address {
+  margin: 0;
+  color: var(--vida-footer-nav-link-color);
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.vida_footer__contact-link {
+  display: block;
+  color: var(--vida-footer-nav-link-color);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.vida_footer__copyright {
+  margin: 0;
+  color: var(--vida-footer-secondary);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ==================================================
+   NO HOVER EFFECT
+   ================================================== */
+
+.vida_footer a:hover,
+.vida_footer a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.vida_footer button:hover,
+.vida_footer button:active {
+  color: var(--vida-footer-text);
+  background: transparent;
+}
+
+/* ==================================================
+   ACCESSIBILITY
+   ================================================== */
+
+.vida_footer__accordion-trigger:focus-visible,
+.vida_footer__accordion-link:focus-visible,
+.vida_footer__legal-link:focus-visible,
+.vida_footer__social-link:focus-visible,
+.vida_footer__brand-link:focus-visible,
+.vida_footer__contact-link:focus-visible,
+.vida_footer__nav-link:focus-visible,
+.vida_footer__nearby-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+/* ==================================================
+   DESKTOP
+   ================================================== */
+
+@media (width >= 768px) {
+  .vida_footer {
+    padding: 80px 88px;
   }
-  
-  .vida-footer-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 32px;
+
+  /* =================================================
+     INDIA - TOP OF FOOTER
+     ================================================= */
+
+  .vida_footer__india {
+    margin: 0 0 32px;
+    border-bottom: 1px solid var(--vida-footer-section-border);
   }
-  
-  .vida-footer-top h2 {
-    margin: 0;
+
+  .vida_footer__india
+    .vida_footer__accordion-trigger {
+    min-height: auto;
+    padding: 0 0 32px;
+  }
+
+  .vida_footer__india
+    .vida_footer__accordion-title {
     font-size: 18px;
-    line-height: 24px;
-    font-weight: 600;
+    line-height: 1.4;
   }
-  
-  .vida-footer-toggle {
-    appearance: none;
-    border: 0;
-    background: transparent;
-    color: #fff;
-    padding: 0;
-    font-size: 28px;
-    font-weight: 200;
-    line-height: 1;
-    cursor: pointer;
+
+  .vida_footer__india-panel {
+    padding: 0 0 32px;
   }
-  
-  .vida-footer-divider {
-    width: 100%;
-    height: 1px;
+
+  .vida_footer__india-subtitle {
+    margin: 0 0 24px;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .vida_footer__india-panel > p,
+  .vida_footer__india-panel > ul {
     margin-bottom: 32px;
-    background: #85bbbc;
-    opacity: 0.65;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--vida-footer-section-border);
   }
-  
-  .vida-footer-main {
+
+  /*
+   * Last India element has NO border.
+   */
+  .vida_footer__india-panel > :last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .vida_footer__india-text {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .vida_footer__india-list {
+    padding-left: 20px;
+  }
+
+  .vida_footer__india-list-item {
+    margin-bottom: 8px;
+    font-size: 16px;
+    line-height: 1.45;
+  }
+
+  /* =================================================
+     DESKTOP NAVIGATION
+
+     5 EQUAL COLUMNS:
+     Logo + Products + Explore + Discover + Account
+
+     This fixes the logo taking more width than
+     the navigation columns.
+     ================================================= */
+
+  .vida_footer__desktop-navigation {
     display: grid;
-    grid-template-columns: 280px 1fr;
-    column-gap: 45px;
+    grid-template-columns:
+      repeat(5, minmax(0, 1fr));
+    gap: 32px;
+    width: 100%;
+    padding-bottom: 32px;
+
+    /* border-bottom: 1px solid var(--vida-footer-section-border); */
   }
-  
-  .vida-footer-brand {
+
+  .vida_footer__mobile-navigation {
+    display: none;
+  }
+
+  .vida_footer__desktop-brand {
+    width: 100%;
     min-width: 0;
   }
-  
-  .vida-footer-logos {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-bottom: 16px;
+
+  .vida_footer__brand-link {
+    display: inline-flex;
+    max-width: 100%;
   }
-  
-  .vida-logo {
-    font-size: 38px;
-    line-height: 1;
-    font-weight: 500;
-    letter-spacing: 7px;
+
+  /*
+   * Logo stays inside exactly the same first
+   * grid column as the other navigation columns.
+   */
+  .vida_footer__desktop-brand
+    .vida_footer__logo {
+    width: 130px;
+    max-width: 100%;
+    height: auto;
   }
-  
-  .hero-logo {
-    display: flex;
-    flex-direction: column;
-    font-size: 9px;
-    line-height: 11px;
+
+  .vida_footer__navigation {
+    display: contents;
   }
-  
-  .hero-logo span {
-    font-size: 8px;
+
+  .vida_footer__nav-column {
+    min-width: 0;
   }
-  
-  .hero-logo strong {
-    font-size: 14px;
-    font-weight: 600;
+
+  .vida_footer__nav-title {
+    margin: 0 0 16px;
+    color: var(--vida-footer-text);
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 400;
   }
-  
-  .vida-footer-brand address {
-    margin-bottom: 18px;
-    font-size: 12px;
-    line-height: 15px;
-    font-style: normal;
+
+  .vida_footer__nav-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  
-  .footer-contact {
+
+  .vida_footer__nav-item {
+    margin: 0 0 16px;
+  }
+
+  .vida_footer__nav-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .vida_footer__nav-link {
+    display: inline-block;
+    color: var(--vida-footer-nav-link-color) ;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  /* =================================================
+     NEARBY
+     ================================================= */
+
+  .vida_footer__nearby {
     display: block;
-    margin-bottom: 10px;
-    color: #ff5a00;
-    font-size: 12px;
-    line-height: 18px;
-    text-decoration: none;
+    margin: 60px 0;
   }
-  
-  .footer-contact:hover {
-    text-decoration: underline;
+
+  .vida_footer__nearby-title {
+    margin: 0 0 16px;
+    color: var(--vida-footer-text);
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 400;
   }
-  
-  .vida-footer-social {
-    margin-top: 52px;
-  }
-  
-  .vida-footer-social p {
-    margin: 0 0 18px;
-    font-size: 14px;
-    line-height: 18px;
-  }
-  
-  .social-icons {
+
+  .vida_footer__nearby-list {
     display: flex;
-    align-items: center;
-    gap: 18px;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  
-  .social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: #8a8d91;
-    color: #000;
-    text-decoration: none;
+
+  .vida_footer__nearby-item {
+    margin: 0;
   }
-  
-  .social-icons span {
-    font-size: 18px;
-    font-weight: 600;
+
+  .vida_footer__nearby-link {
+    color: var(--vida-footer-nav-link-color);
+    font-size: 16px;
+    line-height: 1.4;
   }
-  
-  .social-icons a:nth-child(2) span {
-    font-size: 14px;
-  }
-  
-  .social-icons a:nth-child(4) span {
-    font-size: 13px;
-  }
-  
-  .footer-column {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .footer-column h3 {
-    margin: 0 0 18px;
-    font-size: 18px;
-    line-height: 22px;
-    font-weight: 600;
-  }
-  
-  .footer-column a {
-    display: block;
-    margin-bottom: 16px;
-    color: #fff;
-    font-size: 14px;
-    line-height: 18px;
-    text-decoration: none;
-  }
-  
-  .vida-footer-locations a {
-    color: #fff;
-    font-size: 14px;
-    line-height: 18px;
-    text-decoration: none;
-  }
-  
-  .footer-legal a {
-    color: #fff;
-    font-size: 14px;
-    line-height: 18px;
-    text-decoration: none;
-  }
-  
-  .social-icons a:hover {
-    transform: scale(1.08);
-  }
-  
-  .footer-column a:hover,
-  .vida-footer-locations a:hover,
-  .footer-legal a:hover {
-    text-decoration: underline;
-  }
-  
-  .vida-footer-navigation {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(120px, 1fr));
-    column-gap: 32px;
-  }
-  
-  .vida-footer-locations {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(150px, 1fr));
-    column-gap: 32px;
-    margin-top: 48px;
-    margin-bottom: 32px;
-  }
-  
-  .footer-bottom-divider {
-    margin-bottom: 36px;
-  }
-  
-  .vida-footer-bottom {
+
+  /* =================================================
+     LEGAL + SOCIAL
+     ================================================= */
+
+  .vida_footer__legal-social {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 56px;
+    min-height: 72px;
+    border-bottom: 1px solid var(--vida-footer-border);
   }
-  
-  .footer-legal {
-    display: flex;
+
+  .vida_footer__legal {
     align-items: center;
     gap: 32px;
+    padding: 0;
   }
-  
-  .footer-copyright {
-    color: #fff;
+
+  .vida_footer__legal-link {
+    color: var(--vida-footer-secondary);
+    font-size: 14px;
+  }
+
+  .vida_footer__social {
+    justify-content: flex-end;
+    gap: 20px;
+    width: auto;
+    padding: 0;
+  }
+
+  /* =================================================
+     MOBILE BRAND HIDDEN ON DESKTOP
+     ================================================= */
+
+  .vida_footer__mobile-brand {
+    display: none;
+  }
+
+  /* =================================================
+     COMPANY
+     ================================================= */
+
+  .vida_footer__company {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(0, 1fr)
+      minmax(180px, auto);
+    align-items: end;
+    gap: 40px;
+    padding: 32px 0 0;
+  }
+
+  .vida_footer__company-item {
+    margin: 0;
+  }
+
+  .vida_footer__address,
+  .vida_footer__contact-link {
     font-size: 12px;
-    line-height: 16px;
   }
-  
-  @media (width <= 1100px) {
-    .vida-footer-container {
-      padding: 0 48px;
-    }
-  
-    .vida-footer-main {
-      grid-template-columns: 220px 1fr;
-      column-gap: 32px;
-    }
-  
-    .vida-footer-navigation {
-      grid-template-columns: repeat(3, minmax(120px, 1fr));
-      row-gap: 32px;
-    }
-  
-    .vida-footer-locations {
-      grid-template-columns: repeat(3, minmax(150px, 1fr));
-      row-gap: 20px;
-    }
+
+  .vida_footer__copyright {
+    justify-self: end;
+    text-align: right;
+    font-size: 14px;
   }
-  
-  @media (width <= 768px) {
-    .vida-footer {
-      margin-top: 40px;
-    }
-  
-    .vida-footer-container {
-      padding: 0 24px;
-    }
-  
-    .vida-footer-top {
-      padding-bottom: 24px;
-    }
-  
-    .vida-footer-top h2 {
-      font-size: 16px;
-    }
-  
-    .vida-footer-main {
-      display: block;
-    }
-  
-    .vida-footer-brand {
-      margin-bottom: 40px;
-    }
-  
-    .vida-footer-navigation {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 32px 24px;
-    }
-  
-    .footer-column h3 {
-      font-size: 16px;
-    }
-  
-    .footer-column a {
-      margin-bottom: 14px;
-      font-size: 14px;
-    }
-  
-    .vida-footer-locations {
-      grid-template-columns: 1fr;
-      gap: 16px;
-      margin-top: 40px;
-    }
-  
-    .vida-footer-bottom {
-      display: block;
-      padding-bottom: 32px;
-    }
-  
-    .footer-legal {
-      flex-wrap: wrap;
-      gap: 16px 32px;
-      margin-bottom: 24px;
-    }
-  
-    .footer-copyright {
-      font-size: 12px;
-    }
-  
-    .vida-footer-main.is-collapsed {
-      display: none;
-    }
+}
+
+/* ==================================================
+MOBILE
+================================================== */
+
+@media (width <= 767px) {
+  .vida_footer__legal{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-top: 1px solid var(--vida-footer-border);
+    border-bottom: 1px solid var(--vida-footer-border);
+    margin-bottom:24px
   }
+
+  .vida_footer__company{
+    padding-top: 0;
+  }
+}
+
+/* ==================================================
+   REDUCED MOTION
+   ================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .vida_footer__arrow {
+    transition: none;
+  }
+}
