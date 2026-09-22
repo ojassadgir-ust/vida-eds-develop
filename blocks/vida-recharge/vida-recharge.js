@@ -1,23 +1,22 @@
 const CONFIG = {
   blockClass: 'vida-recharge',
-  cardClass: 'vida-recharge-card',
+  overlayClass: 'vida-recharge-overlay',
   contentClass: 'vida-recharge-content',
   headingClass: 'vida-recharge-heading',
   subheadingClass: 'vida-recharge-subheading',
   richTextClass: 'vida-recharge-rich-text',
   ctaClass: 'vida-recharge-cta',
-  mediaClass: 'vida-recharge-media',
-  pictureClass: 'vida-recharge-picture',
-  imageClass: 'vida-recharge-image',
+  mobileImageClass: 'vida-recharge-mobile-image',
+  mobilePictureClass: 'vida-recharge-mobile-picture',
   mobileBreakpoint: '(max-width: 767px)',
 };
 
-const getText = (element) => (
-  element ? element.textContent.trim() : ''
-);
-
 const getChildren = (element) => (
   element ? Array.from(element.children) : []
+);
+
+const getText = (element) => (
+  element ? element.textContent.trim() : ''
 );
 
 const getImage = (element) => (
@@ -30,40 +29,6 @@ const getImageSource = (image) => {
   }
 
   return image.currentSrc || image.src || '';
-};
-
-const createPicture = (desktopImage, mobileImage, heading) => {
-  const sourceImage = desktopImage || mobileImage;
-
-  if (!sourceImage) {
-    return null;
-  }
-
-  const picture = document.createElement('picture');
-
-  picture.className = CONFIG.pictureClass;
-
-  const mobileSource = getImageSource(mobileImage);
-
-  if (mobileSource) {
-    const source = document.createElement('source');
-
-    source.media = CONFIG.mobileBreakpoint;
-    source.srcset = mobileSource;
-
-    picture.append(source);
-  }
-
-  const image = sourceImage.cloneNode(true);
-
-  image.className = CONFIG.imageClass;
-  image.alt = image.alt || heading;
-  image.loading = 'eager';
-  image.decoding = 'async';
-
-  picture.append(image);
-
-  return picture;
 };
 
 const setBackgroundImages = (block, desktopImage, mobileImage) => {
@@ -85,8 +50,8 @@ const setBackgroundImages = (block, desktopImage, mobileImage) => {
   }
 };
 
-const createHeading = (source) => {
-  const text = getText(source);
+const createHeading = (field) => {
+  const text = getText(field);
 
   if (!text) {
     return null;
@@ -100,8 +65,8 @@ const createHeading = (source) => {
   return heading;
 };
 
-const createSubheading = (source) => {
-  const text = getText(source);
+const createSubheading = (field) => {
+  const text = getText(field);
 
   if (!text) {
     return null;
@@ -115,8 +80,8 @@ const createSubheading = (source) => {
   return subheading;
 };
 
-const createRichText = (source) => {
-  if (!source || !getText(source)) {
+const createRichText = (field) => {
+  if (!field || !getText(field)) {
     return null;
   }
 
@@ -124,28 +89,27 @@ const createRichText = (source) => {
 
   richText.className = CONFIG.richTextClass;
 
-  Array.from(source.childNodes).forEach((node) => {
+  Array.from(field.childNodes).forEach((node) => {
     richText.append(node.cloneNode(true));
   });
 
   return richText;
 };
 
-const createCta = (source) => {
-  if (!source) {
-    return null;
-  }
+const createCta = (ctaField, ctaTextField) => {
+  const link = ctaField
+    ? ctaField.querySelector('a[href]')
+    : null;
 
-  const link = source.querySelector('a[href]');
+  const label = getText(ctaTextField);
 
-  if (!link) {
+  if (!link || !label) {
     return null;
   }
 
   const href = link.getAttribute('href');
-  const label = getText(link);
 
-  if (!href || !label) {
+  if (!href) {
     return null;
   }
 
@@ -157,6 +121,27 @@ const createCta = (source) => {
   cta.setAttribute('aria-label', label);
 
   return cta;
+};
+
+const createMobileImage = (mobileImage, heading) => {
+  if (!mobileImage) {
+    return null;
+  }
+
+  const picture = document.createElement('picture');
+
+  picture.className = CONFIG.mobilePictureClass;
+
+  const image = mobileImage.cloneNode(true);
+
+  image.className = CONFIG.mobileImageClass;
+  image.alt = image.alt || heading;
+  image.loading = 'eager';
+  image.decoding = 'async';
+
+  picture.append(image);
+
+  return picture;
 };
 
 export default function decorate(block) {
@@ -174,13 +159,29 @@ export default function decorate(block) {
   const mediaFields = getChildren(mediaGroup);
   const contentFields = getChildren(contentGroup);
 
+  /*
+   * Media group
+   *
+   * 0 = Desktop image
+   * 1 = Mobile image
+   */
   const desktopImage = getImage(mediaFields[0]);
   const mobileImage = getImage(mediaFields[1]);
 
+  /*
+   * Content group
+   *
+   * 0 = Heading
+   * 1 = Subheading
+   * 2 = Rich text
+   * 3 = CTA link
+   * 4 = CTA text
+   */
   const headingField = contentFields[0] || null;
   const subheadingField = contentFields[1] || null;
   const richTextField = contentFields[2] || null;
   const ctaField = contentFields[3] || null;
+  const ctaTextField = contentFields[4] || null;
 
   const heading = getText(headingField);
 
@@ -190,9 +191,9 @@ export default function decorate(block) {
     mobileImage,
   );
 
-  const card = document.createElement('div');
+  const overlay = document.createElement('div');
 
-  card.className = CONFIG.cardClass;
+  overlay.className = CONFIG.overlayClass;
 
   const content = document.createElement('div');
 
@@ -201,7 +202,10 @@ export default function decorate(block) {
   const headingElement = createHeading(headingField);
   const subheadingElement = createSubheading(subheadingField);
   const richTextElement = createRichText(richTextField);
-  const ctaElement = createCta(ctaField);
+  const ctaElement = createCta(
+    ctaField,
+    ctaTextField,
+  );
 
   if (headingElement) {
     content.append(headingElement);
@@ -219,22 +223,35 @@ export default function decorate(block) {
     content.append(ctaElement);
   }
 
-  const media = document.createElement('div');
+  overlay.append(content);
 
-  media.className = CONFIG.mediaClass;
-
-  const picture = createPicture(
-    desktopImage,
+  /*
+   * Mobile image is intentionally created only for
+   * the mobile layout.
+   *
+   * It is NOT used as the desktop right-side image.
+   */
+  const mobileImageElement = createMobileImage(
     mobileImage,
     heading,
   );
 
-  if (picture) {
-    media.append(picture);
+  if (mobileImageElement) {
+    block.append(mobileImageElement);
   }
 
-  card.append(content);
-  card.append(media);
+  block.append(overlay);
 
-  block.replaceChildren(card);
+  /*
+   * Remove the original authored cells after their
+   * values have been read.
+   */
+  block.querySelectorAll(':scope > div').forEach((element) => {
+    if (
+      element !== overlay
+      && !element.classList.contains(CONFIG.mobilePictureClass)
+    ) {
+      element.remove();
+    }
+  });
 }

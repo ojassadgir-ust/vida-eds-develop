@@ -5,7 +5,7 @@
   --vida-recharge-border-radius: 24px;
   --vida-recharge-heading-color: #1d1b1b;
   --vida-recharge-heading-size: 48px;
-  --vida-recharge-heading-line-height: 1.1;
+  --vida-recharge-heading-line-height: 1.08;
   --vida-recharge-subheading-size: 32px;
   --vida-recharge-subheading-line-height: 1.2;
   --vida-recharge-rich-text-size: 20px;
@@ -29,8 +29,12 @@
   --vida-recharge-mobile-background: none;
 
   box-sizing: border-box;
+  position: relative;
+  display: flex;
   width: 100%;
+  height: 100vh;
   min-height: 100vh;
+  overflow: hidden;
   padding: var(--vida-recharge-page-padding);
   background-image: var(--vida-recharge-desktop-background);
   background-position: center;
@@ -44,11 +48,13 @@
   box-sizing: border-box;
 }
 
-.vida-recharge-card {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  width: 100%;
-  min-height: 542px;
+.vida-recharge-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 50%;
+  height: 100%;
+  min-height: 0;
   overflow: hidden;
   background: var(--vida-recharge-surface-background);
   border: var(--vida-recharge-border-width) solid #fff;
@@ -60,7 +66,10 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  width: 100%;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   padding: var(--vida-recharge-page-padding);
 }
 
@@ -81,10 +90,13 @@
 }
 
 .vida-recharge-rich-text {
+  min-height: 0;
   margin-top: var(--vida-recharge-rich-text-margin);
+  overflow-y: auto;
   color: var(--vida-recharge-heading-color);
   font-size: var(--vida-recharge-rich-text-size);
   line-height: var(--vida-recharge-rich-text-line-height);
+  scrollbar-width: thin;
 }
 
 .vida-recharge-rich-text > :first-child {
@@ -97,16 +109,20 @@
 
 .vida-recharge-cta {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   width: max-content;
   max-width: 100%;
   margin-top: var(--vida-recharge-cta-margin);
-  padding: var(--vida-recharge-cta-padding-y) var(--vida-recharge-cta-padding-x);
+  padding: var(--vida-recharge-cta-padding-y)
+    var(--vida-recharge-cta-padding-x);
   color: #fff;
   background: var(--vida-recharge-cta-background);
+  border: 0;
   border-radius: 999px;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 160ms ease;
 }
 
@@ -115,48 +131,64 @@
   background: var(--vida-recharge-cta-hover-background);
 }
 
-.vida-recharge-media {
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
+.vida-recharge-mobile-picture {
+  display: none;
 }
 
-.vida-recharge-picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.vida-recharge-image {
+.vida-recharge-mobile-image {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
 }
 
 @media (width <= 767px) {
   .vida-recharge {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     min-height: 100vh;
+    overflow: hidden;
     padding: var(--vida-recharge-mobile-page-padding-y)
       var(--vida-recharge-mobile-page-padding-x);
     background-image: var(--vida-recharge-mobile-background);
+    background-position: center;
+    background-size: cover;
   }
 
-  .vida-recharge-card {
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-  }
-
-  .vida-recharge-media {
-    order: 1;
+  .vida-recharge-mobile-picture {
+    position: relative;
+    z-index: 2;
+    display: block;
     width: 100%;
-    aspect-ratio: 0.86;
+    height: 45vh;
+    min-height: 0;
+    overflow: hidden;
+    border: var(--vida-recharge-border-width) solid #fff;
+    border-bottom: 0;
+    border-radius: var(--vida-recharge-border-radius)
+      var(--vida-recharge-border-radius)
+      0
+      0;
+    background: var(--vida-recharge-surface-background);
+  }
+
+  .vida-recharge-overlay {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+    border-top: 0;
+    border-radius: 0
+      0
+      var(--vida-recharge-border-radius)
+      var(--vida-recharge-border-radius);
   }
 
   .vida-recharge-content {
-    order: 2;
+    width: 100%;
+    height: auto;
+    max-height: calc(55vh - 4px);
     padding: var(--vida-recharge-mobile-image-gap)
       var(--vida-recharge-mobile-page-padding-x)
       var(--vida-recharge-mobile-page-padding-y);
@@ -170,18 +202,16 @@
 
   .vida-recharge-subheading {
     font-size: var(--vida-recharge-mobile-subheading-size);
+    line-height: 1.2;
   }
 
   .vida-recharge-rich-text {
     margin-top: var(--vida-recharge-rich-text-margin);
     font-size: var(--vida-recharge-mobile-rich-text-size);
+    line-height: 1.4;
   }
 
   .vida-recharge-cta {
     margin-top: var(--vida-recharge-mobile-cta-margin);
-  }
-
-  .vida-recharge-image {
-    object-position: center top;
   }
 }

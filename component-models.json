@@ -220,14 +220,14 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image_desktop",
+        "name": "desktopImage",
         "label": "Image for desktop",
         "valueType": "string",
         "multi": false
       },
       {
         "component": "reference",
-        "name": "image_mobile",
+        "name": "mobileImage",
         "label": "Image for mobile",
         "valueType": "string",
         "multi": false
