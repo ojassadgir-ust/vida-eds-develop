@@ -7,7 +7,7 @@
   --vida-footer-border: #5c5a5a;
   --vida-footer-section-border: #85888c;
   --vida-footer-social: #b8b8b8;
-  --vida-footer-nav-link-color:#fff;
+  --vida-footer-nav-link-color: #fff;
 
   width: 100%;
   margin: 0;
@@ -89,7 +89,7 @@
 }
 
 .vida_footer__india-subtitle {
-  margin: 0 0 24px;
+  margin: 0 0 0px;
   color: var(--vida-footer-text);
   font-size: 14px;
   line-height: 1.4;
@@ -97,11 +97,9 @@
 }
 
 /*
- * Every P and UL gets a separator.
- * This includes the paragraph/list spacing.
+ * Every API content paragraph gets a separator.
  */
-.vida_footer__india-panel > p,
-.vida_footer__india-panel > ul {
+.vida_footer__india-panel > p {
   margin-top: 0;
   margin-bottom: 24px;
   padding-bottom: 24px;
@@ -109,10 +107,9 @@
 }
 
 /*
- * IMPORTANT:
- * Last child of the India panel has NO border.
+ * Last API content paragraph has no border.
  */
-.vida_footer__india-panel > :last-child {
+.vida_footer__india-panel > p:last-child {
   margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: 0;
@@ -122,6 +119,26 @@
   color: var(--vida-footer-text);
   font-size: 14px;
   line-height: 1.5;
+}
+
+/*
+ * API rich-text links.
+ *
+ * Examples:
+ * Offers
+ * removable batteries
+ * EV charging stations
+ * Dealers
+ */
+.vida_footer__india-panel a {
+  color: #ff5310;
+  text-decoration: none;
+}
+
+.vida_footer__india-panel a:hover,
+.vida_footer__india-panel a:active {
+  color: #ff5310;
+  text-decoration: none;
 }
 
 .vida_footer__india-list {
@@ -280,7 +297,6 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  
 }
 
 .vida_footer__social-icon {
@@ -381,6 +397,16 @@
   background: transparent;
 }
 
+/*
+ * Keep India API links orange even though the
+ * generic footer hover rule exists above.
+ */
+.vida_footer__india-panel a:hover,
+.vida_footer__india-panel a:active {
+  color: #ff5310;
+  text-decoration: none;
+}
+
 /* ==================================================
    ACCESSIBILITY
    ================================================== */
@@ -432,22 +458,21 @@
   }
 
   .vida_footer__india-subtitle {
-    margin: 0 0 24px;
+    margin: 0 0 16px;
     font-size: 16px;
     line-height: 1.4;
   }
 
-  .vida_footer__india-panel > p,
-  .vida_footer__india-panel > ul {
-    margin-bottom: 32px;
-    padding-bottom: 32px;
+  .vida_footer__india-panel > p {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--vida-footer-section-border);
   }
 
   /*
-   * Last India element has NO border.
+   * Last India content element has NO border.
    */
-  .vida_footer__india-panel > :last-child {
+  .vida_footer__india-panel > p:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: 0;
@@ -473,9 +498,6 @@
 
      5 EQUAL COLUMNS:
      Logo + Products + Explore + Discover + Account
-
-     This fixes the logo taking more width than
-     the navigation columns.
      ================================================= */
 
   .vida_footer__desktop-navigation {
@@ -484,9 +506,6 @@
       repeat(5, minmax(0, 1fr));
     gap: 32px;
     width: 100%;
-    padding-bottom: 32px;
-
-    /* border-bottom: 1px solid var(--vida-footer-section-border); */
   }
 
   .vida_footer__mobile-navigation {
@@ -503,10 +522,6 @@
     max-width: 100%;
   }
 
-  /*
-   * Logo stays inside exactly the same first
-   * grid column as the other navigation columns.
-   */
   .vida_footer__desktop-brand
     .vida_footer__logo {
     width: 130px;
@@ -546,7 +561,7 @@
 
   .vida_footer__nav-link {
     display: inline-block;
-    color: var(--vida-footer-nav-link-color) ;
+    color: var(--vida-footer-nav-link-color);
     font-size: 16px;
     line-height: 1.35;
   }
@@ -657,20 +672,20 @@
 }
 
 /* ==================================================
-MOBILE
-================================================== */
+   MOBILE
+   ================================================== */
 
 @media (width <= 767px) {
-  .vida_footer__legal{
+  .vida_footer__legal {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
     border-top: 1px solid var(--vida-footer-border);
     border-bottom: 1px solid var(--vida-footer-border);
-    margin-bottom:24px
+    margin-bottom: 24px;
   }
 
-  .vida_footer__company{
+  .vida_footer__company {
     padding-top: 0;
   }
 }
