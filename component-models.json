@@ -220,47 +220,47 @@
     "fields": [
       {
         "component": "reference",
-        "valueType": "string",
-        "name": "images_desktopImage",
+        "name": "image_desktop",
         "label": "Image for desktop",
+        "valueType": "string",
         "multi": false
       },
       {
         "component": "reference",
-        "valueType": "string",
-        "name": "images_mobileImage",
+        "name": "image_mobile",
         "label": "Image for mobile",
+        "valueType": "string",
         "multi": false
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "content_heading",
-        "label": "Heading text"
+        "name": "textContent_heading",
+        "label": "Heading text",
+        "valueType": "string"
       },
       {
         "component": "text",
-        "valueType": "string",
-        "name": "content_subheading",
-        "label": "Subheading text"
+        "name": "textContent_subheading",
+        "label": "Subheading text",
+        "valueType": "string"
       },
       {
         "component": "richtext",
-        "valueType": "string",
-        "name": "content_richtext",
-        "label": "Rich text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "cta_text",
-        "label": "CTA"
+        "name": "textContent_richtext",
+        "label": "Rich text",
+        "valueType": "string"
       },
       {
         "component": "aem-content",
-        "valueType": "string",
-        "name": "cta_link",
-        "label": "CTA link"
+        "name": "textContent_cta",
+        "label": "CTA link",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "textContent_ctaText",
+        "label": "CTA",
+        "valueType": "string"
       }
     ]
   }
