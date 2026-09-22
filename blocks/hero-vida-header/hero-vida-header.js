@@ -463,9 +463,3 @@ export default async function decorate(block) {
   block.textContent = '';
   block.append(buildHeader(normalisedHeaderData));
 }
-
-const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
-
-if (isAuthor) {
-  return;
-}
