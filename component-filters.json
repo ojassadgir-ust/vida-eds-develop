@@ -39,5 +39,9 @@
       "button",
       "title"
     ]
+  },
+  {
+    "id": "hero-vida-header",
+    "components": []
   }
 ]

@@ -190,7 +190,7 @@
     ]
   },
   {
-    "id": "header",
+    "id": "hero-vida-header",
     "fields": [
       {
         "component": "text",

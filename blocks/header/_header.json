@@ -18,7 +18,7 @@
     ],
     "models": [
         {
-            "id": "header",
+            "id": "hero-vida-header",
             "fields": [
                 {
                     "component": "text",
@@ -29,5 +29,10 @@
             ]
         }
     ],
-    "filters": []
+    "filters": [
+        {
+            "id": "hero-vida-header",
+            "components": []
+        }
+    ]
 }
