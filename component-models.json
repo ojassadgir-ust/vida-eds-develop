@@ -214,5 +214,9 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "vida-footer",
+    "fields": []
   }
 ]
