@@ -1,42 +1,140 @@
 export default function decorate(block) {
-  const isAuthor = window?.origin !== undefined
-    && window.origin.includes('author');
-
-  if (isAuthor) {
-    return;
-  }
+  /*
+   * ==========================================
+   * FIND THE AUTHORED APP PROMO ROW
+   * ==========================================
+   *
+   * In the current EDS DOM, the block contains
+   * some empty rows followed by one row that
+   * contains the 4 authored fields.
+   *
+   * We find the row that contains at least
+   * 4 children instead of depending on a
+   * hardcoded row number.
+   */
 
   const rows = [...block.children];
 
-  if (rows.length < 4) {
+  const authoredRow = rows.find((row) => row.children.length >= 4);
+
+  if (!authoredRow) {
     return;
   }
 
   /*
-   * Read authorable values once.
-   * Keeping these values in one object makes it easier
-   * to replace EDS data with API data in the future.
+   * The authored row contains:
+   *
+   * 0 = Desktop Image
+   * 1 = Mobile Image
+   * 2 = Heading
+   * 3 = CTA
    */
+
+  const fields = [...authoredRow.children];
+
+  /*
+   * ==========================================
+   * READ AUTHORED DATA
+   * ==========================================
+   */
+
+  const desktopImage = fields[0]?.querySelector('img');
+  const mobileImage = fields[1]?.querySelector('img');
+
+  const heading = fields[2]?.textContent?.trim() || '';
+
+  const ctaHtml = fields[3]?.innerHTML?.trim() || '';
+
+  /*
+   * Keep all component data together.
+   *
+   * This makes it easier to replace these
+   * values with API data in the future.
+   */
+
   const appPromoData = {
-    desktopImage: rows[0]?.querySelector('picture, img'),
-    mobileImage: rows[1]?.querySelector('picture, img'),
-    heading: rows[2]?.textContent?.trim() || '',
-    cta: rows[3]?.innerHTML?.trim() || '',
+    desktopImage,
+    mobileImage,
+    heading,
+    ctaHtml,
   };
 
-  block.textContent = '';
+  /*
+   * ==========================================
+   * MAIN CONTAINER
+   * ==========================================
+   */
+
+  const container = document.createElement('div');
+
+  container.className = 'app-promo-container';
+
+  /*
+   * ==========================================
+   * HEADING + CTA
+   * ==========================================
+   */
+
+  const content = document.createElement('div');
+
+  content.className = 'app-promo-content';
+
+  /*
+   * Heading
+   */
+
+  if (appPromoData.heading) {
+    const headingElement = document.createElement('h2');
+
+    headingElement.className = 'app-promo-heading';
+
+    headingElement.textContent = appPromoData.heading;
+
+    content.append(headingElement);
+  }
+
+  /*
+   * CTA
+   */
+
+  if (appPromoData.ctaHtml) {
+    const ctaWrapper = document.createElement('div');
+
+    ctaWrapper.className = 'app-promo-cta';
+
+    ctaWrapper.innerHTML = appPromoData.ctaHtml;
+
+    const ctaLink = ctaWrapper.querySelector('a');
+
+    if (ctaLink) {
+      ctaLink.classList.add('app-promo-button');
+    }
+
+    content.append(ctaWrapper);
+  }
+
+  /*
+   * ==========================================
+   * IMAGE AREA
+   * ==========================================
+   */
+
+  const imageWrapper = document.createElement('div');
+
+  imageWrapper.className = 'app-promo-image';
 
   const picture = document.createElement('picture');
 
   /*
    * Mobile image
    */
+
   if (appPromoData.mobileImage) {
     const mobileSource = document.createElement('source');
 
     mobileSource.media = '(max-width: 767px)';
-    mobileSource.srcset = appPromoData.mobileImage.currentSrc
-      || appPromoData.mobileImage.src;
+
+    mobileSource.srcset = appPromoData.mobileImage.currentSrc || appPromoData.mobileImage.src;
 
     picture.append(mobileSource);
   }
@@ -44,71 +142,34 @@ export default function decorate(block) {
   /*
    * Desktop image
    */
+
   if (appPromoData.desktopImage) {
-    const desktopImage = appPromoData.desktopImage.cloneNode(true);
+    const desktopImageElement = appPromoData.desktopImage.cloneNode(true);
 
-    desktopImage.loading = 'lazy';
-    desktopImage.decoding = 'async';
+    desktopImageElement.removeAttribute('width');
+    desktopImageElement.removeAttribute('height');
 
-    picture.append(desktopImage);
+    desktopImageElement.loading = 'lazy';
+    desktopImageElement.decoding = 'async';
+
+    picture.append(desktopImageElement);
   }
-
-  const imageWrapper = document.createElement('div');
-  imageWrapper.className = 'app-promo-image';
 
   imageWrapper.append(picture);
 
   /*
-   * Content
+   * ==========================================
+   * FINAL COMPONENT
+   * ==========================================
    */
-  const content = document.createElement('div');
-  content.className = 'app-promo-content';
+
+  container.append(content);
+  container.append(imageWrapper);
 
   /*
-   * Heading
+   * Replace the original EDS authoring rows
+   * with the final component.
    */
-  if (appPromoData.heading) {
-    const heading = document.createElement('h2');
 
-    heading.className = 'app-promo-heading';
-    heading.textContent = appPromoData.heading;
-
-    content.append(heading);
-  }
-
-  /*
-   * CTA
-   *
-   * CTA is rich text so the author can provide:
-   *
-   * <a href="/example">Explore more</a>
-   */
-  if (appPromoData.cta) {
-    const ctaWrapper = document.createElement('div');
-
-    ctaWrapper.className = 'app-promo-cta';
-    ctaWrapper.innerHTML = appPromoData.cta;
-
-    const ctaLink = ctaWrapper.querySelector('a');
-
-    if (ctaLink) {
-      ctaLink.classList.add('app-promo-button');
-
-      /*
-       * External links open in a new tab.
-       */
-      if (
-        ctaLink.hostname
-        && ctaLink.hostname !== window.location.hostname
-      ) {
-        ctaLink.target = '_blank';
-        ctaLink.rel = 'noopener noreferrer';
-      }
-    }
-
-    content.append(ctaWrapper);
-  }
-
-  block.append(imageWrapper);
-  block.append(content);
+  block.replaceChildren(container);
 }

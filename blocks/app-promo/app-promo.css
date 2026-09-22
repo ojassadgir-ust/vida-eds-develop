@@ -1,84 +1,352 @@
-.app-promo {
-  width: 100%;
-  box-sizing: border-box;
-}
+/* =========================================================
+   APP PROMO
+   ========================================================= */
 
-.app-promo-image {
-  width: 100%;
+.app-promo {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: 0;
+  padding: 0;
+  background: #f9f5ee;
   overflow: hidden;
 }
 
-.app-promo-image picture {
-  display: block;
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.app-promo-container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #f9f5ee;
 }
 
-.app-promo-image img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+
+/* =========================================================
+   CONTENT AREA
+   Desktop: 281px
+   ========================================================= */
 
 .app-promo-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 32px;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 40px 48px;
+  justify-content: center;
+  width: 100%;
+  height: 281px;
+  min-height: 281px;
+  margin: 0;
+  padding: 32px 24px;
   box-sizing: border-box;
+  text-align: center;
 }
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
 
 .app-promo-heading {
-  margin: 0;
-  font-size: clamp(28px, 3vw, 48px);
+  max-width: 900px;
+  margin: 0 0 24px;
+  padding: 0;
+  font-family: brand-font, sans-serif;
+  font-size: clamp(32px, 3vw, 48px);
   line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
 }
 
+
+/* =========================================================
+   CTA WRAPPER
+   ========================================================= */
+
 .app-promo-cta {
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+
+/* =========================================================
+   CTA BUTTON
+   =========================================================
+
+   Figma:
+   Size       = M
+   Width      = 173px
+   Height     = 48px
+   Prominence = Dark
+   Variant    = Primary
+   Rounded    = Pill
+   Icon       = Off
+   State      = Default
+   ========================================================= */
 
 .app-promo-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 173px;
+  min-width: 173px;
+  height: 48px;
   min-height: 48px;
-  padding: 12px 24px;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  text-decoration: none;
-  font-weight: 600;
+  border: 0;
   border-radius: 999px;
-  transition: opacity 0.2s ease;
+
+  /* Default background */
+  background-color: #000;
+
+  /* Default text */
+  color: #fff;
+
+  /* Button typography */
+  font-family: brand-font, sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: var(--button-font-size, 16px);
+  line-height: var(--button-line-height, 24px);
+  letter-spacing: 0.1px;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 180ms ease;
 }
+
+
+/* =========================================================
+   RICHTEXT RESET
+   ========================================================= */
+
+.app-promo-button p {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* =========================================================
+   LINK RESET
+   ========================================================= */
+
+.app-promo-button,
+.app-promo-button:visited,
+.app-promo-button:focus,
+.app-promo-button:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
 
 .app-promo-button:hover {
-  opacity: 0.85;
+  background-color: #929292;
+  color: #fff;
 }
 
+.app-promo-button:hover * {
+  color: #fff;
+}
+
+
+/* =========================================================
+   KEYBOARD FOCUS
+   ========================================================= */
+
 .app-promo-button:focus-visible {
-  outline: 2px solid currentcolor;
+  outline: 2px solid #000;
   outline-offset: 3px;
 }
 
-@media (width <= 767px) {
+
+/* =========================================================
+   IMAGE CONTAINER
+   Desktop image:
+   1440px × 545px
+   ========================================================= */
+
+.app-promo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+
+/* =========================================================
+   PICTURE
+   ========================================================= */
+
+.app-promo-image picture {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.app-promo-image img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  /*
+   * Important:
+   * Do not use height: 100% or object-fit: cover.
+   * The image keeps its natural aspect ratio.
+   */
+  object-fit: contain;
+  object-position: center;
+  vertical-align: top;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (width <= 1024px) {
   .app-promo-content {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 32px 20px;
+    height: 281px;
+    min-height: 281px;
   }
 
-  .app-promo-heading {
-    font-size: 32px;
+  .app-promo-image {
+    width: 100%;
+    height: auto;
   }
+
+  .app-promo-image picture {
+    width: 100%;
+    height: auto;
+  }
+
+  .app-promo-image img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (width <= 767px) {
+  .app-promo {
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: 0;
+  }
+
+  .app-promo-container {
+    width: 100%;
+    max-width: none;
+  }
+
+
+  /* -----------------------------------------------
+     Mobile content
+     393px × 271px
+     ----------------------------------------------- */
+
+  .app-promo-content {
+    width: 100%;
+    height: 271px;
+    min-height: 271px;
+    padding: 32px 20px;
+    box-sizing: border-box;
+  }
+
+
+  /* -----------------------------------------------
+     Mobile heading
+     ----------------------------------------------- */
+
+  .app-promo-heading {
+    max-width: 100%;
+    margin: 0 0 20px;
+    padding: 0;
+    font-size: 32px;
+    line-height: 1.15;
+  }
+
+
+  /* -----------------------------------------------
+     Mobile CTA
+     ----------------------------------------------- */
 
   .app-promo-cta {
     width: 100%;
   }
 
+
+  /* -----------------------------------------------
+     Mobile button
+     ----------------------------------------------- */
+
   .app-promo-button {
+    width: 173px;
+    min-width: 173px;
+    height: 48px;
+    min-height: 48px;
+  }
+
+
+  /* -----------------------------------------------
+     Mobile image
+     393px × 301px
+     ----------------------------------------------- */
+
+  .app-promo-image {
     width: 100%;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .app-promo-image picture {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .app-promo-image img {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    object-fit: contain;
   }
 }
