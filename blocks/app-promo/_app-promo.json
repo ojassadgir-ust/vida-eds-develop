@@ -26,34 +26,28 @@
           "name": "desktop-image",
           "label": "Desktop Image",
           "valueType": "string",
-          "required": true
+          "value": ""
         },
         {
           "component": "reference",
           "name": "mobile-image",
           "label": "Mobile Image",
           "valueType": "string",
-          "required": true
+          "value": ""
         },
         {
           "component": "text",
-          "name": "title",
-          "label": "Title",
+          "name": "heading",
+          "label": "Heading",
           "valueType": "string",
-          "value": "Do more with our Connected App"
+          "value": ""
         },
         {
-          "component": "text",
-          "name": "cta-label",
-          "label": "CTA Label",
+          "component": "richtext",
+          "name": "cta",
+          "label": "CTA",
           "valueType": "string",
-          "value": "Explore App"
-        },
-        {
-          "component": "text",
-          "name": "cta-link",
-          "label": "CTA Link",
-          "valueType": "string"
+          "value": ""
         }
       ]
     }

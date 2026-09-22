@@ -1,69 +1,42 @@
 export default function decorate(block) {
-  /*
-   * Expected authoring order:
-   *
-   * 0 = Desktop Image
-   * 1 = Mobile Image
-   * 2 = Title
-   * 3 = CTA Label
-   * 4 = CTA Link
-   */
+  const isAuthor = window?.origin !== undefined
+    && window.origin.includes('author');
+
+  if (isAuthor) {
+    return;
+  }
 
   const rows = [...block.children];
 
-  const desktopImageRow = rows[0];
-  const mobileImageRow = rows[1];
-  const titleRow = rows[2];
-  const ctaLabelRow = rows[3];
-  const ctaLinkRow = rows[4];
+  if (rows.length < 4) {
+    return;
+  }
 
   /*
-   * Get authored images.
+   * Read authorable values once.
+   * Keeping these values in one object makes it easier
+   * to replace EDS data with API data in the future.
    */
+  const appPromoData = {
+    desktopImage: rows[0]?.querySelector('picture, img'),
+    mobileImage: rows[1]?.querySelector('picture, img'),
+    heading: rows[2]?.textContent?.trim() || '',
+    cta: rows[3]?.innerHTML?.trim() || '',
+  };
 
-  const desktopImage = desktopImageRow?.querySelector('img');
-  const mobileImage = mobileImageRow?.querySelector('img');
-
-  /*
-   * Get authored text values.
-   */
-
-  const title = titleRow?.textContent.trim()
-    || 'Do more with our Connected App';
-
-  const ctaLabel = ctaLabelRow?.textContent.trim()
-    || 'Explore App';
-
-  /*
-   * CTA link.
-   *
-   * Depending on how the value is authored,
-   * it may be available as an <a> or as text.
-   */
-
-  const ctaLinkElement = ctaLinkRow?.querySelector('a');
-
-  const ctaLink = ctaLinkElement?.href
-    || ctaLinkRow?.textContent.trim()
-    || '#';
-
-  /*
-   * ==========================================
-   * CREATE RESPONSIVE IMAGE
-   * ==========================================
-   */
+  block.textContent = '';
 
   const picture = document.createElement('picture');
 
   /*
    * Mobile image
    */
-
-  if (mobileImage?.src) {
+  if (appPromoData.mobileImage) {
     const mobileSource = document.createElement('source');
 
     mobileSource.media = '(max-width: 767px)';
-    mobileSource.srcset = mobileImage.src;
+    mobileSource.srcset = appPromoData.mobileImage.currentSrc
+      || appPromoData.mobileImage.src;
 
     picture.append(mobileSource);
   }
@@ -71,87 +44,71 @@ export default function decorate(block) {
   /*
    * Desktop image
    */
+  if (appPromoData.desktopImage) {
+    const desktopImage = appPromoData.desktopImage.cloneNode(true);
 
-  if (desktopImage?.src) {
-    const image = document.createElement('img');
+    desktopImage.loading = 'lazy';
+    desktopImage.decoding = 'async';
 
-    image.src = desktopImage.src;
-
-    image.alt = desktopImage.alt
-      || '';
-
-    /*
-     * Banner is likely above the fold.
-     */
-    image.loading = 'eager';
-    image.fetchPriority = 'high';
-
-    picture.append(image);
+    picture.append(desktopImage);
   }
 
-  /*
-   * ==========================================
-   * IMAGE CONTAINER
-   * ==========================================
-   */
+  const imageWrapper = document.createElement('div');
+  imageWrapper.className = 'app-promo-image';
 
-  const media = document.createElement('div');
-
-  media.className = 'app-promo__media';
-
-  media.append(picture);
+  imageWrapper.append(picture);
 
   /*
-   * ==========================================
-   * CONTENT OVER IMAGE
-   * ==========================================
+   * Content
    */
-
   const content = document.createElement('div');
-
-  content.className = 'app-promo__content';
+  content.className = 'app-promo-content';
 
   /*
-   * Title
+   * Heading
    */
+  if (appPromoData.heading) {
+    const heading = document.createElement('h2');
 
-  const heading = document.createElement('h2');
+    heading.className = 'app-promo-heading';
+    heading.textContent = appPromoData.heading;
 
-  heading.className = 'app-promo__title';
-
-  heading.textContent = title;
+    content.append(heading);
+  }
 
   /*
    * CTA
    *
-   * <a> is used because this is a navigation link.
+   * CTA is rich text so the author can provide:
+   *
+   * <a href="/example">Explore more</a>
    */
+  if (appPromoData.cta) {
+    const ctaWrapper = document.createElement('div');
 
-  const cta = document.createElement('a');
+    ctaWrapper.className = 'app-promo-cta';
+    ctaWrapper.innerHTML = appPromoData.cta;
 
-  cta.className = 'app-promo__button';
+    const ctaLink = ctaWrapper.querySelector('a');
 
-  cta.href = ctaLink;
+    if (ctaLink) {
+      ctaLink.classList.add('app-promo-button');
 
-  cta.textContent = ctaLabel;
+      /*
+       * External links open in a new tab.
+       */
+      if (
+        ctaLink.hostname
+        && ctaLink.hostname !== window.location.hostname
+      ) {
+        ctaLink.target = '_blank';
+        ctaLink.rel = 'noopener noreferrer';
+      }
+    }
 
-  /*
-   * Add title and CTA.
-   */
+    content.append(ctaWrapper);
+  }
 
-  content.append(
-    heading,
-    cta,
-  );
-
-  /*
-   * ==========================================
-   * FINAL BLOCK
-   * ==========================================
-   */
-
-  block.replaceChildren(
-    media,
-    content,
-  );
+  block.append(imageWrapper);
+  block.append(content);
 }
