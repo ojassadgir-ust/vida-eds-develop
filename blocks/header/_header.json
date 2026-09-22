@@ -1,7 +1,7 @@
 {
     "definitions": [
         {
-            "title": "Hero Vida Header",
+            "title": "header",
             "id": "hero-vida-header",
             "plugins": {
                 "xwalk": {
