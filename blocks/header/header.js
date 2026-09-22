@@ -1,171 +1,463 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
+import buildButton from '../../scripts/build-button.js';
 
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+// ---------------------------------------- //
+// - Build functions for Products Submenu - //
+// ---------------------------------------- //
+function buildProductVehicle(item) {
+  const vehicle = document.createElement('a');
+  vehicle.className = 'vida-header-vehicle-item';
+  vehicle.href = item.link;
 
-function closeOnEscape(e) {
-  if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
-    }
-  }
-}
+  const imageWrap = document.createElement('div');
+  imageWrap.className = 'vida-header-vehicle-img';
 
-function closeOnFocusLost(e) {
-  const nav = e.currentTarget;
-  if (!nav.contains(e.relatedTarget)) {
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections, false);
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections, false);
-    }
-  }
-}
+  const img = document.createElement('img');
+  img.src = item.image;
+  img.alt = item.label;
+  imageWrap.append(img);
 
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    // eslint-disable-next-line no-use-before-define
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
+  const vehicleInfo = document.createElement('div');
+  vehicleInfo.className = 'vida-header-vehicle-info';
 
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
+  const nameWrap = document.createElement('div');
+  nameWrap.className = 'vida-header-name-wrap';
 
-/**
- * Toggles all nav sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
- */
-function toggleAllNavSections(sections, expanded = false) {
-  if (!sections) return;
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
-  });
-}
+  const name = document.createElement('span');
+  name.className = 'vida-header-vehicle-name';
+  name.textContent = item.label;
+  nameWrap.append(name);
 
-/**
- * Toggles the entire nav
- * @param {Element} nav The container element
- * @param {Element} navSections The nav sections within the container element
- * @param {*} forceExpanded Optional param to force nav expand behavior when not null
- */
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-  const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
-  if (navSections) {
-    const navDrops = navSections.querySelectorAll('.nav-drop');
-    if (isDesktop.matches) {
-      navDrops.forEach((drop) => {
-        if (!drop.hasAttribute('tabindex')) {
-          drop.setAttribute('tabindex', 0);
-          drop.addEventListener('focus', focusNavSection);
-        }
-      });
-    } else {
-      navDrops.forEach((drop) => {
-        drop.removeAttribute('tabindex');
-        drop.removeEventListener('focus', focusNavSection);
-      });
-    }
+  if (item.isNew) {
+    const newBadge = document.createElement('span');
+    newBadge.className = 'vida-header-vehicle-new';
+    newBadge.textContent = 'NEW';
+    nameWrap.append(newBadge);
   }
 
-  // enable menu collapse on escape keypress
-  if (!expanded || isDesktop.matches) {
-    // collapse menu on escape press
-    window.addEventListener('keydown', closeOnEscape);
-    // collapse menu on focus lost
-    nav.addEventListener('focusout', closeOnFocusLost);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-    nav.removeEventListener('focusout', closeOnFocusLost);
-  }
+  vehicleInfo.append(nameWrap);
+  vehicle.append(imageWrap, vehicleInfo);
+
+  return vehicle;
 }
 
-/**
- * loads and decorates the header, mainly the nav
- * @param {Element} block The header block element
- */
-export default async function decorate(block) {
-  // load nav as fragment
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+function buildProductCategory(category) {
+  const cateogory = document.createElement('div');
+  cateogory.className = 'vida-header-category';
 
-  // decorate nav DOM
-  block.textContent = '';
+  const catHeader = document.createElement('div');
+  catHeader.className = 'vida-header-category-header';
+
+  const title = document.createElement('span');
+  title.className = 'vida-header-category-title';
+  title.textContent = category.title;
+  catHeader.append(title);
+
+  const vehicles = document.createElement('div');
+  vehicles.className = 'vida-header-vehicles';
+  category.items.forEach((it) => vehicles.append(buildProductVehicle(it)));
+
+  cateogory.append(catHeader, vehicles);
+
+  return cateogory;
+}
+
+function buildProductsSubmenu(config) {
+  const submenu = document.createElement('div');
+  submenu.className = 'vida-header-submenu-products-wrap';
+
+  const vehicles = document.createElement('div');
+  vehicles.className = 'vida-header-submenu-products';
+  config.categories.forEach((category) => vehicles.append(buildProductCategory(category)));
+
+  submenu.append(vehicles);
+
+  return submenu;
+}
+
+// ---------------------------------------- //
+// - Build functions for Explore Submenu -- //
+// ---------------------------------------- //
+function buildExploreItem(item, isSideItem) {
+  const exploreLink = document.createElement('a');
+  exploreLink.className = 'vida-header-explore-item';
+  exploreLink.href = item.link;
+
+  const titleRow = document.createElement('div');
+  titleRow.className = 'vida-header-title-row';
+
+  const exploreTitle = document.createElement('span');
+  exploreTitle.className = isSideItem ? 'vida-header-explore-side-title' : 'vida-header-explore-title';
+  exploreTitle.textContent = item.label;
+  titleRow.append(exploreTitle);
+
+  if (item.isNew) {
+    const newBadge = document.createElement('span');
+    newBadge.className = 'vida-header-explore-new';
+    newBadge.textContent = 'NEW';
+    titleRow.append(newBadge);
+  }
+
+  exploreLink.append(titleRow);
+
+  if (item.description) {
+    const description = document.createElement('p');
+    description.className = 'vida-header-explore-desc';
+    description.textContent = item.description;
+    exploreLink.append(description);
+  }
+
+  return exploreLink;
+}
+
+function buildExploreSubmenu(config) {
+  const submenu = document.createElement('div');
+  submenu.className = 'vida-header-submenu-explore';
+
+  const exploreGrid = document.createElement('div');
+  exploreGrid.className = 'vida-header-explore-grid';
+  config.exploreItems.forEach((item) => exploreGrid.append(buildExploreItem(item)));
+  submenu.append(exploreGrid);
+
+  if (config.rightNav?.length) {
+    const side = document.createElement('div');
+    side.className = 'vida-header-explore-side';
+    config.rightNav.forEach((it) => side.append(buildExploreItem(it, true)));
+    submenu.append(side);
+  }
+  return submenu;
+}
+
+// ------------------------------------------- //
+// - Build functions for Wiring both Submenu - //
+// ------------------------------------------- //
+const SUBMENU_BUILDERS = {
+  'product-grid': buildProductsSubmenu,
+  'explore-links': buildExploreSubmenu,
+};
+
+function buildSubmenu(key, config) {
+  const submenu = document.createElement('div');
+  submenu.className = 'vida-header-submenu';
+  submenu.id = `vida-submenu-${key}`;
+  submenu.dataset.panel = key;
+  submenu.hidden = true;
+
+  const content = document.createElement('div');
+  content.className = 'vida-header-submenu-content';
+
+  const submenuBuilder = SUBMENU_BUILDERS[config.type];
+  if (submenuBuilder) content.append(submenuBuilder(config));
+
+  submenu.append(content);
+
+  return submenu;
+}
+
+// --------------------------------------------------------- //
+// - Helper functions to normalise header content from API - //
+// --------------------------------------------------------- //
+const isTrue = (v) => v === 'true' || v === true;
+
+// API stores lists as {item0: {...}, item1: {...}, item2: {...}....}
+// This function converts that converts each nodes to array elements
+function toArray(node) {
+  if (!node) return [];
+
+  return Object.keys(node)
+    .filter((k) => k.indexOf('item') === 0)
+    .sort((a, b) => Number(a.slice(4)) - Number(b.slice(4)))
+    .map((k) => node[k]);
+}
+
+// Get the exact absolute asset path from the relative url in the api
+function assetUrl(path, origin) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return encodeURI(path);
+  return origin + encodeURI(path);
+}
+
+// page url starts with /content/vida/{country}/{locale}/ so we remove it
+// to get the right relative url
+function paegUrl(path) {
+  if (!path) return '#';
+  if (path.startsWith('http://') || path.startsWith('https://')) return encodeURI(path);
+
+  const parts = path.split('/').filter(Boolean);
+  if (parts[0] !== 'content') return path;
+
+  const rest = parts.slice(4);
+  return rest.length ? `/${rest.join('/')}` : '/';
+}
+
+// removes the literal \r\n if present in text string
+const clean = (s) => {
+  if (!s) return '';
+
+  return s.split('\\r\\n').join(' ').split('\r\n').join(' ')
+    .trim();
+};
+
+// The main adapter function
+function normaliseHeaderJson(json, origin) {
+  const headerJSON = json['jcr:content'].root.newheader_copy_copy;
+  const asset = (p) => assetUrl(p, origin);
+
+  return {
+    logo: {
+      src: asset(headerJSON.logo),
+      alt: headerJSON.logoAlt,
+      link: paegUrl(headerJSON.logoLink),
+    },
+    navItems: [
+      { label: headerJSON.products, key: 'products' },
+      { label: headerJSON.explore, key: 'explore' },
+    ],
+    actions: {
+      testRide: { label: headerJSON.testRideLabel, link: paegUrl(headerJSON.testRideLink) },
+      cta: { label: headerJSON.buyNowLabel, link: paegUrl(headerJSON.buyNowLink) },
+      country: { label: headerJSON.countryName, flagSrc: asset(headerJSON.countryFlagUrl) },
+    },
+    submenus: {
+      products: {
+        type: 'product-grid',
+        categories: toArray(headerJSON.vehicleModel).map((series) => ({
+          title: series.variantName,
+          items: toArray(series.vehicles).slice(0, 3).map((vehicle) => ({
+            label: vehicle.name,
+            link: paegUrl(vehicle.link),
+            image: asset(vehicle.image),
+            isNew: isTrue(vehicle.isNew),
+          })),
+        })),
+      },
+      explore: {
+        type: 'explore-links',
+        exploreItems: toArray(headerJSON.exploreItems).map((item) => ({
+          label: item.name,
+          link: paegUrl(item.link),
+          description: clean(item.description),
+          isNew: isTrue(item.isNew),
+        })),
+        rightNav: toArray(headerJSON.exploreRightNav).map((item) => ({
+          label: item.name,
+          link: paegUrl(item.link),
+        })),
+      },
+    },
+    countries: toArray(headerJSON.countries).map((country) => ({
+      name: country.name,
+      flag: asset(country.flag),
+      link: country.redirectionUrl,
+    })),
+    icons: {
+      chevronClose: asset(headerJSON.chevronIcon),
+      chevronOpen: asset(headerJSON.chevronIconOpen),
+    },
+  };
+}
+
+// ----------------------------------- //
+// - Build functions for Main header - //
+// ----------------------------------- //
+function buildLogo(logo) {
+  const div = document.createElement('div');
+  div.className = 'vida-header-logo';
+
+  const logoLink = document.createElement('a');
+  logoLink.href = logo.link;
+
+  const logoImg = document.createElement('img');
+  logoImg.src = logo.src;
+  logoImg.alt = logo.alt;
+
+  logoLink.append(logoImg);
+  div.append(logoLink);
+
+  return div;
+}
+
+function buildNav(items, icons) {
   const nav = document.createElement('nav');
-  nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  nav.className = 'vida-header-nav';
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
+  const navList = document.createElement('ul');
+  navList.className = 'vida-header-nav-list';
+
+  items.forEach((item) => {
+    const navItem = document.createElement('li');
+    navItem.className = 'vida-header-nav-item';
+
+    const navDropdownTrigger = document.createElement('button');
+    navDropdownTrigger.type = 'button';
+    navDropdownTrigger.className = 'vida-header-nav-link';
+    navDropdownTrigger.setAttribute('aria-expanded', 'false');
+    navDropdownTrigger.dataset.dropdownTrigger = item.key;
+    navDropdownTrigger.setAttribute('aria-controls', `vida-submenu-${item.key}`);
+    navDropdownTrigger.setAttribute('aria-haspopup', 'true');
+
+    const navLinkLabel = document.createElement('span');
+    navLinkLabel.className = 'vida-header-nav-link-label';
+    navLinkLabel.textContent = item.label;
+
+    const navLinkChevron = document.createElement('img');
+    navLinkChevron.src = icons.chevronClose;
+    navLinkChevron.alt = '';
+    navLinkChevron.className = 'vida-header-nav-link-chevron'; // TODO: Create common styles
+    navLinkChevron.setAttribute('aria-hidden', 'true');
+
+    navDropdownTrigger.append(navLinkLabel, navLinkChevron);
+
+    navItem.append(navDropdownTrigger);
+    navList.append(navItem);
   });
 
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
+  nav.append(navList);
+  return nav;
+}
 
-  const navSections = nav.querySelector('.nav-sections');
-  if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        }
-      });
+function buildHeaderActions(actions) {
+  const div = document.createElement('div');
+  div.className = 'vida-header-header-actions';
+
+  const testRideLink = document.createElement('a');
+  testRideLink.href = actions.testRide.link;
+  testRideLink.className = 'vida-header-top-link';
+  testRideLink.textContent = actions.testRide.label;
+
+  const buyCtaBtn = buildButton({
+    label: actions.cta.label,
+    href: actions.cta.link,
+    variant: 'primary',
+    size: 'sm',
+  });
+
+  const countrySelector = document.createElement('button');
+  countrySelector.type = 'button';
+  countrySelector.className = 'country-selector';
+  countrySelector.setAttribute('aria-label', `Selected country: ${actions.country.label}. Change country`);
+
+  const countryFlagImg = document.createElement('img');
+  countryFlagImg.src = actions.country.flagSrc;
+  countryFlagImg.alt = '';
+  countryFlagImg.className = 'country-flag-item';
+
+  const chevronImg = document.createElement('img');
+  chevronImg.src = 'https://dev.vidaworld.com/content/dam/vida2-0/global/vida-2-0/vida-vx2/ChevronNew.svg';
+  chevronImg.alt = '';
+  chevronImg.className = 'vida-header-country-selector-chevron';
+  chevronImg.setAttribute('aria-hidden', 'true');
+
+  countrySelector.append(countryFlagImg, chevronImg);
+  div.append(testRideLink, buyCtaBtn, countrySelector);
+
+  return div;
+}
+
+function setOpenDropdown(header, key, icons) {
+  header.querySelectorAll('[data-dropdown-trigger').forEach((trigger) => {
+    const isOpen = trigger.dataset.dropdownTrigger === key;
+    trigger.setAttribute('aria-expanded', String(isOpen));
+    const chevron = trigger.querySelector('.vida-header-nav-link-chevron');
+    if (chevron) chevron.src = isOpen ? icons.chevronOpen : icons.chevronClose;
+  });
+
+  header.querySelectorAll('[data-panel]').forEach((panel) => {
+    panel.hidden = panel.dataset.panel !== key;
+  });
+}
+
+function wireDropdowns(header, icons) {
+  let closeTimer;
+  const CLOSE_DELAY = 150;
+
+  const openNow = (k) => {
+    clearTimeout(closeTimer);
+    setOpenDropdown(header, k, icons);
+  };
+
+  const scheduleClose = () => {
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => setOpenDropdown(header, null, icons), CLOSE_DELAY);
+  };
+
+  header.querySelectorAll('[data-dropdown-trigger]').forEach((trigger) => {
+    trigger.addEventListener('mouseenter', () => openNow(trigger.dataset.dropdownTrigger));
+    trigger.addEventListener('mouseleave', scheduleClose);
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      openNow(isOpen ? null : trigger.dataset.dropdownTrigger);
     });
+  });
+
+  header.querySelectorAll('[data-panel]').forEach((panel) => {
+    panel.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    panel.addEventListener('mouseleave', scheduleClose);
+  });
+
+  header.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+
+    const open = header.querySelector('[data-dropdown-trigger][aria-expanded="true"]');
+    if (!open) return;
+
+    setOpenDropdown(header, null, icons);
+    open.focus();
+  });
+}
+
+function buildHeader(data) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'vida-header-wrapper';
+
+  const header = document.createElement('header');
+  header.className = 'vida-header';
+
+  const container = document.createElement('div');
+  container.className = 'vida-header-container';
+
+  container.append(
+    buildLogo(data.logo),
+    buildNav(data.navItems, data.icons),
+    buildHeaderActions(data.actions),
+  );
+
+  header.append(container);
+
+  Object.entries(data.submenus || {}).forEach(([key, config]) => {
+    header.append(buildSubmenu(key, config));
+  });
+
+  wireDropdowns(header, data.icons);
+  wrapper.append(header);
+
+  return wrapper;
+}
+
+// --------------------------------------------------------- //
+// ---------------- Final decorate function ---------------- //
+// --------------------------------------------------------- //
+export default async function decorate(block) {
+  const endpointRow = block.firstElementChild;
+  const endpoint = endpointRow?.textContent?.trim();
+  endpointRow?.remove();
+
+  if (!endpoint) return;
+
+  let headerRawData;
+
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error(`Header API ${response.status}`);
+    headerRawData = await response.json();
+  } catch (error) {
+    console.error('Failed to load header data', error);
+    return;
   }
 
-  // hamburger for mobile
-  const hamburger = document.createElement('div');
-  hamburger.classList.add('nav-hamburger');
-  hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
-      <span class="nav-hamburger-icon"></span>
-    </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-  nav.prepend(hamburger);
-  nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  const { origin } = new URL(endpoint);
+  const normalisedHeaderData = normaliseHeaderJson(headerRawData, origin);
 
-  const navWrapper = document.createElement('div');
-  navWrapper.className = 'nav-wrapper';
-  navWrapper.append(nav);
-  block.append(navWrapper);
+  block.textContent = '';
+  block.append(buildHeader(normalisedHeaderData));
 }

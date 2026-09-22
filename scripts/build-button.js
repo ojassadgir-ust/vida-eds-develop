@@ -1,40 +1,40 @@
 export default function buildButton({
-    label,
-    href,
-    onClick,
-    variant = 'primary',
-    size = 'md',
-    disabled = false,
+  label,
+  href,
+  onClick,
+  variant = 'primary',
+  size = 'md',
+  disabled = false,
 } = {}) {
-    const buttonElement = document.createElement(href && !disabled ? 'a' : 'button');
+  const buttonElement = document.createElement(href && !disabled ? 'a' : 'button');
 
-    if (href && !disabled) {
-        buttonElement.href = href;
+  if (href && !disabled) {
+    buttonElement.href = href;
+  } else {
+    buttonElement.type = 'button';
+  }
+
+  buttonElement.className = ['button', `button-${variant}`, `button-${size}`]
+    .filter(Boolean)
+    .join(' ');
+
+  if (disabled) {
+    buttonElement.classList.add('button-disabled');
+    if (buttonElement.tagName === 'BUTTON') {
+      buttonElement.disabled = true;
     } else {
-        buttonElement.type = 'button';
+      buttonElement.setAttribute('aria-disabled', 'true');
+      buttonElement.removeAttribute('href');
+      buttonElement.tabIndex = -1;
     }
+  }
 
-    buttonElement.className = ['button', `button-${variant}`, `button-${size}`]
-        .filter(Boolean)
-        .join(' ');
+  const span = document.createElement('span');
+  span.className = 'button-label';
+  span.textContent = label;
+  buttonElement.append(span);
 
-    if (disabled) {
-        buttonElement.classList.add('button-disabled');
-        if (buttonElement.tagName === 'BUTTON') {
-            buttonElement.disabled = true;
-        } else {
-            buttonElement.setAttribute('aria-disabled', 'true');
-            buttonElement.removeAttribute('href');
-            buttonElement.tabIndex = -1;
-        }
-    }
+  if (onClick && !disabled) buttonElement.addEventListener('click', onClick);
 
-    const span = document.createElement('span');
-    span.className = 'button-label';
-    span.textContent = label;
-    buttonElement.append(span);
-
-    if (onClick && !disabled) buttonElement.addEventListener('click', onClick);
-
-    return buttonElement;
+  return buttonElement;
 }

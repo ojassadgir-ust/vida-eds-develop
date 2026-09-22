@@ -12,6 +12,7 @@
 
 :root {
   /* Primitive Colors - Used to construct the usage tokens */
+
   /* Vida / Orange - primary brand color */
   --color-vida-50: #FBF6F4;
   --color-vida-100: #F7DACF;
@@ -22,6 +23,7 @@
   --color-vida-700: #99320A;
   --color-vida-800: #662106;
   --color-vida-900: #331103;
+
   /* Dirt.E / Purple sub-brand color */
   --color-dirte-50: #F1EEFC;
   --color-dirte-100: #DCD2F9;
@@ -32,8 +34,9 @@
   --color-dirte-700: #3B0D93;
   --color-dirte-800: #1A0A66;
   --color-dirte-900: #12093E;
+
   /* Neutral */
-  --color-neutral-0: #FFFFFF;
+  --color-neutral-0: #FFF;
   --color-neutral-50: #F4F4F4;
   --color-neutral-100: #EAEAEA;
   --color-neutral-200: #D4D4D4;
@@ -44,6 +47,7 @@
   --color-neutral-700: #3F3D3D;
   --color-neutral-800: #2E2C2C;
   --color-neutral-900: #1D1B1B;
+
   /* Warm */
   --color-warm-50: #F9F5EE;
   --color-warm-100: #F6EDDA;
@@ -54,6 +58,7 @@
   --color-warm-700: #99710A;
   --color-warm-800: #664B06;
   --color-warm-900: #332603;
+
   /* Green */
   --color-green-50: #CCF9DE;
   --color-green-100: #99F3BD;
@@ -64,16 +69,18 @@
   --color-green-700: #008636;
   --color-green-800: #005A24;
   --color-green-900: #002D12;
+
   /* Red */
-  --color-red-50: #FFCCCC;
-  --color-red-100: #FF9999;
-  --color-red-200: #FF6666;
-  --color-red-300: #FF3333;
-  --color-red-500: #FF0000;
-  --color-red-600: #CC0000;
-  --color-red-700: #990000;
-  --color-red-800: #660000;
-  --color-red-900: #330000;
+  --color-red-50: #FCC;
+  --color-red-100: #F99;
+  --color-red-200: #F66;
+  --color-red-300: #F33;
+  --color-red-500: #F00;
+  --color-red-600: #C00;
+  --color-red-700: #900;
+  --color-red-800: #600;
+  --color-red-900: #300;
+
   /* Blue */
   --color-blue-50: #DDE4F6;
   --color-blue-100: #BAC9EE;
@@ -86,6 +93,7 @@
   --color-blue-900: #11182A;
 
   /* Colors - Usage Tokens - To be used in components */
+
   /* Surface */
   --surface-primary: var(--color-neutral-0);
   --surface-secondary: var(--color-warm-50);
@@ -95,6 +103,7 @@
   --dirte-surface-muted: var(--color-dirte-50);
   --dirte-accent: var(--color-dirte-500);
   --dirte-text-on-surface: var(--color-neutral-0);
+
   /* Content - Text/icon foreground */
   --content-primary: var(--color-neutral-900);
   --content-secondary: var(--color-neutral-500);
@@ -102,34 +111,43 @@
   --content-brand: var(--color-vida-500);
   --content-on-brand: var(--color-neutral-0);
   --content-disabled: var(--color-neutral-200);
+
   /* Brand expression */
   --brand-default: var(--color-vida-500);
   --brand-hover: var(--color-vida-600);
   --brand-muted: var(--color-vida-100);
+
   /* Border */
   --border-default: var(--color-neutral-100);
   --border-strong: var(--color-neutral-200);
   --border-brand: var(--color-vida-500);
+
   /* Focus */
   --focus-ring: var(--color-vida-500);
+
   /* Status Positive */
   --status-positive-bg: var(--color-green-50);
   --status-positive-content: var(--color-green-800);
   --status-positive-border: var(--color-green-200);
+
   /* Status Error */
   --status-error-bg: var(--color-red-50);
   --status-error-content: var(--color-red-700);
   --status-error-border: var(--color-red-200);
+
   /* Status Info */
   --status-info-bg: var(--color-blue-50);
   --status-info-content: var(--color-blue-700);
   --status-info-border: var(--color-blue-200);
+
   /* Status Warning */
   --status-warning-bg: var(--color-warm-200);
   --status-warning-content: var(--color-warm-800);
   --status-warning-border: var(--color-warm-300);
+
   /* overlay scrim */
-  --overlay-scrim: rgba(0, 0, 0, 0.4);
+  --overlay-scrim: rgb(0 0 0 / 40%);
+
   /* action - buttons/controls */
   --action-primary: var(--color-neutral-900);
   --action-primary-hover: var(--color-neutral-700);
@@ -138,10 +156,12 @@
   --action-link: var(--brand-default);
   --action-link-hover: var(--brand-hover);
   --action-link-disabled: var(--color-neutral-400);
+
   /* Link */
   --link-default: var(--brand-default);
   --link-hover: var(--brand-hover);
   --link-disabled: var(--color-neutral-400);
+
   /* Selection */
   --selection-bg: var(--color-vida-100);
   --selection-border: var(--color-vida-500);
@@ -157,21 +177,26 @@
   --fw-medium: 500;
 
   /* ===== TYPOGRAPHY - TYPE SCALE (mobile-first: overriden at >= 768px and >= 1024px) ======= */
+
   /* --- Display (mobile) --- */
+
   /* font size */
   --fs-display-xl: 48px;
   --fs-display-lg: 44px;
   --fs-display-md: 36px;
+
   /* line height */
   --lh-display-xl: 56px;
   --lh-display-lg: 52px;
   --lh-display-md: 44px;
+
   /* letter spacing */
   --ls-display-xl: -0.75px;
   --ls-display-lg: -0.5px;
   --ls-display-md: -0.25px;
 
   /* --- Heading (mobile <768px) --- */
+
   /* font-size */
   --fs-heading-2xl: 40px;
   --fs-heading-xl: 36px;
@@ -181,6 +206,7 @@
   --fs-heading-xs: 16px;
   --fs-heading-2xs: 14px;
   --fs-heading-3xs: 14px;
+
   /* line-height */
   --lh-heading-2xl: 48px;
   --lh-heading-xl: 44px;
@@ -190,6 +216,7 @@
   --lh-heading-xs: 24px;
   --lh-heading-2xs: 20px;
   --lh-heading-3xs: 20px;
+
   /* letter-spacing */
   --ls-heading-2xl: -0.25px;
   --ls-heading-xl: -0.25px;
@@ -201,18 +228,21 @@
   --ls-heading-3xs: 0.15px;
 
   /* --- Body (for all breakpoints) --- */
+
   /* font-size */
   --fs-body-xl: 24px;
   --fs-body-lg: 20px;
   --fs-body-md: 16px;
   --fs-body-sm: 14px;
   --fs-body-xs: 12px;
+
   /* line-height */
   --lh-body-xl: 32px;
   --lh-body-lg: 28px;
   --lh-body-md: 24px;
   --lh-body-sm: 20px;
   --lh-body-xs: 16px;
+
   /* letter-spacing */
   --ls-body-xl: 0px;
   --ls-body-lg: 0px;
@@ -221,18 +251,21 @@
   --ls-body-xs: 0.2px;
 
   /* --- Utility & Labels (For all breakpoints) --- */
+
   /* font-size */
   --fs-label-lg: 16px;
   --fs-label-md: 14px;
   --fs-label-sm: 12px;
   --fs-caption: 12px;
   --fs-overline: 10px;
+
   /* line-height */
   --lh-label-lg: 24px;
   --lh-label-md: 18px;
   --lh-label-sm: 16px;
   --lh-caption: 16px;
   --lh-overline: 14px;
+
   /* letter-spacing */
   --ls-label-lg: 0.5px;
   --ls-label-md: 0.5px;
@@ -241,23 +274,27 @@
   --ls-overline: 1px;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   :root {
     /* --- Display (Tablet) --- */
+
     /* font size */
     --fs-display-xl: 64px;
     --fs-display-lg: 56px;
     --fs-display-md: 48px;
+
     /* line height */
     --lh-display-xl: 72px;
     --lh-display-lg: 64px;
     --lh-display-md: 56px;
+
     /* letter spacing */
     --ls-display-xl: -1px;
     --ls-display-lg: -0.75px;
     --ls-display-md: -0.5px;
 
     /* --- Heading (Tablet) --- */
+
     /* No override for heading-3xs in tablet */
 
     /* font-size */
@@ -268,6 +305,7 @@
     --fs-heading-sm: 20px;
     --fs-heading-xs: 16px;
     --fs-heading-2xs: 14px;
+
     /* line-height */
     --lh-heading-2xl: 56px;
     --lh-heading-xl: 48px;
@@ -276,6 +314,7 @@
     --lh-heading-sm: 28px;
     --lh-heading-xs: 24px;
     --lh-heading-2xs: 20px;
+
     /* letter-spacing */
     --ls-heading-2xl: -0.25px;
     --ls-heading-xl: -0.25px;
@@ -287,23 +326,27 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   :root {
     /* --- Display (Desktop) --- */
+
     /* font size */
     --fs-display-xl: 96px;
     --fs-display-lg: 80px;
     --fs-display-md: 64px;
+
     /* line height */
     --lh-display-xl: 104px;
     --lh-display-lg: 88px;
     --lh-display-md: 72px;
+
     /* letter spacing */
     --ls-display-xl: -1.5px;
     --ls-display-lg: -1px;
     --ls-display-md: -0.75px;
 
     /* --- Heading (Desktop) --- */
+
     /* font-size */
     --fs-heading-2xl: 60px;
     --fs-heading-xl: 48px;
@@ -313,6 +356,7 @@
     --fs-heading-xs: 20px;
     --fs-heading-2xs: 16px;
     --fs-heading-3xs: 14px;
+
     /* line-height */
     --lh-heading-2xl: 68px;
     --lh-heading-xl: 56px;
@@ -321,6 +365,7 @@
     --lh-heading-sm: 32px;
     --lh-heading-xs: 28px;
     --lh-heading-2xs: 24px;
+
     /* letter-spacing */
     --ls-heading-2xl: -0.5px;
     --ls-heading-xl: -0.25px;
