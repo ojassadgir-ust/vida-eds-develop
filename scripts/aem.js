@@ -612,7 +612,7 @@ function decorateBlocks(main) {
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock('header', '');
+  const headerBlock = buildBlock('hero-vida-header', '');
   header.append(headerBlock);
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);
