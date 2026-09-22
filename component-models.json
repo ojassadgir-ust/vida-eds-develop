@@ -142,6 +142,45 @@
     ]
   },
   {
+    "id": "app-promo",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string",
+        "value": "Do more with our Connected App"
+      },
+      {
+        "component": "text",
+        "name": "cta-label",
+        "label": "CTA Label",
+        "valueType": "string",
+        "value": "Explore App"
+      },
+      {
+        "component": "text",
+        "name": "cta-link",
+        "label": "CTA Link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
