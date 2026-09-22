@@ -89,7 +89,7 @@
 }
 
 .vida_footer__india-subtitle {
-  margin: 0 0 0px;
+  margin: 0;
   color: var(--vida-footer-text);
   font-size: 14px;
   line-height: 1.4;
@@ -131,12 +131,6 @@
  * Dealers
  */
 .vida_footer__india-panel a {
-  color: #ff5310;
-  text-decoration: none;
-}
-
-.vida_footer__india-panel a:hover,
-.vida_footer__india-panel a:active {
   color: #ff5310;
   text-decoration: none;
 }
@@ -446,6 +440,7 @@
     min-height: auto;
     padding: 0 0 32px;
   }
+
 
   .vida_footer__india
     .vida_footer__accordion-title {

@@ -1,5 +1,4 @@
-const FOOTER_API =
-  'https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json';
+const FOOTER_API = 'https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json';
 
 const CLASS_PREFIX = 'vida_footer';
 
@@ -109,8 +108,7 @@ function parseIndiaContent(html) {
     'text/html',
   );
 
-  const root =
-    parsedDocument.body.firstElementChild
+  const root = parsedDocument.body.firstElementChild
     || parsedDocument.body;
 
   const sections = [];
@@ -146,19 +144,16 @@ function parseIndiaContent(html) {
   function getParagraphContent(element) {
     const clone = element.cloneNode(true);
 
-    const heading =
-      clone.querySelector('b, strong');
+    const heading = clone.querySelector('b, strong');
 
     if (heading) {
       let nextNode = heading.nextSibling;
 
       while (nextNode) {
         const followingNode = nextNode.nextSibling;
-        const isLineBreak =
-          nextNode.nodeType === Node.ELEMENT_NODE
+        const isLineBreak = nextNode.nodeType === Node.ELEMENT_NODE
           && nextNode.tagName.toLowerCase() === 'br';
-        const isWhitespace =
-          nextNode.nodeType === Node.TEXT_NODE
+        const isWhitespace = nextNode.nodeType === Node.TEXT_NODE
           && !nextNode.textContent.trim();
 
         if (!isLineBreak && !isWhitespace) {
@@ -179,8 +174,7 @@ function parseIndiaContent(html) {
    * Create a section from an API <p>.
    */
   function createParagraphSection(element) {
-    const heading =
-      element.querySelector('b, strong');
+    const heading = element.querySelector('b, strong');
 
     if (!heading) {
       return null;
@@ -203,8 +197,7 @@ function parseIndiaContent(html) {
     const tagName = element.tagName.toLowerCase();
 
     if (tagName === 'p') {
-      const section =
-        createParagraphSection(element);
+      const section = createParagraphSection(element);
 
       if (section) {
         sections.push(section);
@@ -214,8 +207,7 @@ function parseIndiaContent(html) {
     }
 
     if (/^h[1-6]$/.test(tagName)) {
-      const nextElement =
-        element.nextElementSibling;
+      const nextElement = element.nextElementSibling;
 
       const section = {
         title: getHeadingText(element),
@@ -226,8 +218,7 @@ function parseIndiaContent(html) {
         nextElement
         && nextElement.tagName.toLowerCase() === 'p'
       ) {
-        section.content =
-          nextElement.innerHTML.trim();
+        section.content = nextElement.innerHTML.trim();
       }
 
       sections.push(section);
@@ -244,8 +235,7 @@ function parseIndiaContent(html) {
  * already used by the existing UI.
  */
 function mapFooterData(apiData) {
-  const footer =
-    apiData?.['jcr:content']?.root?.footer_copy;
+  const footer = apiData?.['jcr:content']?.root?.footer_copy;
 
   if (!footer) {
     throw new Error(
@@ -253,8 +243,7 @@ function mapFooterData(apiData) {
     );
   }
 
-  const indiaContent =
-    parseIndiaContent(footer.faqContent);
+  const indiaContent = parseIndiaContent(footer.faqContent);
 
   /*
    * Main footer navigation.
@@ -277,10 +266,9 @@ function mapFooterData(apiData) {
   /*
    * Electric Scooters Near You.
    */
-  const nearbySection =
-    getIndexedItems(
-      footer.footercityitems,
-    )[0];
+  const nearbySection = getIndexedItems(
+    footer.footercityitems,
+  )[0];
 
   const nearbyScooters = {
     title: nearbySection?.title || '',
@@ -432,12 +420,10 @@ function createElement(
   tag,
   classNameValue,
 ) {
-  const element =
-    document.createElement(tag);
+  const element = document.createElement(tag);
 
   if (classNameValue) {
-    element.className =
-      classNameValue;
+    element.className = classNameValue;
   }
 
   return element;
@@ -457,8 +443,7 @@ function createLink(
 
   if (item.newTab) {
     link.target = '_blank';
-    link.rel =
-      'noopener noreferrer';
+    link.rel = 'noopener noreferrer';
   }
 
   return link;
@@ -470,11 +455,10 @@ function createArrow() {
     className('arrow'),
   );
 
-  const svg =
-    document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'svg',
-    );
+  const svg = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'svg',
+  );
 
   svg.setAttribute(
     'viewBox',
@@ -491,11 +475,10 @@ function createArrow() {
     'false',
   );
 
-  const path =
-    document.createElementNS(
-      'http://www.w3.org/2000/svg',
-      'path',
-    );
+  const path = document.createElementNS(
+    'http://www.w3.org/2000/svg',
+    'path',
+  );
 
   path.setAttribute(
     'd',
@@ -564,8 +547,7 @@ function createAccordionButton(
     className('accordion-title'),
   );
 
-  title.textContent =
-    section.title;
+  title.textContent = section.title;
 
   button.append(
     title,
@@ -582,21 +564,18 @@ function setupAccordion(
   button.addEventListener(
     'click',
     () => {
-      const isExpanded =
-        button.getAttribute(
-          'aria-expanded',
-        ) === 'true';
+      const isExpanded = button.getAttribute(
+        'aria-expanded',
+      ) === 'true';
 
-      const nextState =
-        !isExpanded;
+      const nextState = !isExpanded;
 
       button.setAttribute(
         'aria-expanded',
         String(nextState),
       );
 
-      panel.hidden =
-        !nextState;
+      panel.hidden = !nextState;
     },
   );
 }
@@ -626,8 +605,7 @@ function createIndiaPanel() {
     className('india-panel'),
   );
 
-  panel.id =
-    'vida-footer-panel-india';
+  panel.id = 'vida-footer-panel-india';
 
   footerData.indiaSection.sections
     .forEach((section) => {
@@ -635,16 +613,14 @@ function createIndiaPanel() {
        * Section heading.
        */
       if (section.title) {
-        const title =
-          createElement(
-            'h4',
-            className(
-              'india-subtitle',
-            ),
-          );
+        const title = createElement(
+          'h4',
+          className(
+            'india-subtitle',
+          ),
+        );
 
-        title.textContent =
-          section.title;
+        title.textContent = section.title;
 
         panel.append(title);
       }
@@ -656,14 +632,12 @@ function createIndiaPanel() {
        * the API provides rich HTML and links.
        */
       if (section.content) {
-        const content =
-          createElement(
-            'p',
-            className('india-text'),
-          );
+        const content = createElement(
+          'p',
+          className('india-text'),
+        );
 
-        content.innerHTML =
-          section.content;
+        content.innerHTML = section.content;
 
         panel.append(content);
       }
@@ -673,20 +647,17 @@ function createIndiaPanel() {
 }
 
 function createIndiaSection() {
-  const wrapper =
-    createElement(
-      'section',
-      className('india'),
-    );
+  const wrapper = createElement(
+    'section',
+    className('india'),
+  );
 
-  const button =
-    createAccordionButton(
-      footerData.indiaSection,
-      'india',
-    );
+  const button = createAccordionButton(
+    footerData.indiaSection,
+    'india',
+  );
 
-  const panel =
-    createIndiaPanel();
+  const panel = createIndiaPanel();
 
   panel.hidden = true;
 
@@ -712,28 +683,24 @@ function createNavigationSection(
   section,
   id,
 ) {
-  const wrapper =
-    createElement(
-      'section',
-      className('accordion'),
-    );
+  const wrapper = createElement(
+    'section',
+    className('accordion'),
+  );
 
-  const button =
-    createAccordionButton(
-      section,
-      id,
-    );
+  const button = createAccordionButton(
+    section,
+    id,
+  );
 
-  const panel =
-    createElement(
-      'div',
-      className(
-        'accordion-panel',
-      ),
-    );
+  const panel = createElement(
+    'div',
+    className(
+      'accordion-panel',
+    ),
+  );
 
-  panel.id =
-    `vida-footer-panel-${id}`;
+  panel.id = `vida-footer-panel-${id}`;
 
   /*
    * All mobile navigation sections
@@ -768,31 +735,26 @@ function createNavigationSection(
 }
 
 function createBrand() {
-  const link =
-    createElement(
-      'a',
-      className('brand-link'),
-    );
+  const link = createElement(
+    'a',
+    className('brand-link'),
+  );
 
-  link.href =
-    footerData.brand.logoHref;
+  link.href = footerData.brand.logoHref;
 
   link.setAttribute(
     'aria-label',
     footerData.brand.logoAriaLabel,
   );
 
-  const image =
-    createElement(
-      'img',
-      className('logo'),
-    );
+  const image = createElement(
+    'img',
+    className('logo'),
+  );
 
-  image.src =
-    footerData.brand.logoSrc;
+  image.src = footerData.brand.logoSrc;
 
-  image.alt =
-    footerData.brand.logoAlt;
+  image.alt = footerData.brand.logoAlt;
 
   image.width = 130;
   image.height = 48;
@@ -806,62 +768,54 @@ function createBrand() {
 }
 
 function createDesktopNavigation() {
-  const wrapper =
-    createElement(
-      'div',
-      className(
-        'desktop-navigation',
-      ),
-    );
+  const wrapper = createElement(
+    'div',
+    className(
+      'desktop-navigation',
+    ),
+  );
 
-  const brand =
-    createElement(
-      'div',
-      className('desktop-brand'),
-    );
+  const brand = createElement(
+    'div',
+    className('desktop-brand'),
+  );
 
   brand.append(
     createBrand(),
   );
 
-  const navigation =
-    createElement(
-      'div',
-      className('navigation'),
-    );
+  const navigation = createElement(
+    'div',
+    className('navigation'),
+  );
 
   footerData.navigation.forEach(
     (section) => {
-      const column =
-        createElement(
-          'section',
-          className(
-            'nav-column',
-          ),
-        );
+      const column = createElement(
+        'section',
+        className(
+          'nav-column',
+        ),
+      );
 
-      const heading =
-        createElement(
-          'h3',
-          className('nav-title'),
-        );
+      const heading = createElement(
+        'h3',
+        className('nav-title'),
+      );
 
-      heading.textContent =
-        section.title;
+      heading.textContent = section.title;
 
-      const list =
-        createElement(
-          'ul',
-          className('nav-list'),
-        );
+      const list = createElement(
+        'ul',
+        className('nav-list'),
+      );
 
       section.items.forEach(
         (item) => {
-          const listItem =
-            createElement(
-              'li',
-              className('nav-item'),
-            );
+          const listItem = createElement(
+            'li',
+            className('nav-item'),
+          );
 
           listItem.append(
             createLink(
@@ -898,13 +852,12 @@ function createDesktopNavigation() {
 }
 
 function createMobileNavigation() {
-  const wrapper =
-    createElement(
-      'div',
-      className(
-        'mobile-navigation',
-      ),
-    );
+  const wrapper = createElement(
+    'div',
+    className(
+      'mobile-navigation',
+    ),
+  );
 
   footerData.navigation.forEach(
     (section, index) => {
@@ -928,36 +881,31 @@ function createMobileNavigation() {
 }
 
 function createNearbySection() {
-  const wrapper =
-    createElement(
-      'section',
-      className('nearby'),
-    );
+  const wrapper = createElement(
+    'section',
+    className('nearby'),
+  );
 
-  const heading =
-    createElement(
-      'h3',
-      className('nearby-title'),
-    );
+  const heading = createElement(
+    'h3',
+    className('nearby-title'),
+  );
 
-  heading.textContent =
-    footerData.nearbyScooters.title;
+  heading.textContent = footerData.nearbyScooters.title;
 
-  const list =
-    createElement(
-      'ul',
-      className('nearby-list'),
-    );
+  const list = createElement(
+    'ul',
+    className('nearby-list'),
+  );
 
   footerData.nearbyScooters.items
     .forEach((item) => {
-      const listItem =
-        createElement(
-          'li',
-          className(
-            'nearby-item',
-          ),
-        );
+      const listItem = createElement(
+        'li',
+        className(
+          'nearby-item',
+        ),
+      );
 
       listItem.append(
         createLink(
@@ -982,11 +930,10 @@ function createNearbySection() {
 }
 
 function createLegalSection() {
-  const wrapper =
-    createElement(
-      'nav',
-      className('legal'),
-    );
+  const wrapper = createElement(
+    'nav',
+    className('legal'),
+  );
 
   footerData.legal.forEach(
     (item) => {
@@ -1005,11 +952,10 @@ function createLegalSection() {
 }
 
 function createSocialSection() {
-  const wrapper =
-    createElement(
-      'nav',
-      className('social'),
-    );
+  const wrapper = createElement(
+    'nav',
+    className('social'),
+  );
 
   wrapper.setAttribute(
     'aria-label',
@@ -1018,21 +964,18 @@ function createSocialSection() {
 
   footerData.social.forEach(
     (social) => {
-      const link =
-        createElement(
-          'a',
-          className(
-            'social-link',
-          ),
-        );
+      const link = createElement(
+        'a',
+        className(
+          'social-link',
+        ),
+      );
 
-      link.href =
-        social.href;
+      link.href = social.href;
 
       if (social.newTab !== false) {
         link.target = '_blank';
-        link.rel =
-          'noopener noreferrer';
+        link.rel = 'noopener noreferrer';
       }
 
       link.setAttribute(
@@ -1040,28 +983,25 @@ function createSocialSection() {
         social.ariaLabel,
       );
 
-      const icon =
-        createElement(
-          'span',
-          `${className(
-            'social-icon',
-          )} ${className(
-            'social-icon--api',
-          )}`,
-        );
+      const icon = createElement(
+        'span',
+        `${className(
+          'social-icon',
+        )} ${className(
+          'social-icon--api',
+        )}`,
+      );
 
-      const image =
-        createElement(
-          'img',
-          className(
-            'social-image',
-          ),
-        );
+      const image = createElement(
+        'img',
+        className(
+          'social-image',
+        ),
+      );
 
-      image.src =
-        normalizeUrl(
-          social.icon,
-        );
+      image.src = normalizeUrl(
+        social.icon,
+      );
 
       image.alt = '';
 
@@ -1081,91 +1021,76 @@ function createSocialSection() {
 }
 
 function createCompanyDetails() {
-  const wrapper =
-    createElement(
-      'div',
-      className('company'),
-    );
+  const wrapper = createElement(
+    'div',
+    className('company'),
+  );
 
-  const office =
-    createElement(
-      'div',
-      className(
-        'company-item',
-      ),
-    );
+  const office = createElement(
+    'div',
+    className(
+      'company-item',
+    ),
+  );
 
-  const officeTitle =
-    createElement(
-      'p',
-      className(
-        'company-title',
-      ),
-    );
+  const officeTitle = createElement(
+    'p',
+    className(
+      'company-title',
+    ),
+  );
 
-  officeTitle.textContent =
-    footerData.company.office.title;
+  officeTitle.textContent = footerData.company.office.title;
 
-  const officeAddress =
-    createElement(
-      'address',
-      className('address'),
-    );
+  const officeAddress = createElement(
+    'address',
+    className('address'),
+  );
 
-  officeAddress.textContent =
-    footerData.company.office.address;
+  officeAddress.textContent = footerData.company.office.address;
 
   office.append(
     officeTitle,
     officeAddress,
   );
 
-  const contact =
-    createElement(
-      'div',
-      className(
-        'company-item',
-      ),
-    );
+  const contact = createElement(
+    'div',
+    className(
+      'company-item',
+    ),
+  );
 
-  const contactTitle =
-    createElement(
-      'p',
-      className(
-        'company-title',
-      ),
-    );
+  const contactTitle = createElement(
+    'p',
+    className(
+      'company-title',
+    ),
+  );
 
-  contactTitle.textContent =
-    footerData.company.contact.title;
+  contactTitle.textContent = footerData.company.contact.title;
 
-  const phone =
-    createElement(
-      'a',
-      className(
-        'contact-link',
-      ),
-    );
+  const phone = createElement(
+    'a',
+    className(
+      'contact-link',
+    ),
+  );
 
-  phone.href =
-    footerData.company.contact.phone.href;
+  phone.href = footerData.company.contact.phone.href;
 
-  phone.textContent =
-    footerData.company.contact.phone.label;
+  phone.textContent = footerData.company.contact.phone.label;
 
-  const email =
-    createElement(
-      'a',
-      className(
-        'contact-link',
-      ),
-    );
+  const email = createElement(
+    'a',
+    className(
+      'contact-link',
+    ),
+  );
 
-  email.href =
-    footerData.company.contact.email.href;
+  email.href = footerData.company.contact.email.href;
 
-  email.textContent =
-    footerData.company.contact.email.label;
+  email.textContent = footerData.company.contact.email.label;
 
   contact.append(
     contactTitle,
@@ -1173,14 +1098,12 @@ function createCompanyDetails() {
     email,
   );
 
-  const copyright =
-    createElement(
-      'p',
-      className('copyright'),
-    );
+  const copyright = createElement(
+    'p',
+    className('copyright'),
+  );
 
-  copyright.textContent =
-    footerData.company.copyright;
+  copyright.textContent = footerData.company.copyright;
 
   wrapper.append(
     office,
@@ -1192,13 +1115,12 @@ function createCompanyDetails() {
 }
 
 function createLegalSocial() {
-  const wrapper =
-    createElement(
-      'div',
-      className(
-        'legal-social',
-      ),
-    );
+  const wrapper = createElement(
+    'div',
+    className(
+      'legal-social',
+    ),
+  );
 
   wrapper.append(
     createLegalSection(),
@@ -1223,8 +1145,7 @@ export default async function decorate(
      *   ↓
      * Existing UI
      */
-    footerData =
-      await getFooterData();
+    footerData = await getFooterData();
 
     console.log(
       'VIDA Footer data loaded from AEM:',
@@ -1242,11 +1163,10 @@ export default async function decorate(
       footerData.accessibility.footerLabel,
     );
 
-    const container =
-      createElement(
-        'div',
-        className('container'),
-      );
+    const container = createElement(
+      'div',
+      className('container'),
+    );
 
     /*
      * Footer order:
@@ -1259,35 +1179,28 @@ export default async function decorate(
      * 6. Mobile logo
      * 7. Company details
      */
-    const indiaSection =
-      createIndiaSection();
+    const indiaSection = createIndiaSection();
 
-    const desktopNavigation =
-      createDesktopNavigation();
+    const desktopNavigation = createDesktopNavigation();
 
-    const mobileNavigation =
-      createMobileNavigation();
+    const mobileNavigation = createMobileNavigation();
 
-    const nearby =
-      createNearbySection();
+    const nearby = createNearbySection();
 
-    const legalSocial =
-      createLegalSocial();
+    const legalSocial = createLegalSocial();
 
-    const mobileBrand =
-      createElement(
-        'div',
-        className(
-          'mobile-brand',
-        ),
-      );
+    const mobileBrand = createElement(
+      'div',
+      className(
+        'mobile-brand',
+      ),
+    );
 
     mobileBrand.append(
       createBrand(),
     );
 
-    const company =
-      createCompanyDetails();
+    const company = createCompanyDetails();
 
     container.append(
       indiaSection,
