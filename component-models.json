@@ -234,33 +234,38 @@
       },
       {
         "component": "text",
-        "name": "textContent_heading",
+        "name": "heading",
         "label": "Heading text",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
-        "name": "textContent_subheading",
+        "name": "subheading",
         "label": "Subheading text",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "richtext",
-        "name": "textContent_richtext",
+        "name": "richText",
         "label": "Rich text",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "textContent_cta",
-        "label": "CTA link",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
       },
       {
         "component": "text",
-        "name": "textContent_ctaText",
+        "name": "cta",
         "label": "CTA",
-        "valueType": "string"
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "name": "ctaLink",
+        "label": "CTA link",
+        "valueType": "string",
+        "multi": false
       }
     ]
   }

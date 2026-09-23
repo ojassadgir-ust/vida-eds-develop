@@ -1,84 +1,97 @@
 .vida-recharge {
-  --vida-recharge-page-padding: 64px;
-  --vida-recharge-surface-background: #f9f5ee;
+  --vida-recharge-page-padding-desktop: 64px;
+  --vida-recharge-page-padding-mobile-block: 24px;
+  --vida-recharge-page-padding-mobile-inline: 16px;
+  --vida-recharge-overlay-color: #f9f5ee;
+  --vida-recharge-heading-color: #1d1b1b;
+  --vida-recharge-border-color: #fff;
   --vida-recharge-border-width: 4px;
   --vida-recharge-border-radius: 24px;
-  --vida-recharge-heading-color: #1d1b1b;
-  --vida-recharge-heading-size: 48px;
-  --vida-recharge-heading-line-height: 1.08;
+  --vida-recharge-heading-size-desktop: 48px;
+  --vida-recharge-heading-size-mobile: 32px;
   --vida-recharge-subheading-size: 32px;
-  --vida-recharge-subheading-line-height: 1.2;
-  --vida-recharge-rich-text-size: 20px;
-  --vida-recharge-rich-text-line-height: 1.4;
-  --vida-recharge-rich-text-margin: 24px;
-  --vida-recharge-cta-margin: 48px;
-  --vida-recharge-cta-padding-y: 12px;
-  --vida-recharge-cta-padding-x: 32px;
+  --vida-recharge-rich-text-margin-top: 24px;
+  --vida-recharge-cta-margin-top-desktop: 48px;
+  --vida-recharge-cta-margin-top-mobile: 24px;
+  --vida-recharge-cta-padding-block: 12px;
+  --vida-recharge-cta-padding-inline: 32px;
   --vida-recharge-cta-background: #1d1b1b;
   --vida-recharge-cta-hover-background: #343232;
-  --vida-recharge-mobile-page-padding-y: 24px;
-  --vida-recharge-mobile-page-padding-x: 16px;
-  --vida-recharge-mobile-image-gap: 14px;
-  --vida-recharge-mobile-heading-size: 32px;
-  --vida-recharge-mobile-heading-line-height: 1.1;
-  --vida-recharge-mobile-heading-margin: 8px;
-  --vida-recharge-mobile-subheading-size: 24px;
-  --vida-recharge-mobile-rich-text-size: 18px;
-  --vida-recharge-mobile-cta-margin: 24px;
-  --vida-recharge-desktop-background: none;
-  --vida-recharge-mobile-background: none;
+  --vida-recharge-cta-color: #fff;
+  --vida-recharge-mobile-image-height: 300px;
+  --vida-recharge-mobile-image-to-heading: 14px;
+  --vida-recharge-mobile-heading-margin-bottom: 8px;
+  --vida-recharge-transition-duration: 180ms;
 
-  box-sizing: border-box;
-  position: relative;
-  display: flex;
-  width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-  overflow: hidden;
-  padding: var(--vida-recharge-page-padding);
-  background-image: var(--vida-recharge-desktop-background);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding: var(--vida-recharge-page-padding-desktop);
 }
 
-.vida-recharge *,
-.vida-recharge *::before,
-.vida-recharge *::after {
-  box-sizing: border-box;
-}
-
-.vida-recharge-overlay {
+.vida-recharge-container {
   position: relative;
-  z-index: 2;
-  display: flex;
-  width: 50%;
-  height: 100%;
-  min-height: 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  min-height: 500px;
   overflow: hidden;
-  background: var(--vida-recharge-surface-background);
-  border: var(--vida-recharge-border-width) solid #fff;
+  border:
+    var(--vida-recharge-border-width)
+    solid
+    var(--vida-recharge-border-color);
   border-radius: var(--vida-recharge-border-radius);
 }
 
+.vida-recharge-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.vida-recharge-image-desktop,
+.vida-recharge-image-mobile {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vida-recharge-image-desktop img,
+.vida-recharge-image-mobile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vida-recharge-image-mobile {
+  display: none;
+}
+
 .vida-recharge-content {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  padding: var(--vida-recharge-page-padding);
+  box-sizing: border-box;
+  width: 50%;
+  min-height: 100%;
+  padding: var(--vida-recharge-page-padding-desktop);
+  background: var(--vida-recharge-overlay-color);
+  border-radius:
+    var(--vida-recharge-border-radius)
+    0
+    0
+    var(--vida-recharge-border-radius);
 }
 
 .vida-recharge-heading {
   margin: 0;
   color: var(--vida-recharge-heading-color);
-  font-size: var(--vida-recharge-heading-size);
+  font-size: var(--vida-recharge-heading-size-desktop);
   font-weight: 400;
-  line-height: var(--vida-recharge-heading-line-height);
+  line-height: 1.08;
 }
 
 .vida-recharge-subheading {
@@ -86,44 +99,37 @@
   color: var(--vida-recharge-heading-color);
   font-size: var(--vida-recharge-subheading-size);
   font-weight: 400;
-  line-height: var(--vida-recharge-subheading-line-height);
+  line-height: 1.2;
 }
 
 .vida-recharge-rich-text {
-  min-height: 0;
-  margin-top: var(--vida-recharge-rich-text-margin);
-  overflow-y: auto;
+  margin-top: var(--vida-recharge-rich-text-margin-top);
   color: var(--vida-recharge-heading-color);
-  font-size: var(--vida-recharge-rich-text-size);
-  line-height: var(--vida-recharge-rich-text-line-height);
-  scrollbar-width: thin;
 }
 
-.vida-recharge-rich-text > :first-child {
-  margin-top: 0;
-}
-
-.vida-recharge-rich-text > :last-child {
-  margin-bottom: 0;
+.vida-recharge-rich-text p {
+  margin: 0;
 }
 
 .vida-recharge-cta {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  width: max-content;
-  max-width: 100%;
-  margin-top: var(--vida-recharge-cta-margin);
-  padding: var(--vida-recharge-cta-padding-y)
-    var(--vida-recharge-cta-padding-x);
-  color: #fff;
-  background: var(--vida-recharge-cta-background);
-  border: 0;
+  margin-top: var(--vida-recharge-cta-margin-top-desktop);
+  padding:
+    var(--vida-recharge-cta-padding-block)
+    var(--vida-recharge-cta-padding-inline);
   border-radius: 999px;
+  background: var(--vida-recharge-cta-background);
+  color: var(--vida-recharge-cta-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
   text-decoration: none;
-  cursor: pointer;
-  transition: background-color 160ms ease;
+  transition:
+    background-color
+    var(--vida-recharge-transition-duration)
+    ease;
 }
 
 .vida-recharge-cta:hover,
@@ -131,87 +137,70 @@
   background: var(--vida-recharge-cta-hover-background);
 }
 
-.vida-recharge-mobile-picture {
-  display: none;
-}
-
-.vida-recharge-mobile-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.vida-recharge-cta:focus-visible {
+  outline: 2px solid var(--vida-recharge-heading-color);
+  outline-offset: 3px;
 }
 
 @media (width <= 767px) {
   .vida-recharge {
+    padding:
+      var(--vida-recharge-page-padding-mobile-block)
+      var(--vida-recharge-page-padding-mobile-inline);
+  }
+
+  .vida-recharge-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    min-height: 100vh;
-    overflow: hidden;
-    padding: var(--vida-recharge-mobile-page-padding-y)
-      var(--vida-recharge-mobile-page-padding-x);
-    background-image: var(--vida-recharge-mobile-background);
-    background-position: center;
-    background-size: cover;
+    min-height: 0;
   }
 
-  .vida-recharge-mobile-picture {
+  .vida-recharge-background {
     position: relative;
-    z-index: 2;
-    display: block;
-    width: 100%;
-    height: 45vh;
-    min-height: 0;
-    overflow: hidden;
-    border: var(--vida-recharge-border-width) solid #fff;
-    border-bottom: 0;
-    border-radius: var(--vida-recharge-border-radius)
-      var(--vida-recharge-border-radius)
-      0
-      0;
-    background: var(--vida-recharge-surface-background);
+    inset: auto;
+    height: var(--vida-recharge-mobile-image-height);
   }
 
-  .vida-recharge-overlay {
+  .vida-recharge-image-desktop {
+    display: none;
+  }
+
+  .vida-recharge-image-mobile {
+    display: block;
+  }
+
+  .vida-recharge-content {
     width: 100%;
-    height: auto;
     min-height: 0;
-    overflow: hidden;
-    border-top: 0;
-    border-radius: 0
+    padding:
+      0
+      var(--vida-recharge-page-padding-mobile-inline)
+      var(--vida-recharge-page-padding-mobile-block);
+    border-radius:
+      0
       0
       var(--vida-recharge-border-radius)
       var(--vida-recharge-border-radius);
   }
 
-  .vida-recharge-content {
-    width: 100%;
-    height: auto;
-    max-height: calc(55vh - 4px);
-    padding: var(--vida-recharge-mobile-image-gap)
-      var(--vida-recharge-mobile-page-padding-x)
-      var(--vida-recharge-mobile-page-padding-y);
-  }
-
   .vida-recharge-heading {
-    margin: 0 0 var(--vida-recharge-mobile-heading-margin);
-    font-size: var(--vida-recharge-mobile-heading-size);
-    line-height: var(--vida-recharge-mobile-heading-line-height);
+    margin-top: var(--vida-recharge-mobile-image-to-heading);
+    margin-bottom: var(--vida-recharge-mobile-heading-margin-bottom);
+    font-size: var(--vida-recharge-heading-size-mobile);
+    line-height: 1.1;
   }
 
   .vida-recharge-subheading {
-    font-size: var(--vida-recharge-mobile-subheading-size);
+    margin: 0;
+    font-size: var(--vida-recharge-subheading-size);
     line-height: 1.2;
   }
 
   .vida-recharge-rich-text {
-    margin-top: var(--vida-recharge-rich-text-margin);
-    font-size: var(--vida-recharge-mobile-rich-text-size);
-    line-height: 1.4;
+    margin-top: var(--vida-recharge-rich-text-margin-top);
   }
 
   .vida-recharge-cta {
-    margin-top: var(--vida-recharge-mobile-cta-margin);
+    margin-top: var(--vida-recharge-cta-margin-top-mobile);
   }
 }
