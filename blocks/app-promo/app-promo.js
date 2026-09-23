@@ -1,44 +1,36 @@
 export default function decorate(block) {
   /*
-   * ==========================================
-   * FIND THE AUTHORED APP PROMO ROW
-   * ==========================================
+   * =========================================================
+   * READ AUTHORED FIELDS
+   * =========================================================
    *
-   * In the current EDS DOM, the block contains
-   * some empty rows followed by one row that
-   * contains the 4 authored fields.
-   *
-   * We find the row that contains at least
-   * 4 children instead of depending on a
-   * hardcoded row number.
-   */
-
-  const rows = [...block.children];
-
-  const authoredRow = rows.find((row) => row.children.length >= 4);
-
-  if (!authoredRow) {
-    return;
-  }
-
-  /*
-   * The authored row contains:
+   * Expected authoring order:
    *
    * 0 = Desktop Image
    * 1 = Mobile Image
    * 2 = Heading
    * 3 = CTA
+   *
+   * Universal Editor provides the authored fields as rows.
+   * We convert those rows into the final App Promo UI.
    */
 
-  const fields = [...authoredRow.children];
+  const rows = [...block.children];
 
   /*
-   * ==========================================
+   * Get the first element from each authored row.
+   * If there is no wrapper, use the row itself.
+   */
+  const fields = rows.map((row) => row.firstElementChild || row);
+
+  /*
+   * =========================================================
    * READ AUTHORED DATA
-   * ==========================================
+   * =========================================================
    */
 
   const desktopImage = fields[0]?.querySelector('img');
+
   const mobileImage = fields[1]?.querySelector('img');
 
   const heading = fields[2]?.textContent?.trim() || '';
@@ -48,10 +40,9 @@ export default function decorate(block) {
   /*
    * Keep all component data together.
    *
-   * This makes it easier to replace these
-   * values with API data in the future.
+   * This makes it easier to replace the authored values
+   * with API data in the future.
    */
-
   const appPromoData = {
     desktopImage,
     mobileImage,
@@ -60,9 +51,9 @@ export default function decorate(block) {
   };
 
   /*
-   * ==========================================
+   * =========================================================
    * MAIN CONTAINER
-   * ==========================================
+   * =========================================================
    */
 
   const container = document.createElement('div');
@@ -70,9 +61,9 @@ export default function decorate(block) {
   container.className = 'app-promo-container';
 
   /*
-   * ==========================================
-   * HEADING + CTA
-   * ==========================================
+   * =========================================================
+   * CONTENT AREA
+   * =========================================================
    */
 
   const content = document.createElement('div');
@@ -80,7 +71,9 @@ export default function decorate(block) {
   content.className = 'app-promo-content';
 
   /*
-   * Heading
+   * =========================================================
+   * HEADING
+   * =========================================================
    */
 
   if (appPromoData.heading) {
@@ -94,7 +87,9 @@ export default function decorate(block) {
   }
 
   /*
+   * =========================================================
    * CTA
+   * =========================================================
    */
 
   if (appPromoData.ctaHtml) {
@@ -114,9 +109,9 @@ export default function decorate(block) {
   }
 
   /*
-   * ==========================================
+   * =========================================================
    * IMAGE AREA
-   * ==========================================
+   * =========================================================
    */
 
   const imageWrapper = document.createElement('div');
@@ -126,7 +121,9 @@ export default function decorate(block) {
   const picture = document.createElement('picture');
 
   /*
-   * Mobile image
+   * =========================================================
+   * MOBILE IMAGE
+   * =========================================================
    */
 
   if (appPromoData.mobileImage) {
@@ -134,18 +131,25 @@ export default function decorate(block) {
 
     mobileSource.media = '(max-width: 767px)';
 
-    mobileSource.srcset = appPromoData.mobileImage.currentSrc || appPromoData.mobileImage.src;
+    mobileSource.srcset = appPromoData.mobileImage.currentSrc
+      || appPromoData.mobileImage.src;
 
     picture.append(mobileSource);
   }
 
   /*
-   * Desktop image
+   * =========================================================
+   * DESKTOP IMAGE
+   * =========================================================
    */
 
   if (appPromoData.desktopImage) {
     const desktopImageElement = appPromoData.desktopImage.cloneNode(true);
 
+    /*
+     * Remove authoring dimensions so CSS controls
+     * the rendered image size.
+     */
     desktopImageElement.removeAttribute('width');
     desktopImageElement.removeAttribute('height');
 
@@ -158,18 +162,17 @@ export default function decorate(block) {
   imageWrapper.append(picture);
 
   /*
-   * ==========================================
+   * =========================================================
    * FINAL COMPONENT
-   * ==========================================
+   * =========================================================
    */
 
   container.append(content);
   container.append(imageWrapper);
 
   /*
-   * Replace the original EDS authoring rows
-   * with the final component.
+   * Replace the original authoring markup
+   * with the final rendered component.
    */
-
   block.replaceChildren(container);
 }

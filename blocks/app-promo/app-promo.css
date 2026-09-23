@@ -21,8 +21,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: none;
-  margin: 0;
+  max-width: 1440px;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
   background: #f9f5ee;
@@ -31,7 +31,8 @@
 
 /* =========================================================
    CONTENT AREA
-   Desktop: 281px
+   Desktop:
+   1440px × 281px
    ========================================================= */
 
 .app-promo-content {
@@ -45,6 +46,7 @@
   margin: 0;
   padding: 32px 24px;
   box-sizing: border-box;
+  background: #f9f5ee;
   text-align: center;
 }
 
@@ -61,6 +63,8 @@
   font-size: clamp(32px, 3vw, 48px);
   line-height: 1.1;
   font-weight: 600;
+  font-style: normal;
+  color: #000;
   text-align: center;
 }
 
@@ -107,30 +111,27 @@
   box-sizing: border-box;
   border: 0;
   border-radius: 999px;
-
-  /* Default background */
   background-color: #000;
-
-  /* Default text */
   color: #fff;
-
-  /* Button typography */
   font-family: brand-font, sans-serif;
-  font-weight: 600;
-  font-style: italic;
   font-size: var(--button-font-size, 16px);
   line-height: var(--button-line-height, 24px);
+  font-weight: 600;
+  font-style: italic;
   letter-spacing: 0.1px;
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 180ms ease;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 
 /* =========================================================
-   RICHTEXT RESET
+   CTA TEXT RESET
    ========================================================= */
 
 .app-promo-button p {
@@ -140,15 +141,18 @@
 
 
 /* =========================================================
-   LINK RESET
+   CTA LINK STATES
    ========================================================= */
 
-.app-promo-button,
-.app-promo-button:visited,
-.app-promo-button:focus,
+.app-promo-button:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
 .app-promo-button:active {
   color: #fff;
   text-decoration: none;
+  transform: scale(0.98);
 }
 
 
@@ -159,6 +163,7 @@
 .app-promo-button:hover {
   background-color: #929292;
   color: #fff;
+  text-decoration: none;
 }
 
 .app-promo-button:hover * {
@@ -171,14 +176,16 @@
    ========================================================= */
 
 .app-promo-button:focus-visible {
+  background-color: #929292;
+  color: #fff;
   outline: 2px solid #000;
   outline-offset: 3px;
 }
 
 
 /* =========================================================
-   IMAGE CONTAINER
-   Desktop image:
+   IMAGE AREA
+   Desktop:
    1440px × 545px
    ========================================================= */
 
@@ -221,9 +228,7 @@
   border: 0;
 
   /*
-   * Important:
-   * Do not use height: 100% or object-fit: cover.
-   * The image keeps its natural aspect ratio.
+   * Preserve the image's natural aspect ratio.
    */
   object-fit: contain;
   object-position: center;
@@ -236,6 +241,11 @@
    ========================================================= */
 
 @media (width <= 1024px) {
+  .app-promo-container {
+    width: 100%;
+    max-width: none;
+  }
+
   .app-promo-content {
     height: 281px;
     min-height: 281px;
@@ -270,16 +280,22 @@
     margin-right: 0;
   }
 
+
+  /* -------------------------------------------------------
+     MAIN CONTAINER
+     ------------------------------------------------------- */
+
   .app-promo-container {
     width: 100%;
     max-width: none;
   }
 
 
-  /* -----------------------------------------------
-     Mobile content
+  /* -------------------------------------------------------
+     CONTENT
+
      393px × 271px
-     ----------------------------------------------- */
+     ------------------------------------------------------- */
 
   .app-promo-content {
     width: 100%;
@@ -290,9 +306,9 @@
   }
 
 
-  /* -----------------------------------------------
-     Mobile heading
-     ----------------------------------------------- */
+  /* -------------------------------------------------------
+     HEADING
+     ------------------------------------------------------- */
 
   .app-promo-heading {
     max-width: 100%;
@@ -300,21 +316,22 @@
     padding: 0;
     font-size: 32px;
     line-height: 1.15;
+    font-weight: 600;
   }
 
 
-  /* -----------------------------------------------
-     Mobile CTA
-     ----------------------------------------------- */
+  /* -------------------------------------------------------
+     CTA
+     ------------------------------------------------------- */
 
   .app-promo-cta {
     width: 100%;
   }
 
 
-  /* -----------------------------------------------
-     Mobile button
-     ----------------------------------------------- */
+  /* -------------------------------------------------------
+     BUTTON
+     ------------------------------------------------------- */
 
   .app-promo-button {
     width: 173px;
@@ -324,10 +341,11 @@
   }
 
 
-  /* -----------------------------------------------
-     Mobile image
+  /* -------------------------------------------------------
+     IMAGE
+
      393px × 301px
-     ----------------------------------------------- */
+     ------------------------------------------------------- */
 
   .app-promo-image {
     width: 100%;
