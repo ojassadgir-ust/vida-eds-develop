@@ -365,8 +365,7 @@ function buildHeaderActions(actions, labels, icons) {
   menuTrigger.setAttribute('aria-controls', 'vida-mobile-menu');
   menuTrigger.setAttribute('aria-label', labels?.toggleMobileMenuAriaLabel || 'Open Menu');
 
-  menuTrigger.innerHTML =
-    `
+  menuTrigger.innerHTML = `
     <span class="vida-header-menu-trigger-bar"></span>
     <span class="vida-header-menu-trigger-bar"></span>
     <span class="vida-header-menu-trigger-bar"></span>
@@ -442,13 +441,13 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
   trigger.setAttribute('aria-expanded', 'false');
 
   const label = document.createElement('span');
-  label.className = 'vida-mobile-menu-accordion-label'
+  label.className = 'vida-mobile-menu-accordion-label';
   label.textContent = series.title;
 
   const chevron = document.createElement('img');
   chevron.src = chevronSrc;
-  chevron.alt = '',
-    chevron.className = 'vida-mobile-menu-accordion-chevron';
+  chevron.alt = '';
+  chevron.className = 'vida-mobile-menu-accordion-chevron';
   chevron.setAttribute('aria-hidden', 'true');
 
   trigger.append(label, chevron);
@@ -457,7 +456,7 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
   panel.className = 'vida-mobile-menu-accordion-panel';
   panel.hidden = true;
 
-  series.items.forEach(vehicle => {
+  series.items.forEach((vehicle) => {
     const li = document.createElement('li');
     li.className = 'vida-mobile-menu-list';
     const a = document.createElement('a');
@@ -474,7 +473,6 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
 
     li.append(a);
     panel.append(li);
-
   });
 
   trigger.addEventListener('click', () => {
@@ -491,13 +489,13 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
 function buildMobileMenuFlatList(items, listClass) {
   const ul = document.createElement('ul');
   ul.className = listClass;
-  items.forEach(item => {
+  items.forEach((item) => {
     const li = document.createElement('li');
-    li.className = 'vida-mobile-menu-list'
+    li.className = 'vida-mobile-menu-list';
     const a = document.createElement('a');
     a.href = item.link;
-    a.textContent = item.label,
-      a.className = 'vida-mobile-menu-link-explore';
+    a.textContent = item.label;
+    a.className = 'vida-mobile-menu-link-explore';
     if (item.isNew === 'true') {
       const badge = document.createElement('span');
       badge.className = 'vida-mobile-menu-badge';
@@ -507,7 +505,7 @@ function buildMobileMenuFlatList(items, listClass) {
 
     li.append(a);
     ul.append(li);
-  })
+  });
 
   return ul;
 }
@@ -521,7 +519,7 @@ function createDivider() {
 
 function buildMobileMenu(data) {
   const {
-    actions, submenus, countries, icons, labels
+    actions, submenus, icons, labels,
   } = data;
 
   const { products, explore } = submenus;
@@ -570,7 +568,7 @@ function buildMobileMenu(data) {
 
   const productsAccordion = document.createElement('div');
   productsAccordion.className = 'vida-mobile-menu-accordion';
-  products.categories.forEach(category => {
+  products.categories.forEach((category) => {
     productsAccordion.append(buildMobileMenuAccordionItem(category, icons.chevronClose));
   });
 
@@ -597,10 +595,16 @@ function buildMobileMenu(data) {
   legal.append(termsLink, privacyLink);
 
   body.append(
-    productsHeading, productsAccordion, createDivider(),
-    exploreHeading, exploreList, createDivider(),
-    accountHeading, accountList, createDivider(),
-    legal
+    productsHeading,
+    productsAccordion,
+    createDivider(),
+    exploreHeading,
+    exploreList,
+    createDivider(),
+    accountHeading,
+    accountList,
+    createDivider(),
+    legal,
   );
 
   const footer = document.createElement('div');
@@ -663,7 +667,7 @@ function buildHeader(data) {
   menuTrigger.addEventListener('click', () => {
     const isOpen = menuTrigger.getAttribute('aria-expanded') === 'true';
     setMobileMenuOpen(menuTrigger, mobileMenuOverlay, !isOpen);
-  })
+  });
 
   mobileMenuOverlay.querySelector('.vida-mobile-menu-close')
     .addEventListener('click', () => setMobileMenuOpen(menuTrigger, mobileMenuOverlay, false));
@@ -677,19 +681,15 @@ function buildHeader(data) {
 // --------------- Mobile menu --------------- //
 // --------------------------------------------------------- //
 
-
-
 // --------------------------------------------------------- //
 // ---------------- Final decorate function ---------------- //
 // --------------------------------------------------------- //
 export default async function decorate(block) {
-  // const endpointRow = block.firstElementChild;
-  // const endpoint = endpointRow?.textContent?.trim();
-  // endpointRow?.remove();
+  const endpointRow = block.firstElementChild;
+  const endpoint = endpointRow?.textContent?.trim();
+  endpointRow?.remove();
 
-  // if (!endpoint) return;
-
-  const endpoint = "https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/header-vida-v2-0/master.10.json";
+  if (!endpoint) return;
 
   let headerRawData;
 
