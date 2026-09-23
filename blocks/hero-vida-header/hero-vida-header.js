@@ -178,7 +178,7 @@ function assetUrl(path, origin) {
 
 // page url starts with /content/vida/{country}/{locale}/ so we remove it
 // to get the right relative url
-function paegUrl(path) {
+function pageUrl(path) {
   if (!path) return '#';
   if (path.startsWith('http://') || path.startsWith('https://')) return encodeURI(path);
 
@@ -206,16 +206,18 @@ function normaliseHeaderJson(json, origin) {
     logo: {
       src: asset(headerJSON.logo),
       alt: headerJSON.logoAlt,
-      link: paegUrl(headerJSON.logoLink),
+      link: pageUrl(headerJSON.logoLink),
     },
     navItems: [
       { label: headerJSON.products, key: 'products' },
       { label: headerJSON.explore, key: 'explore' },
     ],
     actions: {
-      testRide: { label: headerJSON.testRideLabel, link: paegUrl(headerJSON.testRideLink) },
-      cta: { label: headerJSON.buyNowLabel, link: paegUrl(headerJSON.buyNowLink) },
+      testRide: { label: headerJSON.testRideLabel, link: pageUrl(headerJSON.testRideLink) },
+      cta: { label: headerJSON.buyNowLabel, link: pageUrl(headerJSON.buyNowLink) },
       country: { label: headerJSON.countryName, flagSrc: asset(headerJSON.countryFlagUrl) },
+      hamburgerIconClose: asset(headerJSON.closeHamburger),
+      toggleMobileMenuAriaLabel: headerJSON.toggleMobileMenuAriaLabel,
     },
     submenus: {
       products: {
@@ -224,7 +226,7 @@ function normaliseHeaderJson(json, origin) {
           title: series.variantName,
           items: toArray(series.vehicles).slice(0, 3).map((vehicle) => ({
             label: vehicle.name,
-            link: paegUrl(vehicle.link),
+            link: pageUrl(vehicle.link),
             image: asset(vehicle.image),
             isNew: isTrue(vehicle.isNew),
           })),
@@ -234,13 +236,13 @@ function normaliseHeaderJson(json, origin) {
         type: 'explore-links',
         exploreItems: toArray(headerJSON.exploreItems).map((item) => ({
           label: item.name,
-          link: paegUrl(item.link),
+          link: pageUrl(item.link),
           description: clean(item.description),
           isNew: isTrue(item.isNew),
         })),
         rightNav: toArray(headerJSON.exploreRightNav).map((item) => ({
           label: item.name,
-          link: paegUrl(item.link),
+          link: pageUrl(item.link),
         })),
       },
     },
@@ -347,8 +349,28 @@ function buildHeaderActions(actions) {
   chevronImg.className = 'vida-header-country-selector-chevron';
   chevronImg.setAttribute('aria-hidden', 'true');
 
+  const menuTrigger = document.createElement('button');
+  menuTrigger.type = 'button';
+  menuTrigger.className = 'vida-header-menu-trigger';
+  menuTrigger.setAttribute('aria-expanded', false);
+  menuTrigger.setAttribute('aria-controls', 'vida-mobile-menu');
+  menuTrigger.setAttribute('aria-label', actions.toggleMobileMenuAriaLabel || 'Open Menu');
+
+  menuTrigger.innerHTML =
+    `
+    <span class="vida-header-menu-trigger-bar"></span>
+    <span class="vida-header-menu-trigger-bar"></span>
+    <span class="vida-header-menu-trigger-bar"></span>
+  `
+
+  menuTrigger.addEventListener('click', () => {
+    const isOpen = menuTrigger.getAttribute('aria-expanded') === 'true';
+    menuTrigger.setAttribute('aria-expanded', String(!isOpen));
+    document.body.classList.toggle('vida-mobile-menu-open', !isOpen);
+  })
+
   countrySelector.append(countryFlagImg, chevronImg);
-  div.append(testRideLink, buyCtaBtn, countrySelector);
+  div.append(testRideLink, buyCtaBtn, countrySelector, menuTrigger);
 
   return div;
 }
@@ -406,6 +428,91 @@ function wireDropdowns(header, icons) {
   });
 }
 
+function buildMobileMenuAccordionItem(series, chevronSrc) {
+  const item = document.createElement('div');
+  item.className = 'vida-mobile-menu-accordion-item';
+
+  const trigger = document.createElement('button');
+  trigger.type = 'button';
+  trigger.className = 'vida-mobile-menu-accordion-trigger';
+  trigger.setAttribute('aria-expanded', 'false');
+
+  const label = document.createElement('span');
+  label.textContent = series.variantName;
+
+  const chevron = document.createElement('img');
+  chevron.src = chevronSrc;
+  chevron.alt = '',
+    chevron.className = 'vida-mobile-menu-accordion-chevron';
+  chevron.setAttribute('aria-hidden', 'true');
+
+  trigger.append(label, chevron);
+
+  const panel = document.createElement('ul');
+  panel.className = 'vida-mobile-menu-accordion-panel';
+  panel.hidden = true;
+
+  series.vehicles.forEach(vehicle => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = vehicle.link;
+    a.textContent = vehicle.name;
+    a.className = 'vida-mobile-menu-link';
+
+    if (vehicle.isNew === 'true') {
+      const badge = document.createElement('span');
+      badge.className = 'vida-mobile-menu-badge';
+      badge.textContent = 'NEW';
+      a.append(badge);
+    }
+
+    li.append(a);
+    panel.append(li);
+
+  });
+
+  trigger.addEventListener('click', () => {
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    trigger.setAttribute('aria-expanded', String(!isOpen));
+    panel.hidden = isOpen;
+  });
+
+  item.append(trigger, panel);
+
+  return item;
+}
+
+function buildMobileMenuFlatList(items, listClass) {
+  const ul = document.createElement('ul');
+  ul.className = listClass;
+  items.forEach(item => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = item.link;
+    a.textContent = item.name,
+      a.className = 'vida-mobile-menu-link';
+    if (item.isNew === 'true') {
+      const badge = document.createElement('span');
+      badge.className = 'vida-mobile-menu-badge';
+      badge.textContent = 'NEW';
+      a.append(badge);
+    }
+
+    li.append(a);
+    ul.append(li);
+  })
+
+  return ul;
+}
+
+function buildMobileSubmenu(data) {
+  const {
+    actions, submenus
+  } = data;
+
+
+}
+
 function buildHeader(data) {
   const wrapper = document.createElement('div');
   wrapper.className = 'vida-header-wrapper';
@@ -435,16 +542,22 @@ function buildHeader(data) {
 }
 
 // --------------------------------------------------------- //
+// --------------- Mobile menu --------------- //
+// --------------------------------------------------------- //
+
+
+
+// --------------------------------------------------------- //
 // ---------------- Final decorate function ---------------- //
 // --------------------------------------------------------- //
 export default async function decorate(block) {
-  const endpointRow = block.firstElementChild;
-  const endpoint = endpointRow?.textContent?.trim();
-  endpointRow?.remove();
+  // const endpointRow = block.firstElementChild;
+  // const endpoint = endpointRow?.textContent?.trim();
+  // endpointRow?.remove();
 
-  if (!endpoint) return;
+  // if (!endpoint) return;
 
-  // const endpoint = "https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/header-vida-v2-0/master.10.json";
+  const endpoint = "https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/header-vida-v2-0/master.10.json";
 
   let headerRawData;
 
