@@ -1,12 +1,26 @@
 const CONFIG = {
   fields: {
-    desktopImage: 0,
-    mobileImage: 1,
-    heading: 2,
-    subheading: 3,
-    richText: 4,
-    cta: 5,
-    ctaLink: 6,
+    groups: {
+      images: 0,
+      content: 1,
+      cta: 2,
+    },
+
+    images: {
+      desktop: 0,
+      mobile: 1,
+    },
+
+    content: {
+      heading: 0,
+      subheading: 1,
+      richContent: 2,
+    },
+
+    cta: {
+      link: 0,
+      text: 1,
+    },
   },
 
   classes: {
@@ -17,36 +31,41 @@ const CONFIG = {
     content: 'vida-recharge-content',
     heading: 'vida-recharge-heading',
     subheading: 'vida-recharge-subheading',
-    richText: 'vida-recharge-rich-text',
+    richContent: 'vida-recharge-rich-content',
     cta: 'vida-recharge-cta',
   },
 
   selectors: {
-    row: ':scope > div',
-    cell: ':scope > div',
     picture: 'picture',
     image: 'img',
     link: 'a',
   },
 };
 
-const getRows = (block) => [...block.querySelectorAll(CONFIG.selectors.row)];
+const getRows = (element) => (
+  element ? [...element.children] : []
+);
 
 const getCell = (rows, index) => (
-  rows[index]?.querySelector(CONFIG.selectors.cell)
+  rows[index]?.firstElementChild || null
 );
 
 const getText = (rows, index) => (
   getCell(rows, index)?.textContent.trim() || ''
 );
 
-const getImage = (rows, index) => (
-  getCell(rows, index)?.querySelector(CONFIG.selectors.picture)
-  || getCell(rows, index)?.querySelector(CONFIG.selectors.image)
-);
+const getImage = (rows, index) => {
+  const cell = getCell(rows, index);
 
-const getLink = (rows, index) => (
-  getCell(rows, index)?.querySelector(CONFIG.selectors.link)
+  return (
+    cell?.querySelector(CONFIG.selectors.picture)
+    || cell?.querySelector(CONFIG.selectors.image)
+    || null
+  );
+};
+
+const getLink = (cell) => (
+  cell?.querySelector(CONFIG.selectors.link) || null
 );
 
 const cloneImage = (source, className) => {
@@ -66,6 +85,7 @@ const createHeading = (text) => {
   }
 
   const heading = document.createElement('h2');
+
   heading.className = CONFIG.classes.heading;
   heading.textContent = text;
 
@@ -78,28 +98,30 @@ const createSubheading = (text) => {
   }
 
   const subheading = document.createElement('p');
+
   subheading.className = CONFIG.classes.subheading;
   subheading.textContent = text;
 
   return subheading;
 };
 
-const createRichText = (cell) => {
-  if (!cell?.innerHTML.trim()) {
+const createRichContent = (cell) => {
+  if (!cell || !cell.textContent.trim()) {
     return null;
   }
 
-  const richText = document.createElement('div');
-  richText.className = CONFIG.classes.richText;
-  richText.innerHTML = cell.innerHTML;
+  const richContent = cell.cloneNode(true);
 
-  return richText;
+  richContent.classList.add(CONFIG.classes.richContent);
+
+  return richContent;
 };
 
-const createCta = (text, link) => {
-  const href = link?.getAttribute('href');
+const createCta = (linkCell, text) => {
+  const link = getLink(linkCell);
+  const href = link?.getAttribute('href') || linkCell?.textContent.trim() || '';
 
-  if (!text || !href) {
+  if (!href || !text) {
     return null;
   }
 
@@ -113,19 +135,39 @@ const createCta = (text, link) => {
 };
 
 export default function decorate(block) {
-  const rows = getRows(block);
+  const blockRows = getRows(block);
+
+  const imagesGroup = getCell(
+    blockRows,
+    CONFIG.fields.groups.images,
+  );
+
+  const contentGroup = getCell(
+    blockRows,
+    CONFIG.fields.groups.content,
+  );
+
+  const ctaGroup = getCell(
+    blockRows,
+    CONFIG.fields.groups.cta,
+  );
+
+  const imageRows = getRows(imagesGroup);
+  const contentRows = getRows(contentGroup);
+  const ctaRows = getRows(ctaGroup);
 
   const desktopImage = cloneImage(
-    getImage(rows, CONFIG.fields.desktopImage),
+    getImage(imageRows, CONFIG.fields.images.desktop),
     CONFIG.classes.desktopImage,
   );
 
   const mobileImage = cloneImage(
-    getImage(rows, CONFIG.fields.mobileImage),
+    getImage(imageRows, CONFIG.fields.images.mobile),
     CONFIG.classes.mobileImage,
   );
 
   const background = document.createElement('div');
+
   background.className = CONFIG.classes.background;
 
   if (desktopImage) {
@@ -137,35 +179,45 @@ export default function decorate(block) {
   }
 
   const content = document.createElement('div');
+
   content.className = CONFIG.classes.content;
 
   const heading = createHeading(
-    getText(rows, CONFIG.fields.heading),
+    getText(contentRows, CONFIG.fields.content.heading),
   );
 
   const subheading = createSubheading(
-    getText(rows, CONFIG.fields.subheading),
+    getText(contentRows, CONFIG.fields.content.subheading),
   );
 
-  const richText = createRichText(
-    getCell(rows, CONFIG.fields.richText),
+  const richContent = createRichContent(
+    getCell(contentRows, CONFIG.fields.content.richContent),
   );
 
   const cta = createCta(
-    getText(rows, CONFIG.fields.cta),
-    getLink(rows, CONFIG.fields.ctaLink),
+    getCell(ctaRows, CONFIG.fields.cta.link),
+    getText(ctaRows, CONFIG.fields.cta.text),
   );
 
-  [heading, subheading, richText, cta].forEach((element) => {
+  [
+    heading,
+    subheading,
+    richContent,
+    cta,
+  ].forEach((element) => {
     if (element) {
       content.append(element);
     }
   });
 
   const container = document.createElement('div');
+
   container.className = CONFIG.classes.container;
 
-  container.append(background, content);
+  container.append(
+    background,
+    content,
+  );
 
   block.replaceChildren(container);
 }

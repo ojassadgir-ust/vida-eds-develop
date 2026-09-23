@@ -219,53 +219,80 @@
     "id": "vida-recharge",
     "fields": [
       {
-        "component": "reference",
-        "name": "desktopImage",
-        "label": "Image for desktop",
+        "component": "container",
+        "name": "images",
+        "label": "Images",
         "valueType": "string",
-        "multi": false
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "reference",
+            "name": "desktopImage",
+            "label": "Desktop image",
+            "valueType": "string",
+            "multi": false
+          },
+          {
+            "component": "reference",
+            "name": "mobileImage",
+            "label": "Mobile image",
+            "valueType": "string",
+            "multi": false
+          }
+        ]
       },
       {
-        "component": "reference",
-        "name": "mobileImage",
-        "label": "Image for mobile",
+        "component": "container",
+        "name": "content",
+        "label": "Content",
         "valueType": "string",
-        "multi": false
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "heading",
+            "label": "Heading",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "text",
+            "name": "subheading",
+            "label": "Subheading",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "richtext",
+            "name": "richContent",
+            "label": "Rich text",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
       },
       {
-        "component": "text",
-        "name": "heading",
-        "label": "Heading text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "subheading",
-        "label": "Subheading text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "richText",
-        "label": "Rich text",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "cta",
+        "component": "container",
+        "name": "ctaGroup",
         "label": "CTA",
         "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "ctaLink",
-        "label": "CTA link",
-        "valueType": "string",
-        "multi": false
+        "collapsible": true,
+        "fields": [
+          {
+            "component": "text",
+            "name": "cta",
+            "label": "CTA link",
+            "valueType": "string",
+            "value": ""
+          },
+          {
+            "component": "text",
+            "name": "ctaText",
+            "label": "CTA",
+            "valueType": "string",
+            "value": ""
+          }
+        ]
       }
     ]
   }

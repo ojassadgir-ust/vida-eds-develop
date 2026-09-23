@@ -10,7 +10,7 @@
   --vida-recharge-heading-size-desktop: 48px;
   --vida-recharge-heading-size-mobile: 32px;
   --vida-recharge-subheading-size: 32px;
-  --vida-recharge-rich-text-margin-top: 24px;
+  --vida-recharge-rich-content-margin-top: 24px;
   --vida-recharge-cta-margin-top-desktop: 48px;
   --vida-recharge-cta-margin-top-mobile: 24px;
   --vida-recharge-cta-padding-block: 12px;
@@ -18,19 +18,18 @@
   --vida-recharge-cta-background: #1d1b1b;
   --vida-recharge-cta-hover-background: #343232;
   --vida-recharge-cta-color: #fff;
-  --vida-recharge-mobile-image-height: 300px;
   --vida-recharge-mobile-image-to-heading: 14px;
   --vida-recharge-mobile-heading-margin-bottom: 8px;
   --vida-recharge-transition-duration: 180ms;
 
-  padding: var(--vida-recharge-page-padding-desktop);
+  padding:
+    var(--vida-recharge-page-padding-desktop);
 }
 
 .vida-recharge-container {
   position: relative;
   display: grid;
   grid-template-columns: 50% 50%;
-  min-height: 500px;
   overflow: hidden;
   border:
     var(--vida-recharge-border-width)
@@ -53,7 +52,6 @@
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 .vida-recharge-image-desktop img,
@@ -72,10 +70,11 @@
   position: relative;
   z-index: 1;
   display: flex;
+  grid-column: 1;
   flex-direction: column;
   align-items: flex-start;
   box-sizing: border-box;
-  width: 50%;
+  width: 100%;
   min-height: 100%;
   padding: var(--vida-recharge-page-padding-desktop);
   background: var(--vida-recharge-overlay-color);
@@ -102,12 +101,12 @@
   line-height: 1.2;
 }
 
-.vida-recharge-rich-text {
-  margin-top: var(--vida-recharge-rich-text-margin-top);
+.vida-recharge-rich-content {
+  margin-top: var(--vida-recharge-rich-content-margin-top);
   color: var(--vida-recharge-heading-color);
 }
 
-.vida-recharge-rich-text p {
+.vida-recharge-rich-content p {
   margin: 0;
 }
 
@@ -152,13 +151,12 @@
   .vida-recharge-container {
     display: flex;
     flex-direction: column;
-    min-height: 0;
   }
 
   .vida-recharge-background {
     position: relative;
     inset: auto;
-    height: var(--vida-recharge-mobile-image-height);
+    overflow: hidden;
   }
 
   .vida-recharge-image-desktop {
@@ -166,7 +164,17 @@
   }
 
   .vida-recharge-image-mobile {
+    position: relative;
+    inset: auto;
     display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .vida-recharge-image-mobile img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   .vida-recharge-content {
@@ -196,8 +204,8 @@
     line-height: 1.2;
   }
 
-  .vida-recharge-rich-text {
-    margin-top: var(--vida-recharge-rich-text-margin-top);
+  .vida-recharge-rich-content {
+    margin-top: var(--vida-recharge-rich-content-margin-top);
   }
 
   .vida-recharge-cta {
