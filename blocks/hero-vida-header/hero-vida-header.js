@@ -41,8 +41,8 @@ function buildProductVehicle(item) {
 }
 
 function buildProductCategory(category) {
-  const cateogory = document.createElement('div');
-  cateogory.className = 'vida-header-category';
+  const categoryEl = document.createElement('div');
+  categoryEl.className = 'vida-header-category';
 
   const catHeader = document.createElement('div');
   catHeader.className = 'vida-header-category-header';
@@ -56,9 +56,9 @@ function buildProductCategory(category) {
   vehicles.className = 'vida-header-vehicles';
   category.items.forEach((it) => vehicles.append(buildProductVehicle(it)));
 
-  cateogory.append(catHeader, vehicles);
+  categoryEl.append(catHeader, vehicles);
 
-  return cateogory;
+  return categoryEl;
 }
 
 function buildProductsSubmenu(config) {
@@ -326,7 +326,7 @@ function buildNav(items, icons) {
   return nav;
 }
 
-function buildHeaderActions(actions, labels) {
+function buildHeaderActions(actions, labels, icons) {
   const div = document.createElement('div');
   div.className = 'vida-header-header-actions';
 
@@ -344,16 +344,16 @@ function buildHeaderActions(actions, labels) {
 
   const countrySelector = document.createElement('button');
   countrySelector.type = 'button';
-  countrySelector.className = 'country-selector';
+  countrySelector.className = 'vida-header-country-selector';
   countrySelector.setAttribute('aria-label', `Selected country: ${actions.country.label}. Change country`);
 
   const countryFlagImg = document.createElement('img');
   countryFlagImg.src = actions.country.flagSrc;
   countryFlagImg.alt = '';
-  countryFlagImg.className = 'country-flag-item';
+  countryFlagImg.className = 'vida-header-country-flag-item';
 
   const chevronImg = document.createElement('img');
-  chevronImg.src = 'https://dev.vidaworld.com/content/dam/vida2-0/global/vida-2-0/vida-vx2/ChevronNew.svg';
+  chevronImg.src = icons.chevronClose;
   chevronImg.alt = '';
   chevronImg.className = 'vida-header-country-selector-chevron';
   chevronImg.setAttribute('aria-hidden', 'true');
@@ -367,6 +367,7 @@ function buildHeaderActions(actions, labels) {
 
   menuTrigger.innerHTML =
     `
+    <span class="vida-header-menu-trigger-bar"></span>
     <span class="vida-header-menu-trigger-bar"></span>
     <span class="vida-header-menu-trigger-bar"></span>
     <span class="vida-header-menu-trigger-bar"></span>
@@ -441,6 +442,7 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
   trigger.setAttribute('aria-expanded', 'false');
 
   const label = document.createElement('span');
+  label.className = 'vida-mobile-menu-accordion-label'
   label.textContent = series.title;
 
   const chevron = document.createElement('img');
@@ -487,15 +489,15 @@ function buildMobileMenuAccordionItem(series, chevronSrc) {
 }
 
 function buildMobileMenuFlatList(items, listClass) {
-  console.log(items)
   const ul = document.createElement('ul');
   ul.className = listClass;
   items.forEach(item => {
     const li = document.createElement('li');
+    li.className = 'vida-mobile-menu-list'
     const a = document.createElement('a');
     a.href = item.link;
     a.textContent = item.label,
-      a.className = 'vida-mobile-menu-link';
+      a.className = 'vida-mobile-menu-link-explore';
     if (item.isNew === 'true') {
       const badge = document.createElement('span');
       badge.className = 'vida-mobile-menu-badge';
@@ -508,6 +510,13 @@ function buildMobileMenuFlatList(items, listClass) {
   })
 
   return ul;
+}
+
+function createDivider() {
+  const divider = document.createElement('hr');
+  divider.className = 'vida-mobile-menu-divider';
+
+  return divider;
 }
 
 function buildMobileMenu(data) {
@@ -527,12 +536,18 @@ function buildMobileMenu(data) {
   const currentCountry = actions.country;
   const countryFlag = document.createElement('img');
   countryFlag.src = currentCountry.flagSrc;
-  countryFlag.alt = currentCountry.name;
+  countryFlag.alt = currentCountry.label;
   countryFlag.className = 'vida-mobile-menu-country-flag';
 
   const countryLabel = document.createElement('span');
   countryLabel.className = 'vida-mobile-menu-country-label';
-  countryLabel.textContent = currentCountry.name;
+  countryLabel.textContent = currentCountry.label;
+
+  const chevronImg = document.createElement('img');
+  chevronImg.src = icons.chevronClose;
+  chevronImg.alt = '';
+  chevronImg.className = 'vida-mobile-country-label-chevron';
+  chevronImg.setAttribute('aria-hidden', 'true');
 
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
@@ -544,7 +559,7 @@ function buildMobileMenu(data) {
   closeIcon.setAttribute('aria-hidden', 'true');
   closeBtn.append(closeIcon);
 
-  topRow.append(countryFlag, countryLabel, closeBtn);
+  topRow.append(countryFlag, countryLabel, chevronImg, closeBtn);
 
   const body = document.createElement('div');
   body.className = 'vida-mobile-menu-body';
@@ -558,9 +573,6 @@ function buildMobileMenu(data) {
   products.categories.forEach(category => {
     productsAccordion.append(buildMobileMenuAccordionItem(category, icons.chevronClose));
   });
-
-  const divider = document.createElement('hr');
-  divider.className = 'vida-mobile-menu-divider';
 
   const exploreHeading = document.createElement('p');
   exploreHeading.className = 'vida-mobile-menu-section-title';
@@ -584,26 +596,29 @@ function buildMobileMenu(data) {
   privacyLink.textContent = actions.privacy.label;
   legal.append(termsLink, privacyLink);
 
-  body.append(productsHeading, productsAccordion, divider, exploreHeading, exploreList, accountHeading, accountList, legal);
+  body.append(
+    productsHeading, productsAccordion, createDivider(),
+    exploreHeading, exploreList, createDivider(),
+    accountHeading, accountList, createDivider(),
+    legal
+  );
 
   const footer = document.createElement('div');
   footer.className = 'vida-mobile-menu-footer';
 
-  console.log(actions)
-
   const footerTestRide = buildButton({
     label: actions.testRide.label,
     href: actions.testRide.link,
-    variant: "secondary",
+    variant: 'secondary',
     size: 'sm',
-  })
+  });
 
   const footerBuyCta = buildButton({
     label: actions.cta.label,
     href: actions.cta.link,
     variant: 'primary',
     size: 'sm',
-  })
+  });
 
   footer.append(footerTestRide, footerBuyCta);
   overlay.append(topRow, body, footer);
@@ -612,7 +627,6 @@ function buildMobileMenu(data) {
 }
 
 function setMobileMenuOpen(trigger, overlay, isOpen) {
-  console.log(trigger, isOpen)
   trigger.setAttribute('aria-expanded', String(isOpen));
   overlay.classList.toggle('vida-mobile-menu-open', isOpen);
   document.body.classList.toggle('vida-mobile-menu-open', isOpen);
@@ -631,7 +645,7 @@ function buildHeader(data) {
   container.append(
     buildLogo(data.logo),
     buildNav(data.navItems, data.icons),
-    buildHeaderActions(data.actions),
+    buildHeaderActions(data.actions, data.labels, data.icons),
   );
 
   header.append(container);
