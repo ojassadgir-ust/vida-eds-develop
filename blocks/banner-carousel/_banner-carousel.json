@@ -1,0 +1,83 @@
+{
+  "definitions": [
+    {
+      "title": "Banner Carousel",
+      "id": "banner-carousel",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Banner Carousel",
+              "filter": "banner-carousel",
+              "model": "banner-carousel"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Banner Carousel Item",
+      "id": "banner-carousel-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Banner Carousel Item",
+              "model": "banner-carousel-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "banner-carousel",
+      "fields": [
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "auto-scroll-timing",
+          "label": "Auto Scroll Timing (seconds)",
+          "value": 7
+        }
+      ]
+    },
+    {
+      "id": "banner-carousel-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "desktop-image",
+          "label": "Desktop Feature Image",
+          "multi": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobile-image",
+          "label": "Mobile Feature Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "cta-link",
+          "label": "Banner Link",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "banner-carousel",
+      "components": [
+        "banner-carousel-item"
+      ]
+    }
+  ]
+}
