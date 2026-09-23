@@ -35,7 +35,15 @@
   "models": [
     {
       "id": "banner-carousel",
-      "fields": []
+      "fields": [
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "auto-scroll-timing",
+          "label": "Auto Scroll Timing (seconds)",
+          "value": 7
+        }
+      ]
     },
     {
       "id": "banner-carousel-item",

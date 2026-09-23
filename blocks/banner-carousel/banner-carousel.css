@@ -7,10 +7,15 @@
   overflow: hidden;
 }
 
+/*
+ * Desktop
+ *
+ * Banner height = 836px
+ */
 .banner-carousel-slides-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 1440 / 836;
+  height: 836px;
   overflow: hidden;
 }
 
@@ -45,7 +50,9 @@
   visibility: visible;
 }
 
-/* Full banner clickable area */
+/*
+ * Entire banner is clickable.
+ */
 .banner-carousel-slide-link {
   display: block;
   width: 100%;
@@ -54,7 +61,9 @@
   text-decoration: none;
 }
 
-/* Banner image container */
+/*
+ * Banner image container.
+ */
 .banner-carousel-slide-image {
   position: absolute;
   inset: 0;
@@ -65,7 +74,9 @@
   overflow: hidden;
 }
 
-/* Picture element */
+/*
+ * Picture element.
+ */
 .banner-carousel-slide-image picture {
   display: block;
   width: 100%;
@@ -74,7 +85,12 @@
   padding: 0;
 }
 
-/* Banner image */
+/*
+ * Banner image.
+ *
+ * Desktop:
+ * 1440px × 836px
+ */
 .banner-carousel-slide-image img,
 .banner-carousel-image {
   display: block;
@@ -86,12 +102,19 @@
   object-position: center;
 }
 
-/* Hidden mobile image helper */
+/*
+ * Hidden mobile helper.
+ */
 .banner-carousel-slide-mobile-image {
   display: none;
 }
 
-/* Controller */
+/*
+ * ==========================================
+ * CONTROLLER
+ * ==========================================
+ */
+
 .banner-carousel-controls {
   position: absolute;
   left: 50%;
@@ -113,7 +136,9 @@
   pointer-events: none;
 }
 
-/* Controller dots container */
+/*
+ * Controller dots container.
+ */
 .banner-carousel-indicators {
   display: flex;
   align-items: center;
@@ -127,7 +152,9 @@
   pointer-events: auto;
 }
 
-/* Individual controller */
+/*
+ * Individual controller.
+ */
 .banner-carousel-control {
   display: flex;
   align-items: center;
@@ -139,7 +166,9 @@
   padding: 0;
 }
 
-/* Inactive controller */
+/*
+ * Inactive controller.
+ */
 .banner-carousel-control button {
   display: block;
   width: 11px;
@@ -155,13 +184,17 @@
     background-color 0.3s ease;
 }
 
-/* Active controller container */
+/*
+ * Active controller container.
+ */
 .banner-carousel-control.is-active {
   flex-basis: 26px;
   width: 26px;
 }
 
-/* Active controller */
+/*
+ * Active controller.
+ */
 .banner-carousel-control.is-active button {
   width: 26px;
   height: 11px;
@@ -169,26 +202,49 @@
   background: #fff;
 }
 
-/* Keyboard focus */
+/*
+ * Keyboard focus.
+ */
 .banner-carousel-control button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 3px;
 }
 
-/* Tablet */
+/*
+ * ==========================================
+ * TABLET
+ * ==========================================
+ */
+
 @media (width <= 1023px) {
   .banner-carousel-slides-container {
+    /*
+     * Keep desktop banner ratio until
+     * mobile breakpoint.
+     */
+    height: auto;
     aspect-ratio: 1440 / 836;
   }
+
 }
 
-/* Mobile */
+/*
+ * ==========================================
+ * MOBILE
+ * ==========================================
+ */
+
 @media (width <= 767px) {
   .banner-carousel {
     width: 100vw;
     margin: 0 calc(50% - 50vw);
   }
 
+  /*
+   * Mobile banner:
+   *
+   * 393 × 808
+   */
   .banner-carousel-slides-container {
     width: 100%;
     height: auto;
@@ -218,7 +274,9 @@
     object-position: center;
   }
 
-  /* Dynamic controller on mobile */
+  /*
+   * Mobile controller.
+   */
   .banner-carousel-controls {
     bottom: 20px;
     width: max-content;
@@ -253,9 +311,15 @@
     width: 26px;
     height: 11px;
   }
+
 }
 
-/* Small mobile */
+/*
+ * ==========================================
+ * SMALL MOBILE
+ * ==========================================
+ */
+
 @media (width <= 420px) {
   .banner-carousel-slides-container {
     aspect-ratio: 393 / 808;
@@ -273,12 +337,19 @@
     width: max-content;
     gap: 10px;
   }
+
 }
 
-/* Reduced motion */
+/*
+ * ==========================================
+ * REDUCED MOTION
+ * ==========================================
+ */
+
 @media (prefers-reduced-motion: reduce) {
   .banner-carousel-slide,
   .banner-carousel-control button {
     transition: none;
   }
+
 }
