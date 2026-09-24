@@ -192,6 +192,13 @@
       {
         "component": "reference",
         "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
         "name": "mobile-image",
         "label": "Mobile Feature Image",
         "multi": false
