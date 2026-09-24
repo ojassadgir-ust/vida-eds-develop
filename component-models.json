@@ -180,6 +180,88 @@
     ]
   },
   {
+    "id": "dirte-k3-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "desktopImage",
+        "label": "Desktop Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "bgColor",
+        "label": "Background Color",
+        "valueType": "string",
+        "required": true,
+        "description": "Enter the background color as a HEX value."
+      }
+    ]
+  },
+  {
+    "id": "dirte-k3-content",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "logo",
+        "label": "DIRTE K3 Logo",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "subheading",
+        "label": "Subheading",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "cta",
+        "label": "CTA Rich Text",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "dirte-k3-specification",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Specification Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "value",
+        "label": "Specification Value",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {

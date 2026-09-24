@@ -1,0 +1,143 @@
+{
+  "definitions": [
+    {
+      "title": "DIRTE K3 Banner",
+      "id": "dirte-k3-banner",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "DIRTE K3 Banner",
+              "model": "dirte-k3-banner",
+              "filter": "dirte-k3-banner"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "DIRTE K3 Content",
+      "id": "dirte-k3-content",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "DIRTE K3 Content",
+              "model": "dirte-k3-content"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "DIRTE K3 Specification",
+      "id": "dirte-k3-specification",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "DIRTE K3 Specification",
+              "model": "dirte-k3-specification"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "dirte-k3-banner",
+      "fields": [
+        {
+          "component": "reference",
+          "name": "desktopImage",
+          "label": "Desktop Image",
+          "valueType": "string",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "reference",
+          "name": "mobileImage",
+          "label": "Mobile Image",
+          "valueType": "string",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "bgColor",
+          "label": "Background Color",
+          "valueType": "string",
+          "required": true,
+          "description": "Enter the background color as a HEX value."
+        }
+      ]
+    },
+    {
+      "id": "dirte-k3-content",
+      "fields": [
+        {
+          "component": "text",
+          "name": "heading",
+          "label": "Heading",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "reference",
+          "name": "logo",
+          "label": "DIRTE K3 Logo",
+          "valueType": "string",
+          "multi": false,
+          "required": true
+        },
+        {
+          "component": "richtext",
+          "name": "subheading",
+          "label": "Subheading",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "richtext",
+          "name": "cta",
+          "label": "CTA Rich Text",
+          "valueType": "string",
+          "required": true
+        }
+      ]
+    },
+    {
+      "id": "dirte-k3-specification",
+      "fields": [
+        {
+          "component": "text",
+          "name": "label",
+          "label": "Specification Label",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "value",
+          "label": "Specification Value",
+          "valueType": "string",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "dirte-k3-banner",
+      "components": [
+        "dirte-k3-content",
+        "dirte-k3-specification"
+      ]
+    }
+  ]
+}

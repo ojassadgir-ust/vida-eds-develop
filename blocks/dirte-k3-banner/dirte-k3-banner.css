@@ -1,0 +1,625 @@
+/* =========================================================
+   DIRTE K3 BANNER
+   ========================================================= */
+
+.dirte-k3-banner {
+  --dirte-k3-bg: transparent;
+
+  position: relative;
+  width: 100%;
+  min-height: 748px;
+  overflow: hidden;
+  background: var(--dirte-k3-bg);
+}
+
+
+/* =========================================================
+   AUTHORING CHILD BLOCKS
+   These blocks provide authorable data to the parent block.
+   The parent JS reads their values and creates the final UI.
+   ========================================================= */
+
+.dirte-k3-content {
+  display: none;
+}
+
+.dirte-k3-specification {
+  display: none;
+}
+
+
+/* =========================================================
+   MAIN PRESENTATION WRAPPER
+   ========================================================= */
+
+.dirte-k3-content-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 748px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT AREA
+   ========================================================= */
+
+.dirte-k3-text {
+  position: absolute;
+  top: 0;
+  left: 64px;
+  z-index: 2;
+  width: 390px;
+}
+
+
+/* =========================================================
+   HEADING
+   Desktop:
+   left: 64px
+   top: 101px
+   width: 360px
+   height: 40px
+   ========================================================= */
+
+.dirte-k3-heading {
+  width: 360px;
+  margin: 101px 0 0;
+  padding: 0;
+  color: #767575;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 530;
+  font-style: normal;
+  line-height: 40px;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+
+/* =========================================================
+   LOGO
+   Desktop:
+   left: 64px
+   top: 173px
+   width: 285.71px
+   height: 60px
+
+   Heading starts at 101px and is 40px high.
+   Logo starts at 173px.
+   ========================================================= */
+
+.dirte-k3-logo-wrapper {
+  width: 286px;
+  height: 60px;
+  margin-top: 32px;
+}
+
+.dirte-k3-logo {
+  display: block;
+  width: 286px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  object-fit: contain;
+  object-position: left center;
+}
+
+
+/* =========================================================
+   SUBHEADING
+   Desktop:
+   left: 64px
+   top: 281px
+   width: 368px
+   height: 64px
+   ========================================================= */
+
+.dirte-k3-subheading {
+  width: 368px;
+  margin: 48px 0 0;
+  padding: 0;
+  color: #1d1b1b;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: 32px;
+  letter-spacing: normal;
+  text-align: left;
+}
+
+
+/* Rich text inside subheading */
+
+.dirte-k3-subheading p {
+  margin: 0;
+}
+
+.dirte-k3-subheading strong {
+  font-weight: 530;
+}
+
+.dirte-k3-subheading em {
+  font-style: italic;
+}
+
+
+/* =========================================================
+   CTA
+   Desktop:
+   width: 174px
+   height: 48px
+   left: 64px
+   top: 401px
+   ========================================================= */
+
+.dirte-k3-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 174px;
+  height: 48px;
+  margin-top: 56px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 24px;
+  background: #1d1b1b;
+  color: #fff;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease;
+}
+
+
+/* CTA hover */
+
+.dirte-k3-cta:hover {
+  background: #1d1b1b;
+  color: #fff;
+  opacity: 0.85;
+}
+
+
+/* CTA focus */
+
+.dirte-k3-cta:focus-visible {
+  outline: 2px solid #1d1b1b;
+  outline-offset: 3px;
+}
+
+
+/* =========================================================
+   MEDIA AREA
+   Desktop:
+   width: 900px
+   height: 486px
+   top: 86px
+   right: 0
+   ========================================================= */
+
+.dirte-k3-media {
+  position: absolute;
+  top: 86px;
+  right: 0;
+  z-index: 1;
+  width: 900px;
+  height: 486px;
+  overflow: hidden;
+}
+
+
+/* Picture */
+
+.dirte-k3-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Desktop image */
+
+.dirte-k3-desktop-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+
+/* Mobile image is hidden on desktop */
+
+.dirte-k3-mobile-image {
+  display: none;
+}
+
+
+/* =========================================================
+   DIVIDER
+   Desktop:
+   width: 1352px
+   left: 80px
+   top: 616px
+   ========================================================= */
+
+.dirte-k3-divider {
+  position: absolute;
+  right: 80px;
+  bottom: 131px;
+  left: 80px;
+  height: 1px;
+  background: #d4d4d4;
+}
+
+
+/* =========================================================
+   SPECIFICATIONS
+   Desktop:
+   width: 478px
+   height: 56px
+   left: 65px
+   top: 656px
+   gap: 80px
+   ========================================================= */
+
+.dirte-k3-specifications {
+  position: absolute;
+  bottom: 36px;
+  left: 65px;
+  display: flex;
+  align-items: flex-start;
+  width: 478px;
+  min-height: 56px;
+  gap: 80px;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Individual specification */
+
+.dirte-k3-spec {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Specification label */
+
+.dirte-k3-spec-label {
+  margin: 0 0 4px;
+  padding: 0;
+  color: #767575;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: 16px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+}
+
+
+/* Specification value */
+
+.dirte-k3-spec-value {
+  margin: 0;
+  padding: 0;
+  color: #1d1b1b;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 450;
+  font-style: normal;
+  line-height: 24px;
+  letter-spacing: normal;
+}
+
+
+/* =========================================================
+   TABLET / SMALL DESKTOP
+   ========================================================= */
+
+@media (width <= 1200px) and (width >= 768px) {
+  .dirte-k3-text {
+    left: 40px;
+    width: 360px;
+  }
+
+  .dirte-k3-media {
+    right: -100px;
+    width: 760px;
+  }
+
+  .dirte-k3-divider {
+    right: 40px;
+    left: 40px;
+  }
+
+  .dirte-k3-specifications {
+    left: 40px;
+    width: auto;
+    right: 40px;
+    gap: 50px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   Design:
+   width: 394px
+   height: 617px
+   ========================================================= */
+
+@media (width <= 767px) {
+  .dirte-k3-banner {
+    width: 100%;
+    min-height: 617px;
+    overflow: hidden;
+    border-radius: 0;
+    background: var(--dirte-k3-bg);
+  }
+
+
+  /* -------------------------------------------------------
+     MAIN WRAPPER
+     ------------------------------------------------------- */
+
+  .dirte-k3-content-wrapper {
+    width: 100%;
+    min-height: 617px;
+  }
+
+
+  /* -------------------------------------------------------
+     TEXT AREA
+     ------------------------------------------------------- */
+
+  .dirte-k3-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    text-align: center;
+  }
+
+
+  /* -------------------------------------------------------
+     HEADING
+     Mobile:
+     width: 203px
+     height: 26px
+     left: 23px in design
+     centered
+     ------------------------------------------------------- */
+
+  .dirte-k3-heading {
+    width: 203px;
+    margin: 0 auto;
+    padding-top: 24px;
+    color: #767575;
+    font-size: 24px;
+    font-weight: 530;
+    line-height: 26px;
+    text-align: center;
+  }
+
+
+  /* -------------------------------------------------------
+     LOGO
+     Mobile:
+     width: 247px
+     height: 49px
+     top: 56px
+     ------------------------------------------------------- */
+
+  .dirte-k3-logo-wrapper {
+    width: 247px;
+    height: 49px;
+    margin: 30px auto 0;
+  }
+
+  .dirte-k3-logo {
+    width: 247px;
+    height: 49px;
+    object-fit: contain;
+    object-position: center;
+  }
+
+
+  /* -------------------------------------------------------
+     SUBHEADING
+     Mobile:
+     width: 285px
+     height: 48px
+     centered
+     ------------------------------------------------------- */
+
+  .dirte-k3-subheading {
+    width: 285px;
+    margin: 27px auto 0;
+    padding: 0;
+    color: #1d1b1b;
+    font-size: 18px;
+    font-weight: 450;
+    line-height: 24px;
+    text-align: center;
+  }
+
+
+  .dirte-k3-subheading p {
+    margin: 0;
+  }
+
+
+  /* -------------------------------------------------------
+     CTA
+     Mobile:
+     width: 136px
+     height: 40px
+     top: 313px
+     ------------------------------------------------------- */
+
+  .dirte-k3-cta {
+    width: 136px;
+    height: 40px;
+    margin-top: 32px;
+    padding: 0 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+
+  /* -------------------------------------------------------
+     SPECIFICATIONS
+     Mobile:
+     width: 276px
+     height: 46px
+     top: 235px
+     centered
+     ------------------------------------------------------- */
+
+  .dirte-k3-specifications {
+    position: absolute;
+    inset: 235px auto auto 50%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 276px;
+    min-height: 46px;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+
+  .dirte-k3-spec {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .dirte-k3-spec-label {
+    margin: 0 0 4px;
+    color: #767575;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+
+  .dirte-k3-spec-value {
+    color: #1d1b1b;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+
+  /* -------------------------------------------------------
+     MEDIA
+     Mobile:
+     width: 394px
+     height: 215px
+     top: 382px
+     ------------------------------------------------------- */
+
+  .dirte-k3-media {
+    position: absolute;
+    top: 382px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 215px;
+    overflow: hidden;
+  }
+
+
+  .dirte-k3-media picture {
+    display: block;
+    width: 100%;
+    height: 215px;
+  }
+
+
+  /* Desktop image hidden */
+
+  .dirte-k3-desktop-image {
+    display: none;
+  }
+
+
+  /* Mobile image */
+
+  .dirte-k3-mobile-image {
+    display: block;
+    width: 100%;
+    height: 215px;
+    margin: 0;
+    padding: 0;
+    border-radius: 24px;
+    object-fit: cover;
+    object-position: center;
+  }
+
+
+  /* -------------------------------------------------------
+     DIVIDER
+     Not visible in mobile design
+     ------------------------------------------------------- */
+
+  .dirte-k3-divider {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   Keeps the component responsive below 394px.
+   ========================================================= */
+
+@media (width <= 393px) {
+  .dirte-k3-banner {
+    min-height: 617px;
+  }
+
+  .dirte-k3-heading {
+    width: calc(100% - 40px);
+  }
+
+  .dirte-k3-logo-wrapper {
+    width: min(247px, calc(100% - 48px));
+  }
+
+  .dirte-k3-logo {
+    width: 100%;
+  }
+
+  .dirte-k3-subheading {
+    width: calc(100% - 64px);
+  }
+
+  .dirte-k3-specifications {
+    width: calc(100% - 80px);
+  }
+
+  .dirte-k3-media {
+    width: 100%;
+  }
+}
