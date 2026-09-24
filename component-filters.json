@@ -46,5 +46,13 @@
       "dirte-k3-content",
       "dirte-k3-specification"
     ]
+  },
+  {
+    "id": "dirte-k3-content",
+    "components": []
+  },
+  {
+    "id": "dirte-k3-specification",
+    "components": []
   }
 ]
