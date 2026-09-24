@@ -132,14 +132,17 @@
 
 .fast-charging-cta:hover {
   background: var(--fast-charging-cta-hover-bg);
+  color: var(--fast-charging-cta-color);
 }
 
 .fast-charging-cta:focus-visible {
+  color: var(--fast-charging-cta-color);
   outline: 3px solid currentcolor;
   outline-offset: 4px;
 }
 
 .fast-charging-cta:active {
+  color: var(--fast-charging-cta-color);
   transform: scale(0.98);
 }
 
@@ -158,6 +161,7 @@
     display: flex;
     flex-direction: column;
     min-height: 0;
+    overflow: hidden;
     border-radius: var(--fast-charging-radius);
   }
 
@@ -167,6 +171,11 @@
     width: 100%;
     min-height: var(--fast-charging-mobile-image-height);
     background: transparent;
+    border-radius:
+      0
+      0
+      var(--fast-charging-radius)
+      var(--fast-charging-radius);
   }
 
   .fast-charging-content-wrapper {
@@ -199,6 +208,7 @@
     padding:
       var(--fast-charging-cta-vertical-padding)
       var(--fast-charging-mobile-cta-horizontal-padding);
+    color: var(--fast-charging-cta-color);
   }
 }
 

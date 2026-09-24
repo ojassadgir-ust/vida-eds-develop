@@ -34,41 +34,13 @@ const getCellText = (cell) => {
   return cell.textContent.trim();
 };
 
-const getCellHTML = (cell) => {
-  if (!cell) {
-    return '';
-  }
+// const getCellHTML = (cell) => {
+//   if (!cell) {
+//     return '';
+//   }
 
-  return cell.innerHTML.trim();
-};
-
-const getCtaLink = (cell) => {
-  if (!cell) {
-    return '';
-  }
-
-  const link = cell.querySelector('a');
-
-  if (link?.href) {
-    return link.href;
-  }
-
-  return getCellText(cell);
-};
-
-const getCtaText = (cell) => {
-  if (!cell) {
-    return '';
-  }
-
-  const link = cell.querySelector('a');
-
-  if (link) {
-    return link.textContent.trim();
-  }
-
-  return getCellText(cell);
-};
+//   return cell.innerHTML.trim();
+// };
 
 const createElement = (tagName, className) => {
   const element = document.createElement(tagName);
@@ -100,26 +72,69 @@ const setBackgroundImages = (
   }
 };
 
-const createContent = (cells) => {
-  const contentCell = cells[2];
-
+const getContentFields = (contentCell) => {
   if (!contentCell) {
-    return createElement(
-      'div',
-      CONFIG.classes.content,
-    );
+    return [];
   }
 
-  const contentFields = Array.from(contentCell.children);
+  const fields = Array.from(contentCell.children);
 
-  const headingValue = getCellText(contentFields[0]);
-  const subheadingValue = getCellText(contentFields[1]);
-  const richtextValue = getCellHTML(contentFields[2]);
+  if (fields.length > 1) {
+    return fields;
+  }
 
+  const firstField = fields[0];
+
+  if (!firstField) {
+    return [];
+  }
+
+  const nestedFields = Array.from(firstField.children);
+
+  if (nestedFields.length > 1) {
+    return nestedFields;
+  }
+
+  return fields;
+};
+
+const getFieldValue = (field) => {
+  if (!field) {
+    return '';
+  }
+
+  return field.textContent.trim();
+};
+
+const getFieldHTML = (field) => {
+  if (!field) {
+    return '';
+  }
+
+  return field.innerHTML.trim();
+};
+
+const createContent = (cells) => {
   const content = createElement(
     'div',
     CONFIG.classes.content,
   );
+
+  const contentCell = cells[2];
+
+  if (!contentCell) {
+    return content;
+  }
+
+  const contentFields = getContentFields(contentCell);
+
+  const headingField = contentFields[0];
+  const subheadingField = contentFields[1];
+  const richtextField = contentFields[2];
+
+  const headingValue = getFieldValue(headingField);
+  const subheadingValue = getFieldValue(subheadingField);
+  const richtextValue = getFieldHTML(richtextField);
 
   if (headingValue) {
     const heading = createElement(
@@ -128,6 +143,7 @@ const createContent = (cells) => {
     );
 
     heading.textContent = headingValue;
+
     content.append(heading);
   }
 
@@ -138,6 +154,7 @@ const createContent = (cells) => {
     );
 
     subheading.textContent = subheadingValue;
+
     content.append(subheading);
   }
 
@@ -148,10 +165,65 @@ const createContent = (cells) => {
     );
 
     richtext.innerHTML = richtextValue;
+
     content.append(richtext);
   }
 
   return content;
+};
+
+const getCtaFields = (ctaCell) => {
+  if (!ctaCell) {
+    return [];
+  }
+
+  const fields = Array.from(ctaCell.children);
+
+  if (fields.length > 1) {
+    return fields;
+  }
+
+  const firstField = fields[0];
+
+  if (!firstField) {
+    return [];
+  }
+
+  const nestedFields = Array.from(firstField.children);
+
+  if (nestedFields.length > 1) {
+    return nestedFields;
+  }
+
+  return fields;
+};
+
+const getCtaLink = (field) => {
+  if (!field) {
+    return '';
+  }
+
+  const link = field.querySelector('a');
+
+  if (link?.href) {
+    return link.href;
+  }
+
+  return field.getAttribute('href') || '';
+};
+
+const getCtaText = (field) => {
+  if (!field) {
+    return '';
+  }
+
+  const link = field.querySelector('a');
+
+  if (link) {
+    return link.textContent.trim();
+  }
+
+  return getCellText(field);
 };
 
 const createCta = (cells) => {
@@ -161,13 +233,15 @@ const createCta = (cells) => {
     return null;
   }
 
-  const ctaFields = Array.from(ctaCell.children);
+  const ctaFields = getCtaFields(ctaCell);
 
-  const ctaText = getCtaText(ctaFields[0]);
-  const ctaLink = getCtaLink(ctaFields[1])
-    || getCtaLink(ctaFields[0]);
+  const ctaLinkField = ctaFields[0];
+  const ctaTextField = ctaFields[1];
 
-  if (!ctaText || !ctaLink) {
+  const ctaLink = getCtaLink(ctaLinkField);
+  const ctaText = getCtaText(ctaTextField);
+
+  if (!ctaLink || !ctaText) {
     return null;
   }
 
