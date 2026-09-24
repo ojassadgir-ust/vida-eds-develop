@@ -1,13 +1,16 @@
 const CONFIG = {
   classes: {
     block: 'fast-charging',
-    overlay: 'fast-charging__overlay',
-    media: 'fast-charging__media',
-    content: 'fast-charging__content',
-    heading: 'fast-charging__heading',
-    subheading: 'fast-charging__subheading',
-    richtext: 'fast-charging__richtext',
-    cta: 'fast-charging__cta',
+    overlay: 'fast-charging-overlay',
+    media: 'fast-charging-media',
+    contentWrapper: 'fast-charging-content-wrapper',
+    content: 'fast-charging-content',
+    heading: 'fast-charging-heading',
+    headingSpecial: 'fast-charging-heading-special',
+    subheading: 'fast-charging-subheading',
+    subheadingSpaced: 'fast-charging-subheading-spaced',
+    richtext: 'fast-charging-richtext',
+    cta: 'fast-charging-cta',
   },
   attributes: {
     desktopImage: '--fast-charging-desktop-image',
@@ -38,9 +41,7 @@ const getCellHTML = (cell) => {
     return '';
   }
 
-  const content = cell.innerHTML.trim();
-
-  return content;
+  return cell.innerHTML.trim();
 };
 
 const getCtaLink = (cell) => {
@@ -54,9 +55,7 @@ const getCtaLink = (cell) => {
     return link.href;
   }
 
-  const value = cell.textContent.trim();
-
-  return value;
+  return getCellText(cell);
 };
 
 const getCtaText = (cell) => {
@@ -70,7 +69,7 @@ const getCtaText = (cell) => {
     return link.textContent.trim();
   }
 
-  return cell.textContent.trim();
+  return getCellText(cell);
 };
 
 const createElement = (tagName, className) => {
@@ -83,52 +82,164 @@ const createElement = (tagName, className) => {
   return element;
 };
 
+const setBackgroundImages = (
+  block,
+  desktopImage,
+  mobileImage,
+) => {
+  if (desktopImage) {
+    block.style.setProperty(
+      CONFIG.attributes.desktopImage,
+      `url("${desktopImage}")`,
+    );
+  }
+
+  if (mobileImage) {
+    block.style.setProperty(
+      CONFIG.attributes.mobileImage,
+      `url("${mobileImage}")`,
+    );
+  }
+};
+
+const getContentFields = (contentCell) => {
+  if (!contentCell) {
+    return [];
+  }
+
+  const fields = Array.from(contentCell.children);
+
+  if (fields.length > 1) {
+    return fields;
+  }
+
+  const firstField = fields[0];
+
+  if (!firstField) {
+    return [];
+  }
+
+  const nestedFields = Array.from(firstField.children);
+
+  if (nestedFields.length > 1) {
+    return nestedFields;
+  }
+
+  return fields;
+};
+
+const createHeadingContent = (heading, value) => {
+  Array.from(value).forEach((character) => {
+    const isSpecialCharacter = /[^a-zA-Z0-9\s]/u.test(character);
+
+    if (isSpecialCharacter) {
+      const specialCharacter = document.createElement('span');
+
+      specialCharacter.className = CONFIG.classes.headingSpecial;
+      specialCharacter.textContent = character;
+
+      heading.append(specialCharacter);
+    } else {
+      heading.append(document.createTextNode(character));
+    }
+  });
+};
+
+const hasMoreThanFiveWords = (value) => {
+  const words = value.trim().split(/\s+/u);
+
+  return words.length > 6;
+};
+
 const createContent = (cells) => {
-  const contentCell = cells[2];
-  const contentFields = contentCell
-    ? Array.from(contentCell.children)
-    : [];
-
-  const headingValue = getCellText(contentFields[0]);
-  const subheadingValue = getCellText(contentFields[1]);
-  const richtextValue = getCellHTML(contentFields[2]);
-
   const content = createElement(
     'div',
     CONFIG.classes.content,
   );
 
-  if (headingValue) {
-    const heading = createElement(
-      'h2',
-      CONFIG.classes.heading,
-    );
+  const contentCell = cells[2];
 
-    heading.textContent = headingValue;
-    content.append(heading);
+  if (!contentCell) {
+    return content;
   }
 
-  if (subheadingValue) {
-    const subheading = createElement(
-      'p',
-      CONFIG.classes.subheading,
-    );
+  const contentFields = getContentFields(contentCell);
 
-    subheading.textContent = subheadingValue;
-    content.append(subheading);
+  if (contentFields[0]) {
+    const headingValue = getCellText(contentFields[0]);
+
+    if (headingValue) {
+      const heading = createElement(
+        'h2',
+        CONFIG.classes.heading,
+      );
+
+      createHeadingContent(heading, headingValue);
+      content.append(heading);
+    }
   }
 
-  if (richtextValue) {
-    const richtext = createElement(
-      'div',
-      CONFIG.classes.richtext,
-    );
+  if (contentFields[1]) {
+    const subheadingValue = getCellText(contentFields[1]);
 
-    richtext.innerHTML = richtextValue;
-    content.append(richtext);
+    if (subheadingValue) {
+      const subheading = createElement(
+        'p',
+        CONFIG.classes.subheading,
+      );
+
+      if (hasMoreThanFiveWords(subheadingValue)) {
+        subheading.classList.add(
+          CONFIG.classes.subheadingSpaced,
+        );
+      }
+
+      subheading.textContent = subheadingValue;
+      content.append(subheading);
+    }
+  }
+
+  if (contentFields[2]) {
+    const richtextValue = getCellHTML(contentFields[2]);
+
+    if (richtextValue) {
+      const richtext = createElement(
+        'div',
+        CONFIG.classes.richtext,
+      );
+
+      richtext.innerHTML = richtextValue;
+      content.append(richtext);
+    }
   }
 
   return content;
+};
+
+const getCtaFields = (ctaCell) => {
+  if (!ctaCell) {
+    return [];
+  }
+
+  const fields = Array.from(ctaCell.children);
+
+  if (fields.length > 1) {
+    return fields;
+  }
+
+  const firstField = fields[0];
+
+  if (!firstField) {
+    return [];
+  }
+
+  const nestedFields = Array.from(firstField.children);
+
+  if (nestedFields.length > 1) {
+    return nestedFields;
+  }
+
+  return fields;
 };
 
 const createCta = (cells) => {
@@ -138,9 +249,11 @@ const createCta = (cells) => {
     return null;
   }
 
-  const ctaFields = Array.from(ctaCell.children);
+  const ctaFields = getCtaFields(ctaCell);
+
   const ctaText = getCtaText(ctaFields[0]);
-  const ctaLink = getCtaLink(ctaFields[1]) || getCtaLink(ctaFields[0]);
+  const ctaLink = getCtaLink(ctaFields[1])
+    || getCtaLink(ctaFields[0]);
 
   if (!ctaText || !ctaLink) {
     return null;
@@ -157,30 +270,10 @@ const createCta = (cells) => {
   return cta;
 };
 
-const setBackgroundImages = (block, desktopImage, mobileImage) => {
-  if (desktopImage) {
-    block.style.setProperty(
-      CONFIG.attributes.desktopImage,
-      `url("${desktopImage}")`,
-    );
-  }
-
-  if (mobileImage) {
-    block.style.setProperty(
-      CONFIG.attributes.mobileImage,
-      `url("${mobileImage}")`,
-    );
-  }
-};
-
-const createMedia = () => {
-  const media = createElement(
-    'div',
-    CONFIG.classes.media,
-  );
-
-  return media;
-};
+const createMedia = () => createElement(
+  'div',
+  CONFIG.classes.media,
+);
 
 export default function decorate(block) {
   const cells = Array.from(block.children);
@@ -200,13 +293,14 @@ export default function decorate(block) {
   );
 
   const media = createMedia();
-  const content = createContent(cells);
-  const cta = createCta(cells);
 
   const contentWrapper = createElement(
     'div',
-    'fast-charging__content-wrapper',
+    CONFIG.classes.contentWrapper,
   );
+
+  const content = createContent(cells);
+  const cta = createCta(cells);
 
   contentWrapper.append(content);
 
