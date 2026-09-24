@@ -208,6 +208,11 @@ function createMedia(desktopImage, mobileImage) {
 }
 
 export default function decorate(block) {
+  const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
+
+  if (isAuthor) {
+    return;
+  }
   const contentBlock = getContentBlock(block);
 
   const content = getContent(contentBlock);
