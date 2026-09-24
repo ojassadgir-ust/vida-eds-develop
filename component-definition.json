@@ -136,8 +136,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "DIRTE K3 Banner",
-                  "model": "dirte-k3-banner",
-                  "filter": "dirte-k3-banner"
+                  "filter": "dirte-k3-banner",
+                  "model": "dirte-k3-banner"
                 }
               }
             }
@@ -149,11 +149,10 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "DIRTE K3 Content",
-                  "model": "dirte-k3-content",
-                  "filter": "dirte-k3-content"
+                  "model": "dirte-k3-content"
                 }
               }
             }
@@ -165,11 +164,10 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "DIRTE K3 Specification",
-                  "model": "dirte-k3-specification",
-                  "filter": "dirte-k3-specification"
+                  "model": "dirte-k3-specification"
                 }
               }
             }
