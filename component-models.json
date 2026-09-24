@@ -184,27 +184,24 @@
     "fields": [
       {
         "component": "reference",
-        "name": "desktopImage",
-        "label": "Desktop Image",
         "valueType": "string",
-        "multi": false,
-        "required": true
+        "name": "desktop-image",
+        "label": "Desktop Feature Image",
+        "multi": false
       },
       {
         "component": "reference",
-        "name": "mobileImage",
-        "label": "Mobile Image",
         "valueType": "string",
-        "multi": false,
-        "required": true
+        "name": "mobile-image",
+        "label": "Mobile Feature Image",
+        "multi": false
       },
       {
         "component": "text",
-        "name": "bgColor",
-        "label": "Background Color",
         "valueType": "string",
-        "required": true,
-        "description": "Enter the background color as a HEX value."
+        "name": "background-color",
+        "label": "Background Color",
+        "value": ""
       }
     ]
   },
@@ -213,32 +210,31 @@
     "fields": [
       {
         "component": "text",
+        "valueType": "string",
         "name": "heading",
         "label": "Heading",
-        "valueType": "string",
-        "required": true
+        "value": ""
       },
       {
         "component": "reference",
+        "valueType": "string",
         "name": "logo",
         "label": "DIRTE K3 Logo",
-        "valueType": "string",
-        "multi": false,
-        "required": true
+        "multi": false
       },
       {
-        "component": "richtext",
+        "component": "text",
+        "valueType": "string",
         "name": "subheading",
         "label": "Subheading",
-        "valueType": "string",
-        "required": true
+        "value": ""
       },
       {
         "component": "richtext",
-        "name": "cta",
-        "label": "CTA Rich Text",
         "valueType": "string",
-        "required": true
+        "name": "cta",
+        "label": "CTA",
+        "value": ""
       }
     ]
   },
@@ -247,17 +243,17 @@
     "fields": [
       {
         "component": "text",
+        "valueType": "string",
         "name": "label",
         "label": "Specification Label",
-        "valueType": "string",
-        "required": true
+        "value": ""
       },
       {
         "component": "text",
+        "valueType": "string",
         "name": "value",
         "label": "Specification Value",
-        "valueType": "string",
-        "required": true
+        "value": ""
       }
     ]
   },
