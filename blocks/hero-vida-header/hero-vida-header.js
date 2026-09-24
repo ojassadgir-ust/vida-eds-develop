@@ -1,4 +1,5 @@
 import buildButton from '../../scripts/build-button.js';
+import { getAPIEndpoint } from '../../scripts/config.js';
 
 // ---------------------------------------- //
 // - Build functions for Products Submenu - //
@@ -686,8 +687,10 @@ function buildHeader(data) {
 // --------------------------------------------------------- //
 export default async function decorate(block) {
   const endpointRow = block.firstElementChild;
-  const endpoint = endpointRow?.textContent?.trim();
+  const rawPath = endpointRow?.textContent?.trim();
   endpointRow?.remove();
+
+  const endpoint = getAPIEndpoint(rawPath, 'headerApi');
 
   if (!endpoint) return;
 
