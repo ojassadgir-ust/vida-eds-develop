@@ -70,7 +70,7 @@
   font-size: var(--fs-label-lg);
   line-height: var(--lh-label-lg);
   font-weight: 530;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   color: var(--action-primary);
   gap: 8px;
   height: 100%;
@@ -137,7 +137,7 @@
     font-size: var(--fs-label-lg);
     line-height: var(--lh-label-lg);
     font-weight: 530;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-decoration: none;
     color: var(--action-primary);
     padding: 8px 12px;
@@ -446,7 +446,7 @@
 .vida-mobile-menu-country-label {
   font-size: var(--fs-label-md);
   line-height: var(--lh-label-md);
-  letter-spacing: 0px;
+  letter-spacing: 0;
   font-weight: 530;
   color: var(--content-secondary);
   padding-right: 8px;
@@ -477,7 +477,7 @@
 .vida-mobile-menu-section-title {
   font-size: var(--fs-label-md);
   line-height: var(--lh-label-md);
-  letter-spacing: 0px;
+  letter-spacing: 0;
   font-weight: 530;
   color: var(--content-secondary);
   text-transform: uppercase;
@@ -567,7 +567,7 @@
 .vida-mobile-menu-legal a {
   font-size: var(--fs-label-lg);
   line-height: var(--lh-body-lg);
-  letter-spacing: 0px;
+  letter-spacing: 0;
   color: var(--content-secondary);
   text-decoration: none;
   font-weight: 530;
