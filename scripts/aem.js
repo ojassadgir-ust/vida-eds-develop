@@ -17,7 +17,7 @@ function sampleRUM(checkpoint, data) {
   try {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum || !window.hlx.rum.collector) {
-      sampleRUM.enhance = () => {};
+      sampleRUM.enhance = () => { };
       const params = new URLSearchParams(window.location.search);
       const { currentScript } = document;
       const rate = params.get('rum')
@@ -612,7 +612,7 @@ function decorateBlocks(main) {
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock('header', '');
+  const headerBlock = buildBlock('hero-vida-header', '');
   header.append(headerBlock);
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);

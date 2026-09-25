@@ -1,0 +1,621 @@
+/* ------------------------------------------- */
+
+/* ----------- Main Header Styles ------------ */
+
+/* ------------------------------------------- */
+
+.vida-header-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.vida-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 24px;
+  height: 72px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.vida-header-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.vida-header-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 124px;
+}
+
+.vida-header-logo img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.vida-header-nav {
+  display: none;
+}
+
+.vida-header-nav-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 48px;
+}
+
+.vida-header-nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.vida-header-nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: var(--fs-label-lg);
+  line-height: var(--lh-label-lg);
+  font-weight: 530;
+  letter-spacing: 0;
+  color: var(--action-primary);
+  gap: 8px;
+  height: 100%;
+  padding: 0 12px;
+}
+
+.vida-header-nav-link:hover,
+.vida-header-nav-link[aria-expanded="true"] {
+  color: var(--brand-default);
+}
+
+.vida-header-top-link {
+  display: none;
+}
+
+.vida-header-header-actions .button {
+  display: none;
+}
+
+.vida-header-nav-link-chevron {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.vida-header-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vida-header-country-selector {
+  display: none;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  gap: 8px
+}
+
+.vida-header-country-flag-item {
+  display: block;
+  width: 30px;
+}
+
+.vida-header-country-selector-chevron {
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+@media (768px <=width < 1024px) {
+  .vida-header-country-selector {
+    display: flex;
+  }
+
+  .vida-header-header-actions .button {
+    display: inline-flex;
+  }
+
+  .vida-header-header-actions .vida-header-country-selector {
+    order: -1;
+  }
+
+  .vida-header-country-selector-chevron {
+    display: none;
+  }
+}
+
+@media (width >=1024px) {
+  .vida-header {
+    padding: 12px 88px;
+  }
+
+  .vida-header-nav {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .vida-header-top-link {
+    display: block;
+    font-size: var(--fs-label-lg);
+    line-height: var(--lh-label-lg);
+    font-weight: 530;
+    letter-spacing: 0;
+    text-decoration: none;
+    color: var(--action-primary);
+    padding: 8px 12px;
+  }
+
+  .vida-header-top-link:hover {
+    color: var(--brand-default);
+  }
+
+  .vida-header-country-selector {
+    display: flex;
+  }
+
+  .vida-header-header-actions .button {
+    display: inline-flex;
+  }
+}
+
+/* ------------------------------------------- */
+
+/* ---------- Product Submenu Styles --------- */
+
+/* ------------------------------------------- */
+.vida-header-submenu {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  z-index: 20;
+  background: var(--surface-primary);
+  border-top: 1px solid var(--border-strong);
+}
+
+.vida-header-submenu[hidden] {
+  display: none;
+}
+
+.vida-header-submenu-content,
+.vida-header-submenu-products-wrap {
+  width: 100%;
+}
+
+.vida-header-submenu-products {
+  margin: 16px 10px;
+  padding: 48px 0;
+  padding-left: 86px;
+  background: var(--surface-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.vida-header-category {
+  display: flex;
+  width: 100%;
+  gap: 48px;
+  align-items: center;
+}
+
+.vida-header-category-header {
+  flex: 0 0 30%;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+.vida-header-category-title {
+  font-size: var(--fs-heading-sm);
+  line-height: var(--lh-heading-sm);
+  letter-spacing: var(--ls-heading-sm);
+  color: var(--content-primary);
+  font-weight: 530;
+}
+
+.vida-header-vehicles {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 92px;
+}
+
+.vida-header-vehicle-item {
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.vida-header-vehicle-img img {
+  width: 100%;
+  height: 110px;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+}
+
+.vida-header-vehicle-info {
+  width: 100%;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.vida-header-name-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.vida-header-vehicle-name {
+  font-size: var(--fs-heading-3xs);
+  line-height: var(--lh-heading-3xs);
+  letter-spacing: var(--ls-heading-3xs);
+  font-weight: 530;
+  color: var(--content-primary);
+}
+
+.vida-header-vehicle-item:hover {
+  transform: translateY(-5px);
+}
+
+.vida-header-vehicle-new,
+.vida-header-explore-new {
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: var(--status-positive-intense);
+  color: var(--content-on-brand);
+  font-size: var(--fs-label-sm);
+  line-height: var(--lh-label-sm);
+  letter-spacing: var(--ls-label-sm);
+  ;
+  font-weight: 530;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 19px;
+}
+
+/* ------------------------------------------- */
+
+/* ---------- Explore Submenu Styles --------- */
+
+/* ------------------------------------------- */
+.vida-header-submenu-explore {
+  display: flex;
+  align-items: stretch;
+  gap: 48px;
+  padding: 40px 88px;
+}
+
+.vida-header-explore-grid {
+  flex: 1;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, auto);
+  gap: 16px 40px;
+  padding: 8px;
+}
+
+.vida-header-explore-side {
+  flex: 0 0 auto;
+  padding-left: 48px;
+  border-left: 1px solid var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vida-header-explore-item {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  width: 240px;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.vida-header-explore-side .vida-header-explore-item {
+  height: auto;
+  padding: 0;
+}
+
+.vida-header-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vida-header-explore-title .vida-header-explore-side-title {
+  font-size: var(--fs-heading-2xs);
+  line-height: var(--lh-heading-2xs);
+  font-weight: 530;
+  letter-spacing: var(--ls-heading-2xs);
+  color: var(--content-primary);
+}
+
+.vida-header-explore-item:hover .vida-header-explore-title,
+.vida-header-explore-item:hover .vida-header-explore-side-title {
+  color: var(--brand-default)
+}
+
+.vida-header-explore-desc {
+  margin: 4px 0 0;
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  letter-spacing: var(--ls-body-sm);
+  color: var(--content-primary);
+}
+
+/* ------------------------------------------- */
+
+/* ---------- Mobile submenu Styles --------- */
+
+/* ------------------------------------------- */
+.vida-header-menu-trigger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.vida-header-menu-trigger-bar {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--radius-badge);
+  background-color: var(--content-primary);
+  opacity: 1;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.vida-header-menu-trigger-bar:first-child {
+  top: 0;
+}
+
+.vida-header-menu-trigger-bar:nth-child(2),
+.vida-header-menu-trigger-bar:nth-child(3) {
+  top: 8px;
+}
+
+.vida-header-menu-trigger-bar:nth-child(4) {
+  top: 16px;
+}
+
+.vida-header-menu-trigger[aria-expanded="true"] .vida-header-menu-trigger-bar:first-child {
+  left: 50%;
+  top: 8px;
+  width: 0;
+}
+
+
+.vida-header-menu-trigger[aria-expanded="true"] .vida-header-menu-trigger-bar:nth-child(2) {
+  transform: rotate(45deg);
+}
+
+.vida-header-menu-trigger[aria-expanded="true"] .vida-header-menu-trigger-bar:nth-child(4) {
+  left: 50%;
+  top: 8px;
+  width: 0;
+}
+
+.vida-header-menu-trigger[aria-expanded="true"] .vida-header-menu-trigger-bar:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+.vida-header-mobile-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--surface-primary);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+}
+
+.vida-mobile-menu-open {
+  display: flex;
+}
+
+.vida-mobile-menu-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border-default);
+  flex-shrink: 0;
+}
+
+.vida-mobile-menu-country-flag {
+  width: 27px;
+  height: auto;
+}
+
+.vida-mobile-menu-country-label {
+  font-size: var(--fs-label-md);
+  line-height: var(--lh-label-md);
+  letter-spacing: 0;
+  font-weight: 530;
+  color: var(--content-secondary);
+  padding-right: 8px;
+}
+
+.vida-mobile-menu-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+}
+
+.vida-mobile-menu-close img {
+  width: 100%;
+  height: 100%;
+}
+
+.vida-mobile-menu-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 32px;
+  padding-bottom: 96px;
+}
+
+.vida-mobile-menu-section-title {
+  font-size: var(--fs-label-md);
+  line-height: var(--lh-label-md);
+  letter-spacing: 0;
+  font-weight: 530;
+  color: var(--content-secondary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.vida-mobile-menu-divider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 24px 0;
+}
+
+.vida-mobile-menu-accordion-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  padding-top: 14px;
+  font-size: var(--fs-label-xl);
+  line-height: var(--lh-label-xl);
+  letter-spacing: var(--ls-label-xl);
+  font-weight: 530;
+  color: var(--content-primary);
+  cursor: pointer;
+  text-align: left;
+}
+
+.vida-mobile-menu-accordion-chevron {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.vida-mobile-menu-accordion-trigger[aria-expanded="true"] .vida-mobile-menu-accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.vida-mobile-menu-accordion-panel {
+  padding-bottom: 8px;
+}
+
+.vida-mobile-menu-list,
+.vida-mobile-menu-accordion-panel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vida-mobile-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  height: 28px;
+  font-size: var(--fs-body-lg);
+  line-height: var(--lh-body-lg);
+  letter-spacing: var(--ls-body-lg);
+  color: var(--content-primary);
+  font-weight: 450;
+  text-decoration: none;
+}
+
+.vida-mobile-menu-link-explore {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 14px;
+  height: 24px;
+  font-size: var(--fs-label-xl);
+  line-height: var(--lh-body-xl);
+  letter-spacing: var(--ls-label-xl);
+  color: var(--content-primary);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.vida-mobile-menu-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vida-mobile-menu-legal a {
+  font-size: var(--fs-label-lg);
+  line-height: var(--lh-body-lg);
+  letter-spacing: 0;
+  color: var(--content-secondary);
+  text-decoration: none;
+  font-weight: 530;
+}
+
+.vida-mobile-menu-footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 12px;
+  padding: 16px;
+  background: var(--surface-primary);
+  border-top: 1px solid var(--border-default);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  color: var(--content-secondary);
+  text-decoration: none;
+}
+
+@media (width >=1024px) {
+  .vida-header-menu-trigger {
+    display: none;
+  }
+
+  .vida-header-mobile-menu {
+    display: none;
+  }
+}
