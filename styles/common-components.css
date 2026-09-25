@@ -59,7 +59,7 @@
 
 .button-secondary {
     color: var(--action-primary);
-    background-color: var(--color-neutral-0);
+    background-color: var(--surface-primary);
     border: 1px solid var(--action-primary);
     border-radius: 999px;
 }
@@ -70,7 +70,7 @@
 }
 
 .button-secondary:focus-visible {
-    background-color: var(--color-neutral-0);
+    background-color: var(--surface-primary);
 }
 
 .button-secondary:disabled {

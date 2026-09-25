@@ -129,6 +129,7 @@
   --status-positive-bg: var(--color-green-50);
   --status-positive-content: var(--color-green-800);
   --status-positive-border: var(--color-green-200);
+  --status-positive-intense: var(--color-green-700);
 
   /* Status Error */
   --status-error-bg: var(--color-red-50);
@@ -253,6 +254,7 @@
   /* --- Utility & Labels (For all breakpoints) --- */
 
   /* font-size */
+  --fs-label-xl: 20px;
   --fs-label-lg: 16px;
   --fs-label-md: 14px;
   --fs-label-sm: 12px;
@@ -260,6 +262,7 @@
   --fs-overline: 10px;
 
   /* line-height */
+  --lh-label-xl: 28px;
   --lh-label-lg: 24px;
   --lh-label-md: 18px;
   --lh-label-sm: 16px;
@@ -267,14 +270,26 @@
   --lh-overline: 14px;
 
   /* letter-spacing */
+  --ls-label-xl: 0px;
   --ls-label-lg: 0.5px;
   --ls-label-md: 0.5px;
   --ls-label-sm: 0.5px;
   --ls-caption: 0.2px;
   --ls-overline: 1px;
+
+  /* border radius */
+  --radius-button: 9999px;
+  --radius-input: 6px;
+  --radius-card: 16px;
+  --radius-modal: 24px;
+  --radius-badge: 2px;
+  --radius-avatar: 9999px;
+  --radius-chip: 9999px;
+  --radius-tooltip: 8px;
+  --radius-notification: 9999px;
 }
 
-@media (width >= 768px) {
+@media (width >=768px) {
   :root {
     /* --- Display (Tablet) --- */
 
@@ -326,7 +341,7 @@
   }
 }
 
-@media (width >= 1024px) {
+@media (width >=1024px) {
   :root {
     /* --- Display (Desktop) --- */
 
