@@ -432,6 +432,10 @@ function wireDropdowns(header, icons) {
   });
 }
 
+// --------------------------------------------------------- //
+// --------------- Mobile menu --------------- //
+// --------------------------------------------------------- //
+
 function buildMobileMenuAccordionItem(series, chevronSrc) {
   const item = document.createElement('div');
   item.className = 'vida-mobile-menu-accordion-item';
@@ -637,6 +641,9 @@ function setMobileMenuOpen(trigger, overlay, isOpen) {
   document.body.classList.toggle('vida-mobile-menu-open', isOpen);
 }
 
+// ----------------------------------- //
+// ------ Final Header function ------ //
+// ----------------------------------- //
 function buildHeader(data) {
   const wrapper = document.createElement('div');
   wrapper.className = 'vida-header-wrapper';
@@ -677,10 +684,6 @@ function buildHeader(data) {
 
   return wrapper;
 }
-
-// --------------------------------------------------------- //
-// --------------- Mobile menu --------------- //
-// --------------------------------------------------------- //
 
 // --------------------------------------------------------- //
 // ---------------- Final decorate function ---------------- //
