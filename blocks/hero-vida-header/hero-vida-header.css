@@ -102,7 +102,7 @@
 }
 
 .vida-header-country-selector {
-  display: flex;
+  display: none;
   align-items: center;
   background: none;
   border: none;
@@ -120,7 +120,23 @@
   transition: transform 0.2s ease;
 }
 
+@media (768px <=width < 1024px) {
+  .vida-header-country-selector {
+    display: flex;
+  }
 
+  .vida-header-header-actions .button {
+    display: inline-flex;
+  }
+
+  .vida-header-header-actions .vida-header-country-selector {
+    order: -1;
+  }
+
+  .vida-header-country-selector-chevron {
+    display: none;
+  }
+}
 
 @media (width >=1024px) {
   .vida-header {
@@ -145,6 +161,10 @@
 
   .vida-header-top-link:hover {
     color: var(--brand-default);
+  }
+
+  .vida-header-country-selector {
+    display: flex;
   }
 
   .vida-header-header-actions .button {
