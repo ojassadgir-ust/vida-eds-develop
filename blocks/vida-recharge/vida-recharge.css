@@ -1,0 +1,214 @@
+.vida-recharge {
+  --vida-recharge-page-padding-desktop: 64px;
+  --vida-recharge-page-padding-mobile-block: 24px;
+  --vida-recharge-page-padding-mobile-inline: 16px;
+  --vida-recharge-overlay-color: #f9f5ee;
+  --vida-recharge-heading-color: #1d1b1b;
+  --vida-recharge-border-color: #fff;
+  --vida-recharge-border-width: 4px;
+  --vida-recharge-border-radius: 24px;
+  --vida-recharge-heading-size-desktop: 48px;
+  --vida-recharge-heading-size-mobile: 32px;
+  --vida-recharge-subheading-size: 32px;
+  --vida-recharge-rich-content-margin-top: 24px;
+  --vida-recharge-cta-margin-top-desktop: 48px;
+  --vida-recharge-cta-margin-top-mobile: 24px;
+  --vida-recharge-cta-padding-block: 12px;
+  --vida-recharge-cta-padding-inline: 32px;
+  --vida-recharge-cta-background: #1d1b1b;
+  --vida-recharge-cta-hover-background: #343232;
+  --vida-recharge-cta-color: #fff;
+  --vida-recharge-mobile-image-to-heading: 14px;
+  --vida-recharge-mobile-heading-margin-bottom: 8px;
+  --vida-recharge-transition-duration: 180ms;
+
+  padding:
+    var(--vida-recharge-page-padding-desktop);
+}
+
+.vida-recharge-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  overflow: hidden;
+  border:
+    var(--vida-recharge-border-width)
+    solid
+    var(--vida-recharge-border-color);
+  border-radius: var(--vida-recharge-border-radius);
+}
+
+.vida-recharge-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.vida-recharge-image-desktop,
+.vida-recharge-image-mobile {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.vida-recharge-image-desktop img,
+.vida-recharge-image-mobile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.vida-recharge-image-mobile {
+  display: none;
+}
+
+.vida-recharge-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  grid-column: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: var(--vida-recharge-page-padding-desktop);
+  background: var(--vida-recharge-overlay-color);
+  border-radius:
+    var(--vida-recharge-border-radius)
+    0
+    0
+    var(--vida-recharge-border-radius);
+}
+
+.vida-recharge-heading {
+  margin: 0;
+  color: var(--vida-recharge-heading-color);
+  font-size: var(--vida-recharge-heading-size-desktop);
+  font-weight: 400;
+  line-height: 1.08;
+}
+
+.vida-recharge-subheading {
+  margin: 0;
+  color: var(--vida-recharge-heading-color);
+  font-size: var(--vida-recharge-subheading-size);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.vida-recharge-rich-content {
+  margin-top: var(--vida-recharge-rich-content-margin-top);
+  color: var(--vida-recharge-heading-color);
+}
+
+.vida-recharge-rich-content p {
+  margin: 0;
+}
+
+.vida-recharge-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--vida-recharge-cta-margin-top-desktop);
+  padding:
+    var(--vida-recharge-cta-padding-block)
+    var(--vida-recharge-cta-padding-inline);
+  border-radius: 999px;
+  background: var(--vida-recharge-cta-background);
+  color: var(--vida-recharge-cta-color);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+  transition:
+    background-color
+    var(--vida-recharge-transition-duration)
+    ease;
+}
+
+.vida-recharge-cta:hover,
+.vida-recharge-cta:focus-visible {
+  background: var(--vida-recharge-cta-hover-background);
+}
+
+.vida-recharge-cta:focus-visible {
+  outline: 2px solid var(--vida-recharge-heading-color);
+  outline-offset: 3px;
+}
+
+@media (width <= 767px) {
+  .vida-recharge {
+    padding:
+      var(--vida-recharge-page-padding-mobile-block)
+      var(--vida-recharge-page-padding-mobile-inline);
+  }
+
+  .vida-recharge-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vida-recharge-background {
+    position: relative;
+    inset: auto;
+    overflow: hidden;
+  }
+
+  .vida-recharge-image-desktop {
+    display: none;
+  }
+
+  .vida-recharge-image-mobile {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .vida-recharge-image-mobile img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .vida-recharge-content {
+    width: 100%;
+    min-height: 0;
+    padding:
+      0
+      var(--vida-recharge-page-padding-mobile-inline)
+      var(--vida-recharge-page-padding-mobile-block);
+    border-radius:
+      0
+      0
+      var(--vida-recharge-border-radius)
+      var(--vida-recharge-border-radius);
+  }
+
+  .vida-recharge-heading {
+    margin-top: var(--vida-recharge-mobile-image-to-heading);
+    margin-bottom: var(--vida-recharge-mobile-heading-margin-bottom);
+    font-size: var(--vida-recharge-heading-size-mobile);
+    line-height: 1.1;
+  }
+
+  .vida-recharge-subheading {
+    margin: 0;
+    font-size: var(--vida-recharge-subheading-size);
+    line-height: 1.2;
+  }
+
+  .vida-recharge-rich-content {
+    margin-top: var(--vida-recharge-rich-content-margin-top);
+  }
+
+  .vida-recharge-cta {
+    margin-top: var(--vida-recharge-cta-margin-top-mobile);
+  }
+}

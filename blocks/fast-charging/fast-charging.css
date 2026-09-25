@@ -1,0 +1,254 @@
+.fast-charging {
+  --fast-charging-font-family: inherit;
+  --fast-charging-font-size: inherit;
+  --fast-charging-page-padding: 64px;
+  --fast-charging-mobile-page-padding-y: 24px;
+  --fast-charging-mobile-page-padding-x: 16px;
+  --fast-charging-radius: 24px;
+  --fast-charging-border-width: 4px;
+  --fast-charging-border-color: rgb(255 255 255 / 90%);
+  --fast-charging-content-bg: #f9f5ee;
+  --fast-charging-heading-color: #1d1b1b;
+  --fast-charging-heading-special-color: #ff5310;
+  --fast-charging-cta-bg: #1d1b1b;
+  --fast-charging-cta-hover-bg: #343232;
+  --fast-charging-cta-color: #fff;
+  --fast-charging-heading-size: 48px;
+  --fast-charging-subheading-size: 32px;
+  --fast-charging-richtext-size: 20px;
+  --fast-charging-mobile-heading-size: 32px;
+  --fast-charging-mobile-subheading-size: 24px;
+  --fast-charging-mobile-richtext-size: 20px;
+  --fast-charging-content-padding: 56px;
+  --fast-charging-mobile-content-padding-top: 14px;
+  --fast-charging-mobile-content-padding-x: 24px;
+  --fast-charging-mobile-content-padding-bottom: 32px;
+  --fast-charging-cta-horizontal-padding: 32px;
+  --fast-charging-cta-vertical-padding: 12px;
+  --fast-charging-mobile-cta-horizontal-padding: 24px;
+  --fast-charging-mobile-image-height: 45vh;
+
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: var(--fast-charging-page-padding);
+  font-family: var(--fast-charging-font-family);
+  font-size: var(--fast-charging-font-size);
+  background-image: var(--fast-charging-desktop-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fast-charging *,
+.fast-charging *::before,
+.fast-charging *::after {
+  box-sizing: border-box;
+}
+
+.fast-charging-overlay {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: 100%;
+  height: auto;
+  min-height: 640px;
+  overflow: hidden;
+  border: var(--fast-charging-border-width) solid
+    var(--fast-charging-border-color);
+  border-radius: var(--fast-charging-radius);
+}
+
+.fast-charging-media {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 100%;
+  background: transparent;
+}
+
+.fast-charging-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  padding: var(--fast-charging-content-padding);
+  background: var(--fast-charging-content-bg);
+}
+
+.fast-charging-content {
+  width: 100%;
+}
+
+.fast-charging-heading {
+  margin: 0;
+  color: var(--fast-charging-heading-color);
+  font-family: inherit;
+  font-size: var(--fast-charging-heading-size);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.fast-charging-heading-special {
+  color: var(--fast-charging-heading-special-color);
+}
+
+.fast-charging-subheading {
+  margin: 0;
+  color: var(--fast-charging-heading-color);
+  font-family: inherit;
+  font-size: var(--fast-charging-subheading-size);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.fast-charging-subheading-spaced {
+  margin-top: 24px;
+}
+
+.fast-charging-richtext {
+  margin-top: 24px;
+  color: var(--fast-charging-heading-color);
+  font-family: inherit;
+  font-size: var(--fast-charging-richtext-size);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.fast-charging-richtext > :first-child {
+  margin-top: 0;
+}
+
+.fast-charging-richtext > :last-child {
+  margin-bottom: 0;
+}
+
+.fast-charging-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 48px;
+  padding:
+    var(--fast-charging-cta-vertical-padding)
+    var(--fast-charging-cta-horizontal-padding);
+  border: 0;
+  border-radius: 999px;
+  background: var(--fast-charging-cta-bg);
+  color: var(--fast-charging-cta-color);
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.fast-charging-cta:hover {
+  background: var(--fast-charging-cta-hover-bg);
+  color: var(--fast-charging-cta-color);
+}
+
+.fast-charging-cta:focus-visible {
+  color: var(--fast-charging-cta-color);
+  outline: 3px solid currentcolor;
+  outline-offset: 4px;
+}
+
+.fast-charging-cta:active {
+  color: var(--fast-charging-cta-color);
+  transform: scale(0.98);
+}
+
+@media (width <= 767px) {
+  .fast-charging {
+    padding:
+      var(--fast-charging-mobile-page-padding-y)
+      var(--fast-charging-mobile-page-padding-x);
+    background-image: var(--fast-charging-mobile-image);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .fast-charging-overlay {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+    border-radius: var(--fast-charging-radius);
+  }
+
+  .fast-charging-media {
+    order: 1;
+    flex: 0 0 var(--fast-charging-mobile-image-height);
+    width: 100%;
+    min-height: var(--fast-charging-mobile-image-height);
+    background: transparent;
+    overflow: hidden;
+    border-radius:
+      0
+      0
+      var(--fast-charging-radius)
+      var(--fast-charging-radius);
+  }
+
+  .fast-charging-content-wrapper {
+    order: 2;
+    padding:
+      var(--fast-charging-mobile-content-padding-top)
+      var(--fast-charging-mobile-content-padding-x)
+      var(--fast-charging-mobile-content-padding-bottom);
+  }
+
+  .fast-charging-heading {
+    font-size: var(--fast-charging-mobile-heading-size);
+    line-height: 1.1;
+  }
+
+  .fast-charging-subheading {
+    font-size: var(--fast-charging-mobile-subheading-size);
+    line-height: 1.2;
+  }
+
+  .fast-charging-richtext {
+    margin-top: 24px;
+    font-size: var(--fast-charging-mobile-richtext-size);
+    line-height: 1.45;
+  }
+
+  .fast-charging-cta {
+    margin-top: 24px;
+    padding:
+      var(--fast-charging-cta-vertical-padding)
+      var(--fast-charging-mobile-cta-horizontal-padding);
+  }
+
+  .fast-charging-subheading-spaced{
+    margin-top:12px;
+  }
+}
+
+@media (width >= 768px) and (width <= 1200px) {
+  .fast-charging-content-wrapper {
+    padding: 40px;
+  }
+
+  .fast-charging-heading {
+    font-size: 42px;
+  }
+
+  .fast-charging-subheading {
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fast-charging-cta {
+    transition: none;
+  }
+}
