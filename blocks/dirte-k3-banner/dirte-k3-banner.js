@@ -1,11 +1,13 @@
-function getText(element) {
-  return element?.textContent?.trim() || '';
-}
+/**
+ * DIRTE K3 Banner Block
+ * Renders responsive banner with heading, logo, image, text, button, and specifications
+ */
 
-function getImage(element) {
-  return element?.querySelector('img') || null;
-}
-
+/**
+ * Extract rich text and URL from element
+ * @param {Element} element - DOM element
+ * @returns {Object} Object with text and url properties
+ */
 function getRichText(element) {
   if (!element) {
     return {
@@ -15,271 +17,334 @@ function getRichText(element) {
   }
 
   const link = element.querySelector('a');
+  const text = link?.textContent?.trim() || element.textContent.trim();
+  const url = link?.getAttribute('href') || '';
 
+  return { text, url };
+}
+
+/**
+ * Extract banner fields from children array
+ * @param {Array} fields - Array of field elements
+ * @returns {Object} Banner fields object
+ */
+function getBannerFields(fields) {
   return {
-    text: link?.textContent?.trim() || element.textContent.trim(),
-    url: link?.getAttribute('href') || '',
+    desktopImage: fields[0] || null,
+    tabletImage: fields[1] || null,
+    mobileImage: fields[2] || null,
+    backgroundColor: fields[3] || null,
   };
 }
 
-function getContentBlock(block) {
-  return [...block.children].find((child) => child.classList.contains('dirte-k3-content'));
-}
-
-function getContent(contentBlock) {
-  if (!contentBlock) {
+/**
+ * Extract content from content block
+ * @param {Element} contentElement - Content block element
+ * @returns {Object} Content object with heading, logo, subheading, cta
+ */
+function getContent(contentElement) {
+  if (!contentElement) {
     return {
       heading: '',
       logo: null,
       subheading: '',
-      cta: {
-        text: '',
-        url: '',
-      },
+      cta: { text: '', url: '' },
     };
   }
 
-  const fields = [...contentBlock.children];
+  const children = Array.from(contentElement.children);
 
   return {
-    heading: getText(fields[0]),
-    logo: getImage(fields[1]),
-    subheading: getText(fields[2]),
-    cta: getRichText(fields[3]),
+    heading: children[0]?.textContent?.trim() || '',
+    logo: children[1] || null,
+    subheading: children[2]?.textContent?.trim() || '',
+    cta: getRichText(children[3]),
   };
 }
 
-function getBannerFields(block) {
-  const fields = [...block.children].filter(
-    (child) => !child.classList.contains('dirte-k3-content')
-      && !child.classList.contains('dirte-k3-specification'),
-  );
+/**
+ * Extract specifications from spec blocks
+ * @param {Array} specElements - Array of spec elements
+ * @returns {Array} Array of { label, value } objects
+ */
+function getSpecifications(specElements) {
+  if (!specElements || specElements.length === 0) {
+    return [];
+  }
 
-  return {
-    desktopImage: getImage(fields[0]),
-    mobileImage: getImage(fields[1]),
-    bgColor: getText(fields[2]),
-  };
-}
-
-function getSpecifications(block) {
-  return [...block.children]
-    .filter((child) => child.classList.contains('dirte-k3-specification'))
-    .map((item) => {
-      const fields = [...item.children];
-
+  return specElements
+    .map((spec) => {
+      const children = Array.from(spec.children);
       return {
-        label: getText(fields[0]),
-        value: getText(fields[1]),
+        label: children[0]?.textContent?.trim() || '',
+        value: children[1]?.textContent?.trim() || '',
       };
     })
     .filter((item) => item.label || item.value);
 }
 
-function createHeading(value) {
-  if (!value) {
+/**
+ * Create heading element
+ * @param {string} text - Heading text
+ * @returns {Element|null} h2 element or null
+ */
+function createHeading(text) {
+  if (!text) {
     return null;
   }
 
   const heading = document.createElement('h2');
-
   heading.className = 'dirte-k3-heading';
-  heading.textContent = value;
+  heading.textContent = text;
 
   return heading;
 }
 
-function createLogo(image) {
-  if (!image) {
+/**
+ * Create logo wrapper with image
+ * @param {Element} logoElement - Logo picture element
+ * @returns {Element|null} Logo wrapper div or null
+ */
+function createLogo(logoElement) {
+  if (!logoElement) {
     return null;
   }
 
-  const wrapper = document.createElement('div');
+  const logoWrapper = document.createElement('div');
+  logoWrapper.className = 'dirte-k3-logo-wrapper';
 
-  wrapper.className = 'dirte-k3-logo-wrapper';
+  const img = document.createElement('img');
+  img.className = 'dirte-k3-logo';
+  img.src = logoElement.querySelector('img')?.src || '';
+  img.alt = 'DIRTE K3 Logo';
 
-  const logo = image.cloneNode(true);
+  logoWrapper.appendChild(img);
 
-  logo.className = 'dirte-k3-logo';
-
-  wrapper.append(logo);
-
-  return wrapper;
+  return logoWrapper;
 }
 
-function createSubheading(value) {
-  if (!value) {
+/**
+ * Create subheading paragraph
+ * @param {string} text - Subheading text
+ * @returns {Element|null} p element or null
+ */
+function createSubheading(text) {
+  if (!text) {
     return null;
   }
 
-  const subheading = document.createElement('div');
-
+  const subheading = document.createElement('p');
   subheading.className = 'dirte-k3-subheading';
-
-  subheading.innerHTML = value;
+  subheading.textContent = text;
 
   return subheading;
 }
 
-function createCTA(cta) {
-  if (!cta.text) {
+/**
+ * Create CTA button/link
+ * @param {Object} ctaData - CTA data with text and url
+ * @returns {Element|null} a element or null
+ */
+function createCTA(ctaData) {
+  if (!ctaData || !ctaData.text) {
     return null;
   }
 
-  const link = document.createElement('a');
+  const cta = document.createElement('a');
+  cta.className = 'dirte-k3-cta';
+  cta.textContent = ctaData.text;
+  cta.href = ctaData.url || '#';
 
-  link.className = 'dirte-k3-cta';
-  link.textContent = cta.text;
-
-  if (cta.url) {
-    link.href = cta.url;
+  if (!ctaData.url) {
+    cta.setAttribute('role', 'button');
+    cta.setAttribute('tabindex', '0');
   }
 
-  return link;
+  return cta;
 }
 
-function createSpecification(specification) {
-  const item = document.createElement('div');
+/**
+ * Create media container with responsive images
+ * @param {Element} desktopImage - Desktop image element
+ * @param {Element} tabletImage - Tablet image element
+ * @param {Element} mobileImage - Mobile image element
+ * @returns {Element} Media container div
+ */
+function createMedia(desktopImage, tabletImage, mobileImage) {
+  const media = document.createElement('div');
+  media.className = 'dirte-k3-media';
 
-  item.className = 'dirte-k3-spec';
+  // Desktop picture
+  const desktopPicture = document.createElement('picture');
+  desktopPicture.className = 'dirte-k3-desktop-picture';
+  const desktopImg = document.createElement('img');
+  desktopImg.className = 'dirte-k3-desktop-image';
+  desktopImg.src = desktopImage?.querySelector('img')?.src || '';
+  desktopImg.alt = 'DIRTE K3 Electric Dirt Bike - Desktop View';
+  desktopPicture.appendChild(desktopImg);
 
-  const label = document.createElement('div');
+  // Tablet picture
+  const tabletPicture = document.createElement('picture');
+  tabletPicture.className = 'dirte-k3-tablet-picture';
+  const tabletImg = document.createElement('img');
+  tabletImg.className = 'dirte-k3-tablet-image';
+  tabletImg.src = tabletImage?.querySelector('img')?.src || '';
+  tabletImg.alt = 'DIRTE K3 Electric Dirt Bike - Tablet View';
+  tabletPicture.appendChild(tabletImg);
 
-  label.className = 'dirte-k3-spec-label';
-  label.textContent = specification.label;
+  // Mobile picture
+  const mobilePicture = document.createElement('picture');
+  mobilePicture.className = 'dirte-k3-mobile-picture';
+  const mobileImg = document.createElement('img');
+  mobileImg.className = 'dirte-k3-mobile-image';
+  mobileImg.src = mobileImage?.querySelector('img')?.src || '';
+  mobileImg.alt = 'DIRTE K3 Electric Dirt Bike - Mobile View';
+  mobilePicture.appendChild(mobileImg);
 
-  const value = document.createElement('div');
+  media.appendChild(desktopPicture);
+  media.appendChild(tabletPicture);
+  media.appendChild(mobilePicture);
 
-  value.className = 'dirte-k3-spec-value';
-  value.textContent = specification.value;
-
-  item.append(label, value);
-
-  return item;
+  return media;
 }
 
-function createSpecifications(specifications) {
+/**
+ * Create divider element
+ * @returns {Element} Divider div
+ */
+function createDivider() {
+  const divider = document.createElement('div');
+  divider.className = 'dirte-k3-divider';
+
+  return divider;
+}
+
+/**
+ * Create specifications container
+ * @param {Array} specs - Array of specification objects
+ * @returns {Element|null} Specifications container or null
+ */
+function createSpecifications(specs) {
+  if (!specs || specs.length === 0) {
+    return null;
+  }
+
   const container = document.createElement('div');
-
   container.className = 'dirte-k3-specifications';
 
-  specifications.forEach((specification) => {
-    container.append(
-      createSpecification(specification),
-    );
+  specs.forEach((spec) => {
+    const specDiv = document.createElement('div');
+    specDiv.className = 'dirte-k3-spec';
+
+    const label = document.createElement('div');
+    label.className = 'dirte-k3-spec-label';
+    label.textContent = spec.label;
+
+    const value = document.createElement('div');
+    value.className = 'dirte-k3-spec-value';
+    value.textContent = spec.value;
+
+    specDiv.appendChild(label);
+    specDiv.appendChild(value);
+
+    container.appendChild(specDiv);
   });
 
   return container;
 }
 
-function createMedia(desktopImage, mobileImage) {
-  const media = document.createElement('div');
-
-  media.className = 'dirte-k3-media';
-
-  if (desktopImage) {
-    const desktopPicture = document.createElement('picture');
-
-    const desktopImg = desktopImage.cloneNode(true);
-
-    desktopImg.className = 'dirte-k3-desktop-image';
-    desktopImg.loading = 'eager';
-    desktopImg.fetchPriority = 'high';
-
-    desktopPicture.append(desktopImg);
-
-    media.append(desktopPicture);
-  }
-
-  if (mobileImage) {
-    const mobilePicture = document.createElement('picture');
-
-    const mobileImg = mobileImage.cloneNode(true);
-
-    mobileImg.className = 'dirte-k3-mobile-image';
-    mobileImg.loading = 'eager';
-
-    mobilePicture.append(mobileImg);
-
-    media.append(mobilePicture);
-  }
-
-  return media;
-}
-
+/**
+ * Main decorate function - transforms EDS content into banner
+ * @param {Element} block - The banner block element
+ */
 export default function decorate(block) {
-  const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
-
-  if (isAuthor) {
+  if (!block) {
     return;
   }
-  const contentBlock = getContentBlock(block);
 
+  // Skip in author mode
+  if (window.origin && window.origin.includes('author')) {
+    return;
+  }
+
+  const children = Array.from(block.children);
+
+  // Extract banner fields (images and background color)
+  const bannerFields = getBannerFields(children.slice(0, 4));
+
+  // Extract content block (heading, logo, subheading, CTA)
+  const contentBlock = children[4];
   const content = getContent(contentBlock);
 
-  const bannerFields = getBannerFields(block);
+  // Extract specifications
+  const specElements = children.slice(5);
+  const specifications = getSpecifications(specElements);
 
-  const specifications = getSpecifications(block);
+  // Set background color if provided
+  if (bannerFields.backgroundColor) {
+    const bgColor = bannerFields.backgroundColor.textContent?.trim();
+    if (bgColor && /^#[0-9A-F]{6}$/i.test(bgColor)) {
+      block.style.setProperty('--dirte-k3-bg', bgColor);
+    }
+  }
 
-  const contentArea = document.createElement('div');
-
-  contentArea.className = 'dirte-k3-text';
+  // Create text wrapper (heading, logo ONLY - no subheading)
+  const textWrapper = document.createElement('div');
+  textWrapper.className = 'dirte-k3-text';
 
   const heading = createHeading(content.heading);
-
   if (heading) {
-    contentArea.append(heading);
+    textWrapper.appendChild(heading);
   }
 
   const logo = createLogo(content.logo);
-
   if (logo) {
-    contentArea.append(logo);
+    textWrapper.appendChild(logo);
   }
 
+  // Create subheading (SEPARATE - for reordering on tablet)
   const subheading = createSubheading(content.subheading);
 
-  if (subheading) {
-    contentArea.append(subheading);
-  }
-
-  const cta = createCTA(content.cta);
-
-  if (cta) {
-    contentArea.append(cta);
-  }
-
-  contentArea.append(
-    createSpecifications(specifications),
-  );
-
+  // Create media container (all responsive images)
   const media = createMedia(
     bannerFields.desktopImage,
+    bannerFields.tabletImage,
     bannerFields.mobileImage,
   );
 
-  const contentWrapper = document.createElement('div');
+  // Create CTA button
+  const cta = createCTA(content.cta);
 
+  // Create content wrapper
+  // Order: text (heading, logo) → media (image) → subheading (text) → button
+  const contentWrapper = document.createElement('div');
   contentWrapper.className = 'dirte-k3-content-wrapper';
 
-  contentWrapper.append(
-    contentArea,
-    media,
-  );
+  contentWrapper.appendChild(textWrapper);
+  contentWrapper.appendChild(media);
 
-  const divider = document.createElement('div');
+  if (subheading) {
+    contentWrapper.appendChild(subheading);
+  }
 
-  divider.className = 'dirte-k3-divider';
+  if (cta) {
+    contentWrapper.appendChild(cta);
+  }
 
-  block.replaceChildren(
-    contentWrapper,
-    divider,
-  );
+  // Create divider
+  const divider = createDivider();
 
-  if (/^#[0-9a-fA-F]{3,8}$/.test(bannerFields.bgColor)) {
-    block.style.setProperty(
-      '--dirte-k3-bg',
-      bannerFields.bgColor,
-    );
+  // Create specifications
+  const specificationsElement = createSpecifications(specifications);
+
+  // Build final structure
+  block.replaceChildren(contentWrapper);
+
+  if (divider) {
+    block.appendChild(divider);
+  }
+
+  if (specificationsElement) {
+    block.appendChild(specificationsElement);
   }
 }
