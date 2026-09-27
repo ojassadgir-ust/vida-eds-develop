@@ -73,8 +73,9 @@ function getAutoplayDelay(block) {
  * Fields:
  *
  * 0 = Desktop Image
- * 1 = Mobile Image
- * 2 = Banner Link
+ * 1 = Tablet Image
+ * 2 = Mobile Image
+ * 3 = Banner Link
  */
 function createSlide(row, index) {
   const slide = document.createElement('li');
@@ -84,16 +85,17 @@ function createSlide(row, index) {
   slide.dataset.slideIndex = index;
 
   const desktopField = getField(row, 0);
-  const mobileField = getField(row, 1);
-  const bannerLinkField = getField(row, 2);
+  const tabletField = getField(row, 1);
+  const mobileField = getField(row, 2);
+  const bannerLinkField = getField(row, 3);
 
   const desktopImage = getImage(desktopField);
-
+  const tabletImage = getImage(tabletField);
   const mobileImage = getImage(mobileField);
 
   const bannerLink = getFieldLink(bannerLinkField);
 
-  if (desktopImage || mobileImage) {
+  if (desktopImage || tabletImage || mobileImage) {
     const picture = document.createElement('picture');
 
     picture.className = 'banner-carousel-slide-image';
@@ -112,12 +114,25 @@ function createSlide(row, index) {
     }
 
     /**
+     * Tablet image.
+     */
+    if (tabletImage) {
+      const source = document.createElement('source');
+
+      source.media = '(min-width: 768px) and (max-width: 1023px)';
+
+      source.srcset = tabletImage.src;
+
+      picture.append(source);
+    }
+
+    /**
      * Desktop image.
      *
      * If desktop image doesn't exist,
-     * mobile image will be used as fallback.
+     * tablet or mobile image will be used as fallback.
      */
-    const image = desktopImage || mobileImage;
+    const image = desktopImage || tabletImage || mobileImage;
 
     image.classList.add(
       'banner-carousel-image',

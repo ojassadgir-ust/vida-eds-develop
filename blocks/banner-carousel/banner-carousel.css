@@ -216,16 +216,89 @@
  * ==========================================
  */
 
-@media (width <= 1023px) {
+@media (width >= 768px) and (width <= 1023px) {
   .banner-carousel-slides-container {
     /*
-     * Keep desktop banner ratio until
-     * mobile breakpoint.
+     * Tablet banner:
+     * 768 × 600
      */
+    width: 100%;
     height: auto;
-    aspect-ratio: 1440 / 836;
+    aspect-ratio: 768 / 600;
   }
 
+  .banner-carousel-slide {
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-carousel-slide-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-carousel-slide-image picture {
+    width: 100%;
+    height: 100%;
+  }
+
+  .banner-carousel-slide-image img,
+  .banner-carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    object-position: center;
+  }
+
+  /*
+   * Tablet controller.
+   */
+  .banner-carousel-controls {
+    bottom: 24px;
+    width: max-content;
+    min-width: 0;
+    height: 43px;
+    padding: 16px;
+  }
+
+  .banner-carousel-indicators {
+    width: max-content;
+    height: 11px;
+    gap: 10px;
+  }
+
+  .banner-carousel-control {
+    flex-basis: 11px;
+    width: 11px;
+    height: 11px;
+  }
+
+  .banner-carousel-control.is-active {
+    flex-basis: 26px;
+    width: 26px;
+  }
+
+  .banner-carousel-control button {
+    width: 11px;
+    height: 11px;
+  }
+
+  .banner-carousel-control.is-active button {
+    width: 26px;
+    height: 11px;
+  }
+}
+
+/*
+ * ==========================================
+ * DESKTOP (Updated for clarity)
+ * ==========================================
+ */
+
+@media (width >= 1024px) {
+  .banner-carousel-slides-container {
+    height: 836px;
+  }
 }
 
 /*
