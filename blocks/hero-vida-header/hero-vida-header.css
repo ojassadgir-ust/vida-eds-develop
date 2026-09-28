@@ -345,7 +345,8 @@
   gap: 8px;
 }
 
-.vida-header-explore-title .vida-header-explore-side-title {
+.vida-header-explore-title,
+.vida-header-explore-side-title {
   font-size: var(--fs-heading-2xs);
   line-height: var(--lh-heading-2xs);
   font-weight: 530;
