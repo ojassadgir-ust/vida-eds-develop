@@ -1,10 +1,20 @@
 .banner-carousel {
   position: relative;
-  width: 100vw;
+  width: 100%;
   max-width: none;
-  margin: 0 calc(50% - 50vw);
+  margin: 0;
   padding: 0;
   overflow: hidden;
+  cursor: grab;
+  -webkit-cursor: grab;
+  touch-action: pan-y pinch-zoom;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.banner-carousel.is-dragging {
+  cursor: grabbing;
+  -webkit-cursor: grabbing;
 }
 
 /*
@@ -72,6 +82,8 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 /*
@@ -303,16 +315,28 @@
 
 /*
  * ==========================================
+ * TABLET
+ * Hand pointer and touch optimization
+ * ==========================================
+ */
+
+@media (hover: hover) and (pointer: fine) {
+  .banner-carousel {
+    cursor: grab;
+  }
+
+  .banner-carousel.is-dragging {
+    cursor: grabbing;
+  }
+}
+
+/*
+ * ==========================================
  * MOBILE
  * ==========================================
  */
 
 @media (width <= 767px) {
-  .banner-carousel {
-    width: 100vw;
-    margin: 0 calc(50% - 50vw);
-  }
-
   /*
    * Mobile banner:
    *

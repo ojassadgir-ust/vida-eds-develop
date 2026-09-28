@@ -444,9 +444,36 @@ function createIndicators(
 }
 
 /**
- * Bind pause/resume events.
+ * Handle swipe gesture with minimum swipe distance.
+ */
+function handleSwipe(block, startX, endX) {
+  const minSwipeDistance = 50;
+  const diffX = startX - endX;
+
+  if (Math.abs(diffX) < minSwipeDistance) {
+    return;
+  }
+
+  const currentIndex = Number(
+    block.dataset.activeIndex || 0,
+  );
+
+  if (diffX > 0) {
+    showSlide(block, currentIndex + 1);
+  } else {
+    showSlide(block, currentIndex - 1);
+  }
+
+  restartAutoplay(block);
+}
+
+/**
+ * Bind pause/resume events and swipe/drag gestures.
  */
 function bindEvents(block) {
+  let startX = 0;
+  let isDragging = false;
+
   /**
    * Pause when mouse enters.
    */
@@ -464,6 +491,8 @@ function bindEvents(block) {
     'mouseleave',
     () => {
       startAutoplay(block);
+      isDragging = false;
+      block.classList.remove('is-dragging');
     },
   );
 
@@ -490,24 +519,84 @@ function bindEvents(block) {
   );
 
   /**
-   * Pause on touch.
+   * Pointer down - capture start position for all input types.
+   */
+  block.addEventListener(
+    'pointerdown',
+    (e) => {
+      stopAutoplay(block);
+      startX = e.clientX || e.screenX;
+      isDragging = true;
+      block.classList.add('is-dragging');
+    },
+  );
+
+  /**
+   * Pointer up - detect swipe/drag and navigate.
+   */
+  block.addEventListener(
+    'pointerup',
+    (e) => {
+      if (isDragging) {
+        const endX = e.clientX || e.screenX;
+        handleSwipe(block, startX, endX);
+      }
+      isDragging = false;
+      block.classList.remove('is-dragging');
+      startAutoplay(block);
+    },
+  );
+
+  /**
+   * Pointer leave - cancel drag.
+   */
+  block.addEventListener(
+    'pointerleave',
+    () => {
+      isDragging = false;
+      block.classList.remove('is-dragging');
+    },
+  );
+
+  /**
+   * Prevent default drag behavior on images.
+   */
+  block.addEventListener(
+    'dragstart',
+    (e) => {
+      if (isDragging) {
+        e.preventDefault();
+      }
+    },
+  );
+
+  /**
+   * Fallback touch events for older browsers.
    */
   block.addEventListener(
     'touchstart',
-    () => {
-      stopAutoplay(block);
+    (e) => {
+      if (!isDragging) {
+        stopAutoplay(block);
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        block.classList.add('is-dragging');
+      }
     },
     {
       passive: true,
     },
   );
 
-  /**
-   * Resume after touch.
-   */
   block.addEventListener(
     'touchend',
-    () => {
+    (e) => {
+      if (isDragging) {
+        const endX = e.changedTouches[0].clientX;
+        handleSwipe(block, startX, endX);
+      }
+      isDragging = false;
+      block.classList.remove('is-dragging');
       startAutoplay(block);
     },
     {
