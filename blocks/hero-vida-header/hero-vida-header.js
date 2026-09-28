@@ -268,23 +268,23 @@ function normaliseHeaderJson(json, origin) {
   };
 }
 
-// function normaliseCountrySelectorJson(json, origin) {
-//   const countrySelectorJSON = json['jcr:content'].root.country_selector_cop;
-//   const asset = (p) => assetUrl(p, origin);
+function normaliseCountrySelectorJson(json, origin) {
+  const countrySelectorJSON = json['jcr:content'].root.country_selector_cop;
+  const asset = (p) => assetUrl(p, origin);
 
-//   return {
-//     logo: {
-//       src: asset(countrySelectorJSON.logo),
-//       link: pageUrl(countrySelectorJSON.logoLink),
-//     },
-//     heading: countrySelectorJSON.heading,
-//     countries: toArray(countrySelectorJSON.countries).map((country) => ({
-//       name: country.name,
-//       flag: asset(country.flag),
-//       link: country.redirectionUrl,
-//     })),
-//   };
-// }
+  return {
+    logo: {
+      src: asset(countrySelectorJSON.logo),
+      link: pageUrl(countrySelectorJSON.logoLink),
+    },
+    heading: countrySelectorJSON.heading,
+    countries: toArray(countrySelectorJSON.countries).map((country) => ({
+      name: country.name,
+      flag: asset(country.flag),
+      link: pageUrl(country.redirectionUrl),
+    })),
+  };
+}
 
 // ----------------------------------- //
 // - Build functions for Main header - //
@@ -695,10 +695,11 @@ function buildCountryCard(country, isSelected) {
   return countryCard;
 }
 
-function buildCountrySelector(data) {
+function buildCountrySelector(CSData, headerData) {
   const {
-    countries, logo, actions, labels, icons,
-  } = data;
+    countries, logo, heading: CSDescription,
+  } = CSData;
+  const { actions, labels, icons } = headerData;
   const currentCountryName = actions.country.label;
 
   const overlay = document.createElement('div');
@@ -738,7 +739,7 @@ function buildCountrySelector(data) {
 
   const description = document.createElement('p');
   description.className = 'vida-header-country-panel-desc';
-  description.textContent = 'Explore the content based on your selected location and shop online.';
+  description.textContent = CSDescription;
 
   const countryGrid = document.createElement('div');
   countryGrid.className = 'vida-header-country-grid';
@@ -771,6 +772,12 @@ function wireCountrySelector(header, overlay) {
   overlay.querySelector('.vida-header-country-panel-close')
     .addEventListener('click', () => setCountrySelectorOpen(triggers, overlay, false));
 
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      setCountrySelectorOpen(triggers, overlay, false);
+    }
+  });
+
   overlay.addEventListener('keydown', (e) => {
     if (e.key !== 'Escape') return;
     setCountrySelectorOpen(triggers, overlay, false);
@@ -781,7 +788,7 @@ function wireCountrySelector(header, overlay) {
 // ----------------------------------- //
 // ------ Final Header function ------ //
 // ----------------------------------- //
-function buildHeader(data) {
+function buildHeader(headerData, CSData) {
   const wrapper = document.createElement('div');
   wrapper.className = 'vida-header-wrapper';
 
@@ -792,23 +799,23 @@ function buildHeader(data) {
   container.className = 'vida-header-container';
 
   container.append(
-    buildLogo(data.logo),
-    buildNav(data.navItems, data.icons),
-    buildHeaderActions(data.actions, data.labels, data.icons),
+    buildLogo(headerData.logo),
+    buildNav(headerData.navItems, headerData.icons),
+    buildHeaderActions(headerData.actions, headerData.labels, headerData.icons),
   );
 
   header.append(container);
 
-  Object.entries(data.submenus || {}).forEach(([key, config]) => {
+  Object.entries(headerData.submenus || {}).forEach(([key, config]) => {
     header.append(buildSubmenu(key, config));
   });
 
-  wireDropdowns(header, data.icons);
+  wireDropdowns(header, headerData.icons);
 
-  const mobileMenuOverlay = buildMobileMenu(data);
+  const mobileMenuOverlay = buildMobileMenu(headerData);
   header.append(mobileMenuOverlay);
 
-  const countrySelectorOverlay = buildCountrySelector(data);
+  const countrySelectorOverlay = buildCountrySelector(CSData, headerData);
   header.append(countrySelectorOverlay);
   wireCountrySelector(header, countrySelectorOverlay);
 
@@ -826,32 +833,46 @@ function buildHeader(data) {
   return wrapper;
 }
 
+async function fetchJson(endpoint, label) {
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error(`${label} ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error(`Failed to load ${label}`, error);
+    return null;
+  }
+}
+
 // --------------------------------------------------------- //
 // ---------------- Final decorate function ---------------- //
 // --------------------------------------------------------- //
 export default async function decorate(block) {
-  const endpointRow = block.firstElementChild;
-  const rawPath = endpointRow?.textContent?.trim();
-  endpointRow?.remove();
+  const [headerRow, countrySelectorRow] = block.children;
+  const headerPath = headerRow?.textContent?.trim();
+  const countrySelectorPath = countrySelectorRow?.textContent?.trim();
 
-  const endpoint = getAPIEndpoint(rawPath, 'headerApi');
+  headerRow?.remove();
+  countrySelectorRow?.remove();
 
-  if (!endpoint) return;
+  const headerEndpoint = getAPIEndpoint(headerPath, 'headerApi');
+  const countrySelectorEndpoint = getAPIEndpoint(countrySelectorPath, 'countrySelectorApi');
 
-  let headerRawData;
+  if (!headerEndpoint) return;
 
-  try {
-    const response = await fetch(endpoint);
-    if (!response.ok) throw new Error(`Header API ${response.status}`);
-    headerRawData = await response.json();
-  } catch (error) {
-    console.error('Failed to load header data', error);
-    return;
-  }
+  const [headerRawData, countrySelectorRawData] = await Promise.all([
+    fetchJson(headerEndpoint, 'header data'),
+    countrySelectorEndpoint ? fetchJson(countrySelectorEndpoint, 'country selector data') : null,
+  ]);
 
-  const { origin } = new URL(endpoint);
-  const normalisedHeaderData = normaliseHeaderJson(headerRawData, origin);
+  if (!headerRawData) return;
+
+  const normalisedHeaderData = normaliseHeaderJson(headerRawData, new URL(headerEndpoint).origin);
+  const normalisedCountrySelectorData = normaliseCountrySelectorJson(
+    countrySelectorRawData,
+    new URL(countrySelectorEndpoint).origin,
+  );
 
   block.textContent = '';
-  block.append(buildHeader(normalisedHeaderData));
+  block.append(buildHeader(normalisedHeaderData, normalisedCountrySelectorData));
 }

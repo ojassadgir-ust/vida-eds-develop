@@ -102,7 +102,7 @@
 }
 
 .vida-header-country-selector {
-  display: none;
+  display: flex;
   align-items: center;
   background: none;
   border: none;
@@ -121,19 +121,7 @@
 }
 
 @media (768px <=width < 1024px) {
-  .vida-header-country-selector {
-    display: flex;
-  }
-
   .vida-header-header-actions .button {
-    display: inline-flex;
-  }
-
-  .vida-header-header-actions .vida-header-country-selector {
-    order: -1;
-  }
-
-  .vida-header-country-selector-chevron {
     display: none;
   }
 }
@@ -708,6 +696,13 @@
   box-sizing: border-box;
 }
 
+.vida-header-country-card-name {
+  font-weight: 530;
+  font-size: var(--fs-label-lg);
+  line-height: var(--lh-label-lg);
+  letter-spacing: var(--ls-label-lg);
+}
+
 .vida-header-country-card.is-selected {
   background: var(--action-primary-disabled);
 }
@@ -737,15 +732,13 @@
 
   .vida-header-country-panel {
     position: relative;
-    background: var(--surface-primary);
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto minmax(0, 1fr);
-    align-items: start;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     height: 65vh;
     min-height: 0;
-    padding: 32px 24px 0;
+    background: var(--surface-primary);
+    padding: 32px 0 0;
     border-radius: 16px 16px 0 0;
     overflow: hidden;
   }
@@ -757,13 +750,18 @@
     left: 50%;
     width: 40px;
     height: 4px;
-    border-radius: 2px;
+    border-radius: var(--radius-badge);
     background: var(--content-secondary);
     transform: translateX(-50%);
   }
 
   .vida-header-country-panel-top {
-    display: contents;
+    position: absolute;
+    top: 28px;
+    right: 24px;
+    margin: 0;
+    padding: 0;
+    border: 0;
   }
 
   .vida-header-country-panel-logo {
@@ -771,14 +769,14 @@
   }
 
   .vida-header-country-panel-title {
-    grid-column: 1;
-    grid-row: 1;
     max-width: none;
     margin: 0;
+    padding: 0 64px 0 24px;
     text-align: left;
-    font-size: var(--fs-heading-xs);
-    line-height: var(--lh-heading-xs);
-    letter-spacing: var(--ls-heading-xs);
+    font-size: var(--fs-heading-sm);
+    line-height: var(--lh-heading-sm);
+    letter-spacing: var(--ls-heading-sm);
+    font-weight: 530;
   }
 
   .vida-header-country-panel-close {
@@ -792,28 +790,28 @@
   }
 
   .vida-header-country-panel-desc {
-    grid-column: 1 / -1;
-    grid-row: 2;
     max-width: none;
     margin: 8px 0 24px;
+    padding: 0 24px;
+    padding-right: 64px;
     text-align: left;
     font-size: var(--fs-body-md);
     line-height: var(--lh-body-md);
     letter-spacing: var(--ls-body-md);
+    font-weight: 450;
   }
 
   .vida-header-country-grid {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    grid-template-columns: 1fr;
-    align-content: start;
+    flex: 1 1 0;
+    min-height: 0;
     max-width: none;
     margin: 0;
-    padding-bottom: 24px;
-    min-height: 0;
+    padding: 0 24px 24px;
     overflow-y: auto;
     overscroll-behavior: contain;
-    gap: 10px;
+    scrollbar-width: thin;
+    grid-template-columns: 1fr;
+    align-content: start;
   }
 
   .vida-header-country-card {
@@ -821,6 +819,10 @@
     padding: 20px 16px;
     height: 56px;
     width: 100%;
+  }
+
+  .vida-header-country-card.is-selected {
+    background: var(--action-secondary-hover);
   }
 
   .vida-header-country-card-flag {
