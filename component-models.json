@@ -225,5 +225,16 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "vida-footer",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-footer-api-endpoint",
+        "label": "Vida Footer API Endpoint"
+      }
+    ]
   }
 ]
