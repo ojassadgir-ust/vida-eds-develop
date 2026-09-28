@@ -1,10 +1,11 @@
 .banner-carousel {
   position: relative;
   width: 100%;
-  max-width: none;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
   cursor: grab;
   -webkit-cursor: grab;
   touch-action: pan-y pinch-zoom;
@@ -25,17 +26,23 @@
 .banner-carousel-slides-container {
   position: relative;
   width: 100%;
+  max-width: 100%;
   height: 836px;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .banner-carousel-slides {
   position: relative;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
   list-style: none;
 }
 
@@ -43,9 +50,11 @@
   position: absolute;
   inset: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
   background: #b6b4e0;
@@ -78,10 +87,12 @@
   position: absolute;
   inset: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
   -webkit-user-drag: none;
   user-select: none;
 }
@@ -92,9 +103,11 @@
 .banner-carousel-slide-image picture {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /*
@@ -107,9 +120,11 @@
 .banner-carousel-image {
   display: block;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   object-fit: cover;
   object-position: center;
 }
@@ -135,6 +150,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   width: max-content;
   min-width: 0;
   height: 43px;
@@ -146,6 +162,7 @@
   backdrop-filter: blur(4px);
   transform: translateX(-50%);
   pointer-events: none;
+  overflow: hidden;
 }
 
 /*
@@ -155,11 +172,13 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  max-width: 100%;
   width: max-content;
   height: 11px;
   gap: 10px;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   list-style: none;
   pointer-events: auto;
 }
@@ -176,6 +195,7 @@
   height: 11px;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /*
@@ -190,6 +210,7 @@
   border: 0;
   border-radius: 12px;
   background: #e9e9e9;
+  box-sizing: border-box;
   cursor: pointer;
   transition:
     width 0.3s ease,
