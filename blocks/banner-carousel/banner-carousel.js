@@ -473,6 +473,9 @@ function handleSwipe(block, startX, endX) {
 function bindEvents(block) {
   let startX = 0;
   let isDragging = false;
+  const slidesContainer = block.querySelector(
+    '.banner-carousel-slides-container',
+  );
 
   /**
    * Pause when mouse enters.
@@ -497,8 +500,7 @@ function bindEvents(block) {
   );
 
   /**
-   * Pause when keyboard focus
-   * enters carousel.
+   * Pause when keyboard focus enters carousel.
    */
   block.addEventListener(
     'focusin',
@@ -508,8 +510,7 @@ function bindEvents(block) {
   );
 
   /**
-   * Resume when keyboard focus
-   * leaves carousel.
+   * Resume when keyboard focus leaves carousel.
    */
   block.addEventListener(
     'focusout',
@@ -518,77 +519,83 @@ function bindEvents(block) {
     },
   );
 
+  if (!slidesContainer) return;
+
   /**
-   * Pointer down - capture start position for all input types.
+   * Mouse down - capture start position.
    */
-  block.addEventListener(
-    'pointerdown',
+  slidesContainer.addEventListener(
+    'mousedown',
     (e) => {
       stopAutoplay(block);
-      startX = e.clientX || e.screenX;
+      startX = e.clientX;
       isDragging = true;
       block.classList.add('is-dragging');
     },
   );
 
   /**
-   * Pointer up - detect swipe/drag and navigate.
+   * Mouse up - detect drag and navigate.
    */
-  block.addEventListener(
-    'pointerup',
-    (e) => {
-      if (isDragging) {
-        const endX = e.clientX || e.screenX;
-        handleSwipe(block, startX, endX);
-      }
-      isDragging = false;
-      block.classList.remove('is-dragging');
-      startAutoplay(block);
-    },
-  );
-
-  /**
-   * Pointer leave - cancel drag.
-   */
-  block.addEventListener(
-    'pointerleave',
+  document.addEventListener(
+    'mouseup',
     () => {
-      isDragging = false;
-      block.classList.remove('is-dragging');
-    },
-  );
-
-  /**
-   * Prevent default drag behavior on images.
-   */
-  block.addEventListener(
-    'dragstart',
-    (e) => {
       if (isDragging) {
-        e.preventDefault();
+        isDragging = false;
+        block.classList.remove('is-dragging');
       }
     },
   );
 
   /**
-   * Fallback touch events for older browsers.
+   * Mouse move - handle drag end on move outside.
    */
-  block.addEventListener(
+  slidesContainer.addEventListener(
+    'mouseup',
+    (e) => {
+      if (isDragging) {
+        const endX = e.clientX;
+        handleSwipe(block, startX, endX);
+        isDragging = false;
+        block.classList.remove('is-dragging');
+        startAutoplay(block);
+      }
+    },
+  );
+
+  /**
+   * Mouse leave - cancel drag.
+   */
+  slidesContainer.addEventListener(
+    'mouseleave',
+    () => {
+      if (isDragging) {
+        isDragging = false;
+        block.classList.remove('is-dragging');
+      }
+    },
+  );
+
+  /**
+   * Touch start - capture position.
+   */
+  slidesContainer.addEventListener(
     'touchstart',
     (e) => {
-      if (!isDragging) {
-        stopAutoplay(block);
-        startX = e.touches[0].clientX;
-        isDragging = true;
-        block.classList.add('is-dragging');
-      }
+      stopAutoplay(block);
+      startX = e.touches[0].clientX;
+      isDragging = true;
+      block.classList.add('is-dragging');
     },
     {
       passive: true,
     },
   );
 
-  block.addEventListener(
+  /**
+   * Touch end - detect swipe and navigate.
+   */
+  slidesContainer.addEventListener(
     'touchend',
     (e) => {
       if (isDragging) {
@@ -601,6 +608,16 @@ function bindEvents(block) {
     },
     {
       passive: true,
+    },
+  );
+
+  /**
+   * Prevent default drag behavior.
+   */
+  slidesContainer.addEventListener(
+    'dragstart',
+    (e) => {
+      e.preventDefault();
     },
   );
 }
@@ -683,6 +700,11 @@ export default function decorate(block) {
   const slidesContainer = document.createElement('div');
 
   slidesContainer.className = 'banner-carousel-slides-container';
+
+  slidesContainer.setAttribute(
+    'data-carousel-id',
+    block.id,
+  );
 
   /**
    * Create slides list.
