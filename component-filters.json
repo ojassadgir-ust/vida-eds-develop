@@ -20,12 +20,6 @@
     ]
   },
   {
-    "id": "app-promo",
-    "components": [
-      "app-promo"
-    ]
-  },
-  {
     "id": "cards",
     "components": [
       "card"

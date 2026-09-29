@@ -142,39 +142,6 @@
     ]
   },
   {
-    "id": "app-promo",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "desktop-image",
-        "label": "Desktop Image",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "reference",
-        "name": "mobile-image",
-        "label": "Mobile Image",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "name": "heading",
-        "label": "Heading",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "cta",
-        "label": "CTA",
-        "valueType": "string",
-        "value": ""
-      }
-    ]
-  },
-  {
     "id": "card",
     "fields": [
       {
