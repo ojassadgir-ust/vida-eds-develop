@@ -15,7 +15,9 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "hero-vida-header",
+      "vida-footer"
     ]
   },
   {
