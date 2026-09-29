@@ -1,21 +1,19 @@
 /* stylelint-disable selector-class-pattern, no-descending-specificity */
 
 .vida_footer {
-  --vida-footer-background: #1d1b1b;
-  --vida-footer-text: #dfdfdf;
-  --vida-footer-secondary: #a7a6a6;
-  --vida-footer-border: #5c5a5a;
-  --vida-footer-section-border: #85888c;
-  --vida-footer-social: #b8b8b8;
+  --vida-footer-background: var(--color-neutral-900);
+  --vida-footer-text: var(--color-neutral-1000);
+  --vida-footer-secondary: var(--color-neutral-400);
+  --vida-footer-border:var(--color-neutral-600);
+  --vida-footer-section-border: var(--color-neutral-600);
+  --vida-footer-social: var(--color-neutral-500);
   --vida-footer-nav-link-color: var(--surface-primary);
-
   width: 100%;
   margin: 0;
   padding: 0 20px;
   box-sizing: border-box;
   background: var(--vida-footer-background);
   color: var(--vida-footer-text);
-  font-family: 'PP Neue Montreal', sans-serif;
 }
 
 .vida_footer *,
