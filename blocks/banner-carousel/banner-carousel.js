@@ -360,18 +360,6 @@ function startAutoplay(block) {
 }
 
 /**
- * Restart autoplay.
- *
- * Used when the user clicks
- * an indicator.
- */
-function restartAutoplay(block) {
-  stopAutoplay(block);
-
-  startAutoplay(block);
-}
-
-/**
  * Create bottom controller indicators.
  */
 function createIndicators(
@@ -427,9 +415,9 @@ function createIndicators(
         );
 
         /**
-         * Restart 7-second timer.
+         * Resume autoplay after indicator click.
          */
-        restartAutoplay(block);
+        startAutoplay(block);
       },
     );
 
@@ -463,8 +451,6 @@ function handleSwipe(block, startX, endX) {
   } else {
     showSlide(block, currentIndex - 1);
   }
-
-  restartAutoplay(block);
 }
 
 /**
@@ -478,7 +464,7 @@ function bindEvents(block) {
   );
 
   /**
-   * Pause when mouse enters.
+   * Pause when mouse enters (accessibility).
    */
   block.addEventListener(
     'mouseenter',
@@ -558,13 +544,12 @@ function bindEvents(block) {
         handleSwipe(block, startX, endX);
         isDragging = false;
         block.classList.remove('is-dragging');
-        startAutoplay(block);
       }
     },
   );
 
   /**
-   * Mouse leave - cancel drag.
+   * Mouse leave - cancel drag and resume autoplay.
    */
   slidesContainer.addEventListener(
     'mouseleave',
@@ -572,6 +557,7 @@ function bindEvents(block) {
       if (isDragging) {
         isDragging = false;
         block.classList.remove('is-dragging');
+        startAutoplay(block);
       }
     },
   );
@@ -604,7 +590,6 @@ function bindEvents(block) {
       }
       isDragging = false;
       block.classList.remove('is-dragging');
-      startAutoplay(block);
     },
     {
       passive: true,
