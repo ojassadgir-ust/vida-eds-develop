@@ -1,11 +1,11 @@
 export default function decorate(block) {
   /**
-   * Expected authoring order:
+   * Block + Child Structure:
    *
-   * 0 = Images (richtext — desktop, tablet, mobile)
-   * 1 = Background Color
-   * 2 = Heading
-   * 3 = CTA
+   * Row 0 = Background Color (main block)
+   * Row 1 = Heading (main block)
+   * Row 2 = CTA (main block)
+   * Row 3+ = Images (child items - desktop, tablet, mobile in order)
    */
   const rows = [...block.children];
 
@@ -13,14 +13,18 @@ export default function decorate(block) {
     (row) => row.firstElementChild || row,
   );
 
-  const images = fields[0]?.querySelectorAll('img') || [];
+  const bgColor = fields[0]?.textContent?.trim() || '';
+  const heading = fields[1]?.textContent?.trim() || '';
+  const ctaHtml = fields[2]?.innerHTML?.trim() || '';
+
+  const imageRows = rows.slice(3);
+  const images = imageRows.map(
+    (row) => row.querySelector('img'),
+  ).filter(Boolean);
+
   const desktopImage = images[0] || null;
   const tabletImage = images[1] || null;
   const mobileImage = images[2] || null;
-
-  const bgColor = fields[1]?.textContent?.trim() || '';
-  const heading = fields[2]?.textContent?.trim() || '';
-  const ctaHtml = fields[3]?.innerHTML?.trim() || '';
 
   if (bgColor) {
     block.style.setProperty(

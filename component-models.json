@@ -145,13 +145,6 @@
     "id": "app-promo",
     "fields": [
       {
-        "component": "richtext",
-        "name": "images",
-        "label": "Images (Desktop, Tablet, Mobile)",
-        "valueType": "string",
-        "value": ""
-      },
-      {
         "component": "text",
         "name": "background-color",
         "label": "Background Color",
@@ -171,6 +164,18 @@
         "label": "CTA",
         "valueType": "string",
         "value": ""
+      }
+    ]
+  },
+  {
+    "id": "app-promo-image",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "image",
+        "label": "Image (Desktop, Tablet, Mobile in order)",
+        "valueType": "string",
+        "multi": false
       }
     ]
   },

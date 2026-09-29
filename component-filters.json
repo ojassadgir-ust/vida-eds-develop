@@ -23,7 +23,7 @@
   {
     "id": "app-promo",
     "components": [
-      "app-promo"
+      "app-promo-image"
     ]
   },
   {
