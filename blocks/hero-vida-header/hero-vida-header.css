@@ -639,8 +639,8 @@
 
 .vida-header-country-panel-close img {
   display: block;
-  height: 24px;
-  width: 24px;
+  height: 12.5px;
+  width: 12.5px;
 }
 
 .vida-header-country-panel-close {
@@ -701,6 +701,10 @@
   font-size: var(--fs-label-lg);
   line-height: var(--lh-label-lg);
   letter-spacing: var(--ls-label-lg);
+}
+
+.vida-header-country-card:hover {
+  background: var(--action-secondary-hover);
 }
 
 .vida-header-country-card.is-selected {
