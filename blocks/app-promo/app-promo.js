@@ -29,8 +29,21 @@ export default function decorate(block) {
   const mobileImage = fields[2]?.querySelector('img');
   const bgColor = fields[3]?.textContent?.trim() || '';
 
-  const heading = fields[4]?.textContent?.trim() || '';
-  const ctaHtml = fields[5]?.innerHTML?.trim() || '';
+  let heading = '';
+  let ctaHtml = '';
+
+  if (fields[4]) {
+    const contentRow = rows[4];
+    const children = [...contentRow.children];
+
+    if (children.length >= 2) {
+      heading = children[0]?.textContent?.trim() || '';
+      ctaHtml = children[1]?.innerHTML?.trim() || '';
+    } else {
+      heading = fields[4]?.textContent?.trim() || '';
+      ctaHtml = fields[5]?.innerHTML?.trim() || '';
+    }
+  }
 
   if (bgColor) {
     block.style.setProperty(
@@ -66,6 +79,15 @@ export default function decorate(block) {
 
     if (ctaLink) {
       ctaLink.classList.add('app-promo-button');
+    } else {
+      const text = ctaWrapper.textContent?.trim();
+      if (text) {
+        const buttonLink = document.createElement('a');
+        buttonLink.className = 'app-promo-button';
+        buttonLink.href = '#';
+        buttonLink.textContent = text;
+        ctaWrapper.replaceChildren(buttonLink);
+      }
     }
 
     content.append(ctaWrapper);

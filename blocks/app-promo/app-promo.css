@@ -68,9 +68,9 @@
   padding: 10px 24px;
   box-sizing: border-box;
   border: 0;
-  border-radius: var(--radius-button);
-  background-color: var(--action-primary);
-  color: var(--content-inverse);
+  border-radius: var(--radius-button, 999px);
+  background-color: var(--action-primary, #1d1b1b);
+  color: var(--content-inverse, #fff);
   font-family: var(--ff-primary);
   font-size: var(--fs-body-lg);
   line-height: var(--lh-body-lg);
@@ -91,27 +91,27 @@
 }
 
 .app-promo-button:visited {
-  color: var(--content-inverse);
+  color: var(--content-inverse, #fff);
   text-decoration: none;
 }
 
 .app-promo-button:hover,
 .app-promo-button:focus {
-  background-color: var(--action-primary-hover);
-  color: var(--content-inverse);
+  background-color: var(--action-primary-hover, #3f3d3d);
+  color: var(--content-inverse, #fff);
   text-decoration: none;
 }
 
 .app-promo-button:active {
-  color: var(--content-inverse);
+  color: var(--content-inverse, #fff);
   text-decoration: none;
   transform: scale(0.98);
 }
 
 .app-promo-button:focus-visible {
-  background-color: var(--action-primary);
-  color: var(--content-inverse);
-  outline: 2px solid var(--action-primary);
+  background-color: var(--action-primary, #1d1b1b);
+  color: var(--content-inverse, #fff);
+  outline: 2px solid var(--action-primary, #1d1b1b);
   outline-offset: 3px;
 }
 
