@@ -1,17 +1,16 @@
 export default function decorate(block) {
-  const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
-
-  if (isAuthor) {
-    return;
-  }
-
   /**
-   * 4-Field Structure:
+   * Block + Child Structure:
    *
-   * 0 = Background Color
-   * 1 = Heading
-   * 2 = CTA
-   * 3 = Images (desktop, tablet, mobile)
+   * Main Block (rows 0-3):
+   *   0 = Desktop Image
+   *   1 = Tablet Image
+   *   2 = Mobile Image
+   *   3 = Background Color
+   *
+   * Child Item (rows 4-5):
+   *   4 = Heading
+   *   5 = CTA
    */
   const rows = [...block.children];
 
@@ -19,14 +18,13 @@ export default function decorate(block) {
     (row) => row.firstElementChild || row,
   );
 
-  const bgColor = fields[0]?.textContent?.trim() || '';
-  const heading = fields[1]?.textContent?.trim() || '';
-  const ctaHtml = fields[2]?.innerHTML?.trim() || '';
+  const desktopImage = fields[0]?.querySelector('img');
+  const tabletImage = fields[1]?.querySelector('img');
+  const mobileImage = fields[2]?.querySelector('img');
+  const bgColor = fields[3]?.textContent?.trim() || '';
 
-  const images = fields[3]?.querySelectorAll('img') || [];
-  const desktopImage = images[0] || null;
-  const tabletImage = images[1] || null;
-  const mobileImage = images[2] || null;
+  const heading = fields[4]?.textContent?.trim() || '';
+  const ctaHtml = fields[5]?.innerHTML?.trim() || '';
 
   if (bgColor) {
     block.style.setProperty(

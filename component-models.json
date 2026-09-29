@@ -145,31 +145,50 @@
     "id": "app-promo",
     "fields": [
       {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
         "component": "text",
+        "valueType": "string",
         "name": "background-color",
         "label": "Background Color",
-        "valueType": "string",
         "value": "#F9F5EE"
-      },
+      }
+    ]
+  },
+  {
+    "id": "app-promo-content",
+    "fields": [
       {
         "component": "text",
+        "valueType": "string",
         "name": "heading",
         "label": "Heading",
-        "valueType": "string",
         "value": ""
       },
       {
         "component": "richtext",
+        "valueType": "string",
         "name": "cta",
         "label": "CTA",
-        "valueType": "string",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "images",
-        "label": "Images (Desktop, Tablet, Mobile)",
-        "valueType": "string",
         "value": ""
       }
     ]
