@@ -308,7 +308,7 @@ function showSlide(
  */
 function stopAutoplay(block) {
   if (block.bannerCarouselTimer) {
-    clearTimeout(
+    clearInterval(
       block.bannerCarouselTimer,
     );
 
@@ -337,25 +337,15 @@ function startAutoplay(block) {
       || 7000,
   );
 
-  block.bannerCarouselTimer = setTimeout(() => {
+  block.bannerCarouselTimer = setInterval(() => {
     const currentIndex = Number(
-      block.dataset.activeIndex
-          || 0,
+      block.dataset.activeIndex || 0,
     );
 
-    /**
-       * Move to the next banner.
-       */
     showSlide(
       block,
       currentIndex + 1,
     );
-
-    /**
-       * Start another 7-second
-       * countdown.
-       */
-    startAutoplay(block);
   }, autoplayDelay);
 }
 
@@ -406,18 +396,10 @@ function createIndicators(
           button.dataset.targetSlide,
         );
 
-        /**
-         * Immediately show selected banner.
-         */
         showSlide(
           block,
           targetIndex,
         );
-
-        /**
-         * Resume autoplay after indicator click.
-         */
-        startAutoplay(block);
       },
     );
 
