@@ -219,60 +219,84 @@
     "id": "vida-service-stations",
     "fields": [
       {
-        "component": "reference",
+        "component": "container",
+        "name": "images",
+        "label": "Images",
         "valueType": "string",
-        "name": "desktopImage",
-        "label": "Desktop Image",
-        "multi": false
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "desktopImage",
+            "label": "Image for desktop",
+            "multi": false
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "mobileImage",
+            "label": "Image for mobile",
+            "multi": false
+          }
+        ]
       },
       {
-        "component": "reference",
+        "component": "container",
+        "name": "content",
+        "label": "Content",
         "valueType": "string",
-        "name": "mobileImage",
-        "label": "Mobile Image",
-        "multi": false
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "heading",
+            "label": "Heading text"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subheading",
+            "label": "Subheading text"
+          },
+          {
+            "component": "richtext",
+            "valueType": "string",
+            "name": "richText",
+            "label": "Rich text"
+          }
+        ]
       },
       {
-        "component": "text",
+        "component": "container",
+        "name": "links",
+        "label": "Links",
         "valueType": "string",
-        "name": "heading",
-        "label": "Heading"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "subheading",
-        "label": "Subheading"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "richText",
-        "label": "Rich Text Content"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "ctaLabel",
-        "label": "Primary CTA Label"
-      },
-      {
-        "component": "aem-content",
-        "valueType": "string",
-        "name": "ctaLink",
-        "label": "Primary CTA Link"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "externalLabel",
-        "label": "External Link Label"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "externalUrl",
-        "label": "External Link URL"
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaLabel",
+            "label": "CTA label"
+          },
+          {
+            "component": "aem-content",
+            "valueType": "string",
+            "name": "ctaLink",
+            "label": "CTA link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalLabel",
+            "label": "External link label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalUrl",
+            "label": "External link URL"
+          }
+        ]
       }
     ]
   }
