@@ -142,6 +142,39 @@
     ]
   },
   {
+    "id": "app-promo",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "images",
+        "label": "Images (Desktop, Tablet, Mobile)",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "name": "background-color",
+        "label": "Background Color",
+        "valueType": "string",
+        "value": "#F9F5EE"
+      },
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "valueType": "string",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "cta",
+        "label": "CTA",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
