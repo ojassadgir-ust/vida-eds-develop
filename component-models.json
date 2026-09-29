@@ -164,18 +164,13 @@
         "label": "CTA",
         "valueType": "string",
         "value": ""
-      }
-    ]
-  },
-  {
-    "id": "app-promo-image",
-    "fields": [
+      },
       {
-        "component": "reference",
-        "name": "image",
-        "label": "Image (Desktop, Tablet, Mobile in order)",
+        "component": "richtext",
+        "name": "images",
+        "label": "Images (Desktop, Tablet, Mobile)",
         "valueType": "string",
-        "multi": false
+        "value": ""
       }
     ]
   },

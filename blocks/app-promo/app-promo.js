@@ -6,12 +6,12 @@ export default function decorate(block) {
   }
 
   /**
-   * Block + Child Structure:
+   * 4-Field Structure:
    *
-   * Row 0 = Background Color (main block)
-   * Row 1 = Heading (main block)
-   * Row 2 = CTA (main block)
-   * Row 3+ = Images (child items - desktop, tablet, mobile in order)
+   * 0 = Background Color
+   * 1 = Heading
+   * 2 = CTA
+   * 3 = Images (desktop, tablet, mobile)
    */
   const rows = [...block.children];
 
@@ -23,11 +23,7 @@ export default function decorate(block) {
   const heading = fields[1]?.textContent?.trim() || '';
   const ctaHtml = fields[2]?.innerHTML?.trim() || '';
 
-  const imageRows = rows.slice(3);
-  const images = imageRows.map(
-    (row) => row.querySelector('img'),
-  ).filter(Boolean);
-
+  const images = fields[3]?.querySelectorAll('img') || [];
   const desktopImage = images[0] || null;
   const tabletImage = images[1] || null;
   const mobileImage = images[2] || null;
