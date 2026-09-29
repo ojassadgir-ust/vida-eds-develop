@@ -15,14 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "banner-carousel"
-    ]
-  },
-  {
-    "id": "banner-carousel",
-    "components": [
-      "banner-carousel-item"
+      "fragment"
     ]
   },
   {
