@@ -154,12 +154,6 @@
     color: var(--vida-service-stations-cta-color);
 }
 
-.vida-service-stations-cta:focus-visible,
-.vida-service-stations-external:focus-visible {
-    outline: 2px solid currentcolor;
-    outline-offset: 4px;
-}
-
 .vida-service-stations-external {
     display: inline-flex;
     align-items: center;
@@ -169,6 +163,12 @@
     font-size: var(--vida-service-stations-external-font-size);
     line-height: 1.4;
     text-decoration: none;
+}
+
+.vida-service-stations-cta:focus-visible,
+.vida-service-stations-external:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 4px;
 }
 
 .vida-service-stations-external-arrow {
