@@ -1,4 +1,4 @@
-const FOOTER_API = 'https://dev.vidaworld.com/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json';
+import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
 
 const CLASS_PREFIX = 'vida_footer';
 
@@ -53,7 +53,8 @@ function normalizeUrl(url) {
   }
 
   if (url.startsWith('/')) {
-    return `https://dev.vidaworld.com${url}`;
+    const origin = CONFIG.BASE_URLS[CONFIG.ENV];
+    return `${origin}${url}`;
   }
 
   return url;
@@ -398,8 +399,8 @@ function mapFooterData(apiData) {
  *
  * Only ONE API request is made.
  */
-async function getFooterData() {
-  const response = await fetch(FOOTER_API);
+async function getFooterData(endpoint) {
+  const response = await fetch(endpoint);
 
   if (!response.ok) {
     throw new Error(
@@ -1134,6 +1135,16 @@ export default async function decorate(
   block,
 ) {
   try {
+    const endpointRow = block.firstElementChild;
+    const rawPath = endpointRow?.textContent?.trim();
+    endpointRow?.remove();
+
+    const endpoint = getAPIEndpoint(rawPath, 'footerApi');
+
+    if (!endpoint) {
+      return;
+    }
+
     /*
      * ONE API CALL
      *
@@ -1145,8 +1156,9 @@ export default async function decorate(
      *   ↓
      * Existing UI
      */
-    footerData = await getFooterData();
+    footerData = await getFooterData(endpoint);
 
+    // eslint-disable-next-line no-console
     console.log(
       'VIDA Footer data loaded from AEM:',
       footerData,
@@ -1216,6 +1228,7 @@ export default async function decorate(
       container,
     );
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(
       'VIDA Footer failed to load:',
       error,

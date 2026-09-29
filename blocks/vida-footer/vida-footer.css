@@ -7,7 +7,7 @@
   --vida-footer-border: #5c5a5a;
   --vida-footer-section-border: #85888c;
   --vida-footer-social: #b8b8b8;
-  --vida-footer-nav-link-color: #fff;
+  --vida-footer-nav-link-color: var(--surface-primary);
 
   width: 100%;
   margin: 0;
@@ -31,7 +31,7 @@
 .vida_footer h4,
 .vida_footer li,
 .vida_footer address {
-  font-family: 'PP Neue Montreal', sans-serif;
+   font-family: var(--ff-primary);
 }
 
 .vida_footer a {
@@ -73,8 +73,8 @@
 }
 
 .vida_footer__india .vida_footer__accordion-title {
-  color: var(--vida-footer-text);
-  font-size: 14px;
+  color: var(--vida-footer-nav-link-color);
+  font-size: var(--fs-label-lg);
   line-height: 1.4;
   font-weight: 400;
 }
@@ -131,7 +131,7 @@
  * Dealers
  */
 .vida_footer__india-panel a {
-  color: #ff5310;
+  color: var(--color-vida-500);
   text-decoration: none;
 }
 
@@ -211,8 +211,8 @@
 }
 
 .vida_footer__accordion-title {
-  color: var(--vida-footer-text);
-  font-size: 14px;
+  color: var(--vida-footer-nav-link-color);
+  font-size: var(--fs-label-lg);
   line-height: 1.4;
   font-weight: 400;
 }
@@ -347,7 +347,7 @@
 
 .vida_footer__company-title {
   margin: 0 0 4px;
-  color: var(--vida-footer-secondary);
+  color: var(--color-neutral-500);
   font-size: 12px;
   line-height: 1.4;
   font-weight: 400;
@@ -370,7 +370,7 @@
 
 .vida_footer__copyright {
   margin: 0;
-  color: var(--vida-footer-secondary);
+  color: var(--color-neutral-500);
   font-size: 14px;
   line-height: 1.4;
 }
@@ -421,7 +421,7 @@
    DESKTOP
    ================================================== */
 
-@media (width >= 768px) {
+@media (width >= 1024px) {
   .vida_footer {
     padding: 80px 88px;
   }
@@ -444,8 +444,9 @@
 
   .vida_footer__india
     .vida_footer__accordion-title {
-    font-size: 18px;
+    font-size: var(--fs-label-lg);
     line-height: 1.4;
+    color: var(--color-neutral-400);
   }
 
   .vida_footer__india-panel {
@@ -454,7 +455,7 @@
 
   .vida_footer__india-subtitle {
     margin: 0 0 16px;
-    font-size: 16px;
+    font-size: var(--fs-label-lg)s;
     line-height: 1.4;
   }
 
@@ -474,7 +475,7 @@
   }
 
   .vida_footer__india-text {
-    font-size: 16px;
+    font-size: var(--fs-label-lg);
     line-height: 1.5;
   }
 
@@ -534,8 +535,8 @@
 
   .vida_footer__nav-title {
     margin: 0 0 16px;
-    color: var(--vida-footer-text);
-    font-size: 16px;
+    color: var(--color-neutral-400);
+    font-size: var(--fs-label-lg);
     line-height: 1.4;
     font-weight: 400;
   }
@@ -572,7 +573,7 @@
 
   .vida_footer__nearby-title {
     margin: 0 0 16px;
-    color: var(--vida-footer-text);
+    color: var(--color-neutral-400);
     font-size: 16px;
     line-height: 1.4;
     font-weight: 400;
@@ -616,7 +617,7 @@
   }
 
   .vida_footer__legal-link {
-    color: var(--vida-footer-secondary);
+    color: var(--color-neutral-400);
     font-size: 14px;
   }
 
@@ -652,6 +653,7 @@
 
   .vida_footer__company-item {
     margin: 0;
+    align-self: baseline;
   }
 
   .vida_footer__address,
@@ -682,6 +684,17 @@
 
   .vida_footer__company {
     padding-top: 0;
+  }
+}
+
+@media (width >= 768px) and (width <= 1023px) {
+  .vida_footer {
+    padding: 8px 32px 64px;
+  }
+
+  .vida_footer__legal {
+    flex-direction: row;
+    gap:24px;
   }
 }
 
