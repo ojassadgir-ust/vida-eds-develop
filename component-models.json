@@ -225,5 +225,16 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "text-banner",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "banner-text",
+        "label": "Banner Text"
+      }
+    ]
   }
 ]
