@@ -47,6 +47,7 @@
   --color-neutral-700: #3F3D3D;
   --color-neutral-800: #2E2C2C;
   --color-neutral-900: #1D1B1B;
+
   /* As per the old design footer */
   --color-neutral-1000: #dfdfdf;
 
@@ -109,6 +110,7 @@
   /* Content - Text/icon foreground */
   --content-primary: var(--color-neutral-900);
   --content-secondary: var(--color-neutral-500);
+  --content-tertiary: var(--color-neutral-400);
   --content-inverse: var(--color-neutral-0);
   --content-brand: var(--color-vida-500);
   --content-on-brand: var(--color-neutral-0);
