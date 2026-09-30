@@ -15,8 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "dirte-k3-banner"
+      "fragment"
     ]
   },
   {
@@ -38,13 +37,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "dirte-k3-banner",
-    "components": [
-      "dirte-k3-content",
-      "dirte-k3-specification"
     ]
   }
 ]
