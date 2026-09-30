@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 24px;
+  gap: 40px;
   padding: 64px 24px 40px;
   box-sizing: border-box;
   text-align: center;
@@ -147,6 +147,12 @@
   vertical-align: top;
 }
 
+@media (width >= 1024px) {
+  .app-promo-heading {
+    max-width: none;
+  }
+}
+
 @media (width >= 768px) and (width <= 1023px) {
   .app-promo-content {
     gap: 16px;
@@ -163,7 +169,7 @@
 
 @media (width <= 767px) {
   .app-promo-content {
-    gap: 16px;
+    gap: 24px;
     padding: 48px 20px 24px;
   }
 
