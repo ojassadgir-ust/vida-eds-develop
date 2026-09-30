@@ -145,14 +145,23 @@
 }
 
 @media (width >= 1024px) {
+  .app-promo-inner {
+    gap: 71px;
+    height: 800px;
+  }
+
   .app-promo-heading {
     max-width: none;
   }
 }
 
 @media (width >= 768px) and (width <= 1023px) {
+  .app-promo-inner {
+    height: 460px;
+  }
+
   .app-promo-content {
-    gap: 16px;
+    gap: 40px;
     padding: 48px 32px 40px;
   }
 
