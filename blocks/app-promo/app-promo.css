@@ -165,6 +165,11 @@
 }
 
 @media (width <= 767px) {
+  .app-promo-inner {
+    gap: 71px;
+    height: 572px;
+  }
+
   .app-promo-content {
     gap: 24px;
     padding: 48px 20px 24px;
