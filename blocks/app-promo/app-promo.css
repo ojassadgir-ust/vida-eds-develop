@@ -144,7 +144,6 @@
   border: 0;
   object-fit: contain;
   object-position: center;
-  vertical-align: top;
 }
 
 @media (width >= 1024px) {
