@@ -1,8 +1,38 @@
 import { moveInstrumentation } from "../../scripts/scripts.js"
 import buildButton from "../../scripts/build-button.js"
 
+const ITEM_FIELDS = [
+    'desktopImage',
+    'mobileImage',
+    'imageAlt',
+    'title',
+    'description',
+    'ctaLink',
+    'ctaText'
+];
+
+function getItemCells(row) {
+    const cells = [...row.children];
+
+    if (cells.length !== ITEM_FIELDS.length) {
+        console.warn(`variant-selector: expected ${ITEM_FIELDS.length} fields, got ${cells.length} fields instead. 
+            Check the fields of the variant selector item`)
+    }
+
+    return Object.fromEntries(ITEM_FIELDS.map((name, i) => [name, cells[i]]));
+}
+
 function buildSlide(row, index, total, tagline) {
-    const [imageCell, titleCell, descriptionCell, ctaLinkCell, ctaTextCell] = [...row.children];
+    const {
+        desktopImage: desktopImageCall,
+        mobileImage: mobileImageCell,
+        imageAlt: imageAltCell,
+        title: titleCell,
+        description: descriptionCell,
+        ctaLink: ctaLinkCell,
+        ctaText: ctaTextCell
+
+    } = getItemCells(row);
 
     const slide = document.createElement('div');
     slide.className = 'vida-variant-selector-slide';
@@ -50,10 +80,24 @@ function buildSlide(row, index, total, tagline) {
 
     const media = document.createElement('div');
     media.className = 'vida-variant-selector-media';
-    const picture = imageCell?.querySelector('picture');
 
-    if (picture) media.append(picture);
+    const desktopPicture = desktopImageCall?.querySelector('picture');
+    const mobilePicture = mobileImageCell?.querySelector('picture');
+    const picture = mobilePicture || desktopPicture;
 
+    if (picture) {
+        const img = picture.querySelector('img');
+        if (img) img.alt = imageAltCell?.textContent.trim() || '';
+
+        const desktopSrc = desktopPicture?.querySelector('img')?.src;
+        if (mobilePicture && desktopSrc) {
+            const source = document.createElement('source');
+            source.media = '(min-width: 1024px)';
+            source.srcset = desktopSrc;
+            picture.prepend(source);
+        };
+        media.append(picture);
+    }
     slide.append(content, media);
 
     return slide;

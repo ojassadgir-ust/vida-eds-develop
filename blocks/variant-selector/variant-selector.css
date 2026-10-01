@@ -11,7 +11,6 @@
 .vida-variant-selector-slide {
     display: flex;
     flex-direction: column;
-    padding: 64px 24px;
 }
 
 .vida-variant-selector-slide[hidden] {
@@ -24,34 +23,54 @@
 
 .vida-variant-selector-tagline {
     order: 1;
-    font-size: var(--fs-heading-xs);
-    line-height: var(--lh-heading-xs);
-    letter-spacing: var(--ls-heading-xs);
+    font-size: var(--fs-heading-sm);
+    line-height: var(--lh-heading-sm);
+    letter-spacing: var(--ls-heading-sm);
+    color: var(--content-secondary);
+    font-weight: 530;
     text-transform: uppercase;
+    margin: 0;
+    max-width: 252px;
+    margin: auto;
+    text-align: center;
+    margin-top: 48px;
 }
 
 .vida-variant-selector-title {
     order: 2;
-    font-size: var(--fs-heading-lg);
-    line-height: var(--lh-heading-lg);
-    letter-spacing: var(--ls-heading-lg);
+    font-size: var(--fs-heading-2xl);
+    line-height: var(--lh-heading-2xl);
+    letter-spacing: var(--ls-heading-2xl);
+    font-weight: 530;
+    margin: 0;
+    max-width: 252px;
+    margin: auto;
+    text-align: center;
+    margin-top: 12px;
 }
 
 .vida-variant-selector-description {
     order: 3;
-    font-size: var(--fs-body-xl);
-    line-height: var(--lh-body-xl);
-    letter-spacing: var(--ls-body-xl);
+    font-size: var(--fs-body-md);
+    line-height: var(--lh-body-md);
+    letter-spacing: var(--ls-body-md);
+    font-weight: 450;
+    margin: 0;
+    max-width: 252px;
+    margin: auto;
+    text-align: center;
+    margin-top: 12px;
 }
 
 .vida-variant-selector-description p {
     margin: 0;
+    padding-bottom: 48px;
 }
 
 .vida-variant-selector-media {
-    order: 4;
-    height: 360px;
-    margin-bottom: 32px;
+    order: 5;
+    margin-bottom: 20px;
+    height: 210px;
 }
 
 .vida-variant-selector-media picture,
@@ -63,26 +82,25 @@
 }
 
 .vida-variant-selector-cta {
-    order: 5;
-    align-self: flex-start;
+    order: 4;
+    align-self: center;
+    margin-bottom: 20px;
 }
 
 .vida-variant-selector-controls {
-    position: absolute;
-    right: 24px;
-    bottom: 70px;
     display: flex;
-    gap: 12px;
+    justify-content: center;
+    gap: 20px;
 }
 
 .vida-variant-selector-control-btn {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 33px;
+    height: 33px;
     padding: 0;
     border: 0;
-    border-radius: 50%;
-    background: var(--content-secondary);
+    background: none;
+    color: var(--content-tertiary);
     cursor: pointer;
     transition: 0.3s;
 }
@@ -90,17 +108,13 @@
 .vida-variant-selector-control-btn::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    border: solid var(--content-inverse);
-    border-width: 2px 2px 0 0;
-    transform: translate(-60%, -50%) rotate(45deg);
+    inset: 0;
+    background: currentColor;
+    mask: url('/icons/chevron-circle.svg') center / contain no-repeat;
 }
 
-.vida-variant-selector-control-btn-prev {
-    transform: translate(-40%, -50%) rotate(-135deg);
+.vida-variant-selector-control-btn-prev::before {
+    transform: rotate(180deg);
 }
 
 .vida-variant-selector-control-btn:not([aria-disabled='true']):hover {
@@ -108,10 +122,148 @@
 }
 
 .vida-variant-selector-control-btn[aria-disabled='true'] {
-    background: var(--content-disabled);
+    color: var(--content-disabled);
     cursor: default;
 }
 
+@media (width >=768px) {
+
+    .vida-variant-selector-tagline,
+    .vida-variant-selector-title,
+    .vida-variant-selector-description {
+        text-align: left;
+        margin: 8px 32px;
+        max-width: none;
+    }
+
+    .vida-variant-selector-tagline {
+        margin-top: 64px;
+        font-size: var(--fs-heading-xs);
+        line-height: var(--lh-heading-xs);
+        letter-spacing: var(--ls-heading-xs);
+    }
+
+    .vida-variant-selector-title {
+        font-size: var(--fs-heading-lg);
+        line-height: var(--lh-heading-lg);
+        letter-spacing: var(--ls-heading-lg);
+    }
+
+    .vida-variant-selector-description {
+        font-size: var(--fs-body-xl);
+        line-height: var(--lh-body-xl);
+        letter-spacing: var(--ls-body-xl);
+    }
+
+    .vida-variant-selector-description p {
+        padding-bottom: 0px;
+    }
+
+    .vida-variant-selector-media {
+        order: 4;
+        height: 360px;
+        margin: 40px 32px;
+    }
+
+    .vida-variant-selector-cta {
+        order: 5;
+        align-self: flex-start;
+        margin-bottom: 0;
+        margin-left: 32px;
+    }
+
+    .vida-variant-selector-controls {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        justify-content: flex-end;
+        padding: 0;
+        margin-right: 32px;
+    }
+
+    .vida-variant-selector-control-btn {
+        width: 40px;
+        height: 40px;
+        color: var(--content-secondary);
+    }
+}
+
 @media (width >=1024px) {
-    
+    .vida-variant-selector-slide {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        align-items: start;
+        padding: 64px;
+        padding-bottom: 0;
+    }
+
+    .vida-variant-selector-slide-content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 36px;
+        font-weight: 530;
+        max-width: 368px;
+    }
+
+    .vida-variant-selector-tagline {
+        font-size: var(--fs-heading-md);
+        line-height: var(--lh-heading-md);
+        letter-spacing: var(--ls-heading-md);
+        color: var(--content-secondary);
+        margin: 0;
+        padding: 0;
+        padding-bottom: 16px;
+    }
+
+    .vida-variant-selector-title {
+        font-size: var(--fs-heading-2xl);
+        line-height: var(--lh-heading-2xl);
+        letter-spacing: var(--ls-heading-2xl);
+        color: var(--content-primary);
+        padding: 0;
+        margin: 0;
+        padding-bottom: 24px;
+    }
+
+    .vida-variant-selector-description {
+        font-size: var(--fs-body-xl);
+        line-height: var(--lh-body-xl);
+        letter-spacing: var(--ls-body-xl);
+        margin: 0;
+        padding-bottom: 24px;
+    }
+
+    .vida-variant-selector-media {
+        height: auto;
+        aspect-ratio: 781 / 564;
+        margin-bottom: 0;
+    }
+
+    .vida-variant-selector-cta {
+        margin: 0;
+    }
+
+    .vida-variant-selector-controls {
+        position: unset;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 0;
+        padding: 4px 0 50px 50px;
+    }
+
+    .vida-variant-selector-controls::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        margin-left: 60px;
+        background: var(--border-strong);
+        margin-right: 8px;
+    }
+
+    .vida-variant-selector-control-btn {
+        width: 48px;
+        height: 48px;
+    }
 }
