@@ -17,14 +17,7 @@
       "columns",
       "fragment",
       "hero-vida-header",
-      "vida-footer",
-      "app-promo"
-    ]
-  },
-  {
-    "id": "app-promo",
-    "components": [
-      "app-promo-content"
+      "vida-footer"
     ]
   },
   {
