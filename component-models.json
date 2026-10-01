@@ -288,22 +288,22 @@
       {
         "component": "reference",
         "valueType": "string",
-        "name": "desktop-image",
+        "name": "desktopImage",
         "label": "Desktop Image",
-        "multi": false
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "mobile-image",
-        "label": "Mobile Image",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "image-alt",
+        "name": "desktopImageAlt",
         "label": "Image Alt Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "multi": false
       },
       {
         "component": "text",
@@ -318,15 +318,15 @@
         "label": "Description"
       },
       {
-        "component": "text",
+        "component": "aem-content",
         "valueType": "string",
-        "name": "cta-link",
+        "name": "cta",
         "label": "CTA link (model page)"
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "cta-text",
+        "name": "ctaText",
         "label": "CTA Text"
       }
     ]

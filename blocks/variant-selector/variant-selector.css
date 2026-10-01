@@ -29,7 +29,6 @@
     color: var(--content-secondary);
     font-weight: 530;
     text-transform: uppercase;
-    margin: 0;
     max-width: 252px;
     margin: auto;
     text-align: center;
@@ -42,7 +41,6 @@
     line-height: var(--lh-heading-2xl);
     letter-spacing: var(--ls-heading-2xl);
     font-weight: 530;
-    margin: 0;
     max-width: 252px;
     margin: auto;
     text-align: center;
@@ -55,7 +53,6 @@
     line-height: var(--lh-body-md);
     letter-spacing: var(--ls-body-md);
     font-weight: 450;
-    margin: 0;
     max-width: 252px;
     margin: auto;
     text-align: center;
@@ -109,7 +106,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: currentColor;
+    background: currentcolor;
     mask: url('/icons/chevron-circle.svg') center / contain no-repeat;
 }
 
@@ -127,7 +124,6 @@
 }
 
 @media (width >=768px) {
-
     .vida-variant-selector-tagline,
     .vida-variant-selector-title,
     .vida-variant-selector-description {
@@ -156,7 +152,7 @@
     }
 
     .vida-variant-selector-description p {
-        padding-bottom: 0px;
+        padding-bottom: 0;
     }
 
     .vida-variant-selector-media {
