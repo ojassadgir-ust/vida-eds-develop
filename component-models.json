@@ -242,6 +242,12 @@
         "valueType": "string",
         "name": "vida-header-api-endpoint",
         "label": "Vida Header API Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-country-selector-api-endpoint",
+        "label": "Vida Country Selector API Endpoint"
       }
     ]
   },
