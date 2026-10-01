@@ -18,7 +18,14 @@
       "fragment",
       "hero-vida-header",
       "vida-footer",
+      "banner-carousel",
       "variant-selector"
+    ]
+  },
+  {
+    "id": "banner-carousel",
+    "components": [
+      "banner-carousel-item"
     ]
   },
   {
