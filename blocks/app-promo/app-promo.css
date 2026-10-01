@@ -25,7 +25,7 @@
   justify-content: center;
   width: 100%;
   gap: 40px;
-  padding: 64px 24px 40px;
+  padding: 64px 24px 0;
   box-sizing: border-box;
   text-align: center;
 }
@@ -161,7 +161,7 @@
   }
 
   .app-promo-content {
-    gap: 40px;
+    gap: 16px;
     padding: 48px 32px 40px;
   }
 
@@ -181,7 +181,7 @@
 
   .app-promo-content {
     gap: 24px;
-    padding: 48px 20px 24px;
+    padding: 48px 20px 0;
   }
 
   .app-promo-heading {
