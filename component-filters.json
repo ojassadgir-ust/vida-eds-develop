@@ -16,7 +16,15 @@
       "cards",
       "columns",
       "fragment",
-      "hero-vida-header"
+      "hero-vida-header",
+      "vida-footer",
+      "banner-carousel"
+    ]
+  },
+  {
+    "id": "banner-carousel",
+    "components": [
+      "banner-carousel-item"
     ]
   },
   {

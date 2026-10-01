@@ -51,7 +51,9 @@
         "cards",
         "columns",
         "fragment",
-        "hero-vida-header"
+        "hero-vida-header",
+        "vida-footer",
+        "banner-carousel"
       ]
     }
   ]
