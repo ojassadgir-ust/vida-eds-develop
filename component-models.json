@@ -164,13 +164,6 @@
         "name": "mobile-image",
         "label": "Mobile Image",
         "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "background-color",
-        "label": "Background Color",
-        "value": "#F9F5EE"
       }
     ]
   },

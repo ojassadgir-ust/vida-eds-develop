@@ -9,26 +9,21 @@ export default function decorate(block) {
   const desktopImage = fields[0]?.querySelector('img');
   const tabletImage = fields[1]?.querySelector('img');
   const mobileImage = fields[2]?.querySelector('img');
-  const bgColor = fields[3]?.textContent?.trim() || '';
 
   let heading = '';
   let ctaHtml = '';
 
-  if (fields[4]) {
-    const contentRow = rows[4];
+  if (fields[3]) {
+    const contentRow = rows[3];
     const children = [...contentRow.children];
 
     if (children.length >= 2) {
       heading = children[0]?.textContent?.trim() || '';
       ctaHtml = children[1]?.innerHTML?.trim() || '';
     } else {
-      heading = fields[4]?.textContent?.trim() || '';
-      ctaHtml = fields[5]?.innerHTML?.trim() || '';
+      heading = fields[3]?.textContent?.trim() || '';
+      ctaHtml = fields[4]?.innerHTML?.trim() || '';
     }
-  }
-
-  if (bgColor) {
-    block.style.setProperty('--app-promo-bg', bgColor);
   }
 
   const container = document.createElement('div');
