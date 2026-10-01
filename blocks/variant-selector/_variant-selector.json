@@ -1,0 +1,104 @@
+{
+    "definitions": [
+        {
+            "title": "Variant Selector",
+            "id": "variant-selector",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block",
+                        "template": {
+                            "name": "Variant Selector",
+                            "model": "variant-selector"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "title": "Variant Selector Item",
+            "id": "variant-selector-item",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block",
+                        "template": {
+                            "name": "Variant Selector Item",
+                            "model": "variant-selector-item"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "variant-selector",
+            "fields": [
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "tagline",
+                    "label": "Tagline"
+                }
+            ]
+        },
+        {
+            "id": "variant-selector-item",
+            "fields": [
+                {
+                    "component": "reference",
+                    "valueType": "string",
+                    "name": "desktop-image",
+                    "label": "Desktop Image",
+                    "multi": false
+                },
+                {
+                    "component": "reference",
+                    "valueType": "string",
+                    "name": "mobile-image",
+                    "label": "Mobile Image",
+                    "multi": false
+                },
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "image-alt",
+                    "label": "Image Alt Text"
+                },
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "title",
+                    "label": "Title"
+                },
+                {
+                    "component": "richtext",
+                    "valueType": "string",
+                    "name": "description",
+                    "label": "Description"
+                },
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "cta-link",
+                    "label": "CTA link (model page)"
+                },
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "cta-text",
+                    "label": "CTA Text"
+                }
+            ]
+        }
+    ],
+    "filters": [
+        {
+            "id": "variant-selector",
+            "components": [
+                "variant-selector-item"
+            ]
+        }
+    ]
+}

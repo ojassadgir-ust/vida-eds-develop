@@ -1,0 +1,117 @@
+.variant-selector {
+    position: relative;
+    max-width: 1440px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--surface-primary);
+    color: var(--content-primary);
+    font-weight: 530;
+}
+
+.vida-variant-selector-slide {
+    display: flex;
+    flex-direction: column;
+    padding: 64px 24px;
+}
+
+.vida-variant-selector-slide[hidden] {
+    display: none;
+}
+
+.vida-variant-selector-slide-content {
+    display: contents;
+}
+
+.vida-variant-selector-tagline {
+    order: 1;
+    font-size: var(--fs-heading-xs);
+    line-height: var(--lh-heading-xs);
+    letter-spacing: var(--ls-heading-xs);
+    text-transform: uppercase;
+}
+
+.vida-variant-selector-title {
+    order: 2;
+    font-size: var(--fs-heading-lg);
+    line-height: var(--lh-heading-lg);
+    letter-spacing: var(--ls-heading-lg);
+}
+
+.vida-variant-selector-description {
+    order: 3;
+    font-size: var(--fs-body-xl);
+    line-height: var(--lh-body-xl);
+    letter-spacing: var(--ls-body-xl);
+}
+
+.vida-variant-selector-description p {
+    margin: 0;
+}
+
+.vida-variant-selector-media {
+    order: 4;
+    height: 360px;
+    margin-bottom: 32px;
+}
+
+.vida-variant-selector-media picture,
+.vida-variant-selector-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.vida-variant-selector-cta {
+    order: 5;
+    align-self: flex-start;
+}
+
+.vida-variant-selector-controls {
+    position: absolute;
+    right: 24px;
+    bottom: 70px;
+    display: flex;
+    gap: 12px;
+}
+
+.vida-variant-selector-control-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--content-secondary);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.vida-variant-selector-control-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border: solid var(--content-inverse);
+    border-width: 2px 2px 0 0;
+    transform: translate(-60%, -50%) rotate(45deg);
+}
+
+.vida-variant-selector-control-btn-prev {
+    transform: translate(-40%, -50%) rotate(-135deg);
+}
+
+.vida-variant-selector-control-btn:not([aria-disabled='true']):hover {
+    transform: scale(1.05);
+}
+
+.vida-variant-selector-control-btn[aria-disabled='true'] {
+    background: var(--content-disabled);
+    cursor: default;
+}
+
+@media (width >=1024px) {
+    
+}
