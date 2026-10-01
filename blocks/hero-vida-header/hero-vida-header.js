@@ -839,6 +839,7 @@ async function fetchJson(endpoint, label) {
     if (!response.ok) throw new Error(`${label} ${response.status}`);
     return await response.json();
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Failed to load ${label}`, error);
     return null;
   }
