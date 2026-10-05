@@ -17,7 +17,22 @@
       "columns",
       "fragment",
       "hero-vida-header",
+      "vida-footer",
+      "banner-carousel",
+      "app-promo",
       "text-banner"
+    ]
+  },
+  {
+    "id": "app-promo",
+    "components": [
+      "app-promo-content"
+    ]
+  },
+  {
+    "id": "banner-carousel",
+    "components": [
+      "banner-carousel-item"
     ]
   },
   {

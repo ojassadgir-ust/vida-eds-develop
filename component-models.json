@@ -142,6 +142,96 @@
     ]
   },
   {
+    "id": "app-promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "app-promo-content",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "banner-carousel",
+    "fields": [
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "auto-scroll-timing",
+        "label": "Auto Scroll Timing (seconds)",
+        "value": 7
+      }
+    ]
+  },
+  {
+    "id": "banner-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Feature Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-link",
+        "label": "Banner Link",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -197,6 +287,12 @@
         "valueType": "string",
         "name": "vida-header-api-endpoint",
         "label": "Vida Header API Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-country-selector-api-endpoint",
+        "label": "Vida Country Selector API Endpoint"
       }
     ]
   },
@@ -234,6 +330,17 @@
         "valueType": "string",
         "name": "banner-text",
         "label": "Banner Text"
+      }
+    ]
+  },
+  {
+    "id": "vida-footer",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-footer-api-endpoint",
+        "label": "Vida Footer API Endpoint"
       }
     ]
   }
