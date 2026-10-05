@@ -1,19 +1,145 @@
+/* DIRTE K3 Banner — responsive layout (desktop/tablet/mobile breakpoints below) */
+
 :root {
-  --dirte-k3-bg: var(--surface-secondary, #f9f5ee);
+  --dirte-k3-bg: #f9f5ee;
+  --action-primary: #1d1b1b;
+  --action-primary-hover: #3f3d3d;
+  --content-primary: #1d1b1b;
+  --content-secondary: #5c5a5a;
+  --content-tertiary: #767575;
+  --border-strong: #d4d4d4;
+  --text-white: #fff;
 }
 
-.dirte-k3-banner {
-  position: relative;
-  width: 100%;
-  background: var(--dirte-k3-bg);
-  overflow-x: hidden;
-}
-
-.dirte-k3-banner * {
+* {
   box-sizing: border-box;
 }
 
-/* ---------- Shared: images ---------- */
+.dirte-k3-banner {
+  width: 100%;
+  height: auto;
+  background: var(--dirte-k3-bg);
+  position: relative;
+}
+
+/* Desktop (>= 1024px), canvas 1440x748: text left, image right */
+.dirte-k3-content-wrapper {
+  position: relative;
+  width: 1440px;
+  height: 748px;
+  margin: 0 auto;
+}
+
+.dirte-k3-text {
+  width: auto;
+}
+
+.dirte-k3-heading {
+  position: absolute;
+  width: 360px;
+  height: 40px;
+  top: 101px;
+  left: 64px;
+  margin: 0;
+  padding: 0;
+  color: var(--content-secondary);
+  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 40px;
+  font-weight: 530;
+  line-height: 40px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.dirte-k3-logo-wrapper {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 285.71px;
+  height: 60px;
+  top: 173px;
+  left: 64px;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.dirte-k3-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.dirte-k3-subheading {
+  position: absolute;
+  width: 368px;
+  height: auto;
+  top: 265px;
+  left: 64px;
+  margin: 0;
+  padding: 0;
+  color: var(--content-primary);
+  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 450;
+  line-height: 32px;
+}
+
+.dirte-k3-cta {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 174px;
+  height: 48px;
+  top: 401px;
+  left: 64px;
+  margin: 0;
+  padding: 0 24px;
+  gap: 8px;
+  border: none;
+  border-radius: 999px;
+  background: var(--action-primary);
+  color: var(--text-white);
+  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.dirte-k3-cta:hover {
+  background: var(--action-primary-hover);
+}
+
+.dirte-k3-cta:active,
+.dirte-k3-cta:focus-visible {
+  background: var(--action-primary-hover);
+  outline: 2px solid var(--action-primary);
+  outline-offset: 2px;
+}
+
+.dirte-k3-media {
+  position: absolute;
+  width: 900px;
+  height: 486px;
+  top: 86px;
+  right: 64px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .dirte-k3-desktop-picture,
 .dirte-k3-tablet-picture,
 .dirte-k3-mobile-picture {
@@ -24,246 +150,163 @@
   padding: 0;
 }
 
-.dirte-k3-media picture img {
+.dirte-k3-desktop-image,
+.dirte-k3-tablet-image,
+.dirte-k3-mobile-image {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  object-position: center;
   margin: 0;
   padding: 0;
-  object-fit: contain;
-  object-position: center;
 }
 
-.dirte-k3-logo {
+.dirte-k3-desktop-picture {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
 }
 
-/* ============================================================
-   MOBILE (base, <= 767px) — canvas 394 x 617, centered stack
-   Order: heading, logo, text, specs, button, image
-   ============================================================ */
-.dirte-k3-content-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 394px;
-  height: 617px;
-  margin: 0 auto;
+.dirte-k3-tablet-picture,
+.dirte-k3-mobile-picture {
+  display: none;
 }
 
-.dirte-k3-text {
-  display: contents;
-}
-
-.dirte-k3-heading {
+.dirte-k3-divider {
   position: absolute;
-  top: 16px;
-  left: 50%;
-  width: 203px;
-  height: 26px;
+  width: 1352px;
+  height: 0;
+  top: 616px;
+  left: 80px;
+  padding: 0;
   margin: 0;
-  transform: translateX(-50%);
-  text-align: center;
-  white-space: nowrap;
-  color: #767575;
-  font-family: var(--ff-primary);
-  font-weight: 530;
-  font-size: var(--fs-heading-sm);
-  line-height: var(--lh-heading-sm);
-  letter-spacing: var(--ls-heading-sm);
-}
-
-.dirte-k3-logo-wrapper {
-  position: absolute;
-  top: 56px;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 247px;
-  height: 49px;
-  margin: 0;
-  transform: translateX(-50%);
-}
-
-.dirte-k3-subheading {
-  position: absolute;
-  top: 118px;
-  left: 50%;
-  width: 285px;
-  height: 48px;
-  margin: 0;
-  transform: translateX(-50%);
-  text-align: center;
-  color: var(--content-primary, #1d1b1b);
-  font-family: var(--ff-primary);
-  font-weight: 450;
-  font-size: var(--fs-body-md);
-  line-height: var(--lh-body-md);
-  letter-spacing: var(--ls-body-md);
+  background: transparent;
+  border-top: 1px solid var(--border-strong);
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  opacity: 1;
 }
 
 .dirte-k3-specifications {
   position: absolute;
-  top: 235px;
-  left: 50%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  width: 276px;
-  height: 46px;
+  align-items: flex-start;
+  width: 478px;
+  height: 56px;
+  top: 656px;
+  left: 65px;
   margin: 0;
-  gap: 0;
-  transform: translateX(-50%);
+  padding: 0;
+  gap: 80px;
 }
 
 .dirte-k3-spec {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  width: auto;
   min-width: 0;
 }
 
 .dirte-k3-spec-label {
   margin: 0;
-  color: #767575;
-  font-family: var(--ff-primary);
+  padding: 0;
+  color: var(--content-tertiary);
+  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
   font-weight: 450;
-  font-size: var(--fs-caption);
-  line-height: var(--lh-caption);
-  text-align: center;
+  line-height: 20px;
   white-space: nowrap;
 }
 
 .dirte-k3-spec-value {
   margin: 4px 0 0;
-  color: var(--content-primary, #1d1b1b);
-  font-family: var(--ff-primary);
+  padding: 0;
+  color: var(--content-primary);
+  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
   font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
+  line-height: 20px;
   white-space: nowrap;
 }
 
-.dirte-k3-cta {
-  position: absolute;
-  top: 313px;
-  left: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 136px;
-  height: 40px;
-  padding: 0 20px;
-  gap: 8px;
-  transform: translateX(-50%);
-  border: none;
-  border-radius: var(--radius-button, 9999px);
-  background: var(--action-primary, #1d1b1b);
-  color: var(--content-inverse, #fff);
-  font-family: var(--ff-primary);
-  font-weight: 500;
-  font-size: var(--fs-body-sm);
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background-color 150ms ease;
-}
+/* Tablet (768px - 1024px), canvas 768x850: centered stacked layout */
+@media (width <= 1024px) and (width >= 768px) {
+  .dirte-k3-banner {
+    width: 100%;
+    height: 850px;
+    background: var(--dirte-k3-bg);
+    padding: 0;
+  }
 
-.dirte-k3-cta:hover,
-.dirte-k3-cta:active,
-.dirte-k3-cta:focus-visible {
-  background: var(--action-primary-hover, #3f3d3d);
-  color: var(--content-inverse, #fff);
-}
-
-.dirte-k3-cta:focus-visible {
-  outline: 2px solid var(--action-primary, #1d1b1b);
-  outline-offset: 2px;
-}
-
-.dirte-k3-media {
-  position: absolute;
-  top: 382px;
-  left: 0;
-  width: 100%;
-  height: 215px;
-  margin: 0;
-  overflow: hidden;
-  border-radius: 24px 24px 0 0;
-}
-
-.dirte-k3-desktop-picture,
-.dirte-k3-tablet-picture {
-  display: none;
-}
-
-.dirte-k3-divider {
-  display: none;
-}
-
-/* ============================================================
-   TABLET (768px – 1023px) — centered vertical stack
-   Order: heading, logo, image, text, button, line, specs
-   ============================================================ */
-@media (width >= 768px) and (width <= 1023px) {
   .dirte-k3-content-wrapper {
+    position: relative;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
-    max-width: none;
+    max-width: 768px;
     height: auto;
     margin: 0 auto;
-    padding: 64px 32px;
-    gap: 40px;
+    padding: 64px 32px 0;
+    gap: 0;
   }
 
   .dirte-k3-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
+    align-items: start;
     width: 100%;
     max-width: 704px;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
   }
 
   .dirte-k3-heading {
     position: static;
     width: 100%;
     max-width: 704px;
-    height: auto;
-    transform: none;
-    text-align: left;
-    color: #5c5a5a;
-    font-size: var(--fs-heading-xs);
-    line-height: var(--lh-heading-xs);
-    letter-spacing: var(--ls-heading-xs);
+    text-align: start;
+    font-size: 32px;
+    font-weight: 530;
+    line-height: 40px;
+    white-space: nowrap;
+    color: var(--content-secondary);
+    margin: 0;
+    padding: 0;
   }
 
   .dirte-k3-logo-wrapper {
     position: static;
     width: 180px;
     height: 38px;
-    transform: none;
-    justify-content: flex-start;
+    margin: 32px 0 0;
+    padding: 0;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-shrink: 0;
   }
 
   .dirte-k3-media {
-    position: static;
-    width: 100%;
+    position: relative;
+    width: calc(100% - 64px);
     max-width: 704px;
     height: 340px;
-    border-radius: 0;
+    margin: 40px 32px 0;
+    padding: 0;
+    top: auto;
+    right: auto;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .dirte-k3-desktop-picture,
-  .dirte-k3-mobile-picture {
+  .dirte-k3-desktop-picture {
     display: none;
   }
 
@@ -271,181 +314,299 @@
     display: block;
   }
 
-  .dirte-k3-subheading {
-    position: static;
-    width: 100%;
-    max-width: 704px;
-    height: auto;
-    transform: none;
-    text-align: left;
-    font-size: var(--fs-body-xl);
-    line-height: var(--lh-body-xl);
-    letter-spacing: var(--ls-body-xl);
-  }
-
-  .dirte-k3-cta {
-    position: static;
-    align-self: flex-start;
-    width: 174px;
-    height: 48px;
-    padding: 0 24px;
-    transform: none;
-    font-size: var(--fs-label-lg);
-  }
-
-  .dirte-k3-specifications {
-    position: static;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    max-width: 704px;
-    height: auto;
-    padding: 24px 0 0;
-    border-top: 1px solid var(--border-strong, #d4d4d4);
-    transform: none;
-  }
-
-  .dirte-k3-spec {
-    align-items: flex-start;
-  }
-
-  .dirte-k3-spec-label {
-    font-size: var(--fs-body-xs);
-    line-height: var(--lh-body-xs);
-    text-align: left;
-  }
-
-  .dirte-k3-spec-value {
-    font-size: var(--fs-body-sm);
-    line-height: var(--lh-body-sm);
-    text-align: left;
-  }
-}
-
-/* ============================================================
-   DESKTOP (>= 1024px) — text LEFT, image RIGHT (canvas 1440 x 748)
-   ============================================================ */
-@media (width >= 1024px) {
-  .dirte-k3-content-wrapper {
-    position: relative;
-    display: block;
-    width: 100%;
-    max-width: 1440px;
-    height: 748px;
-    margin: 0 auto;
-    padding: 0;
-  }
-
-  .dirte-k3-heading {
-    position: absolute;
-    top: 101px;
-    left: 64px;
-    width: 360px;
-    height: 40px;
-    transform: none;
-    text-align: left;
-    color: #5c5a5a;
-    font-size: var(--fs-heading-md);
-    line-height: var(--lh-heading-md);
-    letter-spacing: var(--ls-heading-md);
-  }
-
-  .dirte-k3-logo-wrapper {
-    position: absolute;
-    top: 173px;
-    left: 64px;
-    width: 285.71px;
-    height: 60px;
-    transform: none;
-    justify-content: flex-start;
-  }
-
-  .dirte-k3-subheading {
-    position: absolute;
-    top: 281px;
-    left: 64px;
-    width: 368px;
-    height: 64px;
-    transform: none;
-    text-align: left;
-    font-size: var(--fs-body-xl);
-    line-height: var(--lh-body-xl);
-    letter-spacing: var(--ls-body-xl);
-  }
-
-  .dirte-k3-cta {
-    position: absolute;
-    top: 401px;
-    left: 64px;
-    width: 174px;
-    height: 48px;
-    padding: 0 24px;
-    transform: none;
-    font-size: var(--fs-label-lg);
-  }
-
-  .dirte-k3-media {
-    position: absolute;
-    top: 86px;
-    left: 480px;
-    right: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    height: 486px;
-    overflow: visible;
-    border-radius: 0;
-  }
-
-  .dirte-k3-desktop-picture {
-    display: block;
-  }
-
-  .dirte-k3-tablet-picture,
   .dirte-k3-mobile-picture {
     display: none;
   }
 
+  .dirte-k3-subheading {
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 704px;
+    text-align: start;
+    top: auto;
+    left: auto;
+    padding: 0;
+    margin: 32px 32px 0 0;
+    font-size: 20px;
+    font-weight: 450;
+    line-height: 28px;
+    color: var(--content-primary);
+  }
+
+  .dirte-k3-cta {
+    position: relative;
+    grid: unset;
+    width: 174px;
+    height: 48px;
+    margin: 24px 0 0;
+    top: auto;
+    left: auto;
+    padding: 0 24px;
+    align-self: start;
+  }
+
   .dirte-k3-divider {
-    position: absolute;
-    top: 616px;
-    left: 80px;
-    right: 8px;
+    position: relative;
+    width: calc(100% - 64px);
+    max-width: 704px;
+    height: 1px;
+    margin: 40px 32px 0;
+    top: auto;
+    left: auto;
+    padding: 0;
+    background: var(--border-strong);
+    border: none;
     display: block;
+  }
+
+  .dirte-k3-specifications {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: calc(100% - 64px);
+    max-width: 704px;
+    height: auto;
+    margin: 0 32px;
+    padding: 32px 0 64px;
+    top: auto;
+    left: auto;
+    gap: 0;
+    border: none;
+  }
+
+  .dirte-k3-spec {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: auto;
-    height: 0;
+    min-width: 0;
+  }
+
+  .dirte-k3-spec-label {
+    font-size: 12px;
+    font-weight: 450;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--content-tertiary);
     margin: 0;
-    border-top: 1px solid var(--border-strong, #d4d4d4);
+    padding: 0;
+  }
+
+  .dirte-k3-spec-value {
+    margin: 4px 0 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    white-space: nowrap;
+    color: var(--content-primary);
+  }
+}
+
+/* Mobile (<= 767px), canvas 394x617: absolute-positioned stacked layout */
+@media (width <= 767px) {
+  .dirte-k3-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 394px;
+    height: 617px;
+    margin: 0 auto;
+    padding: 0;
+    background: var(--dirte-k3-bg);
+    opacity: 1;
+  }
+
+  .dirte-k3-content-wrapper {
+    position: relative;
+    display: contents;
+    width: auto;
+    height: auto;
+    padding: 0;
+  }
+
+  .dirte-k3-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+  }
+
+  .dirte-k3-heading {
+    position: absolute;
+    width: 203px;
+    height: 26px;
+    top: 16px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 530;
+    line-height: 26px;
+    white-space: nowrap;
+    color: var(--content-tertiary);
+    margin: 0;
+    padding: 0;
+  }
+
+  .dirte-k3-logo-wrapper {
+    position: absolute;
+    width: 247px;
+    height: 49px;
+    top: 56px;
+    left: 73.5px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .dirte-k3-subheading {
+    position: absolute;
+    width: 285px;
+    height: 48px;
+    top: 118px;
+    left: 54.5px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    font-weight: 450;
+    line-height: 24px;
+    color: var(--content-primary);
+    box-sizing: border-box;
   }
 
   .dirte-k3-specifications {
     position: absolute;
-    top: 656px;
-    left: 65px;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 478px;
-    height: 56px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 276px;
+    height: 46px;
+    top: 235px;
+    left: 58.5px;
+    margin: 0;
     padding: 0;
-    border-top: none;
-    gap: 80px;
-    transform: none;
+    gap: 0;
+    border: none;
+    box-sizing: border-box;
+    background: transparent;
+    visibility: visible;
+    opacity: 1;
+    z-index: 10;
   }
 
   .dirte-k3-spec {
-    align-items: flex-start;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 46px;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    visibility: visible;
   }
 
   .dirte-k3-spec-label {
-    font-size: var(--fs-body-sm);
-    line-height: var(--lh-body-sm);
-    text-align: left;
+    display: block;
+    margin: 0;
+    padding: 0;
+    color: var(--content-tertiary);
+    font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: 450;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    visibility: visible;
+    opacity: 1;
   }
 
   .dirte-k3-spec-value {
-    font-size: 16px;
-    line-height: 20px;
-    text-align: left;
+    display: block;
+    margin: 4px 0 0;
+    padding: 0;
+    color: var(--content-primary);
+    font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    text-align: center;
+    white-space: nowrap;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .dirte-k3-cta {
+    position: absolute;
+    width: 136px;
+    height: 40px;
+    margin: 0;
+    top: 313px;
+    left: 129.5px;
+    padding: 0 20px;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    place-self: center center;
+  }
+
+  .dirte-k3-media {
+    position: absolute;
+    width: 394px;
+    height: 215px;
+    margin: 0;
+    top: 382px;
+    left: 0;
+    right: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 24px 24px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dirte-k3-desktop-picture,
+  .dirte-k3-tablet-picture {
+    display: none;
+  }
+
+  .dirte-k3-mobile-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .dirte-k3-mobile-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .dirte-k3-divider {
+    display: none;
   }
 }

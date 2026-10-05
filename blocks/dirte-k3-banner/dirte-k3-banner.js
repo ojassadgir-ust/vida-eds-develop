@@ -1,3 +1,9 @@
+/**
+ * DIRTE K3 Banner block.
+ * Builds a responsive banner (heading, logo, image, subheading, CTA, specifications)
+ * from the authored rows.
+ */
+
 function getRichText(element) {
   if (!element) {
     return { text: '', url: '' };
@@ -8,6 +14,7 @@ function getRichText(element) {
   return { text, url };
 }
 
+// Row order: desktop image, tablet image, mobile image.
 function getBannerFields(fields) {
   return {
     desktopImage: fields[0] || null,
@@ -16,6 +23,7 @@ function getBannerFields(fields) {
   };
 }
 
+// Row order: heading, logo, subheading, CTA.
 function getContent(contentElement) {
   if (!contentElement) {
     return {
@@ -62,8 +70,6 @@ function createLogo(logoElement) {
   img.className = 'dirte-k3-logo';
   img.src = logoElement.querySelector('img')?.src || '';
   img.alt = 'DIRTE K3 Logo';
-  img.loading = 'lazy';
-  img.decoding = 'async';
   logoWrapper.appendChild(img);
   return logoWrapper;
 }
@@ -89,46 +95,30 @@ function createCTA(ctaData) {
   return cta;
 }
 
-function resolvePicture(...candidates) {
-  const source = candidates.find((el) => el?.querySelector('picture'));
-  return source ? source.querySelector('picture').cloneNode(true) : null;
-}
-
-function addPicture(media, picture, className) {
-  if (!picture) {
-    return;
-  }
-  picture.classList.add(className);
-  const img = picture.querySelector('img');
-  if (img) {
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    if (!img.getAttribute('alt')) {
-      img.setAttribute('alt', 'DIRTE K3 Electric Dirt Bike');
-    }
-  }
-  media.appendChild(picture);
-}
+// One picture per breakpoint; CSS shows only the matching variant at a time.
+const MEDIA_VARIANTS = [
+  { size: 'desktop', label: 'Desktop View' },
+  { size: 'tablet', label: 'Tablet View' },
+  { size: 'mobile', label: 'Mobile View' },
+];
 
 function createMedia(desktopImage, tabletImage, mobileImage) {
+  const imagesBySize = { desktop: desktopImage, tablet: tabletImage, mobile: mobileImage };
   const media = document.createElement('div');
   media.className = 'dirte-k3-media';
 
-  addPicture(
-    media,
-    resolvePicture(desktopImage, tabletImage, mobileImage),
-    'dirte-k3-desktop-picture',
-  );
-  addPicture(
-    media,
-    resolvePicture(tabletImage, desktopImage, mobileImage),
-    'dirte-k3-tablet-picture',
-  );
-  addPicture(
-    media,
-    resolvePicture(mobileImage, desktopImage, tabletImage),
-    'dirte-k3-mobile-picture',
-  );
+  MEDIA_VARIANTS.forEach(({ size, label }) => {
+    const picture = document.createElement('picture');
+    picture.className = `dirte-k3-${size}-picture`;
+
+    const img = document.createElement('img');
+    img.className = `dirte-k3-${size}-image`;
+    img.src = imagesBySize[size]?.querySelector('img')?.src || '';
+    img.alt = `DIRTE K3 Electric Dirt Bike - ${label}`;
+
+    picture.appendChild(img);
+    media.appendChild(picture);
+  });
 
   return media;
 }
@@ -143,19 +133,24 @@ function createSpecifications(specs) {
   if (!specs || specs.length === 0) return null;
   const container = document.createElement('div');
   container.className = 'dirte-k3-specifications';
+
   specs.forEach((spec) => {
     const specDiv = document.createElement('div');
     specDiv.className = 'dirte-k3-spec';
+
     const label = document.createElement('div');
     label.className = 'dirte-k3-spec-label';
     label.textContent = spec.label;
+
     const value = document.createElement('div');
     value.className = 'dirte-k3-spec-value';
     value.textContent = spec.value;
+
     specDiv.appendChild(label);
     specDiv.appendChild(value);
     container.appendChild(specDiv);
   });
+
   return container;
 }
 
@@ -164,18 +159,17 @@ export default function decorate(block) {
     return;
   }
 
-  const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
-
-  if (isAuthor) {
+  // Universal Editor renders authoring fields itself; skip our markup there.
+  if (window.origin?.includes('author')) {
     return;
   }
 
   const children = Array.from(block.children);
+
+  // Row order: desktop/tablet/mobile images, content, specifications.
   const bannerFields = getBannerFields(children.slice(0, 3));
-  const contentBlock = children[3];
-  const content = getContent(contentBlock);
-  const specElements = children.slice(4);
-  const specifications = getSpecifications(specElements);
+  const content = getContent(children[3]);
+  const specifications = getSpecifications(children.slice(4));
 
   const textWrapper = document.createElement('div');
   textWrapper.className = 'dirte-k3-text';
@@ -192,6 +186,7 @@ export default function decorate(block) {
   );
   const cta = createCTA(content.cta);
 
+  // Order: text (heading, logo) -> media (image) -> subheading -> CTA button.
   const contentWrapper = document.createElement('div');
   contentWrapper.className = 'dirte-k3-content-wrapper';
   contentWrapper.appendChild(textWrapper);
@@ -202,8 +197,8 @@ export default function decorate(block) {
   const divider = createDivider();
   const specificationsElement = createSpecifications(specifications);
 
-  contentWrapper.appendChild(divider);
-  if (specificationsElement) contentWrapper.appendChild(specificationsElement);
-
-  block.replaceChildren(contentWrapper);
+  block.replaceChildren(contentWrapper, divider);
+  if (specificationsElement) {
+    block.appendChild(specificationsElement);
+  }
 }
