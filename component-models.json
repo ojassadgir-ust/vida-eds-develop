@@ -332,5 +332,141 @@
         "label": "Vida Footer API Endpoint"
       }
     ]
+  },
+  {
+    "id": "web-popup",
+    "fields": [
+      {
+        "component": "tab",
+        "name": "details",
+        "label": "1. Details Form"
+      },
+      {
+        "component": "text",
+        "name": "formHeading",
+        "label": "heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "nameLabel",
+        "label": "Name label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "namePlaceholder",
+        "label": "Name placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "nameError",
+        "label": "Name error",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cityLabel",
+        "label": "City label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cityPlaceholder",
+        "label": "City placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileLabel",
+        "label": "Mobile number label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobilePlaceholder",
+        "label": "Mobile number placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileError",
+        "label": "Mobile number error",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "consent",
+        "label": "Consent Text"
+      },
+      {
+        "component": "text",
+        "name": "submitLabel",
+        "label": "Submit Btn Label",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "otp",
+        "label": "1. Submit OTP"
+      },
+      {
+        "component": "text",
+        "name": "otpHeading",
+        "label": "heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "resendLabel",
+        "label": "Resend OTP Label",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "resendTimer",
+        "label": "Resend Timer (sec)"
+      },
+      {
+        "component": "text",
+        "name": "otpError",
+        "label": "Invalid OTP error",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "submitLabel",
+        "label": "Submit Btn Label",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "success",
+        "label": "3. Success"
+      },
+      {
+        "component": "reference",
+        "name": "successImage",
+        "label": "Success Image"
+      },
+      {
+        "component": "text",
+        "name": "successHeading",
+        "label": "Success Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "successDescription",
+        "label": "Success Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "successBtnLabel",
+        "label": "Button Label"
+      }
+    ]
   }
 ]
