@@ -19,7 +19,14 @@
       "hero-vida-header",
       "vida-footer",
       "banner-carousel",
+      "app-promo",
       "variant-selector"
+    ]
+  },
+  {
+    "id": "app-promo",
+    "components": [
+      "app-promo-content"
     ]
   },
   {
