@@ -71,13 +71,6 @@
           "name": "mobile-image",
           "label": "Mobile Feature Image",
           "multi": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "background-color",
-          "label": "Background Color",
-          "value": ""
         }
       ]
     },

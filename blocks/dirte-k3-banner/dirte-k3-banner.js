@@ -13,7 +13,6 @@ function getBannerFields(fields) {
     desktopImage: fields[0] || null,
     tabletImage: fields[1] || null,
     mobileImage: fields[2] || null,
-    backgroundColor: fields[3] || null,
   };
 }
 
@@ -172,18 +171,11 @@ export default function decorate(block) {
   }
 
   const children = Array.from(block.children);
-  const bannerFields = getBannerFields(children.slice(0, 4));
-  const contentBlock = children[4];
+  const bannerFields = getBannerFields(children.slice(0, 3));
+  const contentBlock = children[3];
   const content = getContent(contentBlock);
-  const specElements = children.slice(5);
+  const specElements = children.slice(4);
   const specifications = getSpecifications(specElements);
-
-  if (bannerFields.backgroundColor) {
-    const bgColor = bannerFields.backgroundColor.textContent?.trim();
-    if (bgColor && /^#[0-9A-F]{6}$/i.test(bgColor)) {
-      block.style.setProperty('--dirte-k3-bg', bgColor);
-    }
-  }
 
   const textWrapper = document.createElement('div');
   textWrapper.className = 'dirte-k3-text';
