@@ -22,6 +22,7 @@ module.exports = {
     'xwalk/max-cells': ['error', {
       '*': 4,
       'vida-service-stations': 9,
+      'vida-removable-battery': 5,
     }],
 
     'xwalk/no-orphan-collapsible-fields': 'off',

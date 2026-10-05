@@ -15,6 +15,7 @@ const CONFIG = {
   attributes: {
     desktopImage: '--vida-removable-battery-desktop-image',
     mobileImage: '--vida-removable-battery-mobile-image',
+    tabletImage: '--vida-removable-battery-tablet-image',
   },
 };
 
@@ -86,6 +87,7 @@ const setBackgroundImages = (
   block,
   desktopImage,
   mobileImage,
+  tabletImage,
 ) => {
   if (desktopImage) {
     block.style.setProperty(
@@ -98,6 +100,13 @@ const setBackgroundImages = (
     block.style.setProperty(
       CONFIG.attributes.mobileImage,
       `url("${mobileImage}")`,
+    );
+  }
+
+  if (tabletImage) {
+    block.style.setProperty(
+      CONFIG.attributes.tabletImage,
+      `url("${tabletImage}")`,
     );
   }
 };
@@ -151,13 +160,13 @@ const hasMoreThanFiveWords = (value) => {
   return words.length > 6;
 };
 
-const createContent = (cells) => {
+const createContent = (cells, contentIndex) => {
   const content = createElement(
     'div',
     CONFIG.classes.content,
   );
 
-  const contentCell = cells[2];
+  const contentCell = cells[contentIndex];
 
   if (!contentCell) {
     return content;
@@ -242,8 +251,8 @@ const getCtaFields = (ctaCell) => {
   return fields;
 };
 
-const createCta = (cells) => {
-  const ctaCell = cells[3];
+const createCta = (cells, ctaIndex) => {
+  const ctaCell = cells[ctaIndex];
 
   if (!ctaCell) {
     return null;
@@ -280,11 +289,16 @@ export default function decorate(block) {
 
   const desktopImage = getImageSource(cells[0]);
   const mobileImage = getImageSource(cells[1]);
+  const hasTabletImageField = cells.length >= 5;
+  const tabletImage = hasTabletImageField ? getImageSource(cells[2]) : '';
+  const contentIndex = hasTabletImageField ? 3 : 2;
+  const ctaIndex = hasTabletImageField ? 4 : 3;
 
   setBackgroundImages(
     block,
     desktopImage,
     mobileImage,
+    tabletImage,
   );
 
   const overlay = createElement(
@@ -299,8 +313,8 @@ export default function decorate(block) {
     CONFIG.classes.contentWrapper,
   );
 
-  const content = createContent(cells);
-  const cta = createCta(cells);
+  const content = createContent(cells, contentIndex);
+  const cta = createCta(cells, ctaIndex);
 
   contentWrapper.append(content);
 
