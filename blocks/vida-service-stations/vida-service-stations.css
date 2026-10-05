@@ -1,0 +1,346 @@
+.vida-service-stations {
+    --vida-service-stations-page-padding-desktop: 64px;
+    --vida-service-stations-page-padding-tablet: 32px;
+    --vida-service-stations-page-padding-mobile-block: 32px;
+    --vida-service-stations-page-padding-mobile-inline: 16px;
+    --vida-service-stations-desktop-radius: 24px;
+    --vida-service-stations-tablet-radius: 16px;
+    --vida-service-stations-mobile-radius: 14px;
+    --vida-service-stations-content-background: #f9f5ee;
+    --vida-service-stations-page-background: #fff;
+    --vida-service-stations-text-color: #1d1b1b;
+    --vida-service-stations-heading-accent-color: #ff5310;
+    --vida-service-stations-cta-background: #1d1b1b;
+    --vida-service-stations-cta-hover-background: #343232;
+    --vida-service-stations-cta-color: #fff;
+    --vida-service-stations-cta-font-size: 20px;
+    --vida-service-stations-external-font-size: 20px;
+    --vida-service-stations-desktop-heading-weight: 600;
+    --vida-service-stations-cta-font-weight: 600;
+    --vida-service-stations-mobile-heading-line-height: 1.2;
+    --vida-service-stations-mobile-rich-text-line-height: 1.5;
+    --vida-service-stations-desktop-heading-size: 48px;
+    --vida-service-stations-desktop-subheading-size: 32px;
+    --vida-service-stations-desktop-rich-text-size: 24px;
+    --vida-service-stations-tablet-heading-size: 40px;
+    --vida-service-stations-tablet-subheading-size: 32px;
+    --vida-service-stations-tablet-rich-text-size: 24px;
+    --vida-service-stations-mobile-heading-size: 28px;
+    --vida-service-stations-mobile-subheading-size: 22px;
+    --vida-service-stations-mobile-rich-text-size: 20px;
+    --vida-service-stations-desktop-content-padding-block: 48px;
+    --vida-service-stations-desktop-content-padding-inline: 48px;
+    --vida-service-stations-desktop-content-padding-right: 24px;
+    --vida-service-stations-tablet-content-padding-block: 48px;
+    --vida-service-stations-tablet-content-padding-inline: 32px;
+    --vida-service-stations-mobile-content-padding: 32px;
+    --vida-service-stations-mobile-content-padding-bottom: 56px;
+    --vida-service-stations-desktop-cta-margin: 56px;
+    --vida-service-stations-tablet-cta-margin: 32px;
+    --vida-service-stations-mobile-cta-margin: 24px;
+    --vida-service-stations-desktop-cta-padding-block: 10px;
+    --vida-service-stations-desktop-cta-padding-inline: 24px;
+    --vida-service-stations-tablet-cta-padding-block: 10px;
+    --vida-service-stations-tablet-cta-padding-inline: 24px;
+    --vida-service-stations-mobile-cta-padding-block: 8px;
+    --vida-service-stations-mobile-cta-padding-inline: 20px;
+    --vida-service-stations-desktop-external-margin: 24px;
+    --vida-service-stations-tablet-external-margin: 16px;
+    --vida-service-stations-mobile-external-margin: 22px;
+    --vida-service-stations-tablet-subheading-margin-bottom: 32px;
+    --vida-service-stations-mobile-subheading-margin-bottom: 8px;
+    --vida-service-stations-tablet-rich-text-margin-top: 32px;
+    --vida-service-stations-mobile-rich-text-margin-top: 24px;
+    --vida-service-stations-desktop-rich-text-margin-top: 32px;
+    --vida-service-stations-external-gap: 8px;
+    --vida-service-stations-desktop-actions-gap: 24px;
+    --vida-service-stations-external-arrow-size: 20px;
+    --vida-service-stations-heading-line-height: 1.1;
+    --vida-service-stations-subheading-line-height: 1.2;
+    --vida-service-stations-rich-text-line-height: 1.45;
+    --vida-service-stations-cta-line-height: 1.2;
+    --vida-service-stations-external-line-height: 1.4;
+    --vida-service-stations-desktop-image-min-height: 480px;
+    --vida-service-stations-cta-transition-duration: 180ms;
+
+    width: 100%;
+    padding: var(--vida-service-stations-page-padding-desktop);
+    background: var(--vida-service-stations-page-background);
+}
+
+.vida-service-stations,
+.vida-service-stations * {
+    box-sizing: border-box;
+}
+
+.vida-service-stations-container {
+    width: 100%;
+}
+
+.vida-service-stations-overlay {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    width: 100%;
+    min-height: var(--vida-service-stations-desktop-image-min-height);
+    overflow: hidden;
+    border-radius: var(--vida-service-stations-desktop-radius);
+}
+
+.vida-service-stations-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    padding: var(--vida-service-stations-desktop-content-padding-block)
+        var(--vida-service-stations-desktop-content-padding-right)
+        var(--vida-service-stations-desktop-content-padding-block)
+        var(--vida-service-stations-desktop-content-padding-inline);
+    background: var(--vida-service-stations-content-background);
+    color: var(--vida-service-stations-text-color);
+}
+
+.vida-service-stations-heading {
+    margin: 0;
+    color: var(--vida-service-stations-text-color);
+    font-size: var(--vida-service-stations-desktop-heading-size);
+    font-weight: var(--vida-service-stations-desktop-heading-weight);
+    line-height: var(--vida-service-stations-heading-line-height);
+}
+
+.vida-service-stations-heading-accent {
+    color: var(--vida-service-stations-heading-accent-color);
+}
+
+.vida-service-stations-subheading {
+    margin: 0;
+    color: var(--vida-service-stations-text-color);
+    font-size: var(--vida-service-stations-desktop-subheading-size);
+    font-weight: 400;
+    line-height: var(--vida-service-stations-subheading-line-height);
+}
+
+.vida-service-stations-rich-text {
+    margin-top: var(--vida-service-stations-desktop-rich-text-margin-top);
+    color: var(--vida-service-stations-text-color);
+    font-size: var(--vida-service-stations-desktop-rich-text-size);
+    font-weight: 400;
+    line-height: var(--vida-service-stations-rich-text-line-height);
+}
+
+.vida-service-stations-rich-text > :first-child {
+    margin-top: 0;
+}
+
+.vida-service-stations-rich-text > :last-child {
+    margin-bottom: 0;
+}
+
+.vida-service-stations-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--vida-service-stations-desktop-actions-gap);
+    margin-top: var(--vida-service-stations-desktop-cta-margin);
+}
+
+.vida-service-stations-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    padding: var(--vida-service-stations-desktop-cta-padding-block)
+        var(--vida-service-stations-desktop-cta-padding-inline);
+    border: 0;
+    border-radius: 999px;
+    background: var(--vida-service-stations-cta-background);
+    color: var(--vida-service-stations-cta-color);
+    font-size: var(--vida-service-stations-cta-font-size);
+    font-weight: var(--vida-service-stations-cta-font-weight);
+    line-height: var(--vida-service-stations-cta-line-height);
+    text-decoration: none;
+    transition: background-color var(--vida-service-stations-cta-transition-duration) ease;
+}
+
+.vida-service-stations-cta:hover,
+.vida-service-stations-cta:focus-visible {
+    background: var(--vida-service-stations-cta-hover-background);
+    color: var(--vida-service-stations-cta-color);
+}
+
+.vida-service-stations-external {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--vida-service-stations-external-gap);
+    margin-top: 0;
+    color: var(--vida-service-stations-text-color);
+    font-size: var(--vida-service-stations-external-font-size);
+    line-height: var(--vida-service-stations-external-line-height);
+    text-decoration: none;
+}
+
+.vida-service-stations-cta:focus-visible,
+.vida-service-stations-external:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 4px;
+}
+
+.vida-service-stations-external-arrow {
+    display: inline-flex;
+    flex: 0 0 var(--vida-service-stations-external-arrow-size);
+    align-items: center;
+    justify-content: center;
+    width: var(--vida-service-stations-external-arrow-size);
+    height: var(--vida-service-stations-external-arrow-size);
+}
+
+.vida-service-stations-media,
+.vida-service-stations-picture {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+}
+
+.vida-service-stations-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (width >= 768px) and (width <= 1023px) {
+    .vida-service-stations {
+        padding: var(--vida-service-stations-page-padding-tablet);
+    }
+
+    .vida-service-stations-overlay {
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--vida-service-stations-tablet-radius);
+    }
+
+    .vida-service-stations-content {
+        order: 0;
+        padding: var(--vida-service-stations-tablet-content-padding-block)
+            var(--vida-service-stations-tablet-content-padding-inline);
+    }
+
+    .vida-service-stations-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin-top: 0;
+    }
+
+    .vida-service-stations-heading {
+        font-size: var(--vida-service-stations-tablet-heading-size);
+        line-height: var(--vida-service-stations-heading-line-height);
+    }
+
+    .vida-service-stations-subheading {
+        margin-bottom: var(--vida-service-stations-tablet-subheading-margin-bottom);
+        font-size: var(--vida-service-stations-tablet-subheading-size);
+    }
+
+    .vida-service-stations-rich-text {
+        margin-top: var(--vida-service-stations-tablet-rich-text-margin-top);
+        font-size: var(--vida-service-stations-tablet-rich-text-size);
+    }
+
+    .vida-service-stations-cta {
+        margin-top: var(--vida-service-stations-tablet-cta-margin);
+        padding: var(--vida-service-stations-tablet-cta-padding-block)
+            var(--vida-service-stations-tablet-cta-padding-inline);
+    }
+
+    .vida-service-stations-external {
+        align-self: flex-start;
+        margin-top: var(--vida-service-stations-tablet-external-margin);
+        padding: var(--vida-service-stations-tablet-cta-padding-block)
+            var(--vida-service-stations-tablet-cta-padding-inline);
+    }
+
+    .vida-service-stations-media {
+        order: 1;
+        height: auto;
+    }
+
+    .vida-service-stations-picture,
+    .vida-service-stations-image {
+        height: auto;
+    }
+}
+
+@media (width <= 767px) {
+    .vida-service-stations {
+        padding: var(--vida-service-stations-page-padding-mobile-block)
+            var(--vida-service-stations-page-padding-mobile-inline);
+    }
+
+    .vida-service-stations-overlay {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        border-radius: var(--vida-service-stations-mobile-radius);
+    }
+
+    .vida-service-stations-content {
+        order: 0;
+        padding: var(--vida-service-stations-mobile-content-padding)
+            var(--vida-service-stations-mobile-content-padding)
+            var(--vida-service-stations-mobile-content-padding-bottom);
+    }
+
+    .vida-service-stations-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        margin-top: 0;
+    }
+
+    .vida-service-stations-heading {
+        font-size: var(--vida-service-stations-mobile-heading-size);
+        line-height: var(--vida-service-stations-mobile-heading-line-height);
+    }
+
+    .vida-service-stations-subheading {
+        margin-bottom: var(--vida-service-stations-mobile-subheading-margin-bottom);
+        font-size: var(--vida-service-stations-mobile-subheading-size);
+        line-height: var(--vida-service-stations-subheading-line-height);
+    }
+
+    .vida-service-stations-rich-text {
+        margin-top: var(--vida-service-stations-mobile-rich-text-margin-top);
+        font-size: var(--vida-service-stations-mobile-rich-text-size);
+        line-height: var(--vida-service-stations-mobile-rich-text-line-height);
+    }
+
+    .vida-service-stations-cta {
+        margin-top: var(--vida-service-stations-mobile-cta-margin);
+        padding: var(--vida-service-stations-mobile-cta-padding-block)
+            var(--vida-service-stations-mobile-cta-padding-inline);
+    }
+
+    .vida-service-stations-external {
+        align-self: center;
+        margin-top: var(--vida-service-stations-mobile-external-margin);
+        padding: var(--vida-service-stations-mobile-cta-padding-block)
+            var(--vida-service-stations-mobile-cta-padding-inline);
+    }
+
+    .vida-service-stations-media,
+    .vida-service-stations-picture,
+    .vida-service-stations-image {
+        height: auto;
+    }
+
+    .vida-service-stations-media {
+        order: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vida-service-stations-cta {
+        transition: none;
+    }
+}
