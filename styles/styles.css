@@ -181,6 +181,8 @@
   /* font weights */
   --fw-regular: 400;
   --fw-medium: 500;
+  --fw-heading-530:530;
+  --fw-subheading-450:450;
 
   /* ===== TYPOGRAPHY - TYPE SCALE (mobile-first: overriden at >= 768px and >= 1024px) ======= */
 
