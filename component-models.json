@@ -407,6 +407,12 @@
         "valueType": "string"
       },
       {
+        "component": "text",
+        "name": "citiesApiUrl",
+        "label": "Cities API URL",
+        "valueType": "string"
+      },
+      {
         "component": "tab",
         "name": "otp",
         "label": "1. Submit OTP"
