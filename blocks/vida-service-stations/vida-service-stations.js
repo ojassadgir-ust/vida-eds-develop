@@ -288,4 +288,3 @@ export default function decorate(block) {
   container.append(overlay);
   block.replaceChildren(container);
 }
- 
