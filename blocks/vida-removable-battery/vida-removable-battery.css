@@ -75,6 +75,7 @@
 
 .vida-removable-battery-subheading-spaced {
   margin-top: 24px;
+  font-size: var(--fs-body-xl);
 }
 
 .vida-removable-battery-richtext {
@@ -190,7 +191,8 @@
   }
 
   .vida-removable-battery-subheading-spaced {
-    margin-top: 8px;
+    margin-top: 16px;
+    font-size: var(--fs-body-lg);
   }
 }
 
@@ -228,6 +230,8 @@
 
   .vida-removable-battery-subheading-spaced {
     margin-top: 24px;
+    font-size: 24px;
+    
   }
 
   .vida-removable-battery-cta {
