@@ -20,12 +20,14 @@
   height: auto;
   background: var(--dirte-k3-bg);
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Desktop (>= 1024px), canvas 1440x748: text left, image right */
 .dirte-k3-content-wrapper {
   position: relative;
-  width: 1440px;
+  width: 100%;
+  max-width: 1440px;
   height: 748px;
   margin: 0 auto;
 }
@@ -36,10 +38,10 @@
 
 .dirte-k3-heading {
   position: absolute;
-  width: 360px;
+  width: 25%;
   height: 40px;
   top: 101px;
-  left: 64px;
+  left: 4.444%;
   margin: 0;
   padding: 0;
   color: var(--content-secondary);
@@ -57,10 +59,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 285.71px;
+  width: 19.841%;
   height: 60px;
   top: 173px;
-  left: 64px;
+  left: 4.444%;
   margin: 0;
   padding: 0;
   flex-shrink: 0;
@@ -76,10 +78,10 @@
 
 .dirte-k3-subheading {
   position: absolute;
-  width: 368px;
+  width: 25.556%;
   height: auto;
   top: 265px;
-  left: 64px;
+  left: 4.444%;
   margin: 0;
   padding: 0;
   color: var(--content-primary);
@@ -94,10 +96,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 174px;
+  width: 12.083%;
   height: 48px;
   top: 401px;
-  left: 64px;
+  left: 4.444%;
   margin: 0;
   padding: 0 24px;
   gap: 8px;
@@ -128,10 +130,10 @@
 
 .dirte-k3-media {
   position: absolute;
-  width: 900px;
+  width: 62.5%;
   height: 486px;
   top: 86px;
-  right: 64px;
+  right: 4.444%;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -173,10 +175,10 @@
 
 .dirte-k3-divider {
   position: absolute;
-  width: 1352px;
+  width: 93.889%;
   height: 0;
   top: 616px;
-  left: 80px;
+  left: 5.556%;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -192,10 +194,10 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  width: 478px;
+  width: 33.194%;
   height: 56px;
   top: 656px;
-  left: 65px;
+  left: 4.514%;
   margin: 0;
   padding: 0;
   gap: 80px;
@@ -415,9 +417,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    width: 394px;
-    height: 617px;
-    margin: 0 auto;
+    width: 100%;
+    aspect-ratio: 394 / 617;
+    margin: 0;
     padding: 0;
     background: var(--dirte-k3-bg);
     opacity: 1;
@@ -432,7 +434,6 @@
   }
 
   .dirte-k3-text {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -440,15 +441,14 @@
     height: auto;
     padding: 0;
     margin: 0;
-    top: 0;
-    left: 0;
   }
 
   .dirte-k3-heading {
     position: absolute;
-    width: 203px;
+    width: 51.523%;
     height: 26px;
-    top: 16px;
+    top: 7.783%;
+    left: 24.239%;
     text-align: center;
     font-size: 26px;
     font-weight: 530;
@@ -461,10 +461,10 @@
 
   .dirte-k3-logo-wrapper {
     position: absolute;
-    width: 247px;
+    width: 62.690%;
     height: 49px;
-    top: 56px;
-    left: 73.5px;
+    top: 16.855%;
+    left: 18.655%;
     margin: 0;
     padding: 0;
     display: flex;
@@ -475,10 +475,10 @@
 
   .dirte-k3-subheading {
     position: absolute;
-    width: 285px;
+    width: 72.335%;
     height: 48px;
-    top: 118px;
-    left: 54.5px;
+    top: 27.715%;
+    left: 13.832%;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -495,10 +495,10 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    width: 276px;
+    width: 70.051%;
     height: 46px;
-    top: 235px;
-    left: 58.5px;
+    top: 38.088%;
+    left: 14.848%;
     margin: 0;
     padding: 0;
     gap: 0;
@@ -556,11 +556,11 @@
 
   .dirte-k3-cta {
     position: absolute;
-    width: 136px;
+    width: 34.518%;
     height: 40px;
     margin: 0;
-    top: 313px;
-    left: 129.5px;
+    top: 50.729%;
+    left: 32.868%;
     padding: 0 20px;
     gap: 8px;
     font-size: 14px;
@@ -571,10 +571,10 @@
 
   .dirte-k3-media {
     position: absolute;
-    width: 394px;
-    height: 215px;
+    width: 100%;
+    height: 34.846%;
     margin: 0;
-    top: 382px;
+    top: 58.104%;
     left: 0;
     right: 0;
     padding: 0;
