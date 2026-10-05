@@ -1,3 +1,5 @@
+import { ENV, BASE_URLS } from '../../scripts/env.config.js';
+
 const CONFIG = {
   groups: {
     images: 0,
@@ -29,7 +31,10 @@ const CONFIG = {
     headingAccent: '+',
     imageAlt: 'VIDA service station',
     mobileImageMedia: '(max-width: 1023px)',
-    externalArrowSrc: '/content/dam/vida2-0/home-page/desktop/IconRight.svg',
+    externalArrowSrc: new URL(
+      '/content/dam/vida2-0/home-page/desktop/IconRight.svg',
+      BASE_URLS[ENV] || 'https://dev.vidaworld.com',
+    ).href,
     emptyCtaHref: '#',
   },
   classes: {

@@ -37,7 +37,7 @@
   margin: 0;
   color: var(--content-primary);
   font-size: var(--fs-heading-lg);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-heading-530);
   line-height: var(--lh-heading-lg);
 }
 
@@ -49,7 +49,7 @@
   margin: 0 0 8px;
   color: var(--content-primary);
   font-size: var(--fs-heading-md);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-heading-530);
   line-height: var(--lh-heading-md);
 }
 
@@ -57,7 +57,7 @@
   margin-top: 24px;
   color: var(--content-primary);
   font-size: var(--fs-body-lg);
-  font-weight: var(--fw-regular);
+  font-weight: var(--fw-subheading-450);
   line-height: var(--lh-body-lg);
 }
 
@@ -88,7 +88,7 @@
   background: var(--action-primary);
   color: var(--content-inverse);
   font-size: var(--fs-label-xl);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-heading-530);
   line-height: var(--lh-label-xl);
   text-decoration: none;
   transition: background-color 180ms ease;
@@ -111,6 +111,7 @@
   font-size: var(--fs-label-xl);
   line-height: var(--lh-label-xl);
   text-decoration: none;
+  font-weight: var(--fw-heading-530);
 }
 
 .vida-service-stations-cta:focus-visible,
