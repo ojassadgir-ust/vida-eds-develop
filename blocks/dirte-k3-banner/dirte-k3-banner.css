@@ -196,7 +196,7 @@
 .dirte-k3-spec-label {
   margin: 0;
   padding: 0;
-  color: var(--content-tertiary);
+  color: var(--content-primary, #1D1B1B);
   font-size: var(--fs-heading-3xs);
   font-weight: 530;
   line-height: var(--lh-heading-3xs);
@@ -376,7 +376,7 @@
     letter-spacing: var(--ls-heading-3xs);
     text-align: center;
     white-space: nowrap;
-    color: var(--content-tertiary);
+    color: var(--content-primary, #1D1B1B);
     margin: 0;
     padding: 0;
   }
@@ -545,7 +545,7 @@
     opacity: 1;
   }
 
-  .dirte-k3-cta {
+  .dirte-k3-banner .dirte-k3-cta.button-primary.button-md {
     position: absolute;
     width: 136px;
     height: 40px;
@@ -554,7 +554,11 @@
     left: calc(50% + 0.5px);
     padding: 0 20px;
     gap: 8px;
+    border-radius: var(--radius-button);
     transform: translateX(-50%);
+    font-size: var(--fs-label-lg);
+    line-height: var(--lh-label-lg);
+    letter-spacing: var(--ls-label-lg);
   }
 
   .dirte-k3-media {
