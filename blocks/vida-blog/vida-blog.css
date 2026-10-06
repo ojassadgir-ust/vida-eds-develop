@@ -1,3 +1,255 @@
-*{
+.vida-blog {
+  --vida-blog-page-padding: 64px;
+  --vida-blog-page-padding-inline: 64px;
+  --vida-blog-section-gap: 48px;
+  --vida-blog-mobile-section-gap: 52px;
+  --vida-blog-card-gap: 16px;
+  --vida-blog-card-radius: 20px;
+  --vida-blog-card-background: #f9f5ee;
+  --vida-blog-card-image-margin: 8px;
+  --vida-blog-card-content-padding-block: 24px;
+  --vida-blog-card-content-padding-inline: 8px;
+  --vida-blog-heading-size: 48px;
+  --vida-blog-heading-weight: 530;
+  --vida-blog-description-size: 24px;
+  --vida-blog-description-weight: 450;
+  --vida-blog-description-gap: 32px;
+  --vida-blog-cta-size: 20px;
+  --vida-blog-cta-weight: 530;
+  --vida-blog-card-kicker-size: 16px;
+  --vida-blog-card-kicker-weight: 530;
+  --vida-blog-card-kicker-gap: 24px;
+  --vida-blog-card-title-size: 24px;
+  --vida-blog-card-title-weight: 530;
+  --vida-blog-card-title-gap: 44px;
+  --vida-blog-card-date-size: 16px;
+  --vida-blog-card-date-weight: 450;
+  --vida-blog-mobile-card-peek: 4px;
+  --vida-blog-dot-size: 8px;
+  --vida-blog-dot-active-width: 24px;
+  --vida-blog-dot-gap: 8px;
+  --vida-blog-dots-gap: 24px;
+  --vida-blog-dots-background: #767575;
+  --vida-blog-dot-background: #fff;
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--vida-blog-page-padding);
+}
+
+.vida-blog,
+.vida-blog * {
+  box-sizing: border-box;
+}
+
+.vida-blog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.vida-blog-content > div {
+  width: 100%;
+}
+
+.vida-blog-heading {
+  margin: 0;
+  font-size: var(--vida-blog-heading-size);
+  font-weight: var(--vida-blog-heading-weight);
+  line-height: 1.1;
+}
+
+.vida-blog-description {
+  max-width: 720px;
+  margin-top: var(--vida-blog-description-gap);
+  font-size: var(--vida-blog-description-size);
+  font-weight: var(--vida-blog-description-weight);
+  line-height: 1.3;
+}
+
+.vida-blog-cta {
+  width: fit-content;
+  margin-top: var(--vida-blog-description-gap);
+}
+
+.vida-blog-cta-link {
+  display: inline-flex;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #1d1b1b;
+  color: #fff;
+  font-size: var(--vida-blog-cta-size);
+  font-weight: var(--vida-blog-cta-weight);
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.vida-blog-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--vida-blog-card-gap);
+  margin-top: var(--vida-blog-section-gap);
+}
+
+.vida-blog-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--vida-blog-card-radius);
+  background: var(--vida-blog-card-background);
+}
+
+.vida-blog-card-image {
+  flex: 0 0 auto;
+  margin: var(--vida-blog-card-image-margin);
+  overflow: hidden;
+  border-radius: var(--vida-blog-card-radius);
+}
+
+.vida-blog-card-image picture,
+.vida-blog-card-image img {
+  display: block;
+  width: 100%;
+}
+
+.vida-blog-card-image img {
+  aspect-ratio: 1.85;
+  object-fit: cover;
+}
+
+.vida-blog-card-kicker,
+.vida-blog-card-title,
+.vida-blog-card-date {
+  padding-inline: var(--vida-blog-card-content-padding-inline);
+}
+
+.vida-blog-card-kicker {
+  margin-top: var(--vida-blog-card-content-padding-block);
+  font-size: var(--vida-blog-card-kicker-size);
+  font-weight: var(--vida-blog-card-kicker-weight);
+  line-height: 1.3;
+}
+
+.vida-blog-card-title {
+  margin-top: var(--vida-blog-card-kicker-gap);
+  margin-bottom: var(--vida-blog-card-title-gap);
+  font-size: var(--vida-blog-card-title-size);
+  font-weight: var(--vida-blog-card-title-weight);
+  line-height: 1.25;
+}
+
+.vida-blog-card-date {
+  margin-bottom: var(--vida-blog-card-content-padding-block);
+  font-size: var(--vida-blog-card-date-size);
+  font-weight: var(--vida-blog-card-date-weight);
+  line-height: 1.3;
+}
+
+.vida-blog-dots {
+  display: none;
+}
+
+@media (width <= 1024px) {
+  .vida-blog {
+    --vida-blog-page-padding: 80px 32px;
+    --vida-blog-card-image-margin: 16px;
+    --vida-blog-card-content-padding-block: 20px;
+    --vida-blog-card-content-padding-inline: 16px;
+    --vida-blog-card-kicker-size: 14px;
+    --vida-blog-card-kicker-gap: 12px;
+    --vida-blog-card-title-size: 20px;
+    --vida-blog-card-title-gap: 12px;
+    --vida-blog-heading-size: 32px;
+  }
+
+  .vida-blog-cards {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: var(--vida-blog-section-gap);
+  }
+}
+
+@media (width <= 767px) {
+  .vida-blog {
+    --vida-blog-page-padding: 48px 16px;
+    --vida-blog-card-content-padding-block: 24px;
+    --vida-blog-card-content-padding-inline: 24px;
+    --vida-blog-card-kicker-size: 16px;
+    --vida-blog-card-kicker-gap: 24px;
+    --vida-blog-card-title-size: 18px;
+    --vida-blog-card-title-gap: 14px;
+    --vida-blog-heading-size: 36px;
+    --vida-blog-mobile-card-width:
+      calc(100% - var(--vida-blog-mobile-card-peek));
+  }
+
+  .vida-blog-heading {
+    margin-bottom: 8px;
+  }
+
+  .vida-blog-description {
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .vida-blog-cta {
+    margin-top: var(--vida-blog-description-gap);
+  }
+
+  .vida-blog-cards {
+    display: flex;
+    width: calc(
+      100% + var(--vida-blog-mobile-card-peek)
+    );
+    margin-top: var(--vida-blog-mobile-section-gap);
+    margin-right: calc(
+      var(--vida-blog-mobile-card-peek) * -1
+    );
+    margin-left: calc(
+      var(--vida-blog-mobile-card-peek) * -1
+    );
+    padding-inline: var(--vida-blog-mobile-card-peek);
+    gap: var(--vida-blog-card-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .vida-blog-cards::-webkit-scrollbar {
+    display: none;
+  }
+
+  .vida-blog-card {
+    flex: 0 0 var(--vida-blog-mobile-card-width);
+    scroll-snap-align: center;
+  }
+
+  .vida-blog-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--vida-blog-dot-gap);
+    width: fit-content;
+    margin-top: var(--vida-blog-dots-gap);
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--vida-blog-dots-background);
+  }
+
+  .vida-blog-dot {
+    width: var(--vida-blog-dot-size);
+    height: var(--vida-blog-dot-size);
+    margin: 0;
     padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: var(--vida-blog-dot-background);
+    cursor: pointer;
+  }
+
+  .vida-blog-dot.is-active {
+    width: var(--vida-blog-dot-active-width);
+  }
 }
