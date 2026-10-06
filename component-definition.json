@@ -250,6 +250,67 @@
           }
         },
         {
+          "title": "VIDA Blog",
+          "id": "vida-blog",
+          "model": "vida-blog",
+          "filter": "vida-blog-cards",
+          "plugins": {
+            "da": {
+              "name": "vida-blog",
+              "rows": 3,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "description",
+                  "selector": "div:nth-child(2)"
+                },
+                {
+                  "name": "cta",
+                  "selector": "div:nth-child(3)>div>div>a[href]"
+                },
+                {
+                  "name": "ctaText",
+                  "selector": "div:nth-child(3)>div>div>a"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "VIDA Blog Card",
+          "id": "vida-blog-card",
+          "model": "vida-blog-card",
+          "plugins": {
+            "da": {
+              "name": "vida-blog-card",
+              "rows": 1,
+              "columns": 4,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "kicker",
+                  "selector": "div:nth-child(2)"
+                },
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(3)"
+                },
+                {
+                  "name": "date",
+                  "selector": "div:nth-child(4)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Vida Footer",
           "id": "vida-footer",
           "plugins": {

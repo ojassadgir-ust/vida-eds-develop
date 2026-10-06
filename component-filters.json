@@ -22,7 +22,8 @@
       "app-promo",
       "text-banner",
       "vida-service-stations",
-      "vida-removable-battery"
+      "vida-removable-battery",
+      "vida-blog"
     ]
   },
   {
@@ -56,6 +57,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "vida-blog-cards",
+    "components": [
+      "vida-blog-card"
     ]
   }
 ]
