@@ -430,7 +430,7 @@
         "valueType": "string"
       },
       {
-        "component": "text",
+        "component": "richtext",
         "name": "rsaPublicKey",
         "label": "RSA Public Key",
         "valueType": "string"
@@ -461,7 +461,8 @@
       {
         "component": "number",
         "name": "resendTimer",
-        "label": "Resend Timer (sec)"
+        "label": "Resend Timer (sec)",
+        "valueType": "number"
       },
       {
         "component": "text",
