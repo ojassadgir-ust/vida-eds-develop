@@ -85,7 +85,7 @@ function createSubheading(text) {
 function createCTA(ctaData) {
   if (!ctaData || !ctaData.text) return null;
   const cta = document.createElement('a');
-  cta.className = 'dirte-k3-cta';
+  cta.className = 'dirte-k3-cta button button-primary button-md';
   cta.textContent = ctaData.text;
   cta.href = ctaData.url || '#';
   if (!ctaData.url) {
@@ -179,26 +179,31 @@ export default function decorate(block) {
   if (logo) textWrapper.appendChild(logo);
 
   const subheading = createSubheading(content.subheading);
+  const descriptionAction = document.createElement('div');
+  descriptionAction.className = 'dirte-k3-description-action';
+  if (subheading) descriptionAction.appendChild(subheading);
   const media = createMedia(
     bannerFields.desktopImage,
     bannerFields.tabletImage,
     bannerFields.mobileImage,
   );
   const cta = createCTA(content.cta);
+  if (cta) descriptionAction.appendChild(cta);
 
-  // Order: text (heading, logo) -> media (image) -> subheading -> CTA button.
+  // Order: intro -> media -> description and CTA -> specifications.
   const contentWrapper = document.createElement('div');
   contentWrapper.className = 'dirte-k3-content-wrapper';
   contentWrapper.appendChild(textWrapper);
   contentWrapper.appendChild(media);
-  if (subheading) contentWrapper.appendChild(subheading);
-  if (cta) contentWrapper.appendChild(cta);
+  if (descriptionAction.childElementCount) contentWrapper.appendChild(descriptionAction);
 
   const divider = createDivider();
   const specificationsElement = createSpecifications(specifications);
+  const specificationsWrapper = document.createElement('div');
+  specificationsWrapper.className = 'dirte-k3-specifications-wrapper';
+  specificationsWrapper.appendChild(divider);
+  if (specificationsElement) specificationsWrapper.appendChild(specificationsElement);
 
-  block.replaceChildren(contentWrapper, divider);
-  if (specificationsElement) {
-    block.appendChild(specificationsElement);
-  }
+  contentWrapper.appendChild(specificationsWrapper);
+  block.replaceChildren(contentWrapper);
 }

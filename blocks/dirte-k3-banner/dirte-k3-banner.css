@@ -1,29 +1,19 @@
 /* DIRTE K3 Banner — responsive layout (desktop/tablet/mobile breakpoints below) */
 
-:root {
-  --dirte-k3-bg: #f9f5ee;
-  --action-primary: #1d1b1b;
-  --action-primary-hover: #3f3d3d;
-  --content-primary: #1d1b1b;
-  --content-secondary: #5c5a5a;
-  --content-tertiary: #767575;
-  --border-strong: #d4d4d4;
-  --text-white: #fff;
-}
-
-* {
+.dirte-k3-banner,
+.dirte-k3-banner * {
   box-sizing: border-box;
 }
 
 .dirte-k3-banner {
   width: 100%;
   height: auto;
-  background: var(--dirte-k3-bg);
+  background: var(--surface-secondary);
   position: relative;
   overflow-x: hidden;
 }
 
-/* Desktop (>= 1024px), canvas 1440x748: text left, image right */
+/* Desktop (>= 1024px), canvas 1440x748: text left, image right. */
 .dirte-k3-content-wrapper {
   position: relative;
   width: 100%;
@@ -36,19 +26,23 @@
   width: auto;
 }
 
+.dirte-k3-description-action {
+  display: contents;
+}
+
 .dirte-k3-heading {
   position: absolute;
-  width: 25%;
+  width: 360px;
   height: 40px;
   top: 101px;
-  left: 4.444%;
+  left: 64px;
   margin: 0;
   padding: 0;
   color: var(--content-secondary);
-  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 40px;
+  font-size: var(--fs-heading-md);
   font-weight: 530;
-  line-height: 40px;
+  line-height: var(--lh-heading-md);
+  letter-spacing: var(--ls-heading-md);
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -59,10 +53,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 19.841%;
+  width: 285.714px;
   height: 60px;
   top: 173px;
-  left: 4.444%;
+  left: 64px;
   margin: 0;
   padding: 0;
   flex-shrink: 0;
@@ -78,17 +72,17 @@
 
 .dirte-k3-subheading {
   position: absolute;
-  width: 25.556%;
-  height: auto;
-  top: 265px;
-  left: 4.444%;
+  width: 368px;
+  height: 64px;
+  top: 281px;
+  left: 64px;
   margin: 0;
   padding: 0;
   color: var(--content-primary);
-  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 24px;
+  font-size: var(--fs-body-xl);
   font-weight: 450;
-  line-height: 32px;
+  line-height: var(--lh-body-xl);
+  letter-spacing: var(--ls-body-xl);
 }
 
 .dirte-k3-cta {
@@ -96,41 +90,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 12.083%;
+  width: 174px;
   height: 48px;
   top: 401px;
-  left: 4.444%;
+  left: 64px;
   margin: 0;
-  padding: 0 24px;
   gap: 8px;
-  border: none;
-  border-radius: 999px;
-  background: var(--action-primary);
-  color: var(--text-white);
-  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 150ms ease;
+  font-weight: 530;
   flex-shrink: 0;
-}
-
-.dirte-k3-cta:hover {
-  background: var(--action-primary-hover);
 }
 
 .dirte-k3-cta:active,
 .dirte-k3-cta:focus-visible {
-  background: var(--action-primary-hover);
   outline: 2px solid var(--action-primary);
   outline-offset: 2px;
 }
 
 .dirte-k3-media {
   position: absolute;
-  width: 62.5%;
+  width: min(62.5%, calc(100% - 528px));
   height: 486px;
   top: 86px;
   right: 4.444%;
@@ -175,10 +153,10 @@
 
 .dirte-k3-divider {
   position: absolute;
-  width: 93.889%;
+  width: calc(100% - 88px);
   height: 0;
   top: 616px;
-  left: 5.556%;
+  left: 80px;
   padding: 0;
   margin: 0;
   background: transparent;
@@ -194,13 +172,17 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  width: 33.194%;
+  width: 478px;
   height: 56px;
   top: 656px;
-  left: 4.514%;
+  left: 65px;
   margin: 0;
   padding: 0;
   gap: 80px;
+}
+
+.dirte-k3-specifications-wrapper {
+  position: static;
 }
 
 .dirte-k3-spec {
@@ -215,10 +197,10 @@
   margin: 0;
   padding: 0;
   color: var(--content-tertiary);
-  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 14px;
-  font-weight: 450;
-  line-height: 20px;
+  font-size: var(--fs-heading-3xs);
+  font-weight: 530;
+  line-height: var(--lh-heading-3xs);
+  letter-spacing: var(--ls-heading-3xs);
   white-space: nowrap;
 }
 
@@ -226,57 +208,59 @@
   margin: 4px 0 0;
   padding: 0;
   color: var(--content-primary);
-  font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
+  font-size: var(--fs-body-xl);
+  font-weight: 530;
+  line-height: var(--lh-body-xl);
+  letter-spacing: var(--ls-body-xl);
+  vertical-align: middle;
   white-space: nowrap;
 }
 
-/* Tablet (768px - 1024px), canvas 768x850: centered stacked layout */
-@media (width <= 1024px) and (width >= 768px) {
+/* Tablet (768px - 1023px), canvas 768x850. */
+@media (width <= 1023px) and (width >= 768px) {
   .dirte-k3-banner {
     width: 100%;
     height: 850px;
-    background: var(--dirte-k3-bg);
     padding: 0;
   }
 
   .dirte-k3-content-wrapper {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     max-width: 768px;
-    height: auto;
+    height: 850px;
     margin: 0 auto;
-    padding: 64px 32px 0;
-    gap: 0;
+    padding: 64px 32px;
+    gap: 40px;
   }
 
   .dirte-k3-text {
+    position: static;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     width: 100%;
     max-width: 704px;
-    height: auto;
-    padding: 0;
+    height: 78px;
     margin: 0;
-    position: relative;
+    padding: 0;
+    gap: 16px;
   }
 
   .dirte-k3-heading {
     position: static;
     width: 100%;
     max-width: 704px;
+    height: 24px;
     text-align: start;
-    font-size: 32px;
+    font-size: var(--fs-heading-xs);
     font-weight: 530;
-    line-height: 40px;
+    line-height: var(--lh-heading-xs);
+    letter-spacing: var(--ls-heading-xs);
     white-space: nowrap;
-    color: var(--content-secondary);
+    color: var(--color-neutral-600, #5c5a5a);
     margin: 0;
     padding: 0;
   }
@@ -285,27 +269,23 @@
     position: static;
     width: 180px;
     height: 38px;
-    margin: 32px 0 0;
+    margin: 0;
     padding: 0;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
     flex-shrink: 0;
   }
 
   .dirte-k3-media {
     position: relative;
-    width: calc(100% - 64px);
+    width: 100%;
     max-width: 704px;
     height: 340px;
-    margin: 40px 32px 0;
+    margin: 0;
     padding: 0;
     top: auto;
     right: auto;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .dirte-k3-desktop-picture {
@@ -320,60 +300,62 @@
     display: none;
   }
 
-  .dirte-k3-subheading {
-    position: relative;
-    width: calc(100% - 64px);
+  .dirte-k3-description-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
     max-width: 704px;
+    height: 104px;
+    margin: 0;
+    gap: 24px;
+  }
+
+  .dirte-k3-subheading {
+    position: static;
+    width: 100%;
+    max-width: 704px;
+    height: 32px;
     text-align: start;
-    top: auto;
-    left: auto;
+    margin: 0;
     padding: 0;
-    margin: 32px 32px 0 0;
-    font-size: 20px;
+    font-size: var(--fs-body-xl);
     font-weight: 450;
-    line-height: 28px;
+    line-height: var(--lh-body-xl);
+    letter-spacing: var(--ls-body-xl);
     color: var(--content-primary);
   }
 
   .dirte-k3-cta {
-    position: relative;
-    grid: unset;
+    position: static;
     width: 174px;
     height: 48px;
-    margin: 24px 0 0;
-    top: auto;
-    left: auto;
-    padding: 0 24px;
-    align-self: start;
+    margin: 0;
+    flex-shrink: 0;
+  }
+
+  .dirte-k3-specifications-wrapper {
+    width: 100%;
+    max-width: 704px;
+    height: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-strong);
   }
 
   .dirte-k3-divider {
-    position: relative;
-    width: calc(100% - 64px);
-    max-width: 704px;
-    height: 1px;
-    margin: 40px 32px 0;
-    top: auto;
-    left: auto;
-    padding: 0;
-    background: var(--border-strong);
-    border: none;
-    display: block;
+    display: none;
   }
 
   .dirte-k3-specifications {
-    position: relative;
+    position: static;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    width: calc(100% - 64px);
-    max-width: 704px;
-    height: auto;
-    margin: 0 32px;
-    padding: 32px 0 64px;
-    top: auto;
-    left: auto;
+    width: 100%;
+    height: 55px;
+    margin: 0;
+    padding: 0;
     gap: 0;
     border: none;
   }
@@ -388,9 +370,10 @@
   }
 
   .dirte-k3-spec-label {
-    font-size: 12px;
-    font-weight: 450;
-    line-height: 16px;
+    font-size: var(--fs-heading-3xs);
+    font-weight: 530;
+    line-height: var(--lh-heading-3xs);
+    letter-spacing: var(--ls-heading-3xs);
     text-align: center;
     white-space: nowrap;
     color: var(--content-tertiary);
@@ -401,70 +384,70 @@
   .dirte-k3-spec-value {
     margin: 4px 0 0;
     padding: 0;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18px;
+    font-size: var(--fs-body-xl);
+    font-weight: 530;
+    line-height: var(--lh-body-xl);
+    letter-spacing: var(--ls-body-xl);
     text-align: center;
     white-space: nowrap;
     color: var(--content-primary);
+    vertical-align: middle;
   }
 }
 
-/* Mobile (<= 767px), canvas 394x617: absolute-positioned stacked layout */
+/* Mobile (<= 767px), canvas 394x617. */
 @media (width <= 767px) {
   .dirte-k3-banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
     width: 100%;
-    aspect-ratio: 394 / 617;
+    height: 617px;
     margin: 0;
     padding: 0;
-    background: var(--dirte-k3-bg);
-    opacity: 1;
   }
 
   .dirte-k3-content-wrapper {
-    position: relative;
-    display: contents;
-    width: auto;
-    height: auto;
+    width: 100%;
+    max-width: 394px;
+    height: 617px;
+    margin: 0 auto;
     padding: 0;
   }
 
   .dirte-k3-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: auto;
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: 285px;
+    height: 171px;
     padding: 0;
     margin: 0;
   }
 
   .dirte-k3-heading {
     position: absolute;
-    width: 51.523%;
+    width: 203px;
     height: 26px;
-    top: 7.783%;
-    left: 24.239%;
+    top: 0;
+    left: 23px;
     text-align: center;
-    font-size: 26px;
+    font-size: var(--fs-heading-sm);
     font-weight: 530;
-    line-height: 26px;
+    line-height: var(--lh-heading-sm);
+    letter-spacing: var(--ls-heading-sm);
     white-space: nowrap;
-    color: var(--content-tertiary);
+    color: var(--content-secondary, #767575);
     margin: 0;
     padding: 0;
   }
 
   .dirte-k3-logo-wrapper {
     position: absolute;
-    width: 62.690%;
+    width: 247px;
     height: 49px;
-    top: 16.855%;
-    left: 18.655%;
+    top: 56px;
+    left: 50%;
+    transform: translateX(-50%);
     margin: 0;
     padding: 0;
     display: flex;
@@ -475,18 +458,24 @@
 
   .dirte-k3-subheading {
     position: absolute;
-    width: 72.335%;
+    width: 285px;
     height: 48px;
-    top: 27.715%;
-    left: 13.832%;
+    top: 171px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     margin: 0;
     padding: 0;
-    font-size: 16px;
+    font-size: var(--fs-body-md);
     font-weight: 450;
-    line-height: 24px;
+    line-height: var(--lh-body-md);
+    letter-spacing: var(--ls-body-md);
     color: var(--content-primary);
-    box-sizing: border-box;
+  }
+
+  .dirte-k3-description-action,
+  .dirte-k3-specifications-wrapper {
+    display: contents;
   }
 
   .dirte-k3-specifications {
@@ -495,10 +484,11 @@
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
-    width: 70.051%;
+    width: 276px;
     height: 46px;
-    top: 38.088%;
-    left: 14.848%;
+    top: 235px;
+    left: calc(50% - 0.5px);
+    transform: translateX(-50%);
     margin: 0;
     padding: 0;
     gap: 0;
@@ -528,11 +518,11 @@
     display: block;
     margin: 0;
     padding: 0;
-    color: var(--content-tertiary);
-    font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 12px;
-    font-weight: 450;
-    line-height: 16px;
+    color: var(--content-primary);
+    font-size: var(--fs-heading-3xs);
+    font-weight: 530;
+    line-height: var(--lh-heading-3xs);
+    letter-spacing: var(--ls-heading-3xs);
     text-align: center;
     white-space: nowrap;
     visibility: visible;
@@ -544,42 +534,40 @@
     margin: 4px 0 0;
     padding: 0;
     color: var(--content-primary);
-    font-family: "PP Neue Montreal", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 16px;
+    font-size: var(--fs-body-md);
+    font-weight: 530;
+    line-height: var(--lh-body-md);
+    letter-spacing: var(--ls-body-md);
     text-align: center;
     white-space: nowrap;
+    vertical-align: middle;
     visibility: visible;
     opacity: 1;
   }
 
   .dirte-k3-cta {
     position: absolute;
-    width: 34.518%;
+    width: 136px;
     height: 40px;
     margin: 0;
-    top: 50.729%;
-    left: 32.868%;
+    top: 313px;
+    left: calc(50% + 0.5px);
     padding: 0 20px;
     gap: 8px;
-    font-size: 14px;
-    font-weight: 500;
-    border-radius: 999px;
-    place-self: center center;
+    transform: translateX(-50%);
   }
 
   .dirte-k3-media {
     position: absolute;
     width: 100%;
-    height: 34.846%;
+    height: 215px;
     margin: 0;
-    top: 58.104%;
+    top: 382px;
     left: 0;
     right: 0;
     padding: 0;
     overflow: hidden;
-    border-radius: 24px 24px 0 0;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
