@@ -155,9 +155,9 @@
 
   .vida-removable-battery-media {
     order: 1;
-    flex: 0 0 25vh;
+    flex: 0 0 30vh;
     width: 100%;
-    height: 25vh;
+    height: 30vh;
     min-height: 0;
     background: transparent;
     overflow: hidden;
@@ -206,8 +206,8 @@
   }
 
   .vida-removable-battery-media {
-    flex-basis: 25vh;
-    height: 25vh;
+    flex-basis: 30vh;
+    height: 30vh;
   }
 
   .vida-removable-battery-content-wrapper {
