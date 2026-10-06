@@ -540,7 +540,6 @@
     letter-spacing: var(--ls-body-md);
     text-align: center;
     white-space: nowrap;
-    vertical-align: middle;
     visibility: visible;
     opacity: 1;
   }
