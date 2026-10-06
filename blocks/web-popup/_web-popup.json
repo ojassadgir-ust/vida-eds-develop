@@ -91,15 +91,50 @@
                     "valueType": "string"
                 },
                 {
+                    "component": "tab",
+                    "name": "apiAndConfigs",
+                    "label": "2. API and Configs"
+                },
+                {
                     "component": "text",
                     "name": "citiesApiUrl",
                     "label": "Cities API URL",
                     "valueType": "string"
                 },
                 {
+                    "component": "text",
+                    "name": "sendOtpApi",
+                    "label": "Send OTP API URL",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "verifyOtpApi",
+                    "label": "Verify OTP API URL",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "rsaPublicKey",
+                    "label": "RSA Public Key",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "popupDelaySeconds",
+                    "label": "Show Popup after (seconds)",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "cookieExpiryDays",
+                    "label": "Popup Cookie Expiry in days",
+                    "valueType": "string"
+                },
+                {
                     "component": "tab",
                     "name": "otp",
-                    "label": "1. Submit OTP"
+                    "label": "3. Submit OTP"
                 },
                 {
                     "component": "text",
@@ -126,14 +161,14 @@
                 },
                 {
                     "component": "text",
-                    "name": "submitLabel",
-                    "label": "Submit Btn Label",
+                    "name": "otpSubmitLabel",
+                    "label": "Otp Submit Btn Label",
                     "valueType": "string"
                 },
                 {
                     "component": "tab",
                     "name": "success",
-                    "label": "3. Success"
+                    "label": "4. Success"
                 },
                 {
                     "component": "reference",
