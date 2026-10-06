@@ -345,6 +345,62 @@
     ]
   },
   {
+    "id": "vida-removable-battery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Background Image - Desktop",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Background Image - Mobile",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tabletImage",
+        "label": "Background Image - Tablet",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_heading",
+        "label": "Heading"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_subheading",
+        "label": "Subheading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content_richtext",
+        "label": "Description Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta_ctaText",
+        "label": "CTA"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta_cta",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
     "id": "vida-service-stations",
     "fields": [
       {
