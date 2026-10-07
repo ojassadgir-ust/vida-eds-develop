@@ -142,6 +142,51 @@
     ]
   },
   {
+    "id": "app-promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "app-promo-content",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "banner-carousel",
     "fields": [
       {
@@ -242,6 +287,12 @@
         "valueType": "string",
         "name": "vida-header-api-endpoint",
         "label": "Vida Header API Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-country-selector-api-endpoint",
+        "label": "Vida Country Selector API Endpoint"
       }
     ]
   },
@@ -272,6 +323,17 @@
     ]
   },
   {
+    "id": "text-banner",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "banner-text",
+        "label": "Banner Text"
+      }
+    ]
+  },
+  {
     "id": "vida-footer",
     "fields": [
       {
@@ -279,6 +341,147 @@
         "valueType": "string",
         "name": "vida-footer-api-endpoint",
         "label": "Vida Footer API Endpoint"
+      }
+    ]
+  },
+  {
+    "id": "vida-removable-battery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Background Image - Desktop",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Background Image - Mobile",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tabletImage",
+        "label": "Background Image - Tablet",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_heading",
+        "label": "Heading"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_subheading",
+        "label": "Subheading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content_richtext",
+        "label": "Description Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta_ctaText",
+        "label": "CTA"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta_cta",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
+    "id": "vida-service-stations",
+    "fields": [
+      {
+        "component": "container",
+        "name": "images",
+        "label": "Images",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "desktopImage",
+            "label": "Image for desktop",
+            "multi": false
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "mobileImage",
+            "label": "Image for mobile",
+            "multi": false
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "heading",
+            "label": "Heading text"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subheading",
+            "label": "Subheading text"
+          },
+          {
+            "component": "richtext",
+            "valueType": "string",
+            "name": "richText",
+            "label": "Description text"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "links",
+        "label": "Links",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaLabel",
+            "label": "CTA label"
+          },
+          {
+            "component": "aem-content",
+            "valueType": "string",
+            "name": "ctaLink",
+            "label": "CTA link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalLabel",
+            "label": "External link label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalUrl",
+            "label": "External link URL"
+          }
+        ]
       }
     ]
   }

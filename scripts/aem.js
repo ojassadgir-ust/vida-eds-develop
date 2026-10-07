@@ -17,7 +17,7 @@ function sampleRUM(checkpoint, data) {
   try {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum || !window.hlx.rum.collector) {
-      sampleRUM.enhance = () => {};
+      sampleRUM.enhance = () => { };
       const params = new URLSearchParams(window.location.search);
       const { currentScript } = document;
       const rate = params.get('rum')
@@ -607,12 +607,29 @@ function decorateBlocks(main) {
 }
 
 /**
- * Loads a block named 'header' into header
+ * Loads a block named 'hero-vida-header' into header
  * @param {Element} header header element
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock('hero-vida-header', '');
+  const path = getMetadata('nav') || '/vida-product-header';
+  const response = await fetch(`${path}.plain.html`);
+  if (!response.ok) {
+    // eslint-disable-next-line no-console
+    console.warn(`Header Page ${path} not found`);
+    return null;
+  }
+
+  const tmp = document.createElement('div');
+  tmp.innerHTML = await response.text();
+
+  const headerBlock = tmp.querySelector('.hero-vida-header');
+  if (!headerBlock) {
+    // eslint-disable-next-line no-console
+    console.warn('hero-vida-header block not found in', path);
+    return null;
+  }
+
   header.append(headerBlock);
   decorateBlock(headerBlock);
   return loadBlock(headerBlock);
@@ -624,7 +641,24 @@ async function loadHeader(header) {
  * @returns {Promise}
  */
 async function loadFooter(footer) {
-  const footerBlock = buildBlock('footer', '');
+  const path = getMetadata('footer') || '/vida-footer';
+  const response = await fetch(`${path}.plain.html`);
+  if (!response.ok) {
+    // eslint-disable-next-line no-console
+    console.warn(`Footer Page ${path} not found`);
+    return null;
+  }
+
+  const tmp = document.createElement('div');
+  tmp.innerHTML = await response.text();
+
+  const footerBlock = tmp.querySelector('.vida-footer');
+  if (!footerBlock) {
+    // eslint-disable-next-line no-console
+    console.warn('vida-footer block not found in', path);
+    return null;
+  }
+
   footer.append(footerBlock);
   decorateBlock(footerBlock);
   return loadBlock(footerBlock);

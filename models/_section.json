@@ -53,7 +53,11 @@
         "fragment",
         "hero-vida-header",
         "vida-footer",
-        "banner-carousel"
+        "banner-carousel",
+        "app-promo",
+        "text-banner",
+        "vida-service-stations",
+        "vida-removable-battery"
       ]
     }
   ]

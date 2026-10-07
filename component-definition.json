@@ -83,6 +83,37 @@
       "id": "blocks",
       "components": [
         {
+          "title": "App Promo",
+          "id": "app-promo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "App Promo",
+                  "model": "app-promo",
+                  "filter": "app-promo"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "App Promo Content",
+          "id": "app-promo-content",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "App Promo Content",
+                  "model": "app-promo-content"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Banner Carousel",
           "id": "banner-carousel",
           "plugins": {
@@ -204,6 +235,21 @@
           }
         },
         {
+          "title": "Text Banner",
+          "id": "text-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Text Banner",
+                  "model": "text-banner"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Vida Footer",
           "id": "vida-footer",
           "plugins": {
@@ -213,6 +259,36 @@
                 "template": {
                   "name": "vida-footer",
                   "model": "vida-footer"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "VIDA Removable Battery",
+          "id": "vida-removable-battery",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "VIDA Removable Battery",
+                  "model": "vida-removable-battery"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Vida Service Stations",
+          "id": "vida-service-stations",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Vida Service Stations",
+                  "model": "vida-service-stations"
                 }
               }
             }

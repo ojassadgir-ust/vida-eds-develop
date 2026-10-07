@@ -268,6 +268,24 @@ function normaliseHeaderJson(json, origin) {
   };
 }
 
+function normaliseCountrySelectorJson(json, origin) {
+  const countrySelectorJSON = json['jcr:content'].root.country_selector_cop;
+  const asset = (p) => assetUrl(p, origin);
+
+  return {
+    logo: {
+      src: asset(countrySelectorJSON.logo),
+      link: pageUrl(countrySelectorJSON.logoLink),
+    },
+    heading: countrySelectorJSON.heading,
+    countries: toArray(countrySelectorJSON.countries).map((country) => ({
+      name: country.name,
+      flag: asset(country.flag),
+      link: pageUrl(country.redirectionUrl),
+    })),
+  };
+}
+
 // ----------------------------------- //
 // - Build functions for Main header - //
 // ----------------------------------- //
@@ -347,6 +365,9 @@ function buildHeaderActions(actions, labels, icons) {
   countrySelector.type = 'button';
   countrySelector.className = 'vida-header-country-selector';
   countrySelector.setAttribute('aria-label', `Selected country: ${actions.country.label}. Change country`);
+  countrySelector.dataset.countryTrigger = '';
+  countrySelector.setAttribute('aria-expanded', 'false');
+  countrySelector.setAttribute('aria-controls', 'vida-country-selector');
 
   const countryFlagImg = document.createElement('img');
   countryFlagImg.src = actions.country.flagSrc;
@@ -562,7 +583,14 @@ function buildMobileMenu(data) {
   closeIcon.setAttribute('aria-hidden', 'true');
   closeBtn.append(closeIcon);
 
-  topRow.append(countryFlag, countryLabel, chevronImg, closeBtn);
+  const countryTrigger = document.createElement('button');
+  countryTrigger.type = 'button';
+  countryTrigger.className = 'vida-mobile-menu-country-trigger';
+  countryTrigger.dataset.countryTrigger = '';
+  countryTrigger.setAttribute('aria-expanded', 'false');
+  countryTrigger.setAttribute('aria-controls', 'vida-country-selector');
+  countryTrigger.append(countryFlag, countryLabel, chevronImg);
+  topRow.append(countryTrigger, closeBtn);
 
   const body = document.createElement('div');
   body.className = 'vida-mobile-menu-body';
@@ -641,10 +669,126 @@ function setMobileMenuOpen(trigger, overlay, isOpen) {
   document.body.classList.toggle('vida-mobile-menu-open', isOpen);
 }
 
+// ---------------------------------------- //
+// - Build Functions for Country Selector - //
+// ---------------------------------------- //
+function buildCountryCard(country, isSelected) {
+  const countryCard = document.createElement('a');
+  countryCard.className = 'vida-header-country-card';
+  countryCard.href = country.link || '#';
+
+  if (isSelected) {
+    countryCard.classList.add('is-selected');
+    countryCard.setAttribute('aria-current', 'true');
+  }
+
+  const countryFlag = document.createElement('img');
+  countryFlag.src = country.flag;
+  countryFlag.alt = '';
+  countryFlag.className = 'vida-header-country-card-flag';
+
+  const countryName = document.createElement('span');
+  countryName.className = 'vida-header-country-card-name';
+  countryName.textContent = country.name;
+
+  countryCard.append(countryFlag, countryName);
+  return countryCard;
+}
+
+function buildCountrySelector(CSData, headerData) {
+  const {
+    countries, logo, heading: CSDescription,
+  } = CSData;
+  const { actions, labels, icons } = headerData;
+  const currentCountryName = actions.country.label;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'vida-country-selector';
+  overlay.className = 'vida-country-selector';
+  overlay.hidden = true;
+
+  const panel = document.createElement('div');
+  panel.className = 'vida-header-country-panel';
+
+  const topRow = document.createElement('div');
+  topRow.className = 'vida-header-country-panel-top';
+
+  const logoLink = document.createElement('a');
+  logoLink.href = logo.link;
+  logoLink.className = 'vida-header-country-panel-logo';
+  const logoImage = document.createElement('img');
+  logoImage.src = logo.src;
+  logoImage.alt = logo.alt;
+  logoLink.append(logoImage);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.type = 'button';
+  closeBtn.className = 'vida-header-country-panel-close';
+  closeBtn.setAttribute('aria-label', labels?.closeMobileMenuAriaLabel || 'Close');
+  const closeIcon = document.createElement('img');
+  closeIcon.src = icons.hamburgerIconClose;
+  closeIcon.alt = '';
+  closeIcon.setAttribute('aria-hidden', 'true');
+  closeBtn.append(closeIcon);
+
+  topRow.append(logoLink, closeBtn);
+
+  const heading = document.createElement('h2');
+  heading.className = 'vida-header-country-panel-title';
+  heading.textContent = 'Select a Country'; // Get from API
+
+  const description = document.createElement('p');
+  description.className = 'vida-header-country-panel-desc';
+  description.textContent = CSDescription;
+
+  const countryGrid = document.createElement('div');
+  countryGrid.className = 'vida-header-country-grid';
+  countries.forEach((country) => {
+    countryGrid.append(buildCountryCard(country, country.name === currentCountryName));
+  });
+
+  panel.append(topRow, heading, description, countryGrid);
+  overlay.append(panel);
+
+  return overlay;
+}
+
+function setCountrySelectorOpen(triggers, overlay, isOpen) {
+  triggers.forEach((trigger) => trigger.setAttribute('aria-expanded', String(isOpen)));
+  overlay.hidden = !isOpen;
+  document.body.classList.toggle('vida-country-selector-open', isOpen);
+}
+
+function wireCountrySelector(header, overlay) {
+  const triggers = header.querySelectorAll('[data-country-trigger]');
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      setCountrySelectorOpen(triggers, overlay, !isOpen);
+    });
+  });
+
+  overlay.querySelector('.vida-header-country-panel-close')
+    .addEventListener('click', () => setCountrySelectorOpen(triggers, overlay, false));
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      setCountrySelectorOpen(triggers, overlay, false);
+    }
+  });
+
+  overlay.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    setCountrySelectorOpen(triggers, overlay, false);
+    triggers[0]?.focus();
+  });
+}
+
 // ----------------------------------- //
 // ------ Final Header function ------ //
 // ----------------------------------- //
-function buildHeader(data) {
+function buildHeader(headerData, CSData) {
   const wrapper = document.createElement('div');
   wrapper.className = 'vida-header-wrapper';
 
@@ -655,21 +799,25 @@ function buildHeader(data) {
   container.className = 'vida-header-container';
 
   container.append(
-    buildLogo(data.logo),
-    buildNav(data.navItems, data.icons),
-    buildHeaderActions(data.actions, data.labels, data.icons),
+    buildLogo(headerData.logo),
+    buildNav(headerData.navItems, headerData.icons),
+    buildHeaderActions(headerData.actions, headerData.labels, headerData.icons),
   );
 
   header.append(container);
 
-  Object.entries(data.submenus || {}).forEach(([key, config]) => {
+  Object.entries(headerData.submenus || {}).forEach(([key, config]) => {
     header.append(buildSubmenu(key, config));
   });
 
-  wireDropdowns(header, data.icons);
+  wireDropdowns(header, headerData.icons);
 
-  const mobileMenuOverlay = buildMobileMenu(data);
+  const mobileMenuOverlay = buildMobileMenu(headerData);
   header.append(mobileMenuOverlay);
+
+  const countrySelectorOverlay = buildCountrySelector(CSData, headerData);
+  header.append(countrySelectorOverlay);
+  wireCountrySelector(header, countrySelectorOverlay);
 
   const menuTrigger = header.querySelector('.vida-header-menu-trigger');
   menuTrigger.addEventListener('click', () => {
@@ -685,32 +833,47 @@ function buildHeader(data) {
   return wrapper;
 }
 
+async function fetchJson(endpoint, label) {
+  try {
+    const response = await fetch(endpoint);
+    if (!response.ok) throw new Error(`${label} ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Failed to load ${label}`, error);
+    return null;
+  }
+}
+
 // --------------------------------------------------------- //
 // ---------------- Final decorate function ---------------- //
 // --------------------------------------------------------- //
 export default async function decorate(block) {
-  const endpointRow = block.firstElementChild;
-  const rawPath = endpointRow?.textContent?.trim();
-  endpointRow?.remove();
+  const [headerRow, countrySelectorRow] = block.children;
+  const headerPath = headerRow?.textContent?.trim();
+  const countrySelectorPath = countrySelectorRow?.textContent?.trim();
 
-  const endpoint = getAPIEndpoint(rawPath, 'headerApi');
+  headerRow?.remove();
+  countrySelectorRow?.remove();
 
-  if (!endpoint) return;
+  const headerEndpoint = getAPIEndpoint(headerPath, 'headerApi');
+  const countrySelectorEndpoint = getAPIEndpoint(countrySelectorPath, 'countrySelectorApi');
 
-  let headerRawData;
+  if (!headerEndpoint) return;
 
-  try {
-    const response = await fetch(endpoint);
-    if (!response.ok) throw new Error(`Header API ${response.status}`);
-    headerRawData = await response.json();
-  } catch (error) {
-    console.error('Failed to load header data', error);
-    return;
-  }
+  const [headerRawData, countrySelectorRawData] = await Promise.all([
+    fetchJson(headerEndpoint, 'header data'),
+    countrySelectorEndpoint ? fetchJson(countrySelectorEndpoint, 'country selector data') : null,
+  ]);
 
-  const { origin } = new URL(endpoint);
-  const normalisedHeaderData = normaliseHeaderJson(headerRawData, origin);
+  if (!headerRawData) return;
+
+  const normalisedHeaderData = normaliseHeaderJson(headerRawData, new URL(headerEndpoint).origin);
+  const normalisedCountrySelectorData = normaliseCountrySelectorJson(
+    countrySelectorRawData,
+    new URL(countrySelectorEndpoint).origin,
+  );
 
   block.textContent = '';
-  block.append(buildHeader(normalisedHeaderData));
+  block.append(buildHeader(normalisedHeaderData, normalisedCountrySelectorData));
 }
