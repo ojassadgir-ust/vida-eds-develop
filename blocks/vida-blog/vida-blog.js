@@ -1,230 +1,250 @@
-const CONFIG = Object.freeze({
-  contentRowCount: 3,
+import { moveInstrumentation } from '../../scripts/scripts.js';
 
-  contentRows: Object.freeze({
-    heading: 0,
-    description: 1,
-    cta: 2,
-  }),
-
-  cardCellCount: 4,
-
-  classNames: Object.freeze({
-    content: 'vida-blog-content',
-    heading: 'vida-blog-heading',
-    description: 'vida-blog-description',
-    cta: 'vida-blog-cta',
-    ctaLink: 'vida-blog-cta-link',
+const CONFIG = {
+  classes: {
+    header: 'vida-blog-header',
     cards: 'vida-blog-cards',
     card: 'vida-blog-card',
-    image: 'vida-blog-card-image',
+    cardImage: 'vida-blog-card-image',
+    cardContent: 'vida-blog-card-content',
     kicker: 'vida-blog-card-kicker',
     title: 'vida-blog-card-title',
     date: 'vida-blog-card-date',
+    imageDesktop: 'vida-blog-image-desktop',
+    imageTablet: 'vida-blog-image-tablet',
+    imageMobile: 'vida-blog-image-mobile',
     dots: 'vida-blog-dots',
     dot: 'vida-blog-dot',
-    active: 'is-active',
-  }),
-});
+    dotActive: 'vida-blog-dot-active',
+  },
+  selectors: {
+    image: 'img',
+    link: 'a',
+  },
+  cardRowsStart: 3,
+  imageIndexes: {
+    desktop: 0,
+    tablet: 1,
+    mobile: 2,
+  },
+  maxImages: 3,
+};
 
-function getContentCell(row) {
-  return row?.firstElementChild?.firstElementChild
-    ?? row?.firstElementChild
-    ?? row;
+function createElement(tagName, className) {
+  const element = document.createElement(tagName);
+
+  if (className) {
+    element.className = className;
+  }
+
+  return element;
 }
 
-function decorateHeader(block, rows) {
-  const content = document.createElement('div');
-
-  content.className = CONFIG.classNames.content;
-
-  rows.forEach((row, index) => {
-    row.classList.add(`vida-blog-row-${index}`);
-    content.append(row);
-  });
-
-  block.prepend(content);
-
-  const headingCell = getContentCell(
-    rows[CONFIG.contentRows.heading],
-  );
-
-  const descriptionCell = getContentCell(
-    rows[CONFIG.contentRows.description],
-  );
-
-  const ctaCell = getContentCell(
-    rows[CONFIG.contentRows.cta],
-  );
-
-  headingCell?.classList.add(CONFIG.classNames.heading);
-  descriptionCell?.classList.add(CONFIG.classNames.description);
-  ctaCell?.classList.add(CONFIG.classNames.cta);
-
-  const cta = ctaCell?.querySelector('a');
-
-  cta?.classList.add(CONFIG.classNames.ctaLink);
+function getCardRows(block) {
+  return [...block.children].slice(CONFIG.cardRowsStart);
 }
 
-function decorateCard(row) {
-  if (row.children.length !== CONFIG.cardCellCount) {
+function getCell(row, index) {
+  return row.children[index] || null;
+}
+
+function getImages(imageCell) {
+  if (!imageCell) {
+    return [];
+  }
+
+  return [...imageCell.querySelectorAll(CONFIG.selectors.image)]
+    .slice(0, CONFIG.maxImages);
+}
+
+function decorateImages(imageCell) {
+  const images = getImages(imageCell);
+
+  if (!images.length) {
     return null;
   }
 
-  const [
-    imageCell,
-    kickerCell,
-    titleCell,
-    dateCell,
-  ] = row.children;
-
-  row.classList.add(CONFIG.classNames.card);
-
-  imageCell.classList.add(CONFIG.classNames.image);
-  kickerCell.classList.add(CONFIG.classNames.kicker);
-  titleCell.classList.add(CONFIG.classNames.title);
-  dateCell.classList.add(CONFIG.classNames.date);
-
-  const image = imageCell.querySelector('img');
-
-  if (image) {
-    image.loading = 'lazy';
-    image.decoding = 'async';
-    image.alt = image.alt || titleCell.textContent.trim();
-  }
-
-  return row;
-}
-
-function updateDots(cards, dots) {
-  const cardCount = cards.length;
-
-  if (!cardCount) {
-    return;
-  }
-
-  const cardScroller = cards[0].parentElement;
-  const { scrollLeft } = cardScroller;
-  const cardWidth = cards[0].getBoundingClientRect().width;
-  const gap = parseFloat(getComputedStyle(cardScroller).gap) || 0;
-
-  const activeIndex = Math.min(
-    cardCount - 1,
-    Math.max(
-      0,
-      Math.round(scrollLeft / (cardWidth + gap)),
-    ),
+  const imageContainer = createElement(
+    'div',
+    CONFIG.classes.cardImage,
   );
 
-  dots.forEach((dot, index) => {
-    const isActive = index === activeIndex;
+  images.forEach((image, index) => {
+    const imageClass = {
+      [CONFIG.imageIndexes.desktop]: CONFIG.classes.imageDesktop,
+      [CONFIG.imageIndexes.tablet]: CONFIG.classes.imageTablet,
+      [CONFIG.imageIndexes.mobile]: CONFIG.classes.imageMobile,
+    }[index];
 
-    dot.classList.toggle(
-      CONFIG.classNames.active,
-      isActive,
-    );
-
-    dot.setAttribute(
-      'aria-current',
-      isActive ? 'true' : 'false',
-    );
-  });
-}
-
-function createDots(block, cards, cardScroller) {
-  const dots = document.createElement('div');
-
-  dots.className = CONFIG.classNames.dots;
-
-  const heading = block
-    .querySelector(`.${CONFIG.classNames.heading}`)
-    ?.textContent.trim();
-
-  if (heading) {
-    dots.setAttribute('aria-label', heading);
-  }
-
-  const dotElements = cards.map((card, index) => {
-    const dot = document.createElement('button');
-
-    dot.type = 'button';
-    dot.className = CONFIG.classNames.dot;
-
-    const cardTitle = card
-      .querySelector(`.${CONFIG.classNames.title}`)
-      ?.textContent.trim();
-
-    if (cardTitle) {
-      dot.setAttribute('aria-label', cardTitle);
+    if (imageClass) {
+      image.classList.add(imageClass);
     }
 
+    imageContainer.append(image);
+  });
+
+  imageCell.replaceChildren(imageContainer);
+
+  return imageContainer;
+}
+
+function decorateCard(row) {
+  const imageCell = getCell(row, 0);
+  const kickerCell = getCell(row, 1);
+  const titleCell = getCell(row, 2);
+  const dateCell = getCell(row, 3);
+
+  const card = createElement('article', CONFIG.classes.card);
+
+  moveInstrumentation(row, card);
+
+  decorateImages(imageCell);
+
+  if (imageCell) {
+    card.append(imageCell);
+  }
+
+  const content = createElement(
+    'div',
+    CONFIG.classes.cardContent,
+  );
+
+  if (kickerCell) {
+    kickerCell.classList.add(CONFIG.classes.kicker);
+    content.append(kickerCell);
+  }
+
+  if (titleCell) {
+    titleCell.classList.add(CONFIG.classes.title);
+    content.append(titleCell);
+  }
+
+  if (dateCell) {
+    dateCell.classList.add(CONFIG.classes.date);
+    content.append(dateCell);
+  }
+
+  card.append(content);
+
+  return card;
+}
+
+function createDots(cardsContainer, cards) {
+  if (cards.length <= 1) {
+    return null;
+  }
+
+  const dots = createElement(
+    'div',
+    CONFIG.classes.dots,
+  );
+
+  cards.forEach((card, index) => {
+    const dot = createElement(
+      'button',
+      CONFIG.classes.dot,
+    );
+
+    dot.type = 'button';
     dot.setAttribute(
-      'aria-current',
-      index === 0 ? 'true' : 'false',
+      'aria-label',
+      `Go to blog card ${index + 1}`,
     );
 
     dot.addEventListener('click', () => {
       card.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
-        inline: 'center',
+        inline: 'start',
       });
     });
 
     dots.append(dot);
-
-    return dot;
   });
 
-  block.append(dots);
+  const firstDot = dots.firstElementChild;
 
-  cardScroller.addEventListener(
+  if (firstDot) {
+    firstDot.classList.add(CONFIG.classes.dotActive);
+  }
+
+  const updateActiveDot = () => {
+    const containerLeft = cardsContainer.getBoundingClientRect().left;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card, index) => {
+      const distance = Math.abs(
+        card.getBoundingClientRect().left - containerLeft,
+      );
+
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    [...dots.children].forEach((dot, index) => {
+      dot.classList.toggle(
+        CONFIG.classes.dotActive,
+        index === closestIndex,
+      );
+    });
+  };
+
+  cardsContainer.addEventListener(
     'scroll',
-    () => updateDots(cards, dotElements),
+    updateActiveDot,
     { passive: true },
   );
 
-  window.addEventListener(
-    'resize',
-    () => updateDots(cards, dotElements),
-  );
+  return dots;
 }
 
 export default function decorate(block) {
-  const rows = Array.from(block.children);
+  const rows = [...block.children];
 
-  const contentRows = rows.slice(
-    0,
-    CONFIG.contentRowCount,
-  );
-
-  const cardRows = rows.slice(
-    CONFIG.contentRowCount,
-  );
-
-  const cards = cardRows
-    .map(decorateCard)
-    .filter(Boolean);
-
-  if (!cards.length) {
+  if (rows.length < CONFIG.cardRowsStart) {
     return;
   }
 
-  decorateHeader(block, contentRows);
+  const header = createElement(
+    'div',
+    CONFIG.classes.header,
+  );
 
-  const cardScroller = document.createElement('div');
+  const headingRow = rows[0];
+  const descriptionRow = rows[1];
+  const ctaRow = rows[2];
 
-  cardScroller.className = CONFIG.classNames.cards;
+  if (headingRow) {
+    header.append(headingRow);
+  }
+
+  if (descriptionRow) {
+    header.append(descriptionRow);
+  }
+
+  if (ctaRow) {
+    header.append(ctaRow);
+  }
+
+  const cardsContainer = createElement(
+    'div',
+    CONFIG.classes.cards,
+  );
+
+  const cards = getCardRows(block).map(decorateCard);
 
   cards.forEach((card) => {
-    cardScroller.append(card);
+    cardsContainer.append(card);
   });
 
-  block.append(cardScroller);
+  const dots = createDots(cardsContainer, cards);
 
-  createDots(
-    block,
-    cards,
-    cardScroller,
-  );
+  block.replaceChildren(header, cardsContainer);
+
+  if (dots) {
+    block.append(dots);
+  }
 }

@@ -341,14 +341,16 @@
         "name": "heading",
         "label": "Heading",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text-area",
         "name": "description",
         "label": "Description",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "aem-content",
@@ -371,31 +373,51 @@
     "fields": [
       {
         "component": "reference",
-        "name": "image",
-        "label": "Image",
+        "name": "images_desktop",
+        "label": "Desktop Image",
         "valueType": "string",
-        "multi": false
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "images_tablet",
+        "label": "Tablet Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "images_mobile",
+        "label": "Mobile Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
       },
       {
         "component": "text",
         "name": "kicker",
         "label": "Kicker",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
         "name": "title",
         "label": "Title",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
         "name": "date",
         "label": "Date",
         "value": "",
-        "valueType": "string"
+        "valueType": "string",
+        "required": true
       }
     ]
   },

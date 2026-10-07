@@ -310,7 +310,15 @@
               "columns": 4,
               "fields": [
                 {
-                  "name": "image",
+                  "name": "images_desktop",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "images_tablet",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "images_mobile",
                   "selector": "div:nth-child(1)"
                 },
                 {
