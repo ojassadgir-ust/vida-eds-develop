@@ -5,28 +5,25 @@
   --vida-blog-page-padding-mobile-y: 48px;
   --vida-blog-page-padding-mobile-x: 16px;
   --vida-blog-header-description-max-width: 760px;
-  --vida-blog-heading-size-desktop: 48px;
-  --vida-blog-heading-size-tablet: 32px;
-  --vida-blog-heading-size-mobile: 36px;
-  --vida-blog-description-size: 24px;
-  --vida-blog-cta-size: 20px;
+  --vida-blog-heading-size-desktop: var(--fs-heading-xl);
+  --vida-blog-heading-size-tablet: var(--fs-heading-lg);
+  --vida-blog-heading-size-mobile: var(--fs-heading-xl);
+  --vida-blog-description-size: var(--fs-body-xl);
+  --vida-blog-cta-size: var(--fs-label-xl);
   --vida-blog-cards-gap-desktop: 24px;
   --vida-blog-cards-gap-mobile: 16px;
   --vida-blog-card-radius: 20px;
-  --vida-blog-card-background: var(
-    --surface-secondary,
-    #f9f5ee
-  );
+  --vida-blog-card-background: var(--surface-secondary);
   --vida-blog-image-radius: 20px;
   --vida-blog-image-margin-desktop: 8px;
   --vida-blog-image-margin-tablet: 16px;
-  --vida-blog-kicker-size-desktop: 16px;
-  --vida-blog-kicker-size-tablet: 14px;
-  --vida-blog-kicker-size-mobile: 16px;
-  --vida-blog-title-size-desktop: 24px;
-  --vida-blog-title-size-tablet: 20px;
-  --vida-blog-title-size-mobile: 18px;
-  --vida-blog-date-size: 16px;
+  --vida-blog-kicker-size-desktop: var(--fs-label-lg);
+  --vida-blog-kicker-size-tablet: var(--fs-label-md);
+  --vida-blog-kicker-size-mobile: var(--fs-label-lg);
+  --vida-blog-title-size-desktop: var(--fs-heading-sm);
+  --vida-blog-title-size-tablet: var(--fs-heading-sm);
+  --vida-blog-title-size-mobile: var(--fs-heading-sm);
+  --vida-blog-date-size: var(--fs-body-md);
   --vida-blog-kicker-gap-desktop: 24px;
   --vida-blog-kicker-gap-tablet: 12px;
   --vida-blog-kicker-gap-mobile: 24px;
@@ -40,21 +37,21 @@
   --vida-blog-content-padding-mobile: 24px;
   --vida-blog-kicker-line-width: 24px;
   --vida-blog-kicker-line-height: 1px;
-  --vida-blog-kicker-line-background: #d4d4d4;
-  --vida-blog-cta-background: #000;
-  --vida-blog-cta-color: #fff;
-  --vida-blog-cta-radius: 50px;
+  --vida-blog-kicker-line-background: var(--border-strong);
+  --vida-blog-cta-background: var(--action-primary);
+  --vida-blog-cta-color: var(--content-inverse);
+  --vida-blog-cta-radius: var(--radius-button);
   --vida-blog-cta-padding-y: 8px;
   --vida-blog-cta-padding-x: 20px;
   --vida-blog-dots-width: 86px;
   --vida-blog-dots-height: 28px;
   --vida-blog-dots-radius: 50px;
-  --vida-blog-dots-background: #565656;
+  --vida-blog-dots-background: var(--action-primary);
   --vida-blog-dot-size: 8px;
   --vida-blog-dot-active-width: 26px;
   --vida-blog-dot-active-height: 8px;
-  --vida-blog-dot-inactive-background: #d4d4d4;
-  --vida-blog-dot-active-background: #fff;
+  --vida-blog-dot-inactive-background: var(--border-strong);
+  --vida-blog-dot-active-background: var(--content-inverse);
   --vida-blog-mobile-card-edge: 48px;
 
   padding: var(--vida-blog-page-padding-desktop);
@@ -73,7 +70,7 @@
   margin: 0 0 16px;
   padding: 0;
   font-size: var(--vida-blog-heading-size-desktop);
-  font-weight: 530;
+  font-weight: var(--fw-heading-530);
   line-height: 1.15;
 }
 
@@ -84,7 +81,7 @@
   margin: 0 0 32px;
   padding: 0;
   font-size: var(--vida-blog-description-size);
-  font-weight: 450;
+  font-weight: var(--fw-subheading-450);
   line-height: 1.35;
 }
 
@@ -92,7 +89,7 @@
   margin: 0;
   padding: 0;
   font-size: var(--vida-blog-cta-size);
-  font-weight: 530;
+  font-weight: var(--fw-heading-530);
   line-height: 1.2;
 }
 
@@ -174,13 +171,10 @@
   margin-bottom: var(
     --vida-blog-kicker-gap-desktop
   );
-  padding-bottom: var(
-    --vida-blog-kicker-gap-desktop
-  );
   font-size: var(
     --vida-blog-kicker-size-desktop
   );
-  font-weight: 530;
+  font-weight: var(--fw-heading-530);
   line-height: 1.2;
 }
 
@@ -208,7 +202,7 @@
   font-size: var(
     --vida-blog-title-size-desktop
   );
-  font-weight: 530;
+  font-weight: var(--fw-heading-530);
   line-height: 1.2;
 }
 
@@ -217,7 +211,7 @@
   font-size: var(
     --vida-blog-date-size
   );
-  font-weight: 450;
+  font-weight: var(--fw-subheading-450);
   line-height: 1.2;
 }
 
@@ -329,7 +323,7 @@
     font-size: var(
       --vida-blog-heading-size-mobile
     );
-    font-weight: 530;
+    font-weight: var(--fw-heading-530);
     line-height: 1.15;
   }
 
@@ -464,7 +458,7 @@
     height: var(
       --vida-blog-dot-active-height
     );
-    border-radius: 50%;
+    border-radius: 50px;
     background: var(
       --vida-blog-dot-active-background
     );

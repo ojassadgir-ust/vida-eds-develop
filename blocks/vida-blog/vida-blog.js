@@ -250,10 +250,13 @@ function createCta(ctaRow, ctaTextRow) {
 }
 
 function getPlayTime(row) {
-  const value = Number.parseInt(
-    getCellText(row),
-    10,
-  );
+  const text = getCellText(row);
+
+  if (!/^\d+$/u.test(text)) {
+    return CONFIG.defaultPlayTime;
+  }
+
+  const value = Number(text);
 
   if (!Number.isFinite(value) || value <= 0) {
     return CONFIG.defaultPlayTime;
@@ -301,15 +304,17 @@ function scrollToCard(
     return;
   }
 
-  const containerWidth = cardsContainer.clientWidth;
-
-  const cardWidth = card.offsetWidth;
-
-  const targetLeft = card.offsetLeft
-    - (containerWidth - cardWidth) / 2;
+  const containerRect = cardsContainer.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+  const targetLeft = cardsContainer.scrollLeft
+    + cardRect.left
+    - containerRect.left
+    - ((cardsContainer.clientWidth - cardRect.width) / 2);
+  const maxScrollLeft = cardsContainer.scrollWidth
+    - cardsContainer.clientWidth;
 
   cardsContainer.scrollTo({
-    left: Math.max(0, targetLeft),
+    left: Math.min(maxScrollLeft, Math.max(0, targetLeft)),
     behavior,
   });
 }
@@ -496,6 +501,8 @@ function initializeMobileCarousel(
           dots,
           initialIndex,
         );
+
+        startAutoplay();
       });
     });
   };
@@ -505,7 +512,6 @@ function initializeMobileCarousel(
 
     if (mobileQuery.matches) {
       setInitialMobileSlide();
-      startAutoplay();
     } else {
       cardsContainer.scrollTo({
         left: 0,
@@ -567,15 +573,16 @@ function decorateHeader(block) {
     CONFIG.rows.cta,
   );
 
-  const ctaTextRow = getCell(
-    block,
+  const optionalRows = [...block.children].slice(
     CONFIG.rows.ctaText,
+    CONFIG.cardRowsStart,
   );
-
-  const playTimeRow = getCell(
-    block,
-    CONFIG.rows.carouselPlayTime,
-  );
+  const playTimeRow = optionalRows.find((row) => (
+    /^\d+$/u.test(getCellText(row))
+  ));
+  const ctaTextRow = optionalRows.find((row) => (
+    row !== playTimeRow && getCellText(row)
+  ));
 
   const header = createElement(
     'div',
