@@ -12,7 +12,7 @@ const CONFIG = {
             '/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json',
     testRideCitiesApi: '/content/dam/vida/config/availableTestRideCities.INDIA.json',
     sendOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
-    verifyOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json'
+    verifyOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
   },
 };
 
