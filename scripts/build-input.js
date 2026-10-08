@@ -1,7 +1,7 @@
 export default function buildInput({
     id,
     name = id,
-    label,
+    label = '',
     type = 'text',
     placeholder = '',
     required = false,
@@ -43,7 +43,7 @@ export default function buildInput({
 
     wrapper.append(labelElement, input, errorText);
 
-    const setError = (errorMessage) => {
+    const setError = (errorMessage = '') => {
         errorText.textContent = errorMessage;
         errorText.hidden = false;
         wrapper.classList.add('vida-field--error');

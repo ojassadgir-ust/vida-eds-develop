@@ -87,10 +87,11 @@
 }
 
 .vida-field-label {
-    font-size: var(--fs-label-md);
-    line-height: var(--lh-label-md);
-    letter-spacing: var(--ls-label-md);
+    font-size: var(--fs-label-sm);
+    line-height: var(--lh-label-sm);
+    letter-spacing: var(--ls-label-sm);
     color: var(--content-secondary);
+    font-weight: var(--fw-medium);
 }
 
 .vida-field-required {
@@ -105,9 +106,13 @@
     line-height: var(--lh-label-lg);
     letter-spacing: var(--ls-label-lg);
     color: var(--content-primary);
-    border: 1px solid var(--border-default);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius-tooltip);
     outline: none;
+}
+
+.vida-field-input:focus {
+    border-color: var(--border-brand);
 }
 
 .vida-field-input::placeholder {
@@ -115,7 +120,7 @@
 }
 
 .vida-field--error .vida-field-input {
-    border-color: var(--status-error-border);
+    border-color: var(--status-error-content);
 }
 
 .vida-field-error-text {
@@ -123,24 +128,22 @@
     align-items: center;
     gap: 8px;
     margin: 0;
-    font-size: var(--fs-label-md);
-    line-height: var(--lh-label-md);
-    letter-spacing: var(--ls-label-md);
-    color: var(--content-primary);
+    font-size: var(--fs-label-sm);
+    line-height: var(--lh-label-sm);
+    letter-spacing: var(--ls-label-sm);
+    color: var(--status-error-content);
+    font-weight: var(--fw-regular);
 }
 
 .vida-field-error-text[hidden] {
     display: none;
 }
 
-.vida-field-error-text::before {
-    content: +'\00d7';
-    width: 16px;
-    height: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: var(--content-inverse);
-    border-radius: 50%;
+@media (width >= 1024px) {
+    .vida-field-label,
+    .vida-field-error-text {
+        font-size: var(--fs-label-md);
+        line-height: var(--lh-label-md);
+        letter-spacing: var(--ls-label-md);
+    }
 }

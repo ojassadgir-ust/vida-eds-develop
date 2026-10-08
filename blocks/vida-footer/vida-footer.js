@@ -1158,12 +1158,6 @@ export default async function decorate(
      */
     footerData = await getFooterData(endpoint);
 
-    // eslint-disable-next-line no-console
-    console.log(
-      'VIDA Footer data loaded from AEM:',
-      footerData,
-    );
-
     block.replaceChildren();
 
     block.classList.add(
