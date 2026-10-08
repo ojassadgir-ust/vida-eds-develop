@@ -198,7 +198,7 @@
     font-size: var(--fs-label-lg);
     line-height: var(--lh-label-lg);
     letter-spacing: var(--ls-label-lg);
-    font-weight: 530;
+    font-weight: var(--fw-medium);
     color: var(--content-brand);
     text-decoration: underline;
     background: none;

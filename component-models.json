@@ -728,7 +728,7 @@
       {
         "component": "text",
         "name": "popupDelaySeconds",
-        "label": "Show Popup after (seconds)",
+        "label": "Web Popup Timer",
         "valueType": "string"
       },
       {
