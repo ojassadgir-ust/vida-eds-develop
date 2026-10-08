@@ -126,6 +126,12 @@
                     "valueType": "string"
                 },
                 {
+                    "component": "text",
+                    "name": "countryCode",
+                    "label": "Country Code (Phone)",
+                    "valueType": "string"
+                },
+                {
                     "component": "tab",
                     "name": "otp",
                     "label": "3. Submit OTP"

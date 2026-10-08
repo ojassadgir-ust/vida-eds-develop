@@ -12,15 +12,12 @@ const KEYS = [
     'formHeading', 'nameLabel', 'namePlaceholder', 'nameError',
     'cityLabel', 'cityPlaceholder', 'mobileLabel', 'mobilePlaceholder',
     'mobileError', 'consent', 'submitLabel', 'citiesApiUrl', 'sendOtpApi',
-    'verifyOtpApi', 'rsaPublicKey', 'popupDelaySeconds', 'otpHeading',
-    'resendLabel', 'resendTimer', 'otpError', 'otpSubmitLabel',
+    'verifyOtpApi', 'rsaPublicKey', 'popupDelaySeconds', 'countryCode',
+    'otpHeading', 'resendLabel', 'resendTimer', 'otpError', 'otpSubmitLabel',
     'successImage', 'successHeading', 'successDescription', 'successBtnLabel',
 ]
 const SEND_FALLBACK = 'Unable to Send OTP. Please try again.';
 const OPT_OUT_FOR_POPUP_KEY = 'optOutForPopup';
-
-console.log(sessionStorage.getItem(OPT_OUT_FOR_POPUP_KEY))
-
 
 function isOptedOutForPopup() {
     try {
@@ -306,17 +303,14 @@ function getUtmParams() {
 }
 
 async function callOtpApi(url, body) {
-    console.log(JSON.stringify(body));
     const res = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
     });
 
-    console.log(res)
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const resJson = await res.json();
-    console.log(resJson)
     return resJson.data || {};
 }
 
@@ -325,7 +319,7 @@ async function sendOtp(config, mobile) {
     try {
         const data = await callOtpApi(sendOtpApi, {
             action: 'sendOtp',
-            country_code: '+91', // Hardcoding for now
+            country_code: config.countryCode || '+91',
             is_login: is_login,
             mobile_number: await protect(mobile, config.rasPublicKey),
             sub_source: 'web-popup',
@@ -354,16 +348,16 @@ async function sendOtp(config, mobile) {
 async function verifyOtp(config, state, code) {
 
     try {
-        const details = state.details || { name: "Vineet Namanna", state: "Karnataka", city: "BENGALURU", mobile: "7019081681" };
-        const key = undefined;
+        const details = state.details;
+        const key = config.rasPublicKey;
         const verifyOtpApi = getAPIEndpoint(config.verifyOtpApi, CONFIG.API_ENDPOINTS.verifyOtpPostApi);
 
         const payload = {
             action: 'verifyOtp',
-            SF_ID: "mock",
+            SF_ID: state.sfId,
             is_login: is_login,
             ...splitName(details.name),
-            country_code: '+91',
+            country_code: config.countryCode || '+91',
             customer_state: details.state,
             customer_city: details.city,
             mobile_number: await protect(details.mobile, key),
@@ -374,14 +368,12 @@ async function verifyOtp(config, state, code) {
             is_teaser_lead: true,
             utm_params: getUtmParams(),
         }
-        console.log(verifyOtpApi);
         const data = await callOtpApi(verifyOtpApi, payload);
 
         const res = data.VerifyOtp || {};
         if (res.status_code === 200) return { ok: true };
         return { ok: false, message: res.message };
     } catch (e) {
-        console.log(e);
         return { ok: false };
     }
 }
@@ -470,8 +462,6 @@ function renderDetails(body, dialog, config, onSubmit) {
             city: selectedCity.city,
             state: selectedCity.state,
         });
-
-        console.log(result);
 
         busy = false;
         if (result && !result.ok) {
@@ -786,7 +776,6 @@ export default function decorate(block) {
         if (name === 'otp') {
             renderOtp(body, dialog, config, state, {
                 onVerify: async (code) => {
-                    console.log(code);
                     const gen = generation;
                     const result = await verifyOtp(config, state, code);
 
