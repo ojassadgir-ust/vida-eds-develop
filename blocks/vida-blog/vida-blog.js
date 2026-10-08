@@ -489,22 +489,16 @@ function initializeMobileCarousel(
       cards.length - 1,
     );
 
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        scrollToCard(
-          cardsContainer,
-          cards[initialIndex],
-          'auto',
-        );
+    scrollToCard(
+      cardsContainer,
+      cards[initialIndex],
+      'auto',
+    );
 
-        updateActiveDot(
-          dots,
-          initialIndex,
-        );
-
-        startAutoplay();
-      });
-    });
+    updateActiveDot(
+      dots,
+      initialIndex,
+    );
   };
 
   const handleViewportChange = () => {
@@ -512,6 +506,10 @@ function initializeMobileCarousel(
 
     if (mobileQuery.matches) {
       setInitialMobileSlide();
+      // Start autoplay after initial slide is set
+      window.requestAnimationFrame(() => {
+        startAutoplay();
+      });
     } else {
       cardsContainer.scrollTo({
         left: 0,
@@ -573,16 +571,34 @@ function decorateHeader(block) {
     CONFIG.rows.cta,
   );
 
-  const optionalRows = [...block.children].slice(
+  // FIXED: More explicit and robust way to find ctaText and playTime rows
+  const ctaTextRowElement = getCell(
+    block,
     CONFIG.rows.ctaText,
-    CONFIG.cardRowsStart,
   );
-  const playTimeRow = optionalRows.find((row) => (
-    /^\d+$/u.test(getCellText(row))
-  ));
-  const ctaTextRow = optionalRows.find((row) => (
-    row !== playTimeRow && getCellText(row)
-  ));
+
+  const playTimeRowElement = getCell(
+    block,
+    CONFIG.rows.carouselPlayTime,
+  );
+
+  // Determine which row is which by checking if it's numeric
+  let ctaTextRow = null;
+  let playTimeRow = null;
+
+  if (/^\d+$/u.test(getCellText(playTimeRowElement))) {
+    // Expected case: playTime row (index 4) is numeric
+    playTimeRow = playTimeRowElement;
+    ctaTextRow = ctaTextRowElement;
+  } else if (/^\d+$/u.test(getCellText(ctaTextRowElement))) {
+    // Swapped case: ctaText row (index 3) is numeric
+    playTimeRow = ctaTextRowElement;
+    ctaTextRow = playTimeRowElement;
+  } else {
+    // Normal case: neither is numeric, use expected positions
+    ctaTextRow = ctaTextRowElement;
+    playTimeRow = playTimeRowElement;
+  }
 
   const header = createElement(
     'div',
@@ -601,6 +617,7 @@ function decorateHeader(block) {
     );
   }
 
+  // FIXED: Pass the correctly identified ctaTextRow
   const cta = createCta(
     ctaRow,
     ctaTextRow,
