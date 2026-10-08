@@ -1,7 +1,8 @@
 import buildInput from '../../scripts/build-input.js';
 import buildButton from '../../scripts/build-button.js';
+import { showSpinner } from '../../scripts/build-spinner.js';
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
-import { isLoggedIn, setUserLoggedIn } from '../../scripts/login-utils.js';
+import { isLoggedIn } from '../../scripts/login-utils.js';
 
 const isLogin = isLoggedIn();
 
@@ -299,15 +300,21 @@ function getUtmParams() {
 }
 
 async function callOtpApi(url, body) {
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  const host = document.querySelector('dialog[open]') || document.body;
+  const hide = showSpinner(host);
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
 
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const resJson = await res.json();
-  return resJson.data || {};
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const resJson = await res.json();
+    return resJson.data || {};
+  } finally {
+    hide();
+  }
 }
 
 async function sendOtp(config, mobile) {
@@ -480,7 +487,7 @@ function renderOtp(body, dialog, config, state, handlers) {
   const title = document.createElement('h2');
   title.className = 'vida-popup-title-otp';
   title.id = 'popup-title';
-  title.textContent = config.otpHeading || 'Enter the OTP you received';
+  title.textContent = config.otpHeading;
   dialog.setAttribute('aria-labelledby', title.id);
 
   const form = document.createElement('form');
@@ -671,12 +678,12 @@ function renderSuccess(body, dialog, config) {
   const title = document.createElement('h2');
   title.className = 'vida-popup-title vida-popup-title-success';
   title.id = 'popup-title';
-  title.textContent = config.successHeading || 'Thank you for sharing your contact details with us.';
+  title.textContent = config.successHeading;
   dialog.setAttribute('aria-labelledby', title.id);
 
   const text = document.createElement('p');
   text.className = 'vida-popup-success-text';
-  text.textContent = config.successDescription || 'Someone from the call center team will get in touch with you soon.';
+  text.textContent = config.successDescription;
 
   const done = buildButton({
     label: config.successBtnLabel || 'Continue',
@@ -780,7 +787,6 @@ export default function decorate(block) {
           }
           if (!result.ok) return result;
 
-          setUserLoggedIn(result.res.token, 30);
           showScreen('success');
 
           return { ok: true };

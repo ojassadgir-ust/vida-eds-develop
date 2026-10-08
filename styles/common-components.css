@@ -139,11 +139,68 @@
     display: none;
 }
 
-@media (width >= 1024px) {
+@keyframes vida-loader-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.vida-spinner-wrapper {
+    align-items: center;
+    background-color: rgb(16 16 16 / 40%);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000000;
+}
+
+.vida-spinner-text {
+    color: var(--color-vida-50);
+    margin: 10px 0 0;
+}
+
+.vida-spinner-loader {
+    animation: vida-loader-spin 1s linear infinite;
+    border: 2px solid var(--color-vida-50);
+    border-bottom: 2px solid #00d5e5;
+    border-radius: 50%;
+    border-top: 2px solid #00d5e5;
+    height: 100px;
+    margin-top: 50px;
+    width: 100px;
+}
+
+.vida-spinner-loader-sm {
+    border-bottom-color: var(--color-vida-50);
+    height: 30px;
+    left: 50%;
+    margin: -15px 0 0 -15px;
+    position: absolute;
+    top: 50%;
+    width: 30px;
+}
+
+@media (width >=1024px) {
+
     .vida-field-label,
     .vida-field-error-text {
         font-size: var(--fs-label-md);
         line-height: var(--lh-label-md);
         letter-spacing: var(--ls-label-md);
+    }
+
+    .vida-spinner-loader-sm {
+        height: 25px;
+        margin: -12.5px 0 0 -12.5px;
+        width: 25px;
     }
 }
