@@ -370,7 +370,7 @@
         "component": "number",
         "name": "carouselPlayTime",
         "label": "Carousel Play Time (ms)",
-        "description": "Mobile carousel auto-scroll interval in milliseconds. Use 0 to disable auto-scroll.",
+        "description": "Mobile carousel auto-scroll interval in milliseconds. Leave empty or use 0 to disable auto-scroll.",
         "value": 0,
         "valueType": "number",
         "validation": {

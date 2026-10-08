@@ -7,7 +7,6 @@ const CONFIG = {
     description: 'vida-blog-description',
     cta: 'vida-blog-cta',
     ctaLink: 'vida-blog-cta-link',
-    playTime: 'vida-blog-carousel-play-time',
     cards: 'vida-blog-cards',
     card: 'vida-blog-card',
     cardImage: 'vida-blog-card-image',
@@ -22,10 +21,12 @@ const CONFIG = {
     dot: 'vida-blog-dot',
     dotActive: 'vida-blog-dot-active',
   },
+
   selectors: {
     image: 'img',
     link: 'a[href]',
   },
+
   rows: {
     heading: 0,
     description: 1,
@@ -33,16 +34,21 @@ const CONFIG = {
     ctaText: 3,
     carouselPlayTime: 4,
   },
+
   cardRowsStart: 5,
+
   imageIndexes: {
     desktop: 0,
     tablet: 1,
     mobile: 2,
   },
+
   maxImages: 3,
+
   mobileBreakpoint: 767,
-  mobileSlideWidthGap: 48,
+
   defaultMobileSlideIndex: 1,
+
   defaultPlayTime: 0,
 };
 
@@ -64,10 +70,6 @@ function getCellText(cell) {
   return cell?.textContent?.trim() || '';
 }
 
-function getCardRows(block) {
-  return [...block.children].slice(CONFIG.cardRowsStart);
-}
-
 function getImages(imageCell) {
   if (!imageCell) {
     return [];
@@ -84,11 +86,11 @@ function getAuthoringLink(cell) {
 
   const link = cell.querySelector(CONFIG.selectors.link);
 
-  if (link?.href) {
-    return link.href;
-  }
+  return link?.href || '';
+}
 
-  return getCellText(cell);
+function getCardRows(block) {
+  return [...block.children].slice(CONFIG.cardRowsStart);
 }
 
 function decorateImages(imageCell) {
@@ -122,19 +124,36 @@ function decorateImages(imageCell) {
   return imageContainer;
 }
 
+function createCardTextElement(
+  tagName,
+  className,
+  text,
+) {
+  const element = createElement(
+    tagName,
+    className,
+  );
+
+  element.textContent = text;
+
+  return element;
+}
+
 function decorateCard(row) {
   const imageCell = getCell(row, 0);
   const kickerCell = getCell(row, 1);
   const titleCell = getCell(row, 2);
   const dateCell = getCell(row, 3);
 
-  const card = createElement('article', CONFIG.classes.card);
+  const card = createElement(
+    'article',
+    CONFIG.classes.card,
+  );
 
   moveInstrumentation(row, card);
 
-  decorateImages(imageCell);
-
   if (imageCell) {
+    decorateImages(imageCell);
     card.append(imageCell);
   }
 
@@ -143,19 +162,38 @@ function decorateCard(row) {
     CONFIG.classes.cardContent,
   );
 
-  if (kickerCell) {
-    kickerCell.classList.add(CONFIG.classes.kicker);
-    content.append(kickerCell);
+  const kickerText = getCellText(kickerCell);
+  const titleText = getCellText(titleCell);
+  const dateText = getCellText(dateCell);
+
+  if (kickerText) {
+    content.append(
+      createCardTextElement(
+        'p',
+        CONFIG.classes.kicker,
+        kickerText,
+      ),
+    );
   }
 
-  if (titleCell) {
-    titleCell.classList.add(CONFIG.classes.title);
-    content.append(titleCell);
+  if (titleText) {
+    content.append(
+      createCardTextElement(
+        'h3',
+        CONFIG.classes.title,
+        titleText,
+      ),
+    );
   }
 
-  if (dateCell) {
-    dateCell.classList.add(CONFIG.classes.date);
-    content.append(dateCell);
+  if (dateText) {
+    content.append(
+      createCardTextElement(
+        'p',
+        CONFIG.classes.date,
+        dateText,
+      ),
+    );
   }
 
   card.append(content);
@@ -169,8 +207,6 @@ function createHeading(row) {
     CONFIG.classes.heading,
   );
 
-  moveInstrumentation(row, heading);
-
   heading.textContent = getCellText(row);
 
   return heading;
@@ -182,14 +218,19 @@ function createDescription(row) {
     CONFIG.classes.description,
   );
 
-  moveInstrumentation(row, description);
-
   description.textContent = getCellText(row);
 
   return description;
 }
 
 function createCta(ctaRow, ctaTextRow) {
+  const href = getAuthoringLink(ctaRow);
+  const label = getCellText(ctaTextRow);
+
+  if (!label) {
+    return null;
+  }
+
   const cta = createElement(
     'div',
     CONFIG.classes.cta,
@@ -200,24 +241,8 @@ function createCta(ctaRow, ctaTextRow) {
     CONFIG.classes.ctaLink,
   );
 
-  const href = getAuthoringLink(ctaRow);
-  const label = getCellText(ctaTextRow);
-
-  moveInstrumentation(ctaRow, link);
-
-  if (ctaTextRow) {
-    moveInstrumentation(ctaTextRow, link);
-  }
-
-  if (href) {
-    link.href = href;
-  }
-
+  link.href = href || '#';
   link.textContent = label;
-
-  if (!label) {
-    return null;
-  }
 
   cta.append(link);
 
@@ -230,26 +255,33 @@ function getPlayTime(row) {
     10,
   );
 
-  if (!Number.isFinite(value) || value < 0) {
+  if (!Number.isFinite(value) || value <= 0) {
     return CONFIG.defaultPlayTime;
   }
 
   return value;
 }
 
-function getClosestCardIndex(cardsContainer, cards) {
+function getClosestCardIndex(
+  cardsContainer,
+  cards,
+) {
   const containerRect = cardsContainer.getBoundingClientRect();
-  const containerCenter = (
-    containerRect.left + containerRect.width / 2
-  );
+
+  const containerCenter = containerRect.left
+    + containerRect.width / 2;
 
   let closestIndex = 0;
   let closestDistance = Number.POSITIVE_INFINITY;
 
   cards.forEach((card, index) => {
     const rect = card.getBoundingClientRect();
+
     const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(cardCenter - containerCenter);
+
+    const distance = Math.abs(
+      cardCenter - containerCenter,
+    );
 
     if (distance < closestDistance) {
       closestDistance = distance;
@@ -260,23 +292,50 @@ function getClosestCardIndex(cardsContainer, cards) {
   return closestIndex;
 }
 
-function scrollToCard(cardsContainer, card, behavior = 'smooth') {
+function scrollToCard(
+  cardsContainer,
+  card,
+  behavior = 'smooth',
+) {
   if (!card) {
     return;
   }
 
-  const leftPosition = (
-    card.offsetLeft
-    - ((cardsContainer.clientWidth - card.offsetWidth) / 2)
-  );
+  const containerWidth = cardsContainer.clientWidth;
+
+  const cardWidth = card.offsetWidth;
+
+  const targetLeft = card.offsetLeft
+    - (containerWidth - cardWidth) / 2;
 
   cardsContainer.scrollTo({
-    left: Math.max(0, leftPosition),
+    left: Math.max(0, targetLeft),
     behavior,
   });
 }
 
-function createDots(cardsContainer, cards) {
+function updateActiveDot(
+  dots,
+  index,
+) {
+  if (!dots) {
+    return;
+  }
+
+  [...dots.children].forEach(
+    (dot, dotIndex) => {
+      dot.classList.toggle(
+        CONFIG.classes.dotActive,
+        dotIndex === index,
+      );
+    },
+  );
+}
+
+function createDots(
+  cardsContainer,
+  cards,
+) {
   if (cards.length <= 1) {
     return null;
   }
@@ -300,22 +359,22 @@ function createDots(cardsContainer, cards) {
     );
 
     dot.addEventListener('click', () => {
-      scrollToCard(cardsContainer, card);
+      scrollToCard(
+        cardsContainer,
+        card,
+      );
+
+      updateActiveDot(
+        dots,
+        index,
+      );
     });
 
     dots.append(dot);
   });
 
-  const setActiveDot = (index) => {
-    [...dots.children].forEach((dot, dotIndex) => {
-      dot.classList.toggle(
-        CONFIG.classes.dotActive,
-        dotIndex === index,
-      );
-    });
-  };
-
-  setActiveDot(
+  updateActiveDot(
+    dots,
     Math.min(
       CONFIG.defaultMobileSlideIndex,
       cards.length - 1,
@@ -329,13 +388,22 @@ function createDots(cardsContainer, cards) {
     () => {
       window.clearTimeout(scrollTimeout);
 
-      scrollTimeout = window.setTimeout(() => {
-        setActiveDot(
-          getClosestCardIndex(cardsContainer, cards),
-        );
-      }, 50);
+      scrollTimeout = window.setTimeout(
+        () => {
+          updateActiveDot(
+            dots,
+            getClosestCardIndex(
+              cardsContainer,
+              cards,
+            ),
+          );
+        },
+        50,
+      );
     },
-    { passive: true },
+    {
+      passive: true,
+    },
   );
 
   return dots;
@@ -348,7 +416,7 @@ function initializeMobileCarousel(
   playTime,
 ) {
   if (!cards.length) {
-    return () => {};
+    return;
   }
 
   const mobileQuery = window.matchMedia(
@@ -364,18 +432,30 @@ function initializeMobileCarousel(
 
   const goToNextCard = () => {
     const currentIndex = getCurrentIndex();
-    const nextIndex = (
-      currentIndex + 1
-    ) % cards.length;
+
+    const nextIndex = (currentIndex + 1)
+      % cards.length;
 
     scrollToCard(
       cardsContainer,
       cards[nextIndex],
     );
+
+    updateActiveDot(
+      dots,
+      nextIndex,
+    );
+  };
+
+  const stopAutoplay = () => {
+    if (timerId !== null) {
+      window.clearInterval(timerId);
+      timerId = null;
+    }
   };
 
   const startAutoplay = () => {
-    window.clearInterval(timerId);
+    stopAutoplay();
 
     if (
       !mobileQuery.matches
@@ -391,13 +471,11 @@ function initializeMobileCarousel(
     );
   };
 
-  const stopAutoplay = () => {
-    window.clearInterval(timerId);
-    timerId = null;
-  };
-
   const setInitialMobileSlide = () => {
-    if (!mobileQuery.matches || cards.length <= 1) {
+    if (
+      !mobileQuery.matches
+      || cards.length <= 1
+    ) {
       return;
     }
 
@@ -407,29 +485,28 @@ function initializeMobileCarousel(
     );
 
     window.requestAnimationFrame(() => {
-      scrollToCard(
-        cardsContainer,
-        cards[initialIndex],
-        'auto',
-      );
+      window.requestAnimationFrame(() => {
+        scrollToCard(
+          cardsContainer,
+          cards[initialIndex],
+          'auto',
+        );
 
-      if (dots) {
-        [...dots.children].forEach((dot, index) => {
-          dot.classList.toggle(
-            CONFIG.classes.dotActive,
-            index === initialIndex,
-          );
-        });
-      }
+        updateActiveDot(
+          dots,
+          initialIndex,
+        );
+      });
     });
   };
 
   const handleViewportChange = () => {
+    stopAutoplay();
+
     if (mobileQuery.matches) {
       setInitialMobileSlide();
       startAutoplay();
     } else {
-      stopAutoplay();
       cardsContainer.scrollTo({
         left: 0,
         behavior: 'auto',
@@ -437,38 +514,41 @@ function initializeMobileCarousel(
     }
   };
 
-  cardsContainer.addEventListener('pointerdown', stopAutoplay);
+  cardsContainer.addEventListener(
+    'pointerdown',
+    stopAutoplay,
+  );
 
-  cardsContainer.addEventListener('touchend', () => {
-    startAutoplay();
-  });
+  cardsContainer.addEventListener(
+    'touchend',
+    startAutoplay,
+  );
 
-  cardsContainer.addEventListener('mouseenter', stopAutoplay);
-  cardsContainer.addEventListener('mouseleave', startAutoplay);
+  cardsContainer.addEventListener(
+    'mouseenter',
+    stopAutoplay,
+  );
 
-  if (typeof mobileQuery.addEventListener === 'function') {
+  cardsContainer.addEventListener(
+    'mouseleave',
+    startAutoplay,
+  );
+
+  if (
+    typeof mobileQuery.addEventListener
+    === 'function'
+  ) {
     mobileQuery.addEventListener(
       'change',
       handleViewportChange,
     );
   } else {
-    mobileQuery.addListener(handleViewportChange);
+    mobileQuery.addListener(
+      handleViewportChange,
+    );
   }
 
   handleViewportChange();
-
-  return () => {
-    stopAutoplay();
-
-    if (typeof mobileQuery.removeEventListener === 'function') {
-      mobileQuery.removeEventListener(
-        'change',
-        handleViewportChange,
-      );
-    } else {
-      mobileQuery.removeListener(handleViewportChange);
-    }
-  };
 }
 
 function decorateHeader(block) {
@@ -503,11 +583,15 @@ function decorateHeader(block) {
   );
 
   if (headingRow) {
-    header.append(createHeading(headingRow));
+    header.append(
+      createHeading(headingRow),
+    );
   }
 
   if (descriptionRow) {
-    header.append(createDescription(descriptionRow));
+    header.append(
+      createDescription(descriptionRow),
+    );
   }
 
   const cta = createCta(
@@ -519,18 +603,19 @@ function decorateHeader(block) {
     header.append(cta);
   }
 
-  const playTime = getPlayTime(playTimeRow);
-
   return {
     header,
-    playTime,
+    playTime: getPlayTime(playTimeRow),
   };
 }
 
 export default function decorate(block) {
   const rows = [...block.children];
 
-  if (rows.length < CONFIG.cardRowsStart) {
+  if (
+    rows.length
+    < CONFIG.cardRowsStart
+  ) {
     return;
   }
 
@@ -544,9 +629,8 @@ export default function decorate(block) {
     CONFIG.classes.cards,
   );
 
-  const cards = getCardRows(block).map(
-    decorateCard,
-  );
+  const cards = getCardRows(block)
+    .map(decorateCard);
 
   cards.forEach((card) => {
     cardsContainer.append(card);
