@@ -1,6 +1,8 @@
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
+import { isLoggedIn } from '../../scripts/login-utils.js';
 
 const CLASS_PREFIX = 'vida_footer';
+const isLogin = isLoggedIn();
 
 /*
  * This variable is populated from the AEM API
@@ -251,18 +253,28 @@ function mapFooterData(apiData) {
    */
   const navigation = getIndexedItems(
     footer.footeritems,
-  ).map((section) => ({
-    title: section.title || '',
-    ariaLabel: section.title || '',
+  ).map((section) => {
+    function filterAccountLinks(items) {
+      const GUEST_ONLY = ['Login', 'Sign Up'];
+      const USER_ONLY = ['Log out', 'My Profile'];
 
-    items: getIndexedItems(
-      section.contentItem,
-    ).map((item) => ({
-      label: item.label || '',
-      href: normalizeUrl(item.navLink),
-      newTab: item.newTab === 'true',
-    })),
-  }));
+      const hide = isLogin ? GUEST_ONLY : USER_ONLY;
+      return items.filter(i => !hide.includes(i.label))
+    }
+
+    return {
+      title: section.title || '',
+      ariaLabel: section.title || '',
+      items: filterAccountLinks(getIndexedItems(
+        section.contentItem,
+      )).map((item) => ({
+        label: item.label || '',
+        href: normalizeUrl(item.navLink),
+        newTab: item.newTab === 'true',
+      }))
+    }
+
+  });
 
   /*
    * Electric Scooters Near You.
@@ -323,9 +335,8 @@ function mapFooterData(apiData) {
       title: footer.footerContactLabel || '',
 
       phone: {
-        label: `${footer.footerPhoneLabel || 'Phone'}: ${
-          footer.footerPhone || ''
-        }`,
+        label: `${footer.footerPhoneLabel || 'Phone'}: ${footer.footerPhone || ''
+          }`,
 
         href: footer.footerPhone
           ? `tel:${footer.footerPhone}`
@@ -333,9 +344,8 @@ function mapFooterData(apiData) {
       },
 
       email: {
-        label: `${footer.footerEmailLabel || 'E-mail'}: ${
-          footer.footerEmail || ''
-        }`,
+        label: `${footer.footerEmailLabel || 'E-mail'}: ${footer.footerEmail || ''
+          }`,
 
         href: footer.footerEmail
           ? `mailto:${footer.footerEmail}`

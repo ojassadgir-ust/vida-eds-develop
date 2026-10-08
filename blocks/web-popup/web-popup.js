@@ -1,7 +1,7 @@
 import buildInput from '../../scripts/build-input.js';
 import buildButton from '../../scripts/build-button.js';
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
-import isLoggedIn from '../../scripts/login-utils.js';
+import { isLoggedIn, setUserLoggedIn } from '../../scripts/login-utils.js';
 
 const isLogin = isLoggedIn();
 
@@ -365,7 +365,8 @@ async function verifyOtp(config, state, code) {
     const data = await callOtpApi(verifyOtpApi, payload);
 
     const res = data.VerifyOtp || {};
-    if (res.status_code === 200) return { ok: true };
+
+    if (res) return { ok: true, res };
     return { ok: false, message: res.message };
   } catch (e) {
     return { ok: false };
@@ -778,7 +779,10 @@ export default function decorate(block) {
             return { ok: true };
           }
           if (!result.ok) return result;
+
+          setUserLoggedIn(result.res.token, 30)
           showScreen('success');
+
           return { ok: true };
         },
         onResend: async () => {
