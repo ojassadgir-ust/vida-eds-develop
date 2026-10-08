@@ -4,51 +4,38 @@
   --vida-blog-page-padding-tablet-x: 32px;
   --vida-blog-page-padding-mobile-y: 48px;
   --vida-blog-page-padding-mobile-x: 16px;
-
   --vida-blog-header-gap: 0;
   --vida-blog-description-gap: 32px;
   --vida-blog-cards-gap-desktop: 24px;
   --vida-blog-cards-gap-mobile: 16px;
   --vida-blog-card-radius: 20px;
-
   --vida-blog-card-background: #f9f5ee;
   --vida-blog-image-radius: 20px;
   --vida-blog-image-margin-desktop: 8px;
   --vida-blog-image-margin-tablet: 16px;
-
   --vida-blog-heading-size-desktop: 48px;
   --vida-blog-heading-size-tablet: 32px;
   --vida-blog-heading-size-mobile: 36px;
-
   --vida-blog-description-size: 24px;
   --vida-blog-cta-size: 20px;
-
   --vida-blog-kicker-size-desktop: 16px;
   --vida-blog-kicker-size-tablet: 14px;
   --vida-blog-kicker-size-mobile: 16px;
-
   --vida-blog-title-size-desktop: 24px;
   --vida-blog-title-size-tablet: 20px;
   --vida-blog-title-size-mobile: 18px;
-
   --vida-blog-date-size: 16px;
-
   --vida-blog-kicker-gap-desktop: 24px;
   --vida-blog-kicker-gap-tablet: 12px;
   --vida-blog-kicker-gap-mobile: 24px;
-
   --vida-blog-title-gap-desktop: 44px;
   --vida-blog-title-gap-tablet: 12px;
   --vida-blog-title-gap-mobile: 14px;
-
   --vida-blog-content-padding-desktop-y: 24px;
   --vida-blog-content-padding-desktop-x: 8px;
-
   --vida-blog-content-padding-tablet-y: 20px;
   --vida-blog-content-padding-tablet-x: 16px;
-
   --vida-blog-content-padding-mobile: 24px;
-
   --vida-blog-dots-gap: 8px;
   --vida-blog-dot-size: 8px;
   --vida-blog-dot-active-width: 24px;
@@ -156,7 +143,7 @@
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .vida-blog {
     padding:
       var(--vida-blog-page-padding-tablet-y)
@@ -203,7 +190,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .vida-blog {
     padding:
       var(--vida-blog-page-padding-mobile-y)
