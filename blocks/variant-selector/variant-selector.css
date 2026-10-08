@@ -6,6 +6,7 @@
     background: var(--surface-primary);
     color: var(--content-primary);
     font-weight: 530;
+    padding-bottom: 40px;
 }
 
 .vida-variant-selector-slide {
@@ -124,6 +125,10 @@
 }
 
 @media (width >=768px) {
+    .variant-selector {
+        padding-bottom: 64px;
+    }
+
     .vida-variant-selector-tagline,
     .vida-variant-selector-title,
     .vida-variant-selector-description {
@@ -175,6 +180,7 @@
         justify-content: flex-end;
         padding: 0;
         margin-right: 32px;
+        padding-bottom: 64px;
     }
 
     .vida-variant-selector-control-btn {
@@ -185,6 +191,10 @@
 }
 
 @media (width >=1024px) {
+    .variant-selector {
+        padding-bottom: 0;
+    }
+
     .vida-variant-selector-slide {
         display: grid;
         grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);

@@ -22,7 +22,7 @@ module.exports = {
       '*': 4,
       'vida-service-stations': 9,
       'vida-removable-battery': 5,
-      'variant-selector': 6
+      'variant-selector-item': 6,
     }],
 
     'xwalk/no-orphan-collapsible-fields': 'off',
