@@ -4,8 +4,12 @@
   --vida-blog-page-padding-tablet-x: 32px;
   --vida-blog-page-padding-mobile-y: 48px;
   --vida-blog-page-padding-mobile-x: 16px;
-  --vida-blog-header-gap: 0;
-  --vida-blog-description-gap: 32px;
+  --vida-blog-header-description-max-width: 760px;
+  --vida-blog-heading-size-desktop: 48px;
+  --vida-blog-heading-size-tablet: 32px;
+  --vida-blog-heading-size-mobile: 36px;
+  --vida-blog-description-size: 24px;
+  --vida-blog-cta-size: 20px;
   --vida-blog-cards-gap-desktop: 24px;
   --vida-blog-cards-gap-mobile: 16px;
   --vida-blog-card-radius: 20px;
@@ -13,11 +17,6 @@
   --vida-blog-image-radius: 20px;
   --vida-blog-image-margin-desktop: 8px;
   --vida-blog-image-margin-tablet: 16px;
-  --vida-blog-heading-size-desktop: 48px;
-  --vida-blog-heading-size-tablet: 32px;
-  --vida-blog-heading-size-mobile: 36px;
-  --vida-blog-description-size: 24px;
-  --vida-blog-cta-size: 20px;
   --vida-blog-kicker-size-desktop: 16px;
   --vida-blog-kicker-size-tablet: 14px;
   --vida-blog-kicker-size-mobile: 16px;
@@ -36,10 +35,20 @@
   --vida-blog-content-padding-tablet-y: 20px;
   --vida-blog-content-padding-tablet-x: 16px;
   --vida-blog-content-padding-mobile: 24px;
-  --vida-blog-dots-gap: 8px;
+  --vida-blog-kicker-line-width: 24px;
+  --vida-blog-kicker-line-height: 1px;
+  --vida-blog-dots-width: 86px;
+  --vida-blog-dots-height: 28px;
+  --vida-blog-dots-radius: 50%;
+  --vida-blog-dots-background: #565656;
   --vida-blog-dot-size: 8px;
-  --vida-blog-dot-active-width: 24px;
-  --vida-blog-dot-background: #767575;
+  --vida-blog-dot-active-width: 26px;
+  --vida-blog-dot-active-height: 8px;
+  --vida-blog-dot-inactive-background: #d4d4d4;
+  --vida-blog-dot-active-background: #fff;
+  --vida-blog-mobile-card-edge: 48px;
+
+  padding: var(--vida-blog-page-padding-desktop);
 }
 
 .vida-blog .vida-blog-header {
@@ -49,32 +58,29 @@
   text-align: center;
 }
 
-.vida-blog .vida-blog-header > div {
-  margin: 0;
-}
-
-.vida-blog .vida-blog-header > div:first-child {
+.vida-blog .vida-blog-heading {
+  margin: 0 0 16px;
   font-size: var(--vida-blog-heading-size-desktop);
   font-weight: 530;
   line-height: 1.15;
 }
 
-.vida-blog .vida-blog-header > div:nth-child(2) {
-  margin-top: var(--vida-blog-description-gap);
-  max-width: 760px;
+.vida-blog .vida-blog-description {
+  max-width: var(--vida-blog-header-description-max-width);
+  margin: 0 0 32px;
   font-size: var(--vida-blog-description-size);
   font-weight: 450;
   line-height: 1.35;
 }
 
-.vida-blog .vida-blog-header > div:nth-child(3) {
-  margin-top: var(--vida-blog-description-gap);
+.vida-blog .vida-blog-cta {
+  margin: 0;
   font-size: var(--vida-blog-cta-size);
   font-weight: 530;
   line-height: 1.2;
 }
 
-.vida-blog .vida-blog-header a {
+.vida-blog .vida-blog-cta-link {
   font: inherit;
 }
 
@@ -119,10 +125,21 @@
 }
 
 .vida-blog .vida-blog-card-kicker {
+  position: relative;
   margin: 0 0 var(--vida-blog-kicker-gap-desktop);
+  padding-bottom: var(--vida-blog-kicker-gap-desktop);
   font-size: var(--vida-blog-kicker-size-desktop);
   font-weight: 530;
   line-height: 1.2;
+}
+
+.vida-blog .vida-blog-card-kicker::after {
+  display: block;
+  width: var(--vida-blog-kicker-line-width);
+  height: var(--vida-blog-kicker-line-height);
+  margin-top: var(--vida-blog-kicker-gap-desktop);
+  content: '';
+  background: currentcolor;
 }
 
 .vida-blog .vida-blog-card-title {
@@ -150,8 +167,18 @@
       var(--vida-blog-page-padding-tablet-x);
   }
 
-  .vida-blog .vida-blog-header > div:first-child {
+  .vida-blog .vida-blog-header {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .vida-blog .vida-blog-heading {
+    margin-bottom: 16px;
     font-size: var(--vida-blog-heading-size-tablet);
+  }
+
+  .vida-blog .vida-blog-description {
+    margin-bottom: 16px;
   }
 
   .vida-blog .vida-blog-cards {
@@ -181,7 +208,12 @@
 
   .vida-blog .vida-blog-card-kicker {
     margin-bottom: var(--vida-blog-kicker-gap-tablet);
+    padding-bottom: 0;
     font-size: var(--vida-blog-kicker-size-tablet);
+  }
+
+  .vida-blog .vida-blog-card-kicker::after {
+    display: none;
   }
 
   .vida-blog .vida-blog-card-title {
@@ -198,24 +230,25 @@
   }
 
   .vida-blog .vida-blog-header {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
   }
 
-  .vida-blog .vida-blog-header > div:first-child {
+  .vida-blog .vida-blog-heading {
+    margin-bottom: 8px;
     font-size: var(--vida-blog-heading-size-mobile);
     font-weight: 530;
     line-height: 1.15;
   }
 
-  .vida-blog .vida-blog-header > div:nth-child(2) {
-    margin-top: 8px;
+  .vida-blog .vida-blog-description {
+    max-width: none;
+    margin-bottom: 32px;
     font-size: var(--vida-blog-description-size);
     line-height: 1.35;
   }
 
-  .vida-blog .vida-blog-header > div:nth-child(3) {
-    margin-top: var(--vida-blog-description-gap);
+  .vida-blog .vida-blog-cta {
     font-size: var(--vida-blog-cta-size);
   }
 
@@ -223,8 +256,14 @@
     display: flex;
     gap: var(--vida-blog-cards-gap-mobile);
     margin-top: 52px;
+    padding-inline: calc(
+      var(--vida-blog-mobile-card-edge) / 2
+    );
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: calc(
+      var(--vida-blog-mobile-card-edge) / 2
+    );
     scrollbar-width: none;
   }
 
@@ -233,8 +272,10 @@
   }
 
   .vida-blog .vida-blog-card {
-    flex: 0 0 calc(100% - 4px);
-    scroll-snap-align: start;
+    flex: 0 0 calc(
+      100% - var(--vida-blog-mobile-card-edge)
+    );
+    scroll-snap-align: center;
   }
 
   .vida-blog .vida-blog-card-image {
@@ -257,7 +298,12 @@
 
   .vida-blog .vida-blog-card-kicker {
     margin-bottom: var(--vida-blog-kicker-gap-mobile);
+    padding-bottom: 0;
     font-size: var(--vida-blog-kicker-size-mobile);
+  }
+
+  .vida-blog .vida-blog-card-kicker::after {
+    display: none;
   }
 
   .vida-blog .vida-blog-card-title {
@@ -271,23 +317,32 @@
 
   .vida-blog .vida-blog-dots {
     display: flex;
+    width: var(--vida-blog-dots-width);
+    height: var(--vida-blog-dots-height);
     justify-content: center;
     align-items: center;
-    gap: var(--vida-blog-dots-gap);
-    margin-top: 24px;
+    gap: 8px;
+    margin: 24px auto 0;
+    border-radius: var(--vida-blog-dots-radius);
+    background: var(--vida-blog-dots-background);
   }
 
   .vida-blog .vida-blog-dot {
+    flex: 0 0 var(--vida-blog-dot-size);
     width: var(--vida-blog-dot-size);
     height: var(--vida-blog-dot-size);
     padding: 0;
     border: 0;
-    border-radius: 999px;
-    background: var(--vida-blog-dot-background);
+    border-radius: 50%;
+    background: var(--vida-blog-dot-inactive-background);
     cursor: pointer;
   }
 
   .vida-blog .vida-blog-dot-active {
+    flex-basis: var(--vida-blog-dot-active-width);
     width: var(--vida-blog-dot-active-width);
+    height: var(--vida-blog-dot-active-height);
+    border-radius: 50%;
+    background: var(--vida-blog-dot-active-background);
   }
 }

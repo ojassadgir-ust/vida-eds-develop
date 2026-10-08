@@ -267,7 +267,7 @@
             },
             "da": {
               "name": "vida-blog",
-              "rows": 3,
+              "rows": 5,
               "columns": 1,
               "fields": [
                 {
@@ -280,11 +280,15 @@
                 },
                 {
                   "name": "cta",
-                  "selector": "div:nth-child(3)>div>div>a[href]"
+                  "selector": "div:nth-child(3)"
                 },
                 {
                   "name": "ctaText",
-                  "selector": "div:nth-child(3)>div>div>a"
+                  "selector": "div:nth-child(4)"
+                },
+                {
+                  "name": "carouselPlayTime",
+                  "selector": "div:nth-child(5)"
                 }
               ]
             }
