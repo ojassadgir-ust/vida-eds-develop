@@ -780,7 +780,7 @@ export default function decorate(block) {
           }
           if (!result.ok) return result;
 
-          setUserLoggedIn(result.res.token, 30)
+          setUserLoggedIn(result.res.token, 30);
           showScreen('success');
 
           return { ok: true };

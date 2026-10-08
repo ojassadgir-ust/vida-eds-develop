@@ -259,7 +259,7 @@ function mapFooterData(apiData) {
       const USER_ONLY = ['Log out', 'My Profile'];
 
       const hide = isLogin ? GUEST_ONLY : USER_ONLY;
-      return items.filter(i => !hide.includes(i.label))
+      return items.filter((i) => !hide.includes(i.label));
     }
 
     return {
@@ -271,9 +271,8 @@ function mapFooterData(apiData) {
         label: item.label || '',
         href: normalizeUrl(item.navLink),
         newTab: item.newTab === 'true',
-      }))
-    }
-
+      })),
+    };
   });
 
   /*
@@ -336,7 +335,7 @@ function mapFooterData(apiData) {
 
       phone: {
         label: `${footer.footerPhoneLabel || 'Phone'}: ${footer.footerPhone || ''
-          }`,
+        }`,
 
         href: footer.footerPhone
           ? `tel:${footer.footerPhone}`
@@ -345,7 +344,7 @@ function mapFooterData(apiData) {
 
       email: {
         label: `${footer.footerEmailLabel || 'E-mail'}: ${footer.footerEmail || ''
-          }`,
+        }`,
 
         href: footer.footerEmail
           ? `mailto:${footer.footerEmail}`

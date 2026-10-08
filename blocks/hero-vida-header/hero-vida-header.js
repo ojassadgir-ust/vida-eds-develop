@@ -2,7 +2,6 @@ import buildButton from '../../scripts/build-button.js';
 import { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn } from '../../scripts/login-utils.js';
 
-
 const isLogin = isLoggedIn();
 
 // ---------------------------------------- //
@@ -213,9 +212,9 @@ function normaliseHeaderJson(json, origin) {
     const ACCOUNT_ORDER = ['log-in', 'log-out', 'sign-up', 'my-profile', 'faqs'];
 
     const hide = isLogin ? GUEST_ONLY : USER_ONLY;
-    return items.filter(i => !hide.includes(i.id)).sort((a, b) => (
+    return items.filter((i) => !hide.includes(i.id)).sort((a, b) => (
       ACCOUNT_ORDER.indexOf(a.id) - ACCOUNT_ORDER.indexOf(b.id)
-    ))
+    ));
   }
 
   return {
