@@ -8,7 +8,7 @@
 }
 
 .vida-popup::backdrop {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgb(0 0 0 / 70%);
     cursor: pointer;
 }
 
@@ -44,7 +44,7 @@
     left: 3px;
     width: 16px;
     height: 2px;
-    background: currentColor;
+    background: currentcolor;
 }
 
 .vida-popup-close::before {
@@ -96,7 +96,6 @@
 }
 
 .vida-popup-consent-checkbox:checked {
-    background-color: var(--brand-default);
     border-color: var(--brand-default);
     background: url('/icons/checkbox-tick.svg') center no-repeat var(--brand-default);
 }
