@@ -1,0 +1,174 @@
+/* Promo Banner — full-bleed responsive image with overlaid heading/subheading */
+
+.promo-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface-inverse, #000);
+  aspect-ratio: 440 / 892;
+}
+
+.promo-banner * {
+  box-sizing: border-box;
+}
+
+.promo-banner-media {
+  position: absolute;
+  inset: 0;
+}
+
+.promo-banner-desktop-picture,
+.promo-banner-tablet-picture,
+.promo-banner-mobile-picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.promo-banner-media picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.promo-banner-desktop-picture,
+.promo-banner-tablet-picture {
+  display: none;
+}
+
+.promo-banner-text {
+  position: absolute;
+  top: 19.619%;
+  left: 12.273%;
+  width: 75.227%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.promo-banner-heading {
+  margin: 0;
+  padding: 0;
+  color: var(--content-inverse, #fff);
+  font-family: var(--ff-primary);
+  font-weight: 375;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0.07px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.promo-banner-heading strong {
+  font-weight: 700;
+  color: var(--color-warm-500, #ffbc10);
+}
+
+.promo-banner-subheading {
+  margin: 16px 0 0;
+  padding: 0;
+  color: var(--content-inverse, #fff);
+  font-family: var(--ff-primary);
+  font-weight: 450;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 1.15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.promo-banner-subheading strong {
+  font-weight: 700;
+}
+
+/* Tablet (768px - 1023px), canvas 768x600: left-aligned text over image */
+@media (width >= 768px) and (width <= 1023px) {
+  .promo-banner {
+    aspect-ratio: 768 / 600;
+  }
+
+  .promo-banner-mobile-picture {
+    display: none;
+  }
+
+  .promo-banner-tablet-picture {
+    display: block;
+  }
+
+  .promo-banner-text {
+    top: 24.769%;
+    left: 12.847%;
+    width: 50%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .promo-banner-heading {
+    font-size: 48px;
+    text-align: left;
+  }
+
+  .promo-banner-subheading {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: left;
+  }
+}
+
+/* Desktop (>= 1024px), canvas 1440x864: left-aligned text over image */
+@media (width >= 1024px) {
+  .promo-banner {
+    aspect-ratio: 1440 / 864;
+  }
+
+  .promo-banner-tablet-picture {
+    display: none;
+  }
+
+  .promo-banner-desktop-picture {
+    display: block;
+  }
+
+  .promo-banner-text {
+    top: 24.769%;
+    left: 12.847%;
+    width: 33.264%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .promo-banner-heading {
+    font-size: 64px;
+    letter-spacing: 0.09px;
+    text-align: left;
+  }
+
+  .promo-banner-heading strong {
+    display: inline-block;
+    background: var(--content-inverse, #fff);
+    color: var(--content-primary, #1d1b1b);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .promo-banner-subheading {
+    width: 28.333%;
+    margin-top: 16px;
+    font-size: 28px;
+    line-height: 38px;
+    letter-spacing: 1.5px;
+  }
+
+  .promo-banner-subheading strong {
+    display: inline-block;
+    background: var(--content-inverse, #fff);
+    color: var(--content-primary, #1d1b1b);
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+}
