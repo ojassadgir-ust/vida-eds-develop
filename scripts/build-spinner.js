@@ -1,4 +1,4 @@
-export function showSpinner(parent, mode) {
+export default function showSpinner(parent, mode) {
   const loader = document.createElement('div');
   loader.className = 'vida-spinner-loader';
   loader.setAttribute('role', 'status');

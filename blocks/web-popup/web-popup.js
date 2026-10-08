@@ -1,6 +1,6 @@
 import buildInput from '../../scripts/build-input.js';
 import buildButton from '../../scripts/build-button.js';
-import { showSpinner } from '../../scripts/build-spinner.js';
+import showSpinner from '../../scripts/build-spinner.js';
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn } from '../../scripts/login-utils.js';
 

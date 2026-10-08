@@ -190,7 +190,6 @@
 }
 
 @media (width >=1024px) {
-
     .vida-field-label,
     .vida-field-error-text {
         font-size: var(--fs-label-md);
