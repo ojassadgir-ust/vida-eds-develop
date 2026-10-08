@@ -1,0 +1,243 @@
+.vida-service-stations {
+  width: 100%;
+  padding: 32px 16px;
+  background: var(--surface-primary);
+}
+
+.vida-service-stations,
+.vida-service-stations * {
+  box-sizing: border-box;
+}
+
+.vida-service-stations-container {
+  width: 100%;
+}
+
+.vida-service-stations-overlay {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.vida-service-stations-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  order: 0;
+  padding: 32px 32px 56px;
+  background: var(--surface-secondary);
+  color: var(--content-primary);
+}
+
+.vida-service-stations-heading {
+  margin: 0;
+  color: var(--content-primary);
+  font-size: var(--fs-heading-lg);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading-lg);
+}
+
+.vida-service-stations-heading-accent {
+  color: var(--brand-default);
+}
+
+.vida-service-stations-subheading {
+  margin: 0 0 8px;
+  color: var(--content-primary);
+  font-size: var(--fs-heading-md);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading-md);
+}
+
+.vida-service-stations-rich-text {
+  margin-top: 24px;
+  color: var(--content-primary);
+  font-size: var(--fs-body-lg);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body-lg);
+}
+
+.vida-service-stations-rich-text > :first-child {
+  margin-top: 0;
+}
+
+.vida-service-stations-rich-text > :last-child {
+  margin-bottom: 0;
+}
+
+.vida-service-stations-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-top: 0;
+}
+
+.vida-service-stations-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--action-primary);
+  color: var(--content-inverse);
+  font-size: var(--fs-label-xl);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-label-xl);
+  text-decoration: none;
+  transition: background-color 180ms ease;
+}
+
+.vida-service-stations-cta:hover,
+.vida-service-stations-cta:focus-visible {
+  background: var(--action-primary-hover);
+  color: var(--content-inverse);
+}
+
+.vida-service-stations-external {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: center;
+  margin-top: 22px;
+  padding: 8px 20px;
+  color: var(--content-primary);
+  font-size: var(--fs-label-xl);
+  line-height: var(--lh-label-xl);
+  text-decoration: none;
+  font-weight: var(--fw-medium);
+}
+
+.vida-service-stations-cta:focus-visible,
+.vida-service-stations-external:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.vida-service-stations-external-arrow {
+  display: inline-flex;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.vida-service-stations-media,
+.vida-service-stations-picture {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+}
+
+.vida-service-stations-media {
+  order: 1;
+}
+
+.vida-service-stations-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (width >= 768px) {
+  .vida-service-stations {
+    padding: 32px;
+  }
+
+  .vida-service-stations-overlay {
+    border-radius: 16px;
+  }
+
+  .vida-service-stations-content {
+    padding: 48px 32px;
+  }
+
+  .vida-service-stations-heading {
+    font-size: var(--fs-heading-xl);
+    line-height: var(--lh-heading-xl);
+  }
+
+  .vida-service-stations-subheading {
+    margin-bottom: 32px;
+    font-size: var(--fs-heading-lg);
+    line-height: var(--lh-heading-lg);
+  }
+
+  .vida-service-stations-rich-text {
+    margin-top: 32px;
+    font-size: var(--fs-body-xl);
+    line-height: var(--lh-body-xl);
+  }
+
+  .vida-service-stations-cta {
+    margin-top: 32px;
+    padding: 10px 24px;
+  }
+
+  .vida-service-stations-external {
+    align-self: flex-start;
+    margin-top: 16px;
+    padding: 10px 24px;
+  }
+}
+
+@media (width >= 1024px) {
+  .vida-service-stations {
+    padding: 64px;
+  }
+
+  .vida-service-stations-overlay {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    min-height: 480px;
+    border-radius: 24px;
+  }
+
+  .vida-service-stations-content {
+    padding: 48px 24px 48px 48px;
+  }
+
+  .vida-service-stations-subheading {
+    margin-bottom: 0;
+    font-size: var(--fs-heading-md);
+    line-height: var(--lh-heading-md);
+  }
+
+  .vida-service-stations-actions {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .vida-service-stations-cta {
+    margin-top: 0;
+  }
+
+  .vida-service-stations-external {
+    align-self: auto;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .vida-service-stations-media,
+  .vida-service-stations-picture,
+  .vida-service-stations-image {
+    height: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vida-service-stations-cta {
+    transition: none;
+  }
+}
