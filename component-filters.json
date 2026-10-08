@@ -20,6 +20,10 @@
       "vida-footer",
       "banner-carousel",
       "app-promo",
+      "text-banner",
+      "vida-service-stations",
+      "vida-removable-battery",
+      "dirte-k3-banner",
       "variant-selector"
     ]
   },
@@ -54,6 +58,13 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "dirte-k3-banner",
+    "components": [
+      "dirte-k3-content",
+      "dirte-k3-specification"
     ]
   },
   {

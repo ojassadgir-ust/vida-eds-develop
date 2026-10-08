@@ -1,0 +1,246 @@
+.vida-removable-battery {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  padding: 64px;
+  font-family: var(--ff-primary);
+  background-image: var(--vida-removable-battery-desktop-image);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.vida-removable-battery *,
+.vida-removable-battery *::before,
+.vida-removable-battery *::after {
+  box-sizing: border-box;
+}
+
+.vida-removable-battery-overlay {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  width: 100%;
+  height: auto;
+  min-height: 640px;
+  overflow: hidden;
+  border: 4px solid var(--surface-primary);
+  border-radius: var(--radius-modal);
+}
+
+.vida-removable-battery-media {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  min-height: 100%;
+  background: transparent;
+}
+
+.vida-removable-battery-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+  padding: 48px;
+  background: var(--surface-secondary);
+}
+
+.vida-removable-battery-content {
+  width: 100%;
+}
+
+.vida-removable-battery-heading {
+  margin: 0;
+  color: var(--content-primary);
+  font-family: inherit;
+  font-size: var(--fs-heading-xl);
+  font-weight: var(--fw-heading-530);
+  line-height: var(--lh-heading-xl);
+  letter-spacing: var(--ls-heading-xl);
+}
+
+.vida-removable-battery-heading-special {
+  color: var(--brand-default);
+}
+
+.vida-removable-battery-subheading {
+  margin: 0;
+  color: var(--content-primary);
+  font-family: inherit;
+  font-size: var(--fs-heading-md);
+  font-weight: var(--fw-subheading-450);
+  line-height: 1.2;
+}
+
+.vida-removable-battery-subheading-spaced {
+  margin-top: 24px;
+  font-size: var(--fs-body-xl);
+}
+
+.vida-removable-battery-richtext {
+  margin-top: 24px;
+  color: var(--content-primary);
+  font-family: inherit;
+  font-size: var(--fs-body-lg);
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+.vida-removable-battery-richtext > :first-child {
+  margin-top: 0;
+}
+
+.vida-removable-battery-richtext > :last-child {
+  margin-bottom: 0;
+}
+
+.vida-removable-battery-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: 48px;
+  padding: 12px 32px;
+  border: 0;
+  border-radius: var(--radius-button);
+  background: var(--action-primary);
+  color: var(--content-inverse);
+  font-family: inherit;
+  font-size: var(--fs-label-xl);
+  font-weight: var(--fw-heading-530);
+  line-height: var(--lh-label-xl);
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.vida-removable-battery-cta:hover {
+  background: var(--action-primary-hover);
+  color: var(--content-inverse);
+}
+
+.vida-removable-battery-cta:focus-visible {
+  color: var(--content-inverse);
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 4px;
+}
+
+.vida-removable-battery-cta:active {
+  color: var(--content-inverse);
+  transform: scale(0.98);
+}
+
+@media (width <= 1023px) {
+  .vida-removable-battery {
+    padding: 24px 6px;
+    background-image: var(
+      --vida-removable-battery-mobile-image,
+      var(--vida-removable-battery-desktop-image)
+    );
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .vida-removable-battery-overlay {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+    min-height: 0;
+    border-radius: var(--radius-modal);
+  }
+
+  .vida-removable-battery-media {
+    order: 1;
+    flex: 0 0 30vh;
+    width: 100%;
+    height: 30vh;
+    min-height: 0;
+    background: transparent;
+    overflow: hidden;
+    border-radius: 0;
+  }
+
+  .vida-removable-battery-content-wrapper {
+    order: 2;
+    padding: 25px;
+  }
+
+  .vida-removable-battery-heading {
+    font-size: 28px;
+    line-height: var(--lh-heading-lg);
+  }
+
+  .vida-removable-battery-subheading {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .vida-removable-battery-richtext {
+    margin-top: 16px;
+    font-size: var(--fs-body-lg);
+    line-height: 1.45;
+  }
+
+  .vida-removable-battery-cta {
+    margin-top: 24px;
+    padding: 12px 24px;
+  }
+
+  .vida-removable-battery-subheading-spaced {
+    margin-top: 16px;
+    font-size: var(--fs-body-lg);
+  }
+}
+
+@media (width >= 768px) and (width <= 1023px) {
+  .vida-removable-battery {
+    padding: 27px 27px 15px;
+    background-image: var(
+      --vida-removable-battery-tablet-image,
+      var(--vida-removable-battery-mobile-image, var(--vida-removable-battery-desktop-image))
+    );
+  }
+
+  .vida-removable-battery-media {
+    flex-basis: 30vh;
+    height: 30vh;
+  }
+
+  .vida-removable-battery-content-wrapper {
+    padding: 32px;
+  }
+
+  .vida-removable-battery-heading {
+    font-size: 32px;
+    line-height: var(--lh-heading-lg);
+  }
+
+  .vida-removable-battery-subheading {
+    font-size: 28px;
+  }
+
+  .vida-removable-battery-richtext {
+    margin-top: 32px;
+    font-size: var(--fs-body-xl);
+  }
+
+  .vida-removable-battery-subheading-spaced {
+    margin-top: 24px;
+    font-size: 24px;
+    
+  }
+
+  .vida-removable-battery-cta {
+    margin-top: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vida-removable-battery-cta {
+    transition: none;
+  }
+}
