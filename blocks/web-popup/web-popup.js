@@ -18,7 +18,9 @@ const KEYS = [
   'successImage', 'successHeading', 'successDescription', 'successBtnLabel',
 ];
 const SEND_FALLBACK = 'Unable to Send OTP. Please try again.';
+const CITY_LOAD_FALLBACK = 'Unable to load cities.';
 const OPT_OUT_FOR_POPUP_KEY = 'optOutForPopup';
+const ENCRYPT_HOSTS = [CONFIG.BASE_URLS.stage, CONFIG.BASE_URLS.prod];
 
 function isOptedOutForPopup() {
   try {
@@ -43,7 +45,10 @@ function loadCities(url) {
   if (!url) return Promise.resolve([]);
   if (!cityListPromise) {
     cityListPromise = fetch(url)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
       .then((data) => data.flatMap(
         (s) => s.cities.map((city) => ({
           label: city,
@@ -51,9 +56,9 @@ function loadCities(url) {
           state: s.state,
         })),
       ))
-      .catch(() => {
+      .catch((e) => {
         cityListPromise = undefined;
-        return [];
+        throw e;
       });
   }
 
@@ -82,10 +87,11 @@ async function fetchCities(query, url) {
 }
 
 function attachAutoComplete(input, options) {
-  const { fetchOptions, onSelect } = options;
+  const { fetchOptions, onSelect, onLoadError } = options;
   let items = [];
   let active = -1;
   let requestId = 0;
+  let failed = false;
 
   const combo = document.createElement('div');
   combo.className = 'vida-popup-combo';
@@ -156,11 +162,37 @@ function attachAutoComplete(input, options) {
     delete input.dataset.picked;
     requestId += 1;
     const id = requestId;
-    const results = await fetchOptions(input.value);
+
+    let results;
+    try {
+      results = await fetchOptions(input.value);
+    } catch (e) {
+      if (id !== requestId) return;
+      items = [];
+      active = -1;
+      render();
+      failed = true;
+      if (onLoadError) onLoadError(true);
+      return;
+    }
+
     if (id !== requestId) return;
+
     items = results;
     active = -1;
     render();
+
+    if (failed) {
+      failed = false;
+      if (onLoadError) onLoadError(false);
+    }
+
+    const typed = input.value.trim().toLowerCase();
+    const exact = typed ? results.filter((r) => r.label.toLowerCase() === typed) : [];
+    if (exact.length === 1) {
+      input.dataset.picked = input.value;
+      onSelect(exact[0]);
+    }
   });
 
   input.addEventListener('keydown', (e) => {
@@ -247,6 +279,10 @@ function buildConsentCheckbox(content) {
   return { label, input };
 }
 
+function shouldEncrypt() {
+  return ENCRYPT_HOSTS.includes(window.location.hostname);
+}
+
 function loadJsEncrypt() {
   if (window.JSEncrypt) return Promise.resolve();
 
@@ -276,6 +312,8 @@ async function encryptValue(value, publicKey) {
 }
 
 function protect(value, key) {
+  if (!shouldEncrypt()) return value;
+  if (!key) throw new Error('RSA Public Key is not configured');
   return key ? encryptValue(value, key) : value;
 }
 
@@ -309,9 +347,14 @@ async function callOtpApi(url, body) {
       body: JSON.stringify(body),
     });
 
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const resJson = await res.json();
-    return resJson.data || {};
+    const resJson = await res.json().catch(() => { });
+    const errorMessage = (Array.isArray(resJson.errors) ? resJson.errors : [])
+      .map((e) => String(e?.message || '').trim())
+      .filter(Boolean)
+      .join();
+
+    if (!res.ok && !errorMessage) throw new Error(`HTTP ${res.status}`);
+    return { data: resJson.data || {}, errorMessage };
   } finally {
     hide();
   }
@@ -320,17 +363,17 @@ async function callOtpApi(url, body) {
 async function sendOtp(config, mobile) {
   const sendOtpApi = getAPIEndpoint(config.sendOtpApi, CONFIG.API_ENDPOINTS.sendOtpPostApi);
   try {
-    const data = await callOtpApi(sendOtpApi, {
+    const { data, errorMessage } = await callOtpApi(sendOtpApi, {
       action: 'sendOtp',
       country_code: config.countryCode || '+91',
       is_login: isLogin,
-      mobile_number: await protect(mobile, config.rasPublicKey),
+      mobile_number: await protect(mobile, config.rsaPublicKey),
       sub_source: 'web-popup',
     });
 
     const res = data.SendOtp || {};
 
-    if (res.status_code === 200) {
+    if (String(res.status_code) === '200') {
       return {
         ok: true,
         sfId: res.SF_ID,
@@ -340,7 +383,7 @@ async function sendOtp(config, mobile) {
 
     return {
       ok: false,
-      message: res.message || SEND_FALLBACK,
+      message: res.message || errorMessage || SEND_FALLBACK,
     };
   } catch (e) {
     return { ok: false, message: SEND_FALLBACK };
@@ -350,7 +393,7 @@ async function sendOtp(config, mobile) {
 async function verifyOtp(config, state, code) {
   try {
     const { details } = state;
-    const key = config.rasPublicKey;
+    const key = config.rsaPublicKey;
     const verifyOtpApi = getAPIEndpoint(config.verifyOtpApi, CONFIG.API_ENDPOINTS.verifyOtpPostApi);
 
     const payload = {
@@ -369,12 +412,15 @@ async function verifyOtp(config, state, code) {
       is_teaser_lead: true,
       utm_params: getUtmParams(),
     };
-    const data = await callOtpApi(verifyOtpApi, payload);
+    const { data, errorMessage } = await callOtpApi(verifyOtpApi, payload);
 
     const res = data.VerifyOtp || {};
 
-    if (res) return { ok: true, res };
-    return { ok: false, message: res.message };
+    if (String(res.status_code) === '200') return { ok: true, res };
+
+    const message = [res.message, res.errorMessage, res.error_message, errorMessage]
+      .map((m) => String(m || '').trim()).find(Boolean);
+    return { ok: false, message };
   } catch (e) {
     return { ok: false };
   }
@@ -429,6 +475,10 @@ function renderDetails(body, dialog, config, onSubmit) {
       selectedCity = item;
       city.clearError();
       updateSubmit();
+    },
+    onLoadError: (hasFailed) => {
+      if (hasFailed) city.setError(CITY_LOAD_FALLBACK);
+      else city.clearError();
     },
   });
 
@@ -748,7 +798,9 @@ function buildPopupDialog() {
   return { dialog, body, close };
 }
 
+let prevBodyOverflow = '';
 function openPopup(dialog) {
+  prevBodyOverflow = document.body.style.overflow;
   dialog.showModal();
   document.body.style.overflow = 'hidden';
 }
@@ -823,6 +875,7 @@ export default function decorate(block) {
   }
 
   dialog.addEventListener('close', () => {
+    document.body.style.overflow = prevBodyOverflow;
     setOptedOutForPopup();
     generation += 1;
     delete state.details;

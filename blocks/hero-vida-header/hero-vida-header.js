@@ -110,6 +110,10 @@ function buildExploreItem(item, isSideItem) {
     exploreLink.append(description);
   }
 
+  if (['logout', 'log-out'].includes(String(item.id).toLowerCase())) {
+    exploreLink.addEventListener('click');
+  }
+
   return exploreLink;
 }
 
