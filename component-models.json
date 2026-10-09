@@ -353,16 +353,16 @@
         "required": true
       },
       {
-        "component": "aem-content",
-        "name": "cta",
-        "label": "CTA Link",
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Label",
         "value": "",
         "valueType": "string"
       },
       {
-        "component": "text",
-        "name": "ctaText",
-        "label": "CTA Label",
+        "component": "aem-content",
+        "name": "cta",
+        "label": "CTA Link",
         "value": "",
         "valueType": "string"
       },
