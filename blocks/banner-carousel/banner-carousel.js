@@ -1,4 +1,4 @@
-import toWebp from "../../scripts/to-webp.js";
+import toWebp from '../../scripts/to-webp.js';
 
 let carouselId = 0;
 
@@ -135,7 +135,7 @@ function createSlide(row, index) {
      * tablet or mobile image will be used as fallback.
      */
     const image = desktopImage || tabletImage || mobileImage;
-    image.src = toWebp(image.src, image === desktopImage ? 2000: 750);
+    image.src = toWebp(image.src, image === desktopImage ? 2000 : 750);
 
     image.classList.add(
       'banner-carousel-image',

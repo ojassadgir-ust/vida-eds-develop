@@ -4,7 +4,7 @@
  * from the authored rows.
  */
 
-import toWebp from "../../scripts/to-webp.js";
+import toWebp from '../../scripts/to-webp.js';
 
 function getRichText(element) {
   if (!element) {
@@ -104,7 +104,7 @@ const MEDIA_VARIANTS = [
   { size: 'mobile', label: 'Mobile View' },
 ];
 
-const MEDiA_WIDTHS = { desktop: 2000, tablet: 1024, mobile: 750 };
+const MEDIA_WIDTHS = { desktop: 2000, tablet: 1024, mobile: 750 };
 
 function createMedia(desktopImage, tabletImage, mobileImage) {
   const imagesBySize = { desktop: desktopImage, tablet: tabletImage, mobile: mobileImage };
@@ -118,7 +118,7 @@ function createMedia(desktopImage, tabletImage, mobileImage) {
     const img = document.createElement('img');
     img.className = `dirte-k3-${size}-image`;
     img.loading = 'lazy';
-    img.src = toWebp(imagesBySize[size]?.querySelector('img')?.src || '', MEDiA_WIDTHS[size]);
+    img.src = toWebp(imagesBySize[size]?.querySelector('img')?.src || '', MEDIA_WIDTHS[size]);
     img.alt = `DIRTE K3 Electric Dirt Bike - ${label}`;
 
     picture.appendChild(img);

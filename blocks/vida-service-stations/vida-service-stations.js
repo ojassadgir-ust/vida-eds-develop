@@ -260,7 +260,7 @@ const createMedia = (imageFields) => {
   }
 
   const image = (desktopImage || mobileImage).cloneNode(true);
-  image.src = toWebp(image.src, desktopImage? 2000 : 750);
+  image.src = toWebp(image.src, desktopImage ? 2000 : 750);
   image.className = CONFIG.classes.image;
   image.alt = image.alt || CONFIG.content.imageAlt;
   picture.append(image);
