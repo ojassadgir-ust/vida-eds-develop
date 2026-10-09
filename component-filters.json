@@ -58,11 +58,5 @@
       "button",
       "title"
     ]
-  },
-  {
-    "id": "vida-blog-cards",
-    "components": [
-      "vida-blog-card"
-    ]
   }
 ]
