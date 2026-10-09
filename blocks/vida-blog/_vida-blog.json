@@ -30,11 +30,11 @@
               "selector": "div:nth-child(2)"
             },
             {
-              "name": "cta",
+              "name": "CTA_blogCTA",
               "selector": "div:nth-child(3)"
             },
             {
-              "name": "ctaText",
+              "name": "CTA_Label",
               "selector": "div:nth-child(4)"
             },
             {
@@ -113,21 +113,22 @@
           "valueType": "string",
           "required": true
         },
-         {
-          "component": "text",
-          "name": "ctaText",
-          "label": "CTA Label",
-          "value": "",
-          "valueType": "string"
-        },
         {
           "component": "aem-content",
-          "name": "cta",
+          "name": "CTA_blogCTA",
           "label": "CTA Link",
           "value": "",
-          "valueType": "string"
+          "valueType": "string",
+          "description": "CTA button link URL (Row 2) or CTA button text (Row 3)"
         },
-       
+        {
+          "component": "text",
+          "name": "CTA_Label",
+          "label": "CTA Label",
+          "value": "",
+          "valueType": "string",
+          "description": "CTA button display text (Row 3) or CTA link URL (Row 4)"
+        },
         {
           "component": "number",
           "name": "carouselPlayTime",

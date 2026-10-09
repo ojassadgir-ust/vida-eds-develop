@@ -279,11 +279,11 @@
                   "selector": "div:nth-child(2)"
                 },
                 {
-                  "name": "cta",
+                  "name": "CTA_blogCTA",
                   "selector": "div:nth-child(3)"
                 },
                 {
-                  "name": "ctaText",
+                  "name": "CTA_Label",
                   "selector": "div:nth-child(4)"
                 },
                 {
