@@ -420,6 +420,10 @@ footer .footer[data-block-status="loaded"] {
   visibility: visible;
 }
 
+header {
+  min-height: 72px;
+}
+
 h1,
 h2,
 h3,
