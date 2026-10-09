@@ -25,3 +25,9 @@ export function setUserLoggedIn(token, days) {
 export function clearSessionToken() {
   document.cookie = `${SESSION_COOKIE}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; max-age=0; path=/`;
 }
+
+export function logout(e) {
+  if (e) e.preventDefault();
+  clearSessionToken();
+  window.location.reload();
+}

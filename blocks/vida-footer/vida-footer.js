@@ -1,5 +1,5 @@
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
-import { isLoggedIn } from '../../scripts/login-utils.js';
+import { isLoggedIn, logout } from '../../scripts/login-utils.js';
 
 const CLASS_PREFIX = 'vida_footer';
 const isLogin = isLoggedIn();
@@ -454,6 +454,10 @@ function createLink(
   if (item.newTab) {
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
+  }
+
+  if (/^log\s?out$/i.test(String(item.label).trim())) {
+    link.addEventListener('click', logout);
   }
 
   return link;

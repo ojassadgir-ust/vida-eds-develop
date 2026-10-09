@@ -1,6 +1,6 @@
 import buildButton from '../../scripts/build-button.js';
 import { getAPIEndpoint } from '../../scripts/config.js';
-import { isLoggedIn } from '../../scripts/login-utils.js';
+import { isLoggedIn, logout } from '../../scripts/login-utils.js';
 
 const isLogin = isLoggedIn();
 
@@ -110,8 +110,8 @@ function buildExploreItem(item, isSideItem) {
     exploreLink.append(description);
   }
 
-  if (['logout', 'log-out'].includes(String(item.id).toLowerCase())) {
-    exploreLink.addEventListener('click');
+  if (['log out'].includes(String(item.label).toLowerCase())) {
+    exploreLink.addEventListener('click', logout);
   }
 
   return exploreLink;
