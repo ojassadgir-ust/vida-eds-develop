@@ -1,6 +1,7 @@
 /* Promo Banner — full-bleed responsive image with overlaid heading/subheading */
 
 .promo-banner {
+  container-type: inline-size;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -43,23 +44,27 @@
 .promo-banner-text {
   position: absolute;
   top: 19.619%;
-  left: 12.273%;
-  width: 75.227%;
+  left: 11.364%;
+  width: 77.045%;
+  height: 57.727cqw;
   display: flex;
   flex-direction: column;
+  gap: 8px;
   align-items: center;
   text-align: center;
 }
 
 .promo-banner-heading {
-  margin: 0;
+  width: calc(100% - 1.818cqw);
+  align-self: flex-start;
+  margin: 0 0 0 0.909cqw;
   padding: 0;
   color: var(--content-inverse, #fff);
   font-family: var(--ff-primary);
   font-weight: 375;
-  font-size: 48px;
+  font-size: 10.909cqw;
   line-height: 1;
-  letter-spacing: 0.07px;
+  letter-spacing: 0.016cqw;
   text-align: center;
   text-transform: uppercase;
 }
@@ -69,15 +74,23 @@
   color: var(--color-warm-500, #ffbc10);
 }
 
+.promo-banner-heading em,
+.promo-banner-subheading em {
+  font-weight: 530;
+  font-style: normal;
+}
+
 .promo-banner-subheading {
-  margin: 16px 0 0;
+  width: 100%;
+  height: auto;
+  margin: 0;
   padding: 0;
   color: var(--content-inverse, #fff);
   font-family: var(--ff-primary);
   font-weight: 450;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 1.15px;
+  font-size: 4.545cqw;
+  line-height: 5.455cqw;
+  letter-spacing: 0.261cqw;
   text-align: center;
   text-transform: uppercase;
 }
@@ -104,18 +117,25 @@
     top: 24.769%;
     left: 12.847%;
     width: 50%;
+    height: auto;
+    gap: 16px;
     align-items: flex-start;
     text-align: left;
   }
 
   .promo-banner-heading {
-    font-size: 48px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    font-size: 6.25cqw;
     text-align: left;
   }
 
   .promo-banner-subheading {
-    font-size: 24px;
-    line-height: 30px;
+    width: auto;
+    height: auto;
+    font-size: 3.125cqw;
+    line-height: 3.906cqw;
     text-align: left;
   }
 }
@@ -138,37 +158,25 @@
     top: 24.769%;
     left: 12.847%;
     width: 33.264%;
+    height: 25.069cqw;
+    gap: 16px;
     align-items: flex-start;
     text-align: left;
   }
 
   .promo-banner-heading {
-    font-size: 64px;
-    letter-spacing: 0.09px;
+    width: 100%;
+    margin: 0;
+    font-size: 3.056cqw;
+    letter-spacing: -0.0347cqw;
     text-align: left;
   }
 
-  .promo-banner-heading strong {
-    display: inline-block;
-    background: var(--content-inverse, #fff);
-    color: var(--content-primary, #1d1b1b);
-    padding: 4px 12px;
-    border-radius: 4px;
-  }
-
   .promo-banner-subheading {
-    width: 28.333%;
-    margin-top: 16px;
-    font-size: 28px;
-    line-height: 38px;
-    letter-spacing: 1.5px;
-  }
-
-  .promo-banner-subheading strong {
-    display: inline-block;
-    background: var(--content-inverse, #fff);
-    color: var(--content-primary, #1d1b1b);
-    padding: 2px 8px;
-    border-radius: 4px;
+    width: 85.18%;
+    height: 7.917cqw;
+    font-size: 1.944cqw;
+    line-height: 2.639cqw;
+    letter-spacing: 0.104cqw;
   }
 }
