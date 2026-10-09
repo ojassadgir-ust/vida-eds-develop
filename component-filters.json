@@ -24,7 +24,8 @@
       "vida-service-stations",
       "vida-removable-battery",
       "dirte-k3-banner",
-      "variant-selector"
+      "variant-selector",
+      "vida-blog"
     ]
   },
   {
@@ -71,6 +72,12 @@
     "id": "variant-selector",
     "components": [
       "variant-selector-item"
+    ]
+  },
+  {
+    "id": "vida-blog-cards",
+    "components": [
+      "vida-blog-card"
     ]
   }
 ]
