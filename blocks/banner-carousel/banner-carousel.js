@@ -1,3 +1,5 @@
+import toWebp from "../../scripts/to-webp.js";
+
 let carouselId = 0;
 
 /**
@@ -108,7 +110,7 @@ function createSlide(row, index) {
 
       source.media = '(max-width: 767px)';
 
-      source.srcset = mobileImage.src;
+      source.srcset = toWebp(mobileImage.src, 750);
 
       picture.append(source);
     }
@@ -121,7 +123,7 @@ function createSlide(row, index) {
 
       source.media = '(min-width: 768px) and (max-width: 1023px)';
 
-      source.srcset = tabletImage.src;
+      source.srcset = toWebp(tabletImage.src, 1024);
 
       picture.append(source);
     }
@@ -133,6 +135,7 @@ function createSlide(row, index) {
      * tablet or mobile image will be used as fallback.
      */
     const image = desktopImage || tabletImage || mobileImage;
+    image.src = toWebp(image.src, image === desktopImage ? 2000: 750);
 
     image.classList.add(
       'banner-carousel-image',

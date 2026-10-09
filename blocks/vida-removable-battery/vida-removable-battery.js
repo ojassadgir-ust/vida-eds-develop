@@ -1,3 +1,5 @@
+import toWebp from "../../scripts/to-webp.js";
+
 const CONFIG = {
   classes: {
     block: 'vida-removable-battery',
@@ -19,14 +21,14 @@ const CONFIG = {
   },
 };
 
-const getImageSource = (cell) => {
+const getImageSource = (cell, width) => {
   if (!cell) {
     return '';
   }
 
   const image = cell.querySelector('img');
 
-  return image?.currentSrc || image?.src || '';
+  return image ? toWebp(image.src, width) : '';
 };
 
 const getCellText = (cell) => {
@@ -287,10 +289,10 @@ const createMedia = () => createElement(
 export default function decorate(block) {
   const cells = Array.from(block.children);
 
-  const desktopImage = getImageSource(cells[0]);
-  const mobileImage = getImageSource(cells[1]);
+  const desktopImage = getImageSource(cells[0], 2000);
+  const mobileImage = getImageSource(cells[1], 750);
   const hasTabletImageField = cells.length >= 5;
-  const tabletImage = hasTabletImageField ? getImageSource(cells[2]) : '';
+  const tabletImage = hasTabletImageField ? getImageSource(cells[2], 1024) : '';
   const contentIndex = hasTabletImageField ? 3 : 2;
   const ctaIndex = hasTabletImageField ? 4 : 3;
 
