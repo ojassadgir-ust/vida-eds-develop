@@ -21,12 +21,10 @@ const CONFIG = {
     dot: 'vida-blog-dot',
     dotActive: 'vida-blog-dot-active',
   },
-
   selectors: {
     image: 'img',
     link: 'a[href]',
   },
-
   rows: {
     heading: 0,
     description: 1,
@@ -34,29 +32,25 @@ const CONFIG = {
     ctaText: 3,
     carouselPlayTime: 4,
   },
-
   cardRowsStart: 5,
-
   imageIndexes: {
     desktop: 0,
     tablet: 1,
     mobile: 2,
   },
-
   maxImages: 3,
-
   mobileBreakpoint: 767,
-
   defaultMobileSlideIndex: 1,
-
   defaultPlayTime: 0,
 };
 
 function createElement(tagName, className) {
   const element = document.createElement(tagName);
+
   if (className) {
     element.className = className;
   }
+
   return element;
 }
 
@@ -65,53 +59,102 @@ function getCell(row, index) {
 }
 
 function getCellText(cell) {
-  return cell?.textContent?.trim() || '';
+  return cell?.textContent?.replace(/\u00a0/gu, ' ').trim() || '';
+}
+
+function normalizeText(text) {
+  return text
+    .replace(/\u00a0/gu, ' ')
+    .replace(/\]\s*\(\s*about:blank\s*\)/giu, ' ')
+    .replace(/\babout:blank\b/giu, ' ')
+    .replace(/[[\]()]/gu, ' ')
+    .replace(/\s+/gu, ' ')
+    .trim();
+}
+
+function normalizeCtaUrl(value) {
+  let url = value?.trim().replace(/\u00a0/gu, ' ') || '';
+
+  url = url.replace(/^[<"'`\s]+|[>"'`,;\s]+$/gu, '');
+
+  if (
+    !url
+    || /^about:blank$/iu.test(url)
+    || /^javascript:/iu.test(url)
+  ) {
+    return '';
+  }
+
+  if (/^(?:https?:\/\/|mailto:|tel:|#)/iu.test(url)) {
+    return url;
+  }
+
+  if (/^\/(?!\/)/u.test(url)) {
+    return url;
+  }
+
+  if (/^(?:[\w-]+\.)+[a-z]{2,}(?::\d+)?(?:[/?#][^\s]*)?$/iu.test(url)) {
+    return `https://${url}`;
+  }
+
+  return '';
+}
+
+function extractCtaData(cell) {
+  if (!cell) {
+    return {
+      href: '',
+      label: '',
+    };
+  }
+
+  const rawText = getCellText(cell);
+  const cleanedText = normalizeText(rawText);
+  const anchor = cell.querySelector(CONFIG.selectors.link);
+
+  let href = normalizeCtaUrl(anchor?.getAttribute('href') || '');
+
+  const urlPattern = /(?:https?:\/\/[^\s<>()\]]+|\/(?!\/)[^\s<>()\]]*|(?:[\w-]+\.)+[a-z]{2,}(?::\d+)?(?:[/?#][^\s<>()\]]*)?)/iu;
+  const urlMatch = cleanedText.match(urlPattern);
+
+  if (!href && urlMatch) {
+    href = normalizeCtaUrl(urlMatch[0]);
+  }
+
+  let label = cleanedText;
+
+  if (urlMatch && normalizeCtaUrl(urlMatch[0])) {
+    label = label.replace(urlMatch[0], ' ');
+  }
+
+  label = normalizeText(label);
+
+  if (!label && anchor) {
+    const anchorText = normalizeText(getCellText(anchor));
+    const anchorTextUrl = normalizeCtaUrl(anchorText);
+
+    if (!anchorTextUrl) {
+      label = anchorText;
+    }
+  }
+
+  return {
+    href,
+    label,
+  };
+}
+
+function isNumericOnly(text) {
+  return /^\d+$/u.test(text?.trim() || '');
 }
 
 function getImages(imageCell) {
   if (!imageCell) {
     return [];
   }
+
   return [...imageCell.querySelectorAll(CONFIG.selectors.image)]
     .slice(0, CONFIG.maxImages);
-}
-
-function isUrlLike(text) {
-  if (!text) return false;
-  return /^https?:\/\//iu.test(text)
-         || /^\/(?!\/)/u.test(text)
-         || /^(?:[\w-]+\.)+[a-z]{2,}(?:[/:?#]|$)/iu.test(text);
-}
-
-function isNumericOnly(text) {
-  return /^\d+$/u.test(text) && text.length > 0;
-}
-
-function getAuthoringLink(cell) {
-  if (!cell) {
-    return '';
-  }
-
-  const link = cell.querySelector(CONFIG.selectors.link);
-  if (link?.href) {
-    return link.href;
-  }
-
-  const text = getCellText(cell).trim();
-
-  if (/^https?:\/\//iu.test(text)) {
-    return text;
-  }
-
-  if (/^\/(?!\/)/u.test(text)) {
-    return text;
-  }
-
-  if (/^(?:[\w-]+\.)+[a-z]{2,}(?:[/:?#]|$)/iu.test(text)) {
-    return `https://${text}`;
-  }
-
-  return '';
 }
 
 function getCardRows(block) {
@@ -142,12 +185,14 @@ function decorateImages(imageCell) {
   });
 
   imageCell.replaceChildren(imageContainer);
+
   return imageContainer;
 }
 
 function createCardTextElement(tagName, className, text) {
   const element = createElement(tagName, className);
   element.textContent = text;
+
   return element;
 }
 
@@ -156,8 +201,8 @@ function decorateCard(row) {
   const kickerCell = getCell(row, 1);
   const titleCell = getCell(row, 2);
   const dateCell = getCell(row, 3);
-
   const card = createElement('article', CONFIG.classes.card);
+
   moveInstrumentation(row, card);
 
   if (imageCell) {
@@ -166,7 +211,6 @@ function decorateCard(row) {
   }
 
   const content = createElement('div', CONFIG.classes.cardContent);
-
   const kickerText = getCellText(kickerCell);
   const titleText = getCellText(titleCell);
   const dateText = getCellText(dateCell);
@@ -190,25 +234,25 @@ function decorateCard(row) {
   }
 
   card.append(content);
+
   return card;
 }
 
 function createHeading(row) {
   const heading = createElement('h2', CONFIG.classes.heading);
   heading.textContent = getCellText(row);
+
   return heading;
 }
 
 function createDescription(row) {
   const description = createElement('p', CONFIG.classes.description);
   description.textContent = getCellText(row);
+
   return description;
 }
 
-function createCta(ctaRow, ctaTextRow) {
-  const href = getAuthoringLink(ctaRow);
-  const label = getCellText(ctaTextRow);
-
+function createCta(href, label) {
   if (!href || !label) {
     return null;
   }
@@ -220,13 +264,14 @@ function createCta(ctaRow, ctaTextRow) {
   link.textContent = label;
 
   cta.append(link);
+
   return cta;
 }
 
 function getPlayTime(row) {
   const text = getCellText(row);
 
-  if (!/^\d+$/u.test(text)) {
+  if (!isNumericOnly(text)) {
     return CONFIG.defaultPlayTime;
   }
 
@@ -242,7 +287,6 @@ function getPlayTime(row) {
 function getClosestCardIndex(cardsContainer, cards) {
   const containerRect = cardsContainer.getBoundingClientRect();
   const containerCenter = containerRect.left + containerRect.width / 2;
-
   let closestIndex = 0;
   let closestDistance = Number.POSITIVE_INFINITY;
 
@@ -298,6 +342,7 @@ function createDots(cardsContainer, cards) {
 
   cards.forEach((card, index) => {
     const dot = createElement('button', CONFIG.classes.dot);
+
     dot.type = 'button';
     dot.setAttribute('aria-label', `Go to blog card ${index + 1}`);
 
@@ -320,6 +365,7 @@ function createDots(cardsContainer, cards) {
     'scroll',
     () => {
       window.clearTimeout(scrollTimeout);
+
       scrollTimeout = window.setTimeout(() => {
         updateActiveDot(dots, getClosestCardIndex(cardsContainer, cards));
       }, 50);
@@ -389,6 +435,7 @@ function initializeMobileCarousel(cardsContainer, cards, dots, playTime) {
 
     if (mobileQuery.matches) {
       setInitialMobileSlide();
+
       window.requestAnimationFrame(() => {
         startAutoplay();
       });
@@ -425,62 +472,37 @@ function decorateHeader(block) {
   const text3 = getCellText(row3);
   const text4 = getCellText(row4);
 
-  let ctaLinkRow = row2;
-  let ctaTextRow = row3;
-  let playTimeRow = row4;
+  const row2Data = extractCtaData(row2);
+  const row3Data = extractCtaData(row3);
 
+  let ctaLink = row2Data.href;
+  let ctaLabel = row2Data.label;
+  let playTimeRow = null;
+
+  /*
+   * Supported authoring layouts:
+   * 1. Row 2 contains URL and label together; row 3 contains play time.
+   * 2. Row 2 contains URL; row 3 contains label; row 4 contains play time.
+   */
   if (isNumericOnly(text3)) {
     playTimeRow = row3;
-    ctaTextRow = row4;
-  } else if (isUrlLike(text3) && !isUrlLike(text2)) {
-    ctaLinkRow = row3;
-    ctaTextRow = row2;
-  } else if (isNumericOnly(text4) && !isNumericOnly(text3)) {
+  } else if (isNumericOnly(text4)) {
     playTimeRow = row4;
-    ctaTextRow = row3;
   }
 
-  const ctaLink = getAuthoringLink(ctaLinkRow);
-  const ctaLabel = getCellText(ctaTextRow);
+  if (!ctaLabel && text3 && !isNumericOnly(text3)) {
+    ctaLabel = row3Data.label || text3;
+  }
+
+  if (!ctaLink && row3Data.href) {
+    ctaLink = row3Data.href;
+
+    if (!ctaLabel && text2) {
+      ctaLabel = row2Data.label || normalizeText(text2);
+    }
+  }
+
   const playTime = getPlayTime(playTimeRow);
-
-  const debugObject = {
-    heading: getCellText(headingRow),
-    description: getCellText(descriptionRow),
-    CTA_blogCTA: {
-      linkField: {
-        row: 2,
-        rawText: text2,
-        extractedHref: ctaLink,
-        isUrl: isUrlLike(text2),
-      },
-      labelField: {
-        row: 3,
-        rawText: text3,
-        isNumeric: isNumericOnly(text3),
-      },
-      alternateField: {
-        row: 4,
-        rawText: text4,
-        isNumeric: isNumericOnly(text4),
-      },
-      finalMapping: {
-        ctaLinkRow: `Row ${[row2, row3, row4].indexOf(ctaLinkRow)}`,
-        ctaTextRow: `Row ${[row2, row3, row4].indexOf(ctaTextRow)}`,
-        playTimeRow: `Row ${[row2, row3, row4].indexOf(playTimeRow)}`,
-      },
-      finalValues: {
-        href: ctaLink,
-        label: ctaLabel,
-        playTime,
-        willRenderCTA: !!(ctaLink && ctaLabel),
-      },
-    },
-  };
-
-  console.group('🎨 VIDA Blog Component Debug');
-  console.table(debugObject);
-  console.groupEnd();
 
   const header = createElement('div', CONFIG.classes.header);
 
@@ -492,7 +514,7 @@ function decorateHeader(block) {
     header.append(createDescription(descriptionRow));
   }
 
-  const cta = createCta(ctaLinkRow, ctaTextRow);
+  const cta = createCta(ctaLink, ctaLabel);
 
   if (cta) {
     header.append(cta);
@@ -512,9 +534,7 @@ export default function decorate(block) {
   }
 
   const { header, playTime } = decorateHeader(block);
-
   const cardsContainer = createElement('div', CONFIG.classes.cards);
-
   const cards = getCardRows(block).map(decorateCard);
 
   cards.forEach((card) => {
