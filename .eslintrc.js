@@ -23,6 +23,7 @@ module.exports = {
       'vida-service-stations': 9,
       'vida-removable-battery': 5,
       'variant-selector-item': 6,
+      'web-popup': 30,
     }],
 
     'xwalk/no-orphan-collapsible-fields': 'off',

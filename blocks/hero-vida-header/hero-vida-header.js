@@ -1,5 +1,8 @@
 import buildButton from '../../scripts/build-button.js';
 import { getAPIEndpoint } from '../../scripts/config.js';
+import { isLoggedIn, logout } from '../../scripts/login-utils.js';
+
+const isLogin = isLoggedIn();
 
 // ---------------------------------------- //
 // - Build functions for Products Submenu - //
@@ -107,6 +110,10 @@ function buildExploreItem(item, isSideItem) {
     exploreLink.append(description);
   }
 
+  if (['log out'].includes(String(item.label).toLowerCase())) {
+    exploreLink.addEventListener('click', logout);
+  }
+
   return exploreLink;
 }
 
@@ -203,6 +210,17 @@ function normaliseHeaderJson(json, origin) {
   const headerJSON = json['jcr:content'].root.newheader_copy_copy;
   const asset = (p) => assetUrl(p, origin);
 
+  function filterAccountLinks(items) {
+    const GUEST_ONLY = ['log-in', 'sign-up'];
+    const USER_ONLY = ['log-out', 'my-profile'];
+    const ACCOUNT_ORDER = ['log-in', 'log-out', 'sign-up', 'my-profile', 'faqs'];
+
+    const hide = isLogin ? GUEST_ONLY : USER_ONLY;
+    return items.filter((i) => !hide.includes(i.id)).sort((a, b) => (
+      ACCOUNT_ORDER.indexOf(a.id) - ACCOUNT_ORDER.indexOf(b.id)
+    ));
+  }
+
   return {
     logo: {
       src: asset(headerJSON.logo),
@@ -249,7 +267,7 @@ function normaliseHeaderJson(json, origin) {
           description: clean(item.description),
           isNew: isTrue(item.isNew),
         })),
-        rightNav: toArray(headerJSON.exploreRightNav).map((item) => ({
+        rightNav: filterAccountLinks(toArray(headerJSON.exploreRightNav)).map((item) => ({
           label: item.name,
           link: pageUrl(item.link),
         })),
