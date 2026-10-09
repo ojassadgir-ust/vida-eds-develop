@@ -113,6 +113,13 @@
           "valueType": "string",
           "required": true
         },
+         {
+          "component": "text",
+          "name": "ctaText",
+          "label": "CTA Label",
+          "value": "",
+          "valueType": "string"
+        },
         {
           "component": "aem-content",
           "name": "cta",
@@ -120,13 +127,7 @@
           "value": "",
           "valueType": "string"
         },
-        {
-          "component": "text",
-          "name": "ctaText",
-          "label": "CTA Label",
-          "value": "",
-          "valueType": "string"
-        },
+       
         {
           "component": "number",
           "name": "carouselPlayTime",
