@@ -1,4 +1,4 @@
-import toWebp from '../../scripts/to-webp.js';
+import { toWebp } from '../../scripts/scripts.js';
 
 const CONFIG = {
   classes: {

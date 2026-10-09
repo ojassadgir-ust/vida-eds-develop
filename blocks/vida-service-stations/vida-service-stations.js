@@ -1,5 +1,5 @@
 import { ENV, BASE_URLS } from '../../scripts/env.config.js';
-import toWebp from '../../scripts/to-webp.js';
+import { toWebp } from '../../scripts/scripts.js';
 
 const CONFIG = {
   groups: {

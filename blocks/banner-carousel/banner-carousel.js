@@ -1,4 +1,4 @@
-import toWebp from '../../scripts/to-webp.js';
+import { toWebp } from '../../scripts/scripts.js';
 
 let carouselId = 0;
 
@@ -337,7 +337,7 @@ function startAutoplay(block) {
 
   const autoplayDelay = Number(
     block.dataset.autoplayDelay
-      || 7000,
+    || 7000,
   );
 
   block.bannerCarouselTimer = setInterval(() => {
