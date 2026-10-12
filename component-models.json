@@ -228,9 +228,9 @@
       },
       {
         "component": "number",
-        "name": "timespan",
-        "label": "Autoplay Interval (ms)",
-        "description": "Use 0 to disable autoplay.",
+        "name": "scrollTime",
+        "label": "Scroll Time to Next Slide (ms)",
+        "description": "Time before auto-scrolling to next slide. Use 0 to disable auto-scroll.",
         "value": 5000,
         "valueType": "number",
         "validation": {
@@ -244,24 +244,24 @@
     "fields": [
       {
         "component": "reference",
-        "name": "desktopImage",
-        "label": "Desktop Image",
+        "name": "desktopMedia",
+        "label": "Desktop Media (Image or Video)",
         "valueType": "string",
         "multi": false,
         "required": true
       },
       {
         "component": "reference",
-        "name": "tabletImage",
-        "label": "Tablet Image",
+        "name": "tabletMedia",
+        "label": "Tablet Media (Image or Video)",
         "valueType": "string",
         "multi": false,
         "required": true
       },
       {
         "component": "reference",
-        "name": "mobileImage",
-        "label": "Mobile Image",
+        "name": "mobileMedia",
+        "label": "Mobile Media (Image or Video)",
         "valueType": "string",
         "multi": false,
         "required": true

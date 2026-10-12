@@ -183,7 +183,7 @@
                   "selector": "div:nth-child(1)"
                 },
                 {
-                  "name": "timespan",
+                  "name": "scrollTime",
                   "selector": "div:nth-child(2)"
                 }
               ]
@@ -210,15 +210,15 @@
               "columns": 1,
               "fields": [
                 {
-                  "name": "desktopImage",
+                  "name": "desktopMedia",
                   "selector": "div:nth-child(1)"
                 },
                 {
-                  "name": "tabletImage",
+                  "name": "tabletMedia",
                   "selector": "div:nth-child(2)"
                 },
                 {
-                  "name": "mobileImage",
+                  "name": "mobileMedia",
                   "selector": "div:nth-child(3)"
                 },
                 {

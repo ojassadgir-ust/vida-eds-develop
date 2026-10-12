@@ -12,48 +12,92 @@ const CONFIG = {
     controls: 'vida-continues-scroller-controls',
     dot: 'vida-continues-scroller-dot',
     active: 'is-active',
+    mediaContainer: 'vida-continues-scroller-media',
+    videoContainer: 'vida-continues-scroller-video',
   },
   defaults: {
-    timespan: 5000,
-    minimumTimespan: 1000,
+    scrollTime: 5000,
+    minimumScrollTime: 1000,
   },
 };
 
 const getText = (element) => element?.textContent?.trim() || '';
 
-const getImages = (cell) => [...(cell?.querySelectorAll('picture img, img') || [])]
-  .map((image) => ({
-    src: image.getAttribute('src') || image.getAttribute('data-src') || '',
-    alt: image.getAttribute('alt') || '',
-  }));
+const getMediaFromCell = (cell) => {
+  if (!cell) return { image: null, video: null };
+
+  // Check for video
+  const videoElement = cell.querySelector('video source, video');
+  if (videoElement) {
+    const src = videoElement.getAttribute('src')
+      || videoElement.querySelector('source')?.getAttribute('src');
+    if (src) {
+      return {
+        video: {
+          src,
+          type: videoElement.getAttribute('type') || 'video/mp4',
+        },
+        image: null,
+      };
+    }
+  }
+
+  // Check for image
+  const imgElement = cell.querySelector('img');
+  if (imgElement) {
+    return {
+      image: {
+        src: imgElement.getAttribute('src') || imgElement.getAttribute('data-src') || '',
+        alt: imgElement.getAttribute('alt') || '',
+      },
+      video: null,
+    };
+  }
+
+  // Check for picture element
+  const pictureElement = cell.querySelector('picture');
+  if (pictureElement) {
+    const img = pictureElement.querySelector('img');
+    if (img) {
+      return {
+        image: {
+          src: img.getAttribute('src') || '',
+          alt: img.getAttribute('alt') || '',
+        },
+        video: null,
+      };
+    }
+  }
+
+  return { image: null, video: null };
+};
 
 const getSlideData = (slideBlock) => {
   const cells = [...slideBlock.children];
 
-  const legacyLayout = cells.length >= 5;
-
-  if (cells.length < 3) return null;
+  if (cells.length < 5) return null;
 
   const desktopCell = cells[0];
-  const tabletCell = legacyLayout ? cells[1] : null;
-  const mobileCell = legacyLayout ? cells[2] : null;
-  const titleCell = cells[legacyLayout ? 3 : 1];
-  const subtitleCell = cells[legacyLayout ? 4 : 2];
-  const responsiveImages = getImages(desktopCell);
-  const desktop = responsiveImages[0] || null;
-  const tablet = legacyLayout ? getImages(tabletCell)[0] || null : responsiveImages[1] || null;
-  const mobile = legacyLayout ? getImages(mobileCell)[0] || null : responsiveImages[2] || null;
-  let fallback = desktop;
+  const tabletCell = cells[1];
+  const mobileCell = cells[2];
+  const titleCell = cells[3];
+  const subtitleCell = cells[4];
 
-  if (!fallback?.src) fallback = tablet;
-  if (!fallback?.src) fallback = mobile;
+  const desktopMedia = getMediaFromCell(desktopCell);
+  const tabletMedia = getMediaFromCell(tabletCell);
+  const mobileMedia = getMediaFromCell(mobileCell);
 
-  if (!fallback?.src) return null;
+  // Determine fallback (prefer video if available)
+  let fallback = desktopMedia.video || desktopMedia.image;
+  if (!fallback) fallback = tabletMedia.video || tabletMedia.image;
+  if (!fallback) fallback = mobileMedia.video || mobileMedia.image;
+
+  if (!fallback) return null;
 
   return {
-    desktop,
-    tablet,
-    mobile,
+    desktop: desktopMedia,
+    tablet: tabletMedia,
+    mobile: mobileMedia,
     fallback,
     title: getText(titleCell),
     subtitle: getText(subtitleCell),
@@ -61,36 +105,59 @@ const getSlideData = (slideBlock) => {
   };
 };
 
-const createPicture = (data) => {
-  const picture = document.createElement('picture');
+const createPictureElement = (desktopMedia, tabletMedia, mobileMedia, fallback) => {
+  const container = document.createElement('div');
+  container.className = CONFIG.classes.mediaContainer;
 
-  [
-    { image: data.mobile, media: '(max-width: 767px)' },
-    {
-      image: data.tablet,
-      media: '(min-width: 768px) and (max-width: 1024px)',
-    },
-  ].forEach(({ image, media }) => {
-    if (!image?.src || image.src === data.fallback.src) return;
+  // Create picture for images only
+  if (fallback?.image) {
+    const picture = document.createElement('picture');
+
+    // Add responsive image sources
+    const sources = [
+      { media: '(max-width: 767px)', mediaData: mobileMedia },
+      { media: '(min-width: 768px) and (max-width: 1024px)', mediaData: tabletMedia },
+      { media: '(min-width: 1025px)', mediaData: desktopMedia },
+    ];
+
+    sources.forEach(({ media, mediaData }) => {
+      if (mediaData.image && mediaData.image.src) {
+        const source = document.createElement('source');
+        source.media = media;
+        source.srcset = mediaData.image.src;
+        picture.append(source);
+      }
+    });
+
+    const img = document.createElement('img');
+    img.className = 'vida-continues-scroller-image';
+    img.src = fallback.image.src;
+    img.alt = fallback.image.alt || '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    picture.append(img);
+    container.append(picture);
+  } else if (fallback?.video) {
+    // Create video element
+    const video = document.createElement('video');
+    video.className = 'vida-continues-scroller-image';
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.style.width = '100%';
+    video.style.height = '100%';
+    video.style.objectFit = 'cover';
 
     const source = document.createElement('source');
-    source.media = media;
-    source.srcset = image.src;
-    picture.append(source);
-  });
+    source.src = fallback.video.src;
+    source.type = fallback.video.type;
+    video.append(source);
 
-  const image = document.createElement('img');
-  image.className = 'vida-continues-scroller-image';
-  image.src = data.fallback.src;
-  image.alt = data.mobile?.alt
-    || data.tablet?.alt
-    || data.desktop?.alt
-    || '';
-  image.loading = 'lazy';
-  image.decoding = 'async';
+    container.append(video);
+  }
 
-  picture.append(image);
-  return picture;
+  return container;
 };
 
 const createSlide = (data, index, total) => {
@@ -100,7 +167,7 @@ const createSlide = (data, index, total) => {
   slide.setAttribute('aria-roledescription', 'slide');
   slide.setAttribute('aria-label', `${index + 1} of ${total}`);
 
-  slide.append(createPicture(data));
+  slide.append(createPictureElement(data.desktop, data.tablet, data.mobile, data.fallback));
 
   const content = document.createElement('div');
   content.className = CONFIG.classes.content;
@@ -125,53 +192,44 @@ const createSlide = (data, index, total) => {
   return slide;
 };
 
-const getInterval = (block) => {
-  const value = Number.parseInt(block.dataset.timespan, 10);
+const getScrollTime = (text) => {
+  const value = Number.parseInt(text, 10);
 
   if (Number.isFinite(value) && value === 0) return 0;
 
-  if (
-    Number.isFinite(value)
-    && value >= CONFIG.defaults.minimumTimespan
-  ) {
+  if (Number.isFinite(value) && value >= CONFIG.defaults.minimumScrollTime) {
     return value;
   }
 
-  return CONFIG.defaults.timespan;
+  return CONFIG.defaults.scrollTime;
 };
 
 export default function decorate(block) {
   if (block.dataset.decorated === 'true') return;
   block.dataset.decorated = 'true';
+  block.classList.add('vida-continues-scroller');
 
-  /*
-   * Expected authored structure:
-   * Parent block: heading and timespan rows.
-   * Slide blocks: desktop image, tablet image, mobile image,
-   * title and subtitle.
-   *
-   * The slides must be rendered as child blocks inside the parent
-   * by the project's authoring/template configuration.
-   */
   const children = [...block.children];
-  const slideBlocks = children.filter((child) => (
-    child.classList.contains('vida-continues-scroller-slide')
-    || child.dataset.blockName === 'vida-continues-scroller-slide'
-    || child.querySelector('[data-slide-title]')
-  ));
 
+  // Detect slides by structure
+  const slideBlocks = children.filter((child) => {
+    const hasClass = child.classList.contains('vida-continues-scroller-slide');
+    const hasBlockName = child.dataset.blockName === 'vida-continues-scroller-slide';
+    const hasDataAttr = child.querySelector('[data-slide-title]');
+    const hasSlideStructure = child.children.length >= 3;
+
+    return hasClass || hasBlockName || hasDataAttr || hasSlideStructure;
+  });
+
+  // Filter for rows
   const rows = children.filter((child) => (
     child.tagName === 'DIV' && child.children.length === 1
   ));
 
   const headingRow = rows[0];
-  const timespanRow = rows[1];
+  const scrollTimeRow = rows[1];
   const headingText = getText(headingRow);
-  const timespan = getInterval({
-    dataset: {
-      timespan: getText(timespanRow),
-    },
-  });
+  const scrollTime = getScrollTime(getText(scrollTimeRow));
 
   const slideData = slideBlocks
     .map(getSlideData)
@@ -202,14 +260,13 @@ export default function decorate(block) {
 
   slides.forEach((slide) => track.append(slide));
   inner.append(track);
-
   const controls = document.createElement('div');
   controls.className = CONFIG.classes.controls;
   controls.setAttribute('role', 'group');
   controls.setAttribute('aria-label', 'Slide navigation');
 
   let activeIndex = 0;
-  let timerId;
+  let scrollTimer;
 
   const buttons = slides.map((slide, index) => {
     const button = document.createElement('button');
@@ -220,9 +277,7 @@ export default function decorate(block) {
     return button;
   });
 
-  const reducedMotion = window.matchMedia(
-    '(prefers-reduced-motion: reduce)',
-  ).matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const updateControls = () => {
     buttons.forEach((button, index) => {
@@ -232,18 +287,43 @@ export default function decorate(block) {
     });
   };
 
+  const stopScrollTimer = () => {
+    if (scrollTimer) {
+      window.clearTimeout(scrollTimer);
+      scrollTimer = undefined;
+    }
+  };
+
+  const startScrollTimer = () => {
+    stopScrollTimer();
+
+    if (scrollTime === 0 || reducedMotion || slides.length < 2 || document.hidden) {
+      return;
+    }
+
+    scrollTimer = window.setTimeout(() => {
+      activeIndex = (activeIndex + 1) % slides.length;
+      slides[activeIndex].scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'nearest',
+        inline: window.matchMedia('(max-width: 767px)').matches ? 'center' : 'start',
+      });
+      updateControls();
+      startScrollTimer(); // Restart timer for next slide
+    }, scrollTime);
+  };
+
   function goTo(index) {
     activeIndex = (index + slides.length) % slides.length;
 
     slides[activeIndex].scrollIntoView({
       behavior: reducedMotion ? 'auto' : 'smooth',
       block: 'nearest',
-      inline: window.matchMedia('(max-width: 767px)').matches
-        ? 'center'
-        : 'start',
+      inline: window.matchMedia('(max-width: 767px)').matches ? 'center' : 'start',
     });
 
     updateControls();
+    startScrollTimer();
   }
 
   const updateActive = () => {
@@ -265,49 +345,30 @@ export default function decorate(block) {
     updateControls();
   };
 
-  const stopAutoplay = () => {
-    if (timerId) window.clearInterval(timerId);
-    timerId = undefined;
-  };
-
-  function restartAutoplay() {
-    stopAutoplay();
-
-    if (
-      timespan === 0
-      || reducedMotion
-      || slides.length < 2
-      || document.hidden
-    ) {
-      return;
-    }
-
-    timerId = window.setInterval(() => {
-      goTo(activeIndex + 1);
-    }, timespan);
-  }
-
   buttons.forEach((button, index) => {
     button.addEventListener('click', () => {
       goTo(index);
-      restartAutoplay();
     });
   });
 
   inner.append(controls);
   block.replaceChildren(inner);
 
-  track.addEventListener('scroll', updateActive, { passive: true });
-  track.addEventListener('mouseenter', stopAutoplay);
-  track.addEventListener('mouseleave', restartAutoplay);
-  track.addEventListener('focusin', stopAutoplay);
-  track.addEventListener('focusout', restartAutoplay);
+  track.addEventListener('scroll', () => {
+    updateActive();
+    stopScrollTimer();
+    startScrollTimer();
+  }, { passive: true });
+
+  track.addEventListener('mouseenter', stopScrollTimer);
+  track.addEventListener('mouseleave', startScrollTimer);
+  track.addEventListener('focusin', stopScrollTimer);
+  track.addEventListener('focusout', startScrollTimer);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAutoplay();
-    else restartAutoplay();
+    if (document.hidden) stopScrollTimer();
+    else startScrollTimer();
   });
 
   goTo(0);
-  restartAutoplay();
 }
