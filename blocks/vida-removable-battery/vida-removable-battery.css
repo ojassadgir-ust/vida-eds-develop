@@ -55,7 +55,7 @@
   color: var(--content-primary);
   font-family: inherit;
   font-size: var(--fs-heading-xl);
-  font-weight: var(--fw-heading-530);
+  font-weight: var(--fw-medium);
   line-height: var(--lh-heading-xl);
   letter-spacing: var(--ls-heading-xl);
 }
@@ -69,7 +69,7 @@
   color: var(--content-primary);
   font-family: inherit;
   font-size: var(--fs-heading-md);
-  font-weight: var(--fw-subheading-450);
+  font-weight: var(--fw-regular);
   line-height: 1.2;
 }
 
@@ -108,7 +108,7 @@
   color: var(--content-inverse);
   font-family: inherit;
   font-size: var(--fs-label-xl);
-  font-weight: var(--fw-heading-530);
+  font-weight: var(--fw-medium);
   line-height: var(--lh-label-xl);
   text-decoration: none;
   transition:

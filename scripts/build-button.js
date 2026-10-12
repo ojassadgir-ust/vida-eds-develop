@@ -1,10 +1,11 @@
 export default function buildButton({
-  label,
+  label = '',
   href,
   onClick,
   variant = 'primary',
   size = 'md',
   disabled = false,
+  type,
 } = {}) {
   const buttonElement = document.createElement(href && !disabled ? 'a' : 'button');
 
@@ -17,6 +18,10 @@ export default function buildButton({
   buttonElement.className = ['button', `button-${variant}`, `button-${size}`]
     .filter(Boolean)
     .join(' ');
+
+  if (type) {
+    buttonElement.type = type;
+  }
 
   if (disabled) {
     buttonElement.classList.add('button-disabled');

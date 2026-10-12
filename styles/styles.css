@@ -115,8 +115,8 @@
   --content-brand: var(--color-vida-500);
   --content-on-brand: var(--color-neutral-0);
   --content-disabled: var(--color-neutral-200);
-  
-  
+
+
   /* Brand expression */
   --brand-default: var(--color-vida-500);
   --brand-hover: var(--color-vida-600);
@@ -179,10 +179,8 @@
   --ff-display-alt: 'Tactic Sans', 'PP Neue Montreal', sans-serif;
 
   /* font weights */
-  --fw-regular: 400;
-  --fw-medium: 500;
-  --fw-heading-530:530;
-  --fw-subheading-450:450;
+  --fw-regular: 450;
+  --fw-medium: 530;
 
   /* ===== TYPOGRAPHY - TYPE SCALE (mobile-first: overriden at >= 768px and >= 1024px) ======= */
 
