@@ -122,6 +122,12 @@ function setupAutoScroll(track, seconds) {
  *   row 5+: card -> [desktop image | mobile image | title | subtext]
  */
 export default function decorate(block) {
+  const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
+
+  if (isAuthor) {
+    return;
+  }
+
   const [headingRow, desktopRow, mobileRow, timeoutRow, ...cardRows] = [...block.children];
   const cellOf = (row) => row?.firstElementChild;
 
