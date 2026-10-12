@@ -8,7 +8,7 @@ const DEFAULT_TIMEOUT_SECONDS = 5;
  * Builds ONE <picture> that serves the desktop image from 900px up
  * and the mobile image below that. Falls back to whichever image exists.
  */
-function buildPicture(desktopCell, mobileCell, { desktopWidth, mobileWidth }) {
+function buildPicture(desktopCell, mobileCell, { desktopWidth, mobileWidth, alt }) {
   const desktopImg = desktopCell?.querySelector('img');
   const mobileImg = mobileCell?.querySelector('img');
   const primary = desktopImg || mobileImg;
@@ -41,7 +41,7 @@ function buildPicture(desktopCell, mobileCell, { desktopWidth, mobileWidth }) {
 
   const img = document.createElement('img');
   img.src = `${mobile.pathname}?width=${mobileWidth}&format=${mobile.ext}&optimize=medium`;
-  img.alt = desktopImg?.alt || mobileImg?.alt || '';
+  img.alt = alt || desktopImg?.alt || mobileImg?.alt || '';
   img.loading = 'lazy';
   if (desktopImg) moveInstrumentation(desktopImg, img);
   picture.append(img);
@@ -128,7 +128,14 @@ export default function decorate(block) {
     return;
   }
 
-  const [headingRow, desktopRow, mobileRow, timeoutRow, ...cardRows] = [...block.children];
+  const [
+    headingRow,
+    desktopRow,
+    desktopAltRow,
+    mobileRow,
+    timeoutRow,
+    ...cardRows
+  ] = [...block.children];
   const cellOf = (row) => row?.firstElementChild;
 
   /* heading */
@@ -145,6 +152,7 @@ export default function decorate(block) {
   const heroPicture = buildPicture(cellOf(desktopRow), cellOf(mobileRow), {
     desktopWidth: 2000,
     mobileWidth: 1200,
+    alt: getText(cellOf(desktopAltRow)),
   });
   if (heroPicture) hero.append(heroPicture);
 
@@ -153,13 +161,17 @@ export default function decorate(block) {
   track.className = 'pre-cards';
 
   cardRows.forEach((row) => {
-    const [desktopCell, mobileCell, titleCell, textCell] = [...row.children];
+    const [desktopCell, altCell, mobileCell, titleCell, textCell] = [...row.children];
 
     const li = document.createElement('li');
     li.className = 'pre-card';
     moveInstrumentation(row, li);
 
-    const picture = buildPicture(desktopCell, mobileCell, { desktopWidth: 900, mobileWidth: 1100 });
+    const picture = buildPicture(desktopCell, mobileCell, {
+      desktopWidth: 900,
+      mobileWidth: 1100,
+      alt: getText(altCell),
+    });
     if (picture) {
       const media = document.createElement('div');
       media.className = 'pre-card-media';
