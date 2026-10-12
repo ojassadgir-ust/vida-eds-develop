@@ -117,9 +117,10 @@ function setupAutoScroll(track, seconds) {
  * Authored structure (xwalk) – parent fields come first, then one row per card:
  *   row 1: heading
  *   row 2: desktop hero image
- *   row 3: mobile hero image
- *   row 4: mobile carousel timeout (seconds)
- *   row 5+: card -> [desktop image | mobile image | title | subtext]
+ *   row 3: desktop hero image alt text
+ *   row 4: mobile hero image
+ *   row 5: mobile carousel timeout (seconds)
+ *   row 6+: card -> [desktop image | desktop alt | mobile image | title | subtext]
  */
 export default function decorate(block) {
   const isAuthor = window?.origin !== undefined && window?.origin.includes('author');
