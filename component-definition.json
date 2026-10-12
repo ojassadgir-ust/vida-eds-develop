@@ -159,7 +159,7 @@
         },
         {
           "title": "Performance Ride Experience",
-          "id": "performance-ride-experience",
+          "id": "pdp-performance",
           "plugins": {
             "xwalk": {
               "page": {
@@ -172,7 +172,7 @@
               }
             },
             "da": {
-              "name": "performance-ride-experience",
+              "name": "pdp-performance",
               "rows": 5,
               "columns": 1,
               "fields": [
