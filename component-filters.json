@@ -15,7 +15,8 @@
       "hero",
       "cards",
       "columns",
-      "fragment"
+      "fragment",
+      "vida-continues-scroller"
     ]
   },
   {
@@ -37,6 +38,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "vida-continues-scroller-slides",
+    "components": [
+      "vida-continues-scroller-slide"
     ]
   }
 ]

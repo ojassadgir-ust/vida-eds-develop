@@ -214,5 +214,74 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "vida-continues-scroller",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Section Heading",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "number",
+        "name": "timespan",
+        "label": "Autoplay Interval (ms)",
+        "description": "Use 0 to disable autoplay.",
+        "value": 5000,
+        "valueType": "number",
+        "validation": {
+          "numberMin": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "vida-continues-scroller-slide",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "desktopImage",
+        "label": "Desktop Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "tabletImage",
+        "label": "Tablet Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Slide Title",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text-area",
+        "name": "subtitle",
+        "label": "Slide Subtitle",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      }
+    ]
   }
 ]
