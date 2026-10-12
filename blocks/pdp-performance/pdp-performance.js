@@ -2,7 +2,8 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /* Must match the breakpoint used in performance-ride-experience.css */
 const DESKTOP_MQ = '(min-width: 900px)';
-const DEFAULT_TIMEOUT_SECONDS = 5;
+const MOBILE_MQ = '(max-width: 899px)';
+const DEFAULT_TIMEOUT_SECONDS = 0;
 
 /**
  * Builds ONE <picture> that serves the desktop image from 900px up
@@ -51,6 +52,44 @@ function buildPicture(desktopCell, mobileCell, { desktopWidth, mobileWidth, alt 
 
 function getText(cell) {
   return cell?.textContent.trim() || '';
+}
+
+function setupDragScroll(track) {
+  const mobile = window.matchMedia(MOBILE_MQ);
+  let dragStartX = 0;
+  let dragStartScrollLeft = 0;
+  let dragPointerId = null;
+
+  track.addEventListener('pointerdown', (event) => {
+    if (!mobile.matches || event.pointerType !== 'mouse') return;
+
+    dragPointerId = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartScrollLeft = track.scrollLeft;
+    track.classList.add('is-dragging');
+    track.setPointerCapture(event.pointerId);
+    event.preventDefault();
+  });
+
+  track.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== dragPointerId || !mobile.matches) return;
+
+    track.scrollLeft = dragStartScrollLeft - (event.clientX - dragStartX);
+  });
+
+  const endDrag = (event) => {
+    if (event.pointerId !== dragPointerId) return;
+
+    if (track.hasPointerCapture(event.pointerId)) {
+      track.releasePointerCapture(event.pointerId);
+    }
+    track.classList.remove('is-dragging');
+    dragPointerId = null;
+  };
+
+  track.addEventListener('pointerup', endDrag);
+  track.addEventListener('pointercancel', endDrag);
+  track.addEventListener('lostpointercapture', endDrag);
 }
 
 /**
@@ -128,6 +167,8 @@ export default function decorate(block) {
   if (isAuthor) {
     return;
   }
+
+  block.classList.add('performance-ride-experience');
 
   const [
     headingRow,
@@ -208,6 +249,7 @@ export default function decorate(block) {
   block.replaceChildren(heading, hero, track);
 
   /* mobile-only carousel behaviour */
+  setupDragScroll(track);
   const parsed = parseFloat(getText(cellOf(timeoutRow)));
   const seconds = Number.isNaN(parsed) ? DEFAULT_TIMEOUT_SECONDS : parsed;
   setupAutoScroll(track, seconds);

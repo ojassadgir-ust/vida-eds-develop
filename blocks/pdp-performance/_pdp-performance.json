@@ -94,8 +94,7 @@
           "component": "text",
           "valueType": "string",
           "name": "heading",
-          "label": "Heading",
-          "value": "Performance & Ride Experience"
+          "label": "Heading"
         },
         {
           "component": "reference",
@@ -108,8 +107,7 @@
           "component": "text",
           "valueType": "string",
           "name": "desktopImageAlt",
-          "label": "Big Image Alt Text",
-          "value": ""
+          "label": "Big Image Alt Text"
         },
         {
           "component": "reference",
@@ -122,8 +120,7 @@
           "component": "number",
           "valueType": "number",
           "name": "carouselTimeout",
-          "label": "Mobile Carousel Auto Scroll Timeout (seconds, 0 = off)",
-          "value": 5
+          "label": "Mobile Carousel Auto Scroll Timeout (seconds, 0 = off)"
         }
       ]
     },
@@ -141,8 +138,7 @@
           "component": "text",
           "valueType": "string",
           "name": "desktopImageAlt",
-          "label": "Card Image Alt Text",
-          "value": ""
+          "label": "Card Image Alt Text"
         },
         {
           "component": "reference",
@@ -155,15 +151,13 @@
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "label": "Text",
-          "value": ""
+          "label": "Text"
         },
         {
           "component": "textarea",
           "valueType": "string",
           "name": "subtext",
-          "label": "Subtext",
-          "value": ""
+          "label": "Subtext"
         }
       ]
     }

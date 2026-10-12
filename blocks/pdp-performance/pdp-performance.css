@@ -74,6 +74,13 @@ main .section > .performance-ride-experience-wrapper {
   scroll-padding-inline: 16px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.performance-ride-experience .pre-cards.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
 }
 
 .performance-ride-experience .pre-cards::-webkit-scrollbar {
@@ -161,6 +168,7 @@ main .section > .performance-ride-experience-wrapper {
     padding: 0;
     overflow: visible;
     scroll-snap-type: none;
+    cursor: auto;
   }
 
   .performance-ride-experience .pre-card {
