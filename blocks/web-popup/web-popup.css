@@ -1,0 +1,305 @@
+.vida-popup {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+}
+
+.vida-popup::backdrop {
+    background: rgb(0 0 0 / 70%);
+    cursor: pointer;
+}
+
+.vida-popup-card {
+    position: relative;
+    box-sizing: border-box;
+    width: min(600px, 100vw - 32px);
+    margin: auto 16px;
+    padding: 16px;
+    overflow-y: auto;
+    background-color: var(--surface-elevated);
+    border-radius: var(--radius-card);
+    color: var(--content-primary);
+}
+
+.vida-popup-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+}
+
+.vida-popup-close::before,
+.vida-popup-close::after {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: 3px;
+    width: 16px;
+    height: 2px;
+    background: currentcolor;
+}
+
+.vida-popup-close::before {
+    transform: rotate(45deg);
+}
+
+.vida-popup-close::after {
+    transform: rotate(-45deg);
+}
+
+.vida-popup-title {
+    margin: 0;
+    margin-bottom: 24px;
+    font-size: var(--fs-body-xl);
+    line-height: var(--lh-body-xl);
+    letter-spacing: var(--ls-body-xl);
+    font-weight: var(--fw-medium);
+}
+
+.vida-popup-form,
+.vida-popup-form-otp {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.vida-popup-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: var(--fs-label-md);
+    line-height: var(--lh-label-md);
+    letter-spacing: var(--ls-label-md);
+    font-weight: var(--fw-regular);
+    cursor: pointer;
+}
+
+.vida-popup-consent-checkbox {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    border-radius: var(--radius-input);
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-strong);
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.vida-popup-consent-checkbox:checked {
+    border-color: var(--brand-default);
+    background: url('/icons/checkbox-tick.svg') center no-repeat var(--brand-default);
+}
+
+.vida-popup-consent-text p {
+    margin: 0;
+}
+
+.vida-popup-consent-text a {
+    color: var(--brand-default);
+    text-decoration: underline;
+}
+
+.vida-popup-combo {
+    position: relative;
+}
+
+.vida-popup-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    max-height: 176px;
+    margin: 0;
+    padding: 4px 0;
+    overflow-y: auto;
+    list-style: none;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.vida-popup-option {
+    padding: 12px 16px;
+    font-size: var(--fs-label-md);
+    line-height: var(--lh-label-md);
+    letter-spacing: var(--ls-label-md);
+    cursor: pointer;
+}
+
+.vida-popup-option:hover,
+.vida-popup-option--active {
+    background: var(--brand-muted);
+    color: var(--brand-default);
+}
+
+
+
+.vida-popup-otp-boxes {
+    display: flex;
+    gap: 8px;
+}
+
+.vida-popup-otp-box {
+    flex: 1 1 0;
+    min-width: 0;
+    height: 48px;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: var(--fs-label-xl);
+    line-height: var(--lh-label-xl);
+    letter-spacing: var(--ls-label-xl);
+    color: var(--content-primary);
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-input);
+    outline: none;
+    caret-color: var(--brand-default);
+    transition: border-color 0.2s ease;
+}
+
+.vida-popup-otp-box:focus {
+    border-color: var(--brand-default);
+}
+
+.vida-popup-otp-box[aria-invalid='true'] {
+    border-color: var(--status-error-content);
+}
+
+.vida-popup-otp-error {
+    margin: 0;
+    font-size: var(--fs-label-md);
+    line-height: var(--lh-label-md);
+    letter-spacing: var(--ls-label-md);
+    color: var(--content-secondary);
+}
+
+.vida-popup-otp-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.vida-popup-otp-resend {
+    padding: 0;
+    font-size: var(--fs-label-lg);
+    line-height: var(--lh-label-lg);
+    letter-spacing: var(--ls-label-lg);
+    font-weight: var(--fw-medium);
+    color: var(--content-brand);
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    gap: 16px;
+}
+
+.vida-popup-otp-resend:disabled {
+    color: var(--content-tertiary);
+    text-decoration: none;
+    cursor: default;
+}
+
+.vida-popup-otp-timer {
+    color: var(--content-primary);
+}
+
+.vida-popup-otp-timer:not(:empty) {
+    margin-left: 8px;
+}
+
+.vida-popup-on-success .vida-popup-close {
+    display: none;
+}
+
+.vida-popup-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.vida-popup-success-icon img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.vida-popup-success-text {
+    font-size: var(--fs-label-lg);
+    line-height: var(--lh-label-lg);
+    letter-spacing: var(--ls-label-lg);
+    color: var(--content-primary);
+    font-weight: var(--fw-regular);
+}
+
+@media (width >=1024px) {
+    .vida-popup-card {
+        padding: 32px;
+        margin: auto;
+    }
+
+    .vida-popup-close {
+        top: 32px;
+        right: 32px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .vida-popup-close::before,
+    .vida-popup-close::after {
+        width: 20px;
+    }
+
+    .vida-popup-form-otp {
+        gap: 24px;
+    }
+
+    .vida-popup-title-otp,
+    .vida-popup-title-success {
+        margin: 0;
+        margin-bottom: 40px;
+        font-size: var(--fs-heading-md);
+        line-height: var(--lh-heading-md);
+        letter-spacing: var(--ls-heading-md);
+        font-weight: var(--fw-medium);
+    }
+
+    .vida-popup-otp-box {
+        height: 70px;
+        font-size: var(--fs-heading-md);
+        line-height: var(--lh-heading-md);
+        letter-spacing: var(--ls-heading-md);
+    }
+
+    .vida-popup-otp-actions {
+        margin-bottom: 16px;
+    }
+
+    .vida-popup-otp-resend {
+        font-size: var(--fs-label-xl);
+        line-height: var(--lh-label-xl);
+        letter-spacing: var(--ls-label-xl);
+    }
+
+    .vida-popup-success-icon img {
+        width: 160px;
+        height: 160px;
+    }
+}
