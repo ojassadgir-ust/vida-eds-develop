@@ -1,3 +1,4 @@
+
 {
   "definitions": [
     {
@@ -26,7 +27,7 @@
               "selector": "div:nth-child(1)"
             },
             {
-              "name": "scrollTime",
+              "name": "timespan",
               "selector": "div:nth-child(2)"
             }
           ]
@@ -53,15 +54,15 @@
           "columns": 1,
           "fields": [
             {
-              "name": "desktopMedia",
+              "name": "desktopImage",
               "selector": "div:nth-child(1)"
             },
             {
-              "name": "tabletMedia",
+              "name": "tabletImage",
               "selector": "div:nth-child(2)"
             },
             {
-              "name": "mobileMedia",
+              "name": "mobileImage",
               "selector": "div:nth-child(3)"
             },
             {
@@ -91,9 +92,9 @@
         },
         {
           "component": "number",
-          "name": "scrollTime",
-          "label": "Scroll Time to Next Slide (ms)",
-          "description": "Time before auto-scrolling to next slide. Use 0 to disable auto-scroll.",
+          "name": "timespan",
+          "label": "Autoplay Interval (ms)",
+          "description": "Use 0 to disable autoplay.",
           "value": 5000,
           "valueType": "number",
           "validation": {
@@ -107,24 +108,24 @@
       "fields": [
         {
           "component": "reference",
-          "name": "desktopMedia",
-          "label": "Desktop Media (Image or Video)",
+          "name": "desktopImage",
+          "label": "Desktop Image",
           "valueType": "string",
           "multi": false,
           "required": true
         },
         {
           "component": "reference",
-          "name": "tabletMedia",
-          "label": "Tablet Media (Image or Video)",
+          "name": "tabletImage",
+          "label": "Tablet Image",
           "valueType": "string",
           "multi": false,
           "required": true
         },
         {
           "component": "reference",
-          "name": "mobileMedia",
-          "label": "Mobile Media (Image or Video)",
+          "name": "mobileImage",
+          "label": "Mobile Image",
           "valueType": "string",
           "multi": false,
           "required": true
@@ -157,3 +158,4 @@
     }
   ]
 }
+ 

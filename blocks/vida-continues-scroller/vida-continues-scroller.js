@@ -12,92 +12,48 @@ const CONFIG = {
     controls: 'vida-continues-scroller-controls',
     dot: 'vida-continues-scroller-dot',
     active: 'is-active',
-    mediaContainer: 'vida-continues-scroller-media',
-    videoContainer: 'vida-continues-scroller-video',
   },
   defaults: {
-    scrollTime: 5000,
-    minimumScrollTime: 1000,
+    timespan: 5000,
+    minimumTimespan: 1000,
   },
 };
 
 const getText = (element) => element?.textContent?.trim() || '';
 
-const getMediaFromCell = (cell) => {
-  if (!cell) return { image: null, video: null };
-
-  // Check for video
-  const videoElement = cell.querySelector('video source, video');
-  if (videoElement) {
-    const src = videoElement.getAttribute('src')
-      || videoElement.querySelector('source')?.getAttribute('src');
-    if (src) {
-      return {
-        video: {
-          src,
-          type: videoElement.getAttribute('type') || 'video/mp4',
-        },
-        image: null,
-      };
-    }
-  }
-
-  // Check for image
-  const imgElement = cell.querySelector('img');
-  if (imgElement) {
-    return {
-      image: {
-        src: imgElement.getAttribute('src') || imgElement.getAttribute('data-src') || '',
-        alt: imgElement.getAttribute('alt') || '',
-      },
-      video: null,
-    };
-  }
-
-  // Check for picture element
-  const pictureElement = cell.querySelector('picture');
-  if (pictureElement) {
-    const img = pictureElement.querySelector('img');
-    if (img) {
-      return {
-        image: {
-          src: img.getAttribute('src') || '',
-          alt: img.getAttribute('alt') || '',
-        },
-        video: null,
-      };
-    }
-  }
-
-  return { image: null, video: null };
-};
+const getImages = (cell) => [...(cell?.querySelectorAll('picture img, img') || [])]
+  .map((image) => ({
+    src: image.getAttribute('src') || image.getAttribute('data-src') || '',
+    alt: image.getAttribute('alt') || '',
+  }));
 
 const getSlideData = (slideBlock) => {
   const cells = [...slideBlock.children];
 
-  if (cells.length < 5) return null;
+  const legacyLayout = cells.length >= 5;
+
+  if (cells.length < 3) return null;
 
   const desktopCell = cells[0];
-  const tabletCell = cells[1];
-  const mobileCell = cells[2];
-  const titleCell = cells[3];
-  const subtitleCell = cells[4];
+  const tabletCell = legacyLayout ? cells[1] : null;
+  const mobileCell = legacyLayout ? cells[2] : null;
+  const titleCell = cells[legacyLayout ? 3 : 1];
+  const subtitleCell = cells[legacyLayout ? 4 : 2];
+  const responsiveImages = getImages(desktopCell);
+  const desktop = responsiveImages[0] || null;
+  const tablet = legacyLayout ? getImages(tabletCell)[0] || null : responsiveImages[1] || null;
+  const mobile = legacyLayout ? getImages(mobileCell)[0] || null : responsiveImages[2] || null;
+  let fallback = desktop;
 
-  const desktopMedia = getMediaFromCell(desktopCell);
-  const tabletMedia = getMediaFromCell(tabletCell);
-  const mobileMedia = getMediaFromCell(mobileCell);
+  if (!fallback?.src) fallback = tablet;
+  if (!fallback?.src) fallback = mobile;
 
-  // Determine fallback (prefer video if available)
-  let fallback = desktopMedia.video || desktopMedia.image;
-  if (!fallback) fallback = tabletMedia.video || tabletMedia.image;
-  if (!fallback) fallback = mobileMedia.video || mobileMedia.image;
-
-  if (!fallback) return null;
+  if (!fallback?.src) return null;
 
   return {
-    desktop: desktopMedia,
-    tablet: tabletMedia,
-    mobile: mobileMedia,
+    desktop,
+    tablet,
+    mobile,
     fallback,
     title: getText(titleCell),
     subtitle: getText(subtitleCell),
@@ -105,59 +61,36 @@ const getSlideData = (slideBlock) => {
   };
 };
 
-const createPictureElement = (desktopMedia, tabletMedia, mobileMedia, fallback) => {
-  const container = document.createElement('div');
-  container.className = CONFIG.classes.mediaContainer;
+const createPicture = (data) => {
+  const picture = document.createElement('picture');
 
-  // Create picture for images only
-  if (fallback?.image) {
-    const picture = document.createElement('picture');
-
-    // Add responsive image sources
-    const sources = [
-      { media: '(max-width: 767px)', mediaData: mobileMedia },
-      { media: '(min-width: 768px) and (max-width: 1024px)', mediaData: tabletMedia },
-      { media: '(min-width: 1025px)', mediaData: desktopMedia },
-    ];
-
-    sources.forEach(({ media, mediaData }) => {
-      if (mediaData.image && mediaData.image.src) {
-        const source = document.createElement('source');
-        source.media = media;
-        source.srcset = mediaData.image.src;
-        picture.append(source);
-      }
-    });
-
-    const img = document.createElement('img');
-    img.className = 'vida-continues-scroller-image';
-    img.src = fallback.image.src;
-    img.alt = fallback.image.alt || '';
-    img.loading = 'lazy';
-    img.decoding = 'async';
-
-    picture.append(img);
-    container.append(picture);
-  } else if (fallback?.video) {
-    // Create video element
-    const video = document.createElement('video');
-    video.className = 'vida-continues-scroller-image';
-    video.controls = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.style.width = '100%';
-    video.style.height = '100%';
-    video.style.objectFit = 'cover';
+  [
+    { image: data.mobile, media: '(max-width: 767px)' },
+    {
+      image: data.tablet,
+      media: '(min-width: 768px) and (max-width: 1024px)',
+    },
+  ].forEach(({ image, media }) => {
+    if (!image?.src || image.src === data.fallback.src) return;
 
     const source = document.createElement('source');
-    source.src = fallback.video.src;
-    source.type = fallback.video.type;
-    video.append(source);
+    source.media = media;
+    source.srcset = image.src;
+    picture.append(source);
+  });
 
-    container.append(video);
-  }
+  const image = document.createElement('img');
+  image.className = 'vida-continues-scroller-image';
+  image.src = data.fallback.src;
+  image.alt = data.mobile?.alt
+    || data.tablet?.alt
+    || data.desktop?.alt
+    || '';
+  image.loading = 'lazy';
+  image.decoding = 'async';
 
-  return container;
+  picture.append(image);
+  return picture;
 };
 
 const createSlide = (data, index, total) => {
@@ -167,7 +100,7 @@ const createSlide = (data, index, total) => {
   slide.setAttribute('aria-roledescription', 'slide');
   slide.setAttribute('aria-label', `${index + 1} of ${total}`);
 
-  slide.append(createPictureElement(data.desktop, data.tablet, data.mobile, data.fallback));
+  slide.append(createPicture(data));
 
   const content = document.createElement('div');
   content.className = CONFIG.classes.content;
@@ -192,16 +125,19 @@ const createSlide = (data, index, total) => {
   return slide;
 };
 
-const getScrollTime = (text) => {
-  const value = Number.parseInt(text, 10);
+const getInterval = (block) => {
+  const value = Number.parseInt(block.dataset.timespan, 10);
 
   if (Number.isFinite(value) && value === 0) return 0;
 
-  if (Number.isFinite(value) && value >= CONFIG.defaults.minimumScrollTime) {
+  if (
+    Number.isFinite(value)
+    && value >= CONFIG.defaults.minimumTimespan
+  ) {
     return value;
   }
 
-  return CONFIG.defaults.scrollTime;
+  return CONFIG.defaults.timespan;
 };
 
 export default function decorate(block) {
@@ -211,25 +147,29 @@ export default function decorate(block) {
 
   const children = [...block.children];
 
-  // Detect slides by structure
+  // FIXED: Detect slides by structure (3 or 5 children) instead of class
   const slideBlocks = children.filter((child) => {
     const hasClass = child.classList.contains('vida-continues-scroller-slide');
     const hasBlockName = child.dataset.blockName === 'vida-continues-scroller-slide';
     const hasDataAttr = child.querySelector('[data-slide-title]');
-    const hasSlideStructure = child.children.length >= 3;
+    const hasSlideStructure = child.children.length >= 3; // 3+ children = slide structure
 
     return hasClass || hasBlockName || hasDataAttr || hasSlideStructure;
   });
 
-  // Filter for rows
+  // Filter for rows (heading and timespan)
   const rows = children.filter((child) => (
     child.tagName === 'DIV' && child.children.length === 1
   ));
 
   const headingRow = rows[0];
-  const scrollTimeRow = rows[1];
+  const timespanRow = rows[1];
   const headingText = getText(headingRow);
-  const scrollTime = getScrollTime(getText(scrollTimeRow));
+  const timespan = getInterval({
+    dataset: {
+      timespan: getText(timespanRow),
+    },
+  });
 
   const slideData = slideBlocks
     .map(getSlideData)
@@ -260,13 +200,14 @@ export default function decorate(block) {
 
   slides.forEach((slide) => track.append(slide));
   inner.append(track);
+
   const controls = document.createElement('div');
   controls.className = CONFIG.classes.controls;
   controls.setAttribute('role', 'group');
   controls.setAttribute('aria-label', 'Slide navigation');
 
   let activeIndex = 0;
-  let scrollTimer;
+  let timerId;
 
   const buttons = slides.map((slide, index) => {
     const button = document.createElement('button');
@@ -277,7 +218,9 @@ export default function decorate(block) {
     return button;
   });
 
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches;
 
   const updateControls = () => {
     buttons.forEach((button, index) => {
@@ -287,43 +230,18 @@ export default function decorate(block) {
     });
   };
 
-  const stopScrollTimer = () => {
-    if (scrollTimer) {
-      window.clearTimeout(scrollTimer);
-      scrollTimer = undefined;
-    }
-  };
-
-  const startScrollTimer = () => {
-    stopScrollTimer();
-
-    if (scrollTime === 0 || reducedMotion || slides.length < 2 || document.hidden) {
-      return;
-    }
-
-    scrollTimer = window.setTimeout(() => {
-      activeIndex = (activeIndex + 1) % slides.length;
-      slides[activeIndex].scrollIntoView({
-        behavior: reducedMotion ? 'auto' : 'smooth',
-        block: 'nearest',
-        inline: window.matchMedia('(max-width: 767px)').matches ? 'center' : 'start',
-      });
-      updateControls();
-      startScrollTimer(); // Restart timer for next slide
-    }, scrollTime);
-  };
-
   function goTo(index) {
     activeIndex = (index + slides.length) % slides.length;
 
     slides[activeIndex].scrollIntoView({
       behavior: reducedMotion ? 'auto' : 'smooth',
       block: 'nearest',
-      inline: window.matchMedia('(max-width: 767px)').matches ? 'center' : 'start',
+      inline: window.matchMedia('(max-width: 767px)').matches
+        ? 'center'
+        : 'start',
     });
 
     updateControls();
-    startScrollTimer();
   }
 
   const updateActive = () => {
@@ -345,30 +263,49 @@ export default function decorate(block) {
     updateControls();
   };
 
+  const stopAutoplay = () => {
+    if (timerId) window.clearInterval(timerId);
+    timerId = undefined;
+  };
+
+  function restartAutoplay() {
+    stopAutoplay();
+
+    if (
+      timespan === 0
+      || reducedMotion
+      || slides.length < 2
+      || document.hidden
+    ) {
+      return;
+    }
+
+    timerId = window.setInterval(() => {
+      goTo(activeIndex + 1);
+    }, timespan);
+  }
+
   buttons.forEach((button, index) => {
     button.addEventListener('click', () => {
       goTo(index);
+      restartAutoplay();
     });
   });
 
   inner.append(controls);
   block.replaceChildren(inner);
 
-  track.addEventListener('scroll', () => {
-    updateActive();
-    stopScrollTimer();
-    startScrollTimer();
-  }, { passive: true });
-
-  track.addEventListener('mouseenter', stopScrollTimer);
-  track.addEventListener('mouseleave', startScrollTimer);
-  track.addEventListener('focusin', stopScrollTimer);
-  track.addEventListener('focusout', startScrollTimer);
+  track.addEventListener('scroll', updateActive, { passive: true });
+  track.addEventListener('mouseenter', stopAutoplay);
+  track.addEventListener('mouseleave', restartAutoplay);
+  track.addEventListener('focusin', stopAutoplay);
+  track.addEventListener('focusout', restartAutoplay);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopScrollTimer();
-    else startScrollTimer();
+    if (document.hidden) stopAutoplay();
+    else restartAutoplay();
   });
 
   goTo(0);
+  restartAutoplay();
 }
