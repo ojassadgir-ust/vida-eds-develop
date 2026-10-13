@@ -1,0 +1,174 @@
+{
+  "definitions": [
+    {
+      "title": "Performance Ride Experience",
+      "id": "pdp-performance",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Performance Ride Experience",
+              "filter": "performance-ride-experience",
+              "model": "performance-ride-experience"
+            }
+          }
+        },
+        "da": {
+          "name": "pdp-performance",
+          "rows": 5,
+          "columns": 1,
+          "fields": [
+            {
+              "name": "heading",
+              "selector": "div:nth-child(1)"
+            },
+            {
+              "name": "desktopImage",
+              "selector": "div:nth-child(2)"
+            },
+            {
+              "name": "desktopImageAlt",
+              "selector": "div:nth-child(3)"
+            },
+            {
+              "name": "mobileImage",
+              "selector": "div:nth-child(4)"
+            },
+            {
+              "name": "carouselTimeout",
+              "selector": "div:nth-child(5)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Performance Ride Experience Card",
+      "id": "performance-ride-experience-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Performance Ride Experience Card",
+              "model": "performance-ride-experience-card"
+            }
+          }
+        },
+        "da": {
+          "name": "performance-ride-experience-card",
+          "rows": 1,
+          "columns": 5,
+          "fields": [
+            {
+              "name": "desktopImage",
+              "selector": "div:nth-child(1)"
+            },
+            {
+              "name": "desktopImageAlt",
+              "selector": "div:nth-child(2)"
+            },
+            {
+              "name": "mobileImage",
+              "selector": "div:nth-child(3)"
+            },
+            {
+              "name": "title",
+              "selector": "div:nth-child(4)"
+            },
+            {
+              "name": "subtext",
+              "selector": "div:nth-child(5)"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "performance-ride-experience",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "desktopImage",
+          "label": "Desktop Big Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "desktopImageAlt",
+          "label": "Big Image Alt Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobileImage",
+          "label": "Mobile Big Image",
+          "multi": false
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "carouselTimeout",
+          "label": "Mobile Carousel Auto Scroll Timeout (seconds, 0 = off)"
+        }
+      ]
+    },
+    {
+      "id": "performance-ride-experience-card",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "desktopImage",
+          "label": "Desktop Card Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "desktopImageAlt",
+          "label": "Card Image Alt Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobileImage",
+          "label": "Mobile Card Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Text"
+        },
+        {
+          "component": "textarea",
+          "valueType": "string",
+          "name": "subtext",
+          "label": "Subtext"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "performance-ride-experience",
+      "components": [
+        "performance-ride-experience-card"
+      ]
+    }
+  ]
+}
+ 
