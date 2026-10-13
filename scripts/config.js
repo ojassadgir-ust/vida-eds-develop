@@ -1,7 +1,5 @@
 import { ENV, BASE_URLS, ANALYTICS_URL } from './env.config.js';
 
-
-
 const CONFIG = {
   ENV,
   BASE_URLS,

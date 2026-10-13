@@ -4,7 +4,7 @@
  * from the authored rows.
  */
 
-import { markTracked } from "../../scripts/analytics.js";
+import { markTracked } from '../../scripts/analytics.js';
 
 function getRichText(element) {
   if (!element) {

@@ -1,4 +1,4 @@
-import { markTracked } from "../../scripts/analytics.js";
+import { markTracked } from '../../scripts/analytics.js';
 
 export default function decorate(block) {
   if (window?.origin?.includes('author')) {

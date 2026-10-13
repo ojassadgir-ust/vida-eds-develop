@@ -155,7 +155,6 @@ function loadLaunch() {
   script.src = ANALYTICS_URL[ENV];
   script.async = true;
   document.head.append(script);
-
 }
 
 /**

@@ -5,7 +5,7 @@ const COOKIES = {
   custNum: 'CUS_NUM',
   opportunityId: 'OPPORTUNITY_ID',
   locationData: 'ADOBE_ANALYTICS_LOCATION_DATA',
-}
+};
 const JWT_PATTERN = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/;
 
 export function isLoggedIn() {
@@ -63,5 +63,7 @@ export function getVidaID() {
 export function getVidaLocation() {
   const [city = '', state = '', country = '', pinCode = ''] = clean(getCookie(COOKIES.locationData)).split('|');
 
-  return { pinCode, city, state, country }
+  return {
+    pinCode, city, state, country,
+  };
 }

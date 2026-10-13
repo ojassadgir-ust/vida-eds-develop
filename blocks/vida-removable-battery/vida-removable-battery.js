@@ -1,4 +1,4 @@
-import { markTracked } from "../../scripts/analytics.js";
+import { markTracked } from '../../scripts/analytics.js';
 
 const CONFIG = {
   classes: {

@@ -1,4 +1,4 @@
-import { markTracked } from "./analytics.js";
+import { markTracked } from './analytics.js';
 
 export default function buildButton({
   label = '',

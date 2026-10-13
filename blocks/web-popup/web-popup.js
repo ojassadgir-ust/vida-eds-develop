@@ -597,9 +597,9 @@ function renderOtp(body, dialog, config, state, handlers) {
     trackingParams: {
       event: 'verifyOtpCta',
       formDetails: {
-        formType: 'Lead Popup'
-      }
-    }
+        formType: 'Lead Popup',
+      },
+    },
   });
   submit.classList.add('vida-popup-submit');
   submit.disabled = true;
@@ -859,7 +859,7 @@ export default function decorate(block) {
           if (!result.ok) {
             trackPopop('otpFailure');
             return result;
-          };
+          }
 
           trackPopop('otpSuccess');
           showScreen('success');
