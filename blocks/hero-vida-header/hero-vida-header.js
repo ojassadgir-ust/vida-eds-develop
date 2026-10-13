@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import buildButton from '../../scripts/build-button.js';
 import { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn, logout } from '../../scripts/login-utils.js';
@@ -371,6 +372,7 @@ function buildHeaderActions(actions, labels, icons) {
   testRideLink.href = actions.testRide.link;
   testRideLink.className = 'vida-header-top-link';
   testRideLink.textContent = actions.testRide.label;
+  markTracked(testRideLink);
 
   const buyCtaBtn = buildButton({
     label: actions.cta.label,

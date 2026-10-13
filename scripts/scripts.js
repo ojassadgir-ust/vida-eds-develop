@@ -10,6 +10,8 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { initCtaTracking, isUniversalEditor, trackPageView } from './analytics.js';
+import { ANALYTICS_URL, ENV } from './env.config.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -127,6 +129,7 @@ export function decorateMain(main) {
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  trackPageView();
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
@@ -144,6 +147,15 @@ async function loadEager(doc) {
   } catch (e) {
     // do nothing
   }
+}
+
+function loadLaunch() {
+  if (isUniversalEditor()) return;
+  const script = document.createElement('script');
+  script.src = ANALYTICS_URL[ENV];
+  script.async = true;
+  document.head.append(script);
+
 }
 
 /**
@@ -164,6 +176,8 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/common-components.css`);
   loadFonts();
+  initCtaTracking();
+  loadLaunch();
 }
 
 /**

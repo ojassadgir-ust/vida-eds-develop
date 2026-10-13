@@ -4,6 +4,8 @@
  * from the authored rows.
  */
 
+import { markTracked } from "../../scripts/analytics.js";
+
 function getRichText(element) {
   if (!element) {
     return { text: '', url: '' };
@@ -92,6 +94,7 @@ function createCTA(ctaData) {
     cta.setAttribute('role', 'button');
     cta.setAttribute('tabindex', '0');
   }
+  markTracked(cta);
   return cta;
 }
 

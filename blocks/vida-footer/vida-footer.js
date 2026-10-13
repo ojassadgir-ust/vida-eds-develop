@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn, logout } from '../../scripts/login-utils.js';
 
@@ -460,6 +461,8 @@ function createLink(
     link.addEventListener('click', logout);
   }
 
+  markTracked(link);
+
   return link;
 }
 
@@ -777,6 +780,8 @@ function createBrand() {
   image.decoding = 'async';
 
   link.append(image);
+
+  markTracked(link);
 
   return link;
 }

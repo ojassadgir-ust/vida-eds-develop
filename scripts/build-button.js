@@ -1,3 +1,5 @@
+import { markTracked } from "./analytics.js";
+
 export default function buildButton({
   label = '',
   href,
@@ -6,6 +8,7 @@ export default function buildButton({
   size = 'md',
   disabled = false,
   type,
+  trackingParams = {},
 } = {}) {
   const buttonElement = document.createElement(href && !disabled ? 'a' : 'button');
 
@@ -38,6 +41,7 @@ export default function buildButton({
   span.className = 'button-label';
   span.textContent = label;
   buttonElement.append(span);
+  markTracked(buttonElement, { ...trackingParams });
 
   if (onClick && !disabled) buttonElement.addEventListener('click', onClick);
 

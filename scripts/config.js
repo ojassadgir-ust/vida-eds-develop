@@ -1,4 +1,6 @@
-import { ENV, BASE_URLS } from './env.config.js';
+import { ENV, BASE_URLS, ANALYTICS_URL } from './env.config.js';
+
+
 
 const CONFIG = {
   ENV,
@@ -14,6 +16,7 @@ const CONFIG = {
     sendOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
     verifyOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
   },
+  ANALYTICS_URL,
 };
 
 /**

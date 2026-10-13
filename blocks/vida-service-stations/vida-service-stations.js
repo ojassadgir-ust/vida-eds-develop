@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import { ENV, BASE_URLS } from '../../scripts/env.config.js';
 
 const CONFIG = {
@@ -192,6 +193,7 @@ const createActionLink = (
   const link = createElement('a', className);
   link.href = href || CONFIG.content.emptyCtaHref;
   link.textContent = label;
+  markTracked(link);
   return link;
 };
 

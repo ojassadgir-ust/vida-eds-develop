@@ -1,3 +1,5 @@
+import { markTracked } from "../../scripts/analytics.js";
+
 const CONFIG = {
   classes: {
     block: 'vida-removable-battery',
@@ -275,6 +277,7 @@ const createCta = (cells, ctaIndex) => {
 
   cta.href = ctaLink;
   cta.textContent = ctaText;
+  markTracked(cta);
 
   return cta;
 };
