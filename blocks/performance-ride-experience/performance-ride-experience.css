@@ -14,7 +14,7 @@
 
 /* let the block use its own width instead of the default section clamp */
 main .section > .performance-ride-experience-wrapper {
-  max-width: 1442px;
+  max-width: none;
   margin: 0 auto;
   padding: 0;
 }
@@ -184,12 +184,12 @@ main .section > .performance-ride-experience-wrapper {
 /* ---------- desktop ---------- */
 @media (width >= 900px) {
   .performance-ride-experience {
-    max-width: 1442px;
+    max-width: none;
     padding: 64px;
   }
 
   .performance-ride-experience .performance-ride-experience-heading {
-    max-width: 760px;
+    max-width: 659px;
     margin: 0 auto 66px;
     padding: 0;
     font-size: var(--heading-xl-font-size, 48px);
