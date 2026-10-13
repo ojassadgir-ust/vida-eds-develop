@@ -23,7 +23,7 @@ main .section > .performance-ride-experience-wrapper {
   --pdp-mobile-font-style: normal;
 
   box-sizing: border-box;
-  max-width: 440px;
+  max-width: none;
   margin: 0 auto;
   padding: 48px 0;
   background: var(--surface-primary, #fff);
