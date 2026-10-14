@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import { toWebp } from '../../scripts/scripts.js';
 
 const CONFIG = {
@@ -277,6 +278,7 @@ const createCta = (cells, ctaIndex) => {
 
   cta.href = ctaLink;
   cta.textContent = ctaText;
+  markTracked(cta);
 
   return cta;
 };

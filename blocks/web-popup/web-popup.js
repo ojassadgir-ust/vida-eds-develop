@@ -3,6 +3,7 @@ import buildButton from '../../scripts/build-button.js';
 import showSpinner from '../../scripts/build-spinner.js';
 import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn } from '../../scripts/login-utils.js';
+import { trackPopop } from '../../scripts/analytics.js';
 
 const isLogin = isLoggedIn();
 
@@ -21,6 +22,8 @@ const SEND_FALLBACK = 'Unable to Send OTP. Please try again.';
 const CITY_LOAD_FALLBACK = 'Unable to load cities.';
 const OPT_OUT_FOR_POPUP_KEY = 'optOutForPopup';
 const ENCRYPT_HOSTS = [CONFIG.BASE_URLS.stage, CONFIG.BASE_URLS.prod];
+
+let formStarted = false;
 
 function isOptedOutForPopup() {
   try {
@@ -444,6 +447,12 @@ function renderDetails(body, dialog, config, onSubmit) {
   form.className = 'vida-popup-form';
   form.noValidate = true;
 
+  form.addEventListener('focusin', () => {
+    if (formStarted) return;
+    formStarted = true;
+    trackPopop('popUpFormStart', { once: true });
+  });
+
   const fields = buildFields(config);
   const consent = buildConsentCheckbox(config.consent);
 
@@ -522,6 +531,7 @@ function renderDetails(body, dialog, config, onSubmit) {
       mobile.setError(result.message);
     }
     updateSubmit();
+    trackPopop('popUpFormSuccess');
   });
 
   form.append(
@@ -581,7 +591,16 @@ function renderOtp(body, dialog, config, state, handlers) {
   resend.append(resendText, timerText);
   actions.append(resend);
 
-  const submit = buildButton({ label: config.otpSubmitLabel || 'Submit', type: 'submit' });
+  const submit = buildButton({
+    label: config.otpSubmitLabel || 'Submit',
+    type: 'submit',
+    trackingParams: {
+      event: 'verifyOtpCta',
+      formDetails: {
+        formType: 'Lead Popup',
+      },
+    },
+  });
   submit.classList.add('vida-popup-submit');
   submit.disabled = true;
 
@@ -837,8 +856,12 @@ export default function decorate(block) {
           if (gen !== generation) {
             return { ok: true };
           }
-          if (!result.ok) return result;
+          if (!result.ok) {
+            trackPopop('otpFailure');
+            return result;
+          }
 
+          trackPopop('otpSuccess');
           showScreen('success');
 
           return { ok: true };
@@ -898,5 +921,6 @@ export default function decorate(block) {
     if (document.querySelector('dialog[open]')) return;
 
     openPopup(dialog);
+    trackPopop('popUpShown');
   }, delay * 1000);
 }

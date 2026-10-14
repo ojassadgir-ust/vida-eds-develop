@@ -1,3 +1,5 @@
+import { markTracked } from '../../scripts/analytics.js';
+
 export default function decorate(block) {
   if (window?.origin?.includes('author')) {
     return;
@@ -54,6 +56,7 @@ export default function decorate(block) {
         buttonLink.className = 'app-promo-button';
         buttonLink.href = '#';
         buttonLink.textContent = text;
+        markTracked(buttonLink);
         ctaWrapper.replaceChildren(buttonLink);
       }
     }

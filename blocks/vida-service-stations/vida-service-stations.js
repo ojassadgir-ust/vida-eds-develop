@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import { ENV, BASE_URLS } from '../../scripts/env.config.js';
 import { toWebp } from '../../scripts/scripts.js';
 
@@ -193,6 +194,7 @@ const createActionLink = (
   const link = createElement('a', className);
   link.href = href || CONFIG.content.emptyCtaHref;
   link.textContent = label;
+  markTracked(link);
   return link;
 };
 

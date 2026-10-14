@@ -4,6 +4,7 @@
  * from the authored rows.
  */
 
+import { markTracked } from '../../scripts/analytics.js';
 import { toWebp } from '../../scripts/scripts.js';
 
 function getRichText(element) {
@@ -94,6 +95,7 @@ function createCTA(ctaData) {
     cta.setAttribute('role', 'button');
     cta.setAttribute('tabindex', '0');
   }
+  markTracked(cta);
   return cta;
 }
 

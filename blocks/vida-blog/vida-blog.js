@@ -1,3 +1,4 @@
+import { markTracked } from '../../scripts/analytics.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 const CONFIG = {
@@ -262,7 +263,7 @@ function createCta(href, label) {
 
   link.href = href;
   link.textContent = label;
-
+  markTracked(link);
   cta.append(link);
 
   return cta;
