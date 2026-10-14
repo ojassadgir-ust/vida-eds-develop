@@ -15,8 +15,7 @@
       "hero",
       "cards",
       "columns",
-      "fragment",
-      "pdp-performance"
+      "fragment"
     ]
   },
   {
@@ -38,12 +37,6 @@
       "image",
       "button",
       "title"
-    ]
-  },
-  {
-    "id": "pdp-removable-batteries",
-    "components": [
-      "pdp-removable-batteries-card"
     ]
   }
 ]
