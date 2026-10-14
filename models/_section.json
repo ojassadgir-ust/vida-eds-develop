@@ -50,7 +50,18 @@
         "hero",
         "cards",
         "columns",
-        "fragment"
+        "fragment",
+        "hero-vida-header",
+        "vida-footer",
+        "banner-carousel",
+        "app-promo",
+        "text-banner",
+        "vida-service-stations",
+        "vida-removable-battery",
+        "dirte-k3-banner",
+        "variant-selector",
+        "web-popup",
+        "vida-blog"
       ]
     }
   ]

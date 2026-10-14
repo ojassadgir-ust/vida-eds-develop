@@ -142,6 +142,96 @@
     ]
   },
   {
+    "id": "app-promo",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "app-promo-content",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "banner-carousel",
+    "fields": [
+      {
+        "component": "number",
+        "valueType": "number",
+        "name": "auto-scroll-timing",
+        "label": "Auto Scroll Timing (seconds)",
+        "value": 7
+      }
+    ]
+  },
+  {
+    "id": "banner-carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Feature Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta-link",
+        "label": "Banner Link",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -180,12 +270,107 @@
     ]
   },
   {
+    "id": "dirte-k3-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Feature Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Feature Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "dirte-k3-content",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "logo",
+        "label": "DIRTE K3 Logo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "subheading",
+        "label": "Subheading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "dirte-k3-specification",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Specification Label",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Specification Value",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "fragment",
     "fields": [
       {
         "component": "aem-content",
         "name": "reference",
         "label": "Reference"
+      }
+    ]
+  },
+  {
+    "id": "hero-vida-header",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-header-api-endpoint",
+        "label": "Vida Header API Endpoint"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-country-selector-api-endpoint",
+        "label": "Vida Country Selector API Endpoint"
       }
     ]
   },
@@ -212,6 +397,508 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "text-banner",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "banner-text",
+        "label": "Banner Text"
+      }
+    ]
+  },
+  {
+    "id": "variant-selector",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tagline",
+        "label": "Tagline"
+      }
+    ]
+  },
+  {
+    "id": "variant-selector-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "desktopImageAlt",
+        "label": "Image Alt Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta",
+        "label": "CTA link (model page)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      }
+    ]
+  },
+  {
+    "id": "vida-blog",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Heading",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text-area",
+        "name": "description",
+        "label": "Description",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "aem-content",
+        "name": "CTA_blogCTA",
+        "label": "CTA Link",
+        "value": "",
+        "valueType": "string",
+        "description": "CTA button link URL (Row 2) or CTA button text (Row 3)"
+      },
+      {
+        "component": "text",
+        "name": "CTA_Label",
+        "label": "CTA Label",
+        "value": "",
+        "valueType": "string",
+        "description": "CTA button display text (Row 3) or CTA link URL (Row 4)"
+      },
+      {
+        "component": "number",
+        "name": "carouselPlayTime",
+        "label": "Carousel Play Time (ms)",
+        "description": "Mobile carousel auto-scroll interval in milliseconds. Leave empty or use 0 to disable auto-scroll.",
+        "value": 0,
+        "valueType": "number",
+        "validation": {
+          "numberMin": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "vida-blog-card",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "images_desktop",
+        "label": "Desktop Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "images_tablet",
+        "label": "Tablet Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "reference",
+        "name": "images_mobile",
+        "label": "Mobile Image",
+        "valueType": "string",
+        "multi": false,
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "kicker",
+        "label": "Kicker",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "date",
+        "label": "Date",
+        "value": "",
+        "valueType": "string",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "vida-footer",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "vida-footer-api-endpoint",
+        "label": "Vida Footer API Endpoint"
+      }
+    ]
+  },
+  {
+    "id": "vida-removable-battery",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Background Image - Desktop",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Background Image - Mobile",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tabletImage",
+        "label": "Background Image - Tablet",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_heading",
+        "label": "Heading"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "content_subheading",
+        "label": "Subheading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "content_richtext",
+        "label": "Description Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "cta_ctaText",
+        "label": "CTA"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "cta_cta",
+        "label": "CTA Link"
+      }
+    ]
+  },
+  {
+    "id": "vida-service-stations",
+    "fields": [
+      {
+        "component": "container",
+        "name": "images",
+        "label": "Images",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "desktopImage",
+            "label": "Image for desktop",
+            "multi": false
+          },
+          {
+            "component": "reference",
+            "valueType": "string",
+            "name": "mobileImage",
+            "label": "Image for mobile",
+            "multi": false
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "content",
+        "label": "Content",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "heading",
+            "label": "Heading text"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "subheading",
+            "label": "Subheading text"
+          },
+          {
+            "component": "richtext",
+            "valueType": "string",
+            "name": "richText",
+            "label": "Description text"
+          }
+        ]
+      },
+      {
+        "component": "container",
+        "name": "links",
+        "label": "Links",
+        "valueType": "string",
+        "fields": [
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "ctaLabel",
+            "label": "CTA label"
+          },
+          {
+            "component": "aem-content",
+            "valueType": "string",
+            "name": "ctaLink",
+            "label": "CTA link"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalLabel",
+            "label": "External link label"
+          },
+          {
+            "component": "text",
+            "valueType": "string",
+            "name": "externalUrl",
+            "label": "External link URL"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "web-popup",
+    "fields": [
+      {
+        "component": "tab",
+        "name": "details",
+        "label": "1. Details Form"
+      },
+      {
+        "component": "text",
+        "name": "formHeading",
+        "label": "heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "nameLabel",
+        "label": "Name label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "namePlaceholder",
+        "label": "Name placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "nameError",
+        "label": "Name error",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cityLabel",
+        "label": "City label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "cityPlaceholder",
+        "label": "City placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileLabel",
+        "label": "Mobile number label",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobilePlaceholder",
+        "label": "Mobile number placeholder",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "mobileError",
+        "label": "Mobile number error",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "consent",
+        "label": "Consent Text"
+      },
+      {
+        "component": "text",
+        "name": "submitLabel",
+        "label": "Submit Btn Label",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "apiAndConfigs",
+        "label": "2. API and Configs"
+      },
+      {
+        "component": "text",
+        "name": "citiesApiUrl",
+        "label": "Cities API URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "sendOtpApi",
+        "label": "Send OTP API URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "verifyOtpApi",
+        "label": "Verify OTP API URL",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "rsaPublicKey",
+        "label": "RSA Public Key",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "popupDelaySeconds",
+        "label": "Web Popup Timer",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "countryCode",
+        "label": "Country Code (Phone)",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "otp",
+        "label": "3. Submit OTP"
+      },
+      {
+        "component": "text",
+        "name": "otpHeading",
+        "label": "heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "resendLabel",
+        "label": "Resend OTP Label",
+        "valueType": "string"
+      },
+      {
+        "component": "number",
+        "name": "resendTimer",
+        "label": "Resend Timer (sec)",
+        "valueType": "number"
+      },
+      {
+        "component": "text",
+        "name": "otpError",
+        "label": "Invalid OTP error",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "otpSubmitLabel",
+        "label": "Otp Submit Btn Label",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "name": "success",
+        "label": "4. Success"
+      },
+      {
+        "component": "reference",
+        "name": "successImage",
+        "label": "Success Image"
+      },
+      {
+        "component": "text",
+        "name": "successHeading",
+        "label": "Success Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "successDescription",
+        "label": "Success Description",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "successBtnLabel",
+        "label": "Button Label"
       }
     ]
   }
