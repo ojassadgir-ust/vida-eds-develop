@@ -51,7 +51,9 @@ function buildPicture(desktopCell, mobileCell, alt, eager) {
   const mobileSizes = 'min(100vw, 440px)';
 
   const picture = document.createElement('picture');
-  const addSource = ({ media, sizes, srcset, type }) => {
+  const addSource = ({
+    media, sizes, srcset, type,
+  }) => {
     const source = document.createElement('source');
     if (type) source.type = type;
     if (media) source.media = media;
@@ -65,7 +67,9 @@ function buildPicture(desktopCell, mobileCell, alt, eager) {
       media: DESKTOP_MQ, sizes: desktopSizes, type: 'image/webp', srcset: toSrcset(desktop.base, desktopWidths, 'webply'),
     });
     addSource({
-      media: DESKTOP_MQ, sizes: desktopSizes, srcset: toSrcset(desktop.base, desktopWidths, desktop.ext),
+      media: DESKTOP_MQ,
+      sizes: desktopSizes,
+      srcset: toSrcset(desktop.base, desktopWidths, desktop.ext),
     });
   } else {
     addSource({ media: DESKTOP_MQ, srcset: desktop.raw });
@@ -111,8 +115,10 @@ function buildIcon(cell) {
 
 /*
 * Parent rows (1 cell each)
-*   DA   (7): mobileImage | desktopImage | desktopImageAlt | heading | subheading | ctaLabel | ctaLink
-*   xwalk(6): mobileImage | desktopImage | heading | subheading | ctaLabel | ctaLink   (alt collapses into the image)
+*   DA   (7): mobileImage | desktopImage | desktopImageAlt | heading | subheading |
+*             ctaLabel | ctaLink
+*   xwalk(6): mobileImage | desktopImage | heading | subheading | ctaLabel | ctaLink
+*             (alt collapses into the image)
 * Card rows (3 cells): title | description | icon
 */
 export default function decorate(block) {
@@ -162,7 +168,12 @@ export default function decorate(block) {
   if (sub.textContent) inner.append(sub);
 
   /* image (mobile: in flow under the text, desktop: pinned to the right) */
-  const built = buildPicture(cellOf(desktopRow), cellOf(mobileRow), getText(cellOf(altRow)), isFirstSection);
+  const built = buildPicture(
+    cellOf(desktopRow),
+    cellOf(mobileRow),
+    getText(cellOf(altRow)),
+    isFirstSection,
+  );
   if (built) {
     const media = document.createElement('div');
     media.className = 'pdp-removable-batteries-media';

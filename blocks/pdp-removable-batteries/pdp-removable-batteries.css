@@ -162,7 +162,7 @@ main .section > .pdp-removable-batteries-wrapper {
 }
 
 /* ---------- desktop ---------- */
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .pdp-removable-batteries .pdp-removable-batteries-inner {
     position: relative;
     max-width: 1440px;
