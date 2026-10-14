@@ -5,6 +5,7 @@
  */
 
 import { markTracked } from '../../scripts/analytics.js';
+import { toWebp } from '../../scripts/scripts.js';
 
 function getRichText(element) {
   if (!element) {
@@ -105,6 +106,8 @@ const MEDIA_VARIANTS = [
   { size: 'mobile', label: 'Mobile View' },
 ];
 
+const MEDIA_WIDTHS = { desktop: 2000, tablet: 1024, mobile: 750 };
+
 function createMedia(desktopImage, tabletImage, mobileImage) {
   const imagesBySize = { desktop: desktopImage, tablet: tabletImage, mobile: mobileImage };
   const media = document.createElement('div');
@@ -116,7 +119,8 @@ function createMedia(desktopImage, tabletImage, mobileImage) {
 
     const img = document.createElement('img');
     img.className = `dirte-k3-${size}-image`;
-    img.src = imagesBySize[size]?.querySelector('img')?.src || '';
+    img.loading = 'lazy';
+    img.src = toWebp(imagesBySize[size]?.querySelector('img')?.src || '', MEDIA_WIDTHS[size]);
     img.alt = `DIRTE K3 Electric Dirt Bike - ${label}`;
 
     picture.appendChild(img);

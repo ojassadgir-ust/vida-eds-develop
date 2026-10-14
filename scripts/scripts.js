@@ -124,6 +124,14 @@ export function decorateMain(main) {
   decorateButtons(main);
 }
 
+export function toWebp(src, width) {
+  const url = new URL(src, window.location.href);
+  if (!url.pathname.includes('/media_')) return src;
+  url.searchParams.set('format', 'webply');
+  url.searchParams.set('width', width);
+  return url.href;
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -135,6 +143,7 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    loadHeader(doc.querySelector('header'));
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -162,8 +171,6 @@ function loadLaunch() {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
-
   const main = doc.querySelector('main');
   await loadSections(main);
 

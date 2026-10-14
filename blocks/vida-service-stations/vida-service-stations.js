@@ -1,5 +1,6 @@
 import { markTracked } from '../../scripts/analytics.js';
 import { ENV, BASE_URLS } from '../../scripts/env.config.js';
+import { toWebp } from '../../scripts/scripts.js';
 
 const CONFIG = {
   groups: {
@@ -256,11 +257,12 @@ const createMedia = (imageFields) => {
   if (mobileImage && desktopImage) {
     const source = document.createElement('source');
     source.media = CONFIG.content.mobileImageMedia;
-    source.srcset = mobileImage.currentSrc || mobileImage.src;
+    source.srcset = toWebp(mobileImage.src, 750);
     picture.append(source);
   }
 
   const image = (desktopImage || mobileImage).cloneNode(true);
+  image.src = toWebp(image.src, desktopImage ? 2000 : 750);
   image.className = CONFIG.classes.image;
   image.alt = image.alt || CONFIG.content.imageAlt;
   picture.append(image);
