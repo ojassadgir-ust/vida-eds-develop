@@ -417,7 +417,7 @@
       },
       {
         "component": "text",
-        "name": "badgeText",
+        "name": "badgeLabel",
         "label": "Badge Text",
         "valueType": "string"
       },
