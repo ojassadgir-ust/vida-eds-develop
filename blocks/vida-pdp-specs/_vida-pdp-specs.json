@@ -1,0 +1,91 @@
+{"definitions": [
+    {
+      "title": "VIDA PDP Specs",
+      "id": "vida-pdp-specs",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "VIDA PDP Specs",
+              "model": "vida-pdp-specs",
+              "filter": "vida-pdp-specs"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "vida-pdp-specs",
+      "fields": [
+        {
+          "component": "text",
+          "name": "mainTitle",
+          "label": "Main page title",
+          "valueType": "string",
+          "required": true
+        },
+        {
+          "component": "array",
+          "name": "variants",
+          "label": "Models / variants (click + to add a model)",
+          "valueType": "object",
+          "itemLabel": "Model variant",
+          "fields": [
+            { "component": "text", "name": "modelName", "label": "Model name", "valueType": "string", "required": true },
+            { "component": "text", "name": "modelTag", "label": "Model tag (e.g. NEW)", "valueType": "string" },
+            { "component": "text", "name": "modelTitle", "label": "Price section title (supports city token {city})", "valueType": "string" },
+            { "component": "text", "name": "cityApiUrl", "label": "City API URL", "valueType": "string", "default": "https://www.vidaworld.com/content/dam/vida/config/city-master.json" },
+            { "component": "text", "name": "priceApiUrlTemplate", "label": "Price API URL template (use {city})", "valueType": "string", "default": "https://www.vidaworld.com/content/vida/in/en/vx2-go-electric-scooter/jcr:content.detailed-Product-Price.{city}.a1WTZ000000PK1x2AG.a24TZ000008Lod7YAC.json" },
+            { "component": "text", "name": "modelSubtitle", "label": "Price section subtitle", "valueType": "string" },
+            { "component": "text", "name": "dealershipLinkName", "label": "Dealership link label", "valueType": "string", "default": "View Dealerships" },
+            { "component": "text", "name": "dealershipLink", "label": "Dealership link URL", "valueType": "string", "default": "#" },
+            { "component": "text", "name": "defaultCity", "label": "Default city", "valueType": "string", "default": "Delhi" },
+            { "component": "text", "name": "priceExShowroomText", "label": "Price breakdown label: Ex. Showroom", "valueType": "string", "default": "Ex. Showroom" },
+            { "component": "text", "name": "pricePmEDriveText", "label": "Price breakdown label: PM E-Drive Subsidy", "valueType": "string", "default": "PM E-Drive Subsidy" },
+            { "component": "text", "name": "priceStateSubsidyText", "label": "Price breakdown label: State Subsidy", "valueType": "string", "default": "State Subsidy" },
+            { "component": "text", "name": "priceDiscountText", "label": "Price breakdown label: Current Discounts", "valueType": "string", "default": "Current Discounts" },
+            { "component": "text", "name": "priceEffectiveText", "label": "Price breakdown label: Effective Price", "valueType": "string", "default": "Effective Price" },
+            { "component": "richtext", "name": "priceNotes", "label": "Price notes", "valueType": "string" },
+            {
+              "component": "array",
+              "name": "colors",
+              "label": "Model colors (click + to add a color and its images)",
+              "valueType": "object",
+              "itemLabel": "Color option",
+              "fields": [
+                { "component": "text", "name": "colorName", "label": "Color name", "valueType": "string", "required": true },
+                { "component": "text", "name": "colorHex", "label": "Color swatch hex value", "valueType": "string", "required": true },
+                { "component": "reference", "name": "desktopImage", "label": "Desktop model image", "valueType": "string" },
+                { "component": "reference", "name": "tabletImage", "label": "Tablet model image", "valueType": "string" },
+                { "component": "reference", "name": "mobileImage", "label": "Mobile model image", "valueType": "string" }
+              ]
+            },
+            {
+              "component": "array",
+              "name": "specifications",
+              "label": "Specifications (click + to add a specification)",
+              "valueType": "object",
+              "itemLabel": "Specification",
+              "fields": [
+                { "component": "reference", "name": "specImage", "label": "Specification icon/image", "valueType": "string" },
+                { "component": "text", "name": "specTitle", "label": "Specification title", "valueType": "string", "required": true },
+                { "component": "text", "name": "specSubtitle", "label": "Specification value", "valueType": "string", "required": true }
+              ]
+            },
+            { "component": "text", "name": "viewSpecificationsLabel", "label": "View specifications link label", "valueType": "string", "default": "View all Specifications" },
+            { "component": "text", "name": "viewSpecificationsLink", "label": "View specifications link URL", "valueType": "string", "default": "#" }
+          ]
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "vida-pdp-specs",
+      "components": ["vida-pdp-specs"]
+    }
+  ]
+}

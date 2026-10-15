@@ -26,7 +26,8 @@
       "dirte-k3-banner",
       "variant-selector",
       "web-popup",
-      "vida-blog"
+      "vida-blog",
+      "vida-pdp-specs"
     ]
   },
   {
@@ -79,6 +80,12 @@
     "id": "vida-blog-cards",
     "components": [
       "vida-blog-card"
+    ]
+  },
+  {
+    "id": "vida-pdp-specs",
+    "components": [
+      "vida-pdp-specs"
     ]
   }
 ]
