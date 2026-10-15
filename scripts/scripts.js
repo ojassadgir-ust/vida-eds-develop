@@ -10,6 +10,8 @@ import {
   loadSections,
   loadCSS,
 } from './aem.js';
+import { initCtaTracking, isUniversalEditor, trackPageView } from './analytics.js';
+import { ANALYTICS_URL, ENV } from './env.config.js';
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -122,16 +124,26 @@ export function decorateMain(main) {
   decorateButtons(main);
 }
 
+export function toWebp(src, width) {
+  const url = new URL(src, window.location.href);
+  if (!url.pathname.includes('/media_')) return src;
+  url.searchParams.set('format', 'webply');
+  url.searchParams.set('width', width);
+  return url.href;
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  trackPageView();
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
+    loadHeader(doc.querySelector('header'));
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
   }
@@ -146,13 +158,19 @@ async function loadEager(doc) {
   }
 }
 
+function loadLaunch() {
+  if (isUniversalEditor()) return;
+  const script = document.createElement('script');
+  script.src = ANALYTICS_URL[ENV];
+  script.async = true;
+  document.head.append(script);
+}
+
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
-
   const main = doc.querySelector('main');
   await loadSections(main);
 
@@ -162,8 +180,10 @@ async function loadLazy(doc) {
 
   loadFooter(doc.querySelector('footer'));
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
+  loadCSS(`${window.hlx.codeBasePath}/styles/common-components.css`);
   loadFonts();
+  initCtaTracking();
+  loadLaunch();
 }
 
 /**
