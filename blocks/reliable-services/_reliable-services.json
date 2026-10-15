@@ -50,13 +50,13 @@
                 },
                 {
                     "component": "text",
-                    "name": "badgeAlt",
+                    "name": "badgeText",
                     "label": "Badge Text",
                     "valueType": "string"
                 },
                 {
                     "component": "text",
-                    "name": "badgeText",
+                    "name": "badgeAlt",
                     "label": "Badge Alt",
                     "valueType": "string"
                 },
