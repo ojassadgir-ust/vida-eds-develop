@@ -27,9 +27,6 @@ function describeImage(img) {
     base: sameOrigin ? url.pathname : `${url.origin}${url.pathname}`,
     ext,
     optimizable,
-    ratio: img.getAttribute('width') && img.getAttribute('height')
-      ? `${img.getAttribute('width')} / ${img.getAttribute('height')}`
-      : '',
   };
 }
 
@@ -95,7 +92,7 @@ function buildPicture(desktopCell, mobileCell, alt, eager) {
 
   if (desktopImg) moveInstrumentation(desktopImg, img);
   picture.append(img);
-  return { picture, mobileRatio: mobile.ratio };
+  return picture;
 }
 
 function buildIcon(cell) {
@@ -168,17 +165,16 @@ export default function decorate(block) {
   if (sub.textContent) inner.append(sub);
 
   /* image (mobile: in flow under the text, desktop: pinned to the right) */
-  const built = buildPicture(
+  const picture = buildPicture(
     cellOf(desktopRow),
     cellOf(mobileRow),
     getText(cellOf(altRow)),
     isFirstSection,
   );
-  if (built) {
+  if (picture) {
     const media = document.createElement('div');
     media.className = 'pdp-removable-batteries-media';
-    if (built.mobileRatio) media.style.setProperty('--pdp-rb-mobile-ratio', built.mobileRatio);
-    media.append(built.picture);
+    media.append(picture);
     inner.append(media);
   }
 
