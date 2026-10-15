@@ -19,6 +19,7 @@ module.exports = {
     'linebreak-style': ['error', 'unix'], // enforce unix linebreaks
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
     'xwalk/max-cells': ['error', {
+    'xwalk/max-cells': ['error', { '*': 4, 'pdp-removable-batteries': 7 }], 
       '*': 4,
       'vida-service-stations': 9,
       'vida-removable-battery': 5,
