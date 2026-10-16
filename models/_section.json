@@ -50,9 +50,7 @@
         "hero",
         "cards",
         "columns",
-        "fragment",
-        "performance-ride-experience-card"
-      ]
+        "fragment"      ]
     }
   ]
 }
