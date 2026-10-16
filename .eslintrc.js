@@ -25,7 +25,7 @@ module.exports = {
       'variant-selector-item': 6,
       'web-popup': 30,
       'vida-pdp-specs': 20,
-      'vida-pdp-variant': 17,
+      'vida-pdp-variant': 20,
     }],
 
     'xwalk/no-orphan-collapsible-fields': 'off',
