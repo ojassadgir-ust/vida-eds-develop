@@ -82,6 +82,12 @@
           "name": "subheading",
           "label": "Subheading",
           "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "variant",
+          "label": "Variant"
         }
       ]
     }

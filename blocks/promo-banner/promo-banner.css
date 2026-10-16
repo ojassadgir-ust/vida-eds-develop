@@ -41,10 +41,6 @@
   display: none;
 }
 
-.promo-banner-heading-line {
-  display: block;
-}
-
 .promo-banner-text {
   position: absolute;
   top: 19.619%;
@@ -66,7 +62,7 @@
   color: var(--content-inverse, #fff);
   font-family: var(--ff-primary);
   font-weight: 375;
-  font-size: 9.8cqw;
+  font-size: 10.909cqw;
   line-height: 1;
   letter-spacing: 0.016cqw;
   text-align: center;
@@ -75,7 +71,7 @@
 
 .promo-banner-heading strong {
   font-weight: 700;
-  color: var(--color-warm-500, #FFBC10);
+  color: var(--color-warm-500, #ffbc10);
 }
 
 .promo-banner-heading em,
@@ -154,10 +150,6 @@
     display: none;
   }
 
-  .promo-banner-mobile-picture {
-    display: none;
-  }
-
   .promo-banner-desktop-picture {
     display: block;
   }
@@ -186,6 +178,5 @@
     font-size: 1.944cqw;
     line-height: 2.639cqw;
     letter-spacing: 0.104cqw;
-    text-align: left;
   }
 }
