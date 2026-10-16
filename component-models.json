@@ -611,6 +611,12 @@
       },
       {
         "component": "text",
+        "name": "skuId",
+        "label": "SKU ID",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
         "name": "priceHeading",
         "label": "Price Heading",
         "valueType": "string"
@@ -670,6 +676,18 @@
         "valueType": "string"
       },
       {
+        "component": "text",
+        "name": "stateApiUrl",
+        "label": "State API URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "priceApiUrl",
+        "label": "Price API URL",
+        "valueType": "string"
+      },
+      {
         "component": "multifield",
         "name": "colors",
         "label": "Colors",
@@ -688,19 +706,13 @@
       {
         "component": "text",
         "name": "specAllLinkTitle",
-        "label": "All Specification Link Title",
+        "label": "All Specifications Link Title",
         "valueType": "string"
       },
       {
         "component": "text",
         "name": "specAllLinkName",
-        "label": "All Specification Link Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "skuId",
-        "label": "SKU ID",
+        "label": "All Specifications Link Name",
         "valueType": "string"
       }
     ]

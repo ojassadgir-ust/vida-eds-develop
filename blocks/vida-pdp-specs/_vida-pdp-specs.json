@@ -17,14 +17,14 @@
       }
     },
     {
-      "title": "PDP Variant",
+      "title": "PDP Product Variant",
       "id": "vida-pdp-variant",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "PDP Variant",
+              "name": "PDP Product Variant",
               "model": "vida-pdp-variant"
             }
           }
@@ -47,14 +47,14 @@
       }
     },
     {
-      "title": "PDP Spec",
+      "title": "PDP Specification",
       "id": "vida-pdp-spec",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "PDP Spec",
+              "name": "PDP Specification",
               "model": "vida-pdp-spec"
             }
           }
@@ -66,12 +66,7 @@
     {
       "id": "vida-pdp-specs",
       "fields": [
-        {
-          "component": "text",
-          "name": "pageTitle",
-          "label": "Page Title",
-          "valueType": "string"
-        }
+        { "component": "text", "name": "pageTitle", "label": "Page Title", "valueType": "string" }
       ]
     },
     {
@@ -79,6 +74,8 @@
       "fields": [
         { "component": "text", "name": "title", "label": "Title", "valueType": "string" },
         { "component": "text", "name": "tag", "label": "Tag", "valueType": "string" },
+        { "component": "text", "name": "skuId", "label": "SKU ID", "valueType": "string" },
+
         { "component": "text", "name": "priceHeading", "label": "Price Heading", "valueType": "string" },
         { "component": "text", "name": "priceSubheading", "label": "Price Subheading", "valueType": "string" },
         { "component": "text", "name": "priceLinkName", "label": "Price Link Name", "valueType": "string" },
@@ -89,6 +86,10 @@
         { "component": "text", "name": "currentDiscountTitle", "label": "Current Discount Title", "valueType": "string" },
         { "component": "text", "name": "effectivePriceTitle", "label": "Effective Price Title", "valueType": "string" },
         { "component": "richtext", "name": "priceNote", "label": "Price Note", "valueType": "string" },
+
+        { "component": "text", "name": "stateApiUrl", "label": "State API URL", "valueType": "string" },
+        { "component": "text", "name": "priceApiUrl", "label": "Price API URL", "valueType": "string" },
+
         {
           "component": "multifield",
           "name": "colors",
@@ -101,9 +102,9 @@
           "label": "Specifications",
           "fields": ["vida-pdp-spec"]
         },
-        { "component": "text", "name": "specAllLinkTitle", "label": "All Specification Link Title", "valueType": "string" },
-        { "component": "text", "name": "specAllLinkName", "label": "All Specification Link Name", "valueType": "string" },
-        { "component": "text", "name": "skuId", "label": "SKU ID", "valueType": "string" }
+
+        { "component": "text", "name": "specAllLinkTitle", "label": "All Specifications Link Title", "valueType": "string" },
+        { "component": "text", "name": "specAllLinkName", "label": "All Specifications Link Name", "valueType": "string" }
       ]
     },
     {

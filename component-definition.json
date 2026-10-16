@@ -450,14 +450,14 @@
           }
         },
         {
-          "title": "PDP Variant",
+          "title": "PDP Product Variant",
           "id": "vida-pdp-variant",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "PDP Variant",
+                  "name": "PDP Product Variant",
                   "model": "vida-pdp-variant"
                 }
               }
@@ -480,14 +480,14 @@
           }
         },
         {
-          "title": "PDP Spec",
+          "title": "PDP Specification",
           "id": "vida-pdp-spec",
           "plugins": {
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
-                  "name": "PDP Spec",
+                  "name": "PDP Specification",
                   "model": "vida-pdp-spec"
                 }
               }
