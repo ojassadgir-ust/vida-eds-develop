@@ -443,7 +443,52 @@
                 "template": {
                   "name": "VIDA PDP Specs",
                   "model": "vida-pdp-specs",
-                  "filter": "vida-pdp-specs"
+                  "filter": "vida-pdp-specs-filter"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PDP Variant",
+          "id": "vida-pdp-variant",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "PDP Variant",
+                  "model": "vida-pdp-variant"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PDP Color",
+          "id": "vida-pdp-color",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "PDP Color",
+                  "model": "vida-pdp-color"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "PDP Spec",
+          "id": "vida-pdp-spec",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "PDP Spec",
+                  "model": "vida-pdp-spec"
                 }
               }
             }

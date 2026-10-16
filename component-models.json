@@ -588,204 +588,168 @@
     "fields": [
       {
         "component": "text",
-        "name": "mainTitle",
-        "label": "Main page title",
-        "valueType": "string",
-        "required": true
+        "name": "pageTitle",
+        "label": "Page Title",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "vida-pdp-variant",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "label": "Title",
+        "valueType": "string"
       },
       {
-        "component": "array",
-        "name": "variants",
-        "label": "Models / variants (click + to add a model)",
-        "valueType": "object",
-        "itemLabel": "Model variant",
+        "component": "text",
+        "name": "tag",
+        "label": "Tag",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "priceHeading",
+        "label": "Price Heading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "priceSubheading",
+        "label": "Price Subheading",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "priceLinkName",
+        "label": "Price Link Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "priceLinkUrl",
+        "label": "Price Link URL",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "exShowroomTitle",
+        "label": "Ex-Showroom Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "pmEDriveSubsidyTitle",
+        "label": "PM E-Drive Subsidy Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "stateSubsidyTitle",
+        "label": "State Subsidy Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "currentDiscountTitle",
+        "label": "Current Discount Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "effectivePriceTitle",
+        "label": "Effective Price Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "priceNote",
+        "label": "Price Note",
+        "valueType": "string"
+      },
+      {
+        "component": "multifield",
+        "name": "colors",
+        "label": "Colors",
         "fields": [
-          {
-            "component": "text",
-            "name": "modelName",
-            "label": "Model name",
-            "valueType": "string",
-            "required": true
-          },
-          {
-            "component": "text",
-            "name": "modelTag",
-            "label": "Model tag (e.g. NEW)",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "modelTitle",
-            "label": "Price section title (supports city token {city})",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "cityApiUrl",
-            "label": "City API URL",
-            "valueType": "string",
-            "default": "https://www.vidaworld.com/content/dam/vida/config/city-master.json"
-          },
-          {
-            "component": "text",
-            "name": "priceApiUrlTemplate",
-            "label": "Price API URL template (use {city})",
-            "valueType": "string",
-            "default": "https://www.vidaworld.com/content/vida/in/en/vx2-go-electric-scooter/jcr:content.detailed-Product-Price.{city}.a1WTZ000000PK1x2AG.a24TZ000008Lod7YAC.json"
-          },
-          {
-            "component": "text",
-            "name": "modelSubtitle",
-            "label": "Price section subtitle",
-            "valueType": "string"
-          },
-          {
-            "component": "text",
-            "name": "dealershipLinkName",
-            "label": "Dealership link label",
-            "valueType": "string",
-            "default": "View Dealerships"
-          },
-          {
-            "component": "text",
-            "name": "dealershipLink",
-            "label": "Dealership link URL",
-            "valueType": "string",
-            "default": "#"
-          },
-          {
-            "component": "text",
-            "name": "defaultCity",
-            "label": "Default city",
-            "valueType": "string",
-            "default": "Delhi"
-          },
-          {
-            "component": "text",
-            "name": "priceExShowroomText",
-            "label": "Price breakdown label: Ex. Showroom",
-            "valueType": "string",
-            "default": "Ex. Showroom"
-          },
-          {
-            "component": "text",
-            "name": "pricePmEDriveText",
-            "label": "Price breakdown label: PM E-Drive Subsidy",
-            "valueType": "string",
-            "default": "PM E-Drive Subsidy"
-          },
-          {
-            "component": "text",
-            "name": "priceStateSubsidyText",
-            "label": "Price breakdown label: State Subsidy",
-            "valueType": "string",
-            "default": "State Subsidy"
-          },
-          {
-            "component": "text",
-            "name": "priceDiscountText",
-            "label": "Price breakdown label: Current Discounts",
-            "valueType": "string",
-            "default": "Current Discounts"
-          },
-          {
-            "component": "text",
-            "name": "priceEffectiveText",
-            "label": "Price breakdown label: Effective Price",
-            "valueType": "string",
-            "default": "Effective Price"
-          },
-          {
-            "component": "richtext",
-            "name": "priceNotes",
-            "label": "Price notes",
-            "valueType": "string"
-          },
-          {
-            "component": "array",
-            "name": "colors",
-            "label": "Model colors (click + to add a color and its images)",
-            "valueType": "object",
-            "itemLabel": "Color option",
-            "fields": [
-              {
-                "component": "text",
-                "name": "colorName",
-                "label": "Color name",
-                "valueType": "string",
-                "required": true
-              },
-              {
-                "component": "text",
-                "name": "colorHex",
-                "label": "Color swatch hex value",
-                "valueType": "string",
-                "required": true
-              },
-              {
-                "component": "reference",
-                "name": "desktopImage",
-                "label": "Desktop model image",
-                "valueType": "string"
-              },
-              {
-                "component": "reference",
-                "name": "tabletImage",
-                "label": "Tablet model image",
-                "valueType": "string"
-              },
-              {
-                "component": "reference",
-                "name": "mobileImage",
-                "label": "Mobile model image",
-                "valueType": "string"
-              }
-            ]
-          },
-          {
-            "component": "array",
-            "name": "specifications",
-            "label": "Specifications (click + to add a specification)",
-            "valueType": "object",
-            "itemLabel": "Specification",
-            "fields": [
-              {
-                "component": "reference",
-                "name": "specImage",
-                "label": "Specification icon/image",
-                "valueType": "string"
-              },
-              {
-                "component": "text",
-                "name": "specTitle",
-                "label": "Specification title",
-                "valueType": "string",
-                "required": true
-              },
-              {
-                "component": "text",
-                "name": "specSubtitle",
-                "label": "Specification value",
-                "valueType": "string",
-                "required": true
-              }
-            ]
-          },
-          {
-            "component": "text",
-            "name": "viewSpecificationsLabel",
-            "label": "View specifications link label",
-            "valueType": "string",
-            "default": "View all Specifications"
-          },
-          {
-            "component": "text",
-            "name": "viewSpecificationsLink",
-            "label": "View specifications link URL",
-            "valueType": "string",
-            "default": "#"
-          }
+          "vida-pdp-color"
         ]
+      },
+      {
+        "component": "multifield",
+        "name": "specifications",
+        "label": "Specifications",
+        "fields": [
+          "vida-pdp-spec"
+        ]
+      },
+      {
+        "component": "text",
+        "name": "specAllLinkTitle",
+        "label": "All Specification Link Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "specAllLinkName",
+        "label": "All Specification Link Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "skuId",
+        "label": "SKU ID",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "vida-pdp-color",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "colorImage",
+        "label": "Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "colorName",
+        "label": "Color Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "colorCode",
+        "label": "Color Code",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "vida-pdp-spec",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "specImage",
+        "label": "Spec Image",
+        "valueType": "string",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "name": "specTitle",
+        "label": "Spec Title",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "specValue",
+        "label": "Spec Value",
+        "valueType": "string"
       }
     ]
   },

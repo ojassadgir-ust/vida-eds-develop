@@ -24,6 +24,8 @@ module.exports = {
       'vida-removable-battery': 5,
       'variant-selector-item': 6,
       'web-popup': 30,
+      'vida-pdp-specs': 20,
+      'vida-pdp-variant': 17,
     }],
 
     'xwalk/no-orphan-collapsible-fields': 'off',
