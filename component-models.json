@@ -401,6 +401,57 @@
     ]
   },
   {
+    "id": "promo-banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktop-image",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "tablet-image",
+        "label": "Tablet Image",
+        "multi": false
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobile-image",
+        "label": "Mobile Image",
+        "multi": false
+      }
+    ]
+  },
+  {
+    "id": "promo-banner-text",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "subheading",
+        "label": "Subheading",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "variant",
+        "label": "Variant"
+      }
+    ]
+  },
+  {
     "id": "text-banner",
     "fields": [
       {
