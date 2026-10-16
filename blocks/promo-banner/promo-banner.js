@@ -3,15 +3,18 @@ function resolvePicture(...candidates) {
   return source ? source.querySelector('picture').cloneNode(true) : null;
 }
 
-function addPicture(media, picture, className) {
+function addPicture(media, picture, className, isPriorityImage) {
   if (!picture) {
     return;
   }
   picture.classList.add(className);
   const img = picture.querySelector('img');
   if (img) {
-    img.loading = 'lazy';
+    img.loading = isPriorityImage ? 'eager' : 'lazy';
     img.decoding = 'async';
+    if (isPriorityImage) {
+      img.fetchPriority = 'high';
+    }
     if (!img.getAttribute('alt')) {
       img.setAttribute('alt', '');
     }
@@ -23,21 +26,26 @@ function addPicture(media, picture, className) {
 function createMedia(desktopImage, tabletImage, mobileImage) {
   const media = document.createElement('div');
   media.className = 'promo-banner-media';
+  const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+  const isTablet = window.matchMedia('(min-width: 768px) and (max-width: 1023px)').matches;
 
   addPicture(
     media,
     resolvePicture(desktopImage, tabletImage, mobileImage),
     'promo-banner-desktop-picture',
+    isDesktop,
   );
   addPicture(
     media,
     resolvePicture(tabletImage, desktopImage, mobileImage),
     'promo-banner-tablet-picture',
+    isTablet,
   );
   addPicture(
     media,
     resolvePicture(mobileImage, desktopImage, tabletImage),
     'promo-banner-mobile-picture',
+    !isDesktop && !isTablet,
   );
 
   return media;
@@ -60,13 +68,69 @@ function createRichText(field, tagName, className) {
   return el;
 }
 
-function insertVariant(heading, variant) {
+function formatHeading(heading, variant) {
   const textNodes = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+  const nodes = [];
   let node = textNodes.nextNode();
   while (node) {
-    node.textContent = node.textContent.split('{{variant}}').join(variant);
+    nodes.push(node);
     node = textNodes.nextNode();
   }
+
+  nodes.forEach((textNode) => {
+    if (!textNode.textContent.includes('\u2028')) {
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    const parts = textNode.textContent.split('\u2028');
+    parts.forEach((part, index) => {
+      if (part) {
+        fragment.append(document.createTextNode(part));
+      }
+      if (index < parts.length - 1) {
+        fragment.append(document.createElement('br'));
+      }
+    });
+    textNode.replaceWith(fragment);
+  });
+
+  const updatedTextNodes = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+  let withNode = updatedTextNodes.nextNode();
+  let withIndex = -1;
+  while (withNode && withIndex === -1) {
+    const match = /\bwith\b/i.exec(withNode.textContent);
+    if (match) {
+      withIndex = match.index;
+      break;
+    }
+    withNode = updatedTextNodes.nextNode();
+  }
+
+  if (withNode && withIndex >= 0) {
+    const range = document.createRange();
+    range.setStart(withNode, withIndex);
+    range.setEnd(heading, heading.childNodes.length);
+    range.deleteContents();
+  } else {
+    const tokenNodes = document.createTreeWalker(heading, NodeFilter.SHOW_TEXT);
+    let tokenNode = tokenNodes.nextNode();
+    while (tokenNode) {
+      const tokenIndex = tokenNode.textContent.indexOf('{{variant}}');
+      if (tokenIndex >= 0) {
+        const range = document.createRange();
+        range.setStart(tokenNode, tokenIndex);
+        range.setEnd(tokenNode, tokenIndex + '{{variant}}'.length);
+        range.deleteContents();
+        break;
+      }
+      tokenNode = tokenNodes.nextNode();
+    }
+  }
+
+  const variantNode = document.createElement('span');
+  variantNode.className = 'promo-banner-variant';
+  variantNode.textContent = variant;
+  heading.append(document.createElement('br'), document.createTextNode('WITH '), variantNode);
 }
 
 export default function decorate(block) {
@@ -94,7 +158,7 @@ export default function decorate(block) {
 
   const heading = createRichText(headingField, 'h2', 'promo-banner-heading');
   if (heading) {
-    insertVariant(heading, variant);
+    formatHeading(heading, variant);
     textWrapper.appendChild(heading);
   }
 

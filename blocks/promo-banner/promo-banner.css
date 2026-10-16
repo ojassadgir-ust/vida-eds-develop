@@ -62,9 +62,9 @@
   color: var(--content-inverse, #fff);
   font-family: var(--ff-primary);
   font-weight: 375;
-  font-size: 10.909cqw;
+  font-size: var(--fs-display-md);
   line-height: 1;
-  letter-spacing: 0.016cqw;
+  letter-spacing: 0.09px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -72,6 +72,12 @@
 .promo-banner-heading strong {
   font-weight: 700;
   color: var(--color-warm-500, #ffbc10);
+}
+
+.promo-banner-variant {
+  font-weight: 700;
+  color: var(--color-neutral-0, #fff);
+  vertical-align: middle;
 }
 
 .promo-banner-heading em,
@@ -127,7 +133,6 @@
     width: auto;
     height: auto;
     margin: 0;
-    font-size: 6.25cqw;
     text-align: left;
   }
 
@@ -167,8 +172,7 @@
   .promo-banner-heading {
     width: 100%;
     margin: 0;
-    font-size: 3.056cqw;
-    letter-spacing: -0.0347cqw;
+    font-size: clamp(var(--fs-heading-xl), 4.4444vw, var(--fs-display-md));
     text-align: left;
   }
 
@@ -178,5 +182,6 @@
     font-size: 1.944cqw;
     line-height: 2.639cqw;
     letter-spacing: 0.104cqw;
+    text-align: left;
   }
 }
