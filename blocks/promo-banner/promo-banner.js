@@ -10,8 +10,16 @@ function addPicture(media, picture, className) {
   picture.classList.add(className);
   const img = picture.querySelector('img');
   if (img) {
-    img.loading = 'lazy';
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+    const isTablet = window.matchMedia('(min-width: 768px)').matches && !isDesktop;
+    const isPriorityImage = (className === 'promo-banner-desktop-picture' && isDesktop)
+      || (className === 'promo-banner-tablet-picture' && isTablet)
+      || (className === 'promo-banner-mobile-picture' && !isTablet && !isDesktop);
+    img.loading = isPriorityImage ? 'eager' : 'lazy';
     img.decoding = 'async';
+    if (isPriorityImage) {
+      img.fetchPriority = 'high';
+    }
     if (!img.getAttribute('alt')) {
       img.setAttribute('alt', '');
     }
@@ -57,6 +65,12 @@ function createRichText(field, tagName, className) {
   const el = document.createElement(tagName);
   el.className = className;
   el.innerHTML = source.innerHTML;
+  if (tagName === 'h2') {
+    el.innerHTML = el.innerHTML.replace(
+      /\u2028/g,
+      ' <br class="promo-banner-heading-break"> ',
+    );
+  }
   return el;
 }
 
