@@ -203,3 +203,39 @@
         width: 25px;
     }
 }
+
+.vida-autocomplete-combo {
+    position: relative;
+}
+
+.vida-autocomplete-options {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    max-height: 176px;
+    margin: 0;
+    padding: 4px 0;
+    overflow-y: auto;
+    list-style: none;
+    background: var(--surface-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.vida-autocomplete-option {
+    padding: 12px 16px;
+    font-size: var(--fs-label-md);
+    line-height: var(--lh-label-md);
+    letter-spacing: var(--ls-label-md);
+    cursor: pointer;
+}
+
+.vida-autocomplete-option:hover,
+.vida-autocomplete-option--active {
+    background: var(--brand-muted);
+    color: var(--brand-default);
+}

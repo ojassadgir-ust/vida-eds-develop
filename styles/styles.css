@@ -112,6 +112,7 @@
   --content-secondary: var(--color-neutral-500);
   --content-tertiary: var(--color-neutral-400);
   --content-inverse: var(--color-neutral-0);
+  --content-secondary-inverse: var(--color-neutral-1000);
   --content-brand: var(--color-vida-500);
   --content-on-brand: var(--color-neutral-0);
   --content-disabled: var(--color-neutral-200);

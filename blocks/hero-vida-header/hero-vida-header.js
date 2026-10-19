@@ -1,5 +1,5 @@
 import { markTracked } from '../../scripts/analytics.js';
-import buildButton from '../../scripts/build-button.js';
+import buildButton from '../../scripts/common-components/build-button.js';
 import { getAPIEndpoint } from '../../scripts/config.js';
 import { isLoggedIn, logout } from '../../scripts/login-utils.js';
 

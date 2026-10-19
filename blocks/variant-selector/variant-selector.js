@@ -1,5 +1,5 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
-import buildButton from '../../scripts/build-button.js';
+import buildButton from '../../scripts/common-components/build-button.js';
 
 const ITEM_FIELDS = [
   'desktopImage',
