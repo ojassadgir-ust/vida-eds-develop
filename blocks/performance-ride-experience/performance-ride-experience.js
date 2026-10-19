@@ -292,8 +292,8 @@ export default function decorate(block) {
   const heroPicture = buildPicture(cellOf(desktopRow), cellOf(mobileRow), {
     alt: getText(cellOf(altRow)),
     eager: isFirstSection,
-    desktopWidths: [900, 1400, 2000],
-    mobileWidths: [400, 800, 1200],
+    desktopWidths: [900, 1200, 1400, 2000],
+    mobileWidths: [400, 600, 800, 1200],
     desktopSizes: '(min-width: 1442px) 1314px, calc(100vw - 128px)',
     mobileSizes: 'min(408px, calc(100vw - 32px))',
   });
@@ -325,7 +325,7 @@ export default function decorate(block) {
       alt: getText(altCell),
       eager: false,
       desktopWidths: [450, 900],
-      mobileWidths: [400, 800, 1100],
+      mobileWidths: [400, 600, 800, 1100],
       desktopSizes: '(min-width: 1442px) 422px, calc((100vw - 176px) / 3)',
       mobileSizes: 'min(366px, calc(100vw - 74px))',
     });
