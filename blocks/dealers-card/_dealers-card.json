@@ -1,0 +1,87 @@
+{
+    "definitions": [
+        {
+            "title": "Dealers Card",
+            "id": "dealers-card",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block",
+                        "template": {
+                            "name": "Dealers Card",
+                            "model": "dealers-card"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "dealers-card",
+            "fields": [
+                {
+                    "component": "text",
+                    "name": "title",
+                    "label": "Title",
+                    "valueType": "string"
+                },
+                {
+                    "component": "reference",
+                    "name": "image",
+                    "label": "Card Image",
+                    "multi": false
+                },
+                {
+                    "component": "text",
+                    "name": "imageAlt",
+                    "label": "Card Image Alt",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "searchTitle",
+                    "label": "Search Title",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "searchPlaceholder",
+                    "label": "Search Placeholder",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "countLabel",
+                    "label": "Count Label",
+                    "valueType": "string"
+                },
+                {
+                    "component": "richtext",
+                    "name": "description",
+                    "label": "Description",
+                    "valueType": "string"
+                },
+                {
+                    "component": "richtext",
+                    "name": "cta",
+                    "label": "CTA",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "citiesApiUrl",
+                    "label": "Cities API URL",
+                    "valueType": "string"
+                },
+                {
+                    "component": "text",
+                    "name": "dealersApiBaseUrl",
+                    "label": "Dealers API Base URL (part before the city)",
+                    "valueType": "string"
+                }
+            ]
+        }
+    ],
+    "filters": []
+}
