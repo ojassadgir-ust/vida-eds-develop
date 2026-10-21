@@ -1,5 +1,5 @@
 /* Must match the breakpoint used in pdp-removable-batteries.css */
-const DESKTOP_MQ = '(min-width: 900px)';
+const DESKTOP_MQ = '(min-width: 768px)';
 
 /* Local copy so the block never breaks if scripts.js does not export it */
 function moveInstrumentation(from, to) {
@@ -34,7 +34,7 @@ const toSrcset = (base, widths, format) => widths
   .map((w) => `${base}?width=${w}&format=${format}&optimize=medium ${w}w`)
   .join(', ');
 
-/** One <picture>: desktop image from 900px up, mobile image below. */
+/** One <picture>: desktop image from 768px up, mobile image below. */
 function buildPicture(desktopCell, mobileCell, alt, eager) {
   const desktopImg = desktopCell?.querySelector('img');
   const mobileImg = mobileCell?.querySelector('img');
@@ -44,7 +44,7 @@ function buildPicture(desktopCell, mobileCell, alt, eager) {
 
   const desktopWidths = [900, 1400, 2000];
   const mobileWidths = [440, 880, 1200];
-  const desktopSizes = 'min(100vw, 1440px)';
+  const desktopSizes = 'min(55.556vw, 800px)';
   const mobileSizes = 'min(100vw, 440px)';
 
   const picture = document.createElement('picture');

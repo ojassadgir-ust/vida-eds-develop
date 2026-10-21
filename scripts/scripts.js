@@ -132,6 +132,59 @@ export function toWebp(src, width) {
   return url.href;
 }
 
+function preloadPdpRemovableBatteriesHero(section) {
+  const block = section?.querySelector('.pdp-removable-batteries');
+  if (!block) return;
+
+  const rows = [...block.children];
+  const mobileImage = rows[0]?.querySelector('img');
+  const desktopImage = rows[1]?.querySelector('img') || mobileImage;
+  const mobileSource = mobileImage || desktopImage;
+  if (!mobileSource) return;
+
+  const createUrl = (image, width) => {
+    const url = new URL(image.getAttribute('src'), window.location.href);
+    if (!url.pathname.includes('/media_')) return null;
+    url.search = `?width=${width}&format=webply&optimize=medium`;
+    return url.href;
+  };
+
+  const preload = (image, media, sizes, widths) => {
+    const fallback = createUrl(image, widths[0]);
+    if (!fallback) return;
+
+    const candidates = widths.map((width) => {
+      const url = createUrl(image, width);
+      return url && `${url} ${width}w`;
+    }).filter(Boolean);
+    if (!candidates.length) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.type = 'image/webp';
+    link.media = media;
+    link.href = fallback;
+    link.setAttribute('imagesrcset', candidates.join(', '));
+    link.setAttribute('imagesizes', sizes);
+    link.fetchPriority = 'high';
+    document.head.append(link);
+  };
+
+  preload(
+    mobileSource,
+    '(max-width: 767px)',
+    'min(100vw, 440px)',
+    [440, 880, 1200],
+  );
+  preload(
+    desktopImage,
+    '(min-width: 768px)',
+    'min(55.556vw, 800px)',
+    [900, 1400, 2000],
+  );
+}
+
 /**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
@@ -142,6 +195,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    preloadPdpRemovableBatteriesHero(main.querySelector('.section'));
     decorateMain(main);
     loadHeader(doc.querySelector('header'));
     document.body.classList.add('appear');
@@ -183,7 +237,6 @@ async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/common-components.css`);
   loadFonts();
   initCtaTracking();
-  loadLaunch();
 }
 
 /**
@@ -193,7 +246,7 @@ async function loadLazy(doc) {
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
+  window.setTimeout(loadLaunch, 5000);
 }
 
 async function loadPage() {
