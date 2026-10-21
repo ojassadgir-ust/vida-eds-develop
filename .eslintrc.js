@@ -21,6 +21,7 @@ module.exports = {
     'xwalk/max-cells': ['error', {
       '*': 4,
       'vida-service-stations': 9,
+      'vida-pdp-connected': 5,
       'vida-removable-battery': 5,
       'variant-selector-item': 6,
       'web-popup': 30,

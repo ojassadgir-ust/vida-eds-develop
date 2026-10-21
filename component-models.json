@@ -584,6 +584,79 @@
     ]
   },
   {
+    "id": "vida-pdp-connected",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "desktopImage",
+        "label": "Desktop Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "desktopImage_alt",
+        "label": "Image Alt Text (used for desktop and mobile)"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "mobileImage",
+        "label": "Mobile Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading"
+      },
+      {
+        "component": "textarea",
+        "valueType": "string",
+        "name": "subtext",
+        "label": "Subtext"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "button",
+        "label": "Button Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "button_text",
+        "label": "Button Text"
+      }
+    ]
+  },
+  {
+    "id": "vida-pdp-connected-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title"
+      },
+      {
+        "component": "textarea",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      }
+    ]
+  },
+  {
     "id": "vida-removable-battery",
     "fields": [
       {
