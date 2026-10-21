@@ -474,6 +474,12 @@
         "name": "citiesApiUrl",
         "label": "Cities API URL",
         "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "dealersApiBaseUrl",
+        "label": "Dealers API Base URL (part before the city)",
+        "valueType": "string"
       }
     ]
   },
