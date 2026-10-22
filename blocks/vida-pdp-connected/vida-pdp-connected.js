@@ -6,13 +6,14 @@ const DESKTOP_IMAGE_WIDTH = 1300;
 const MOBILE_IMAGE_WIDTH = 800;
 
 // Parent fields come first (in model order), every row after them is a card.
-const FIELD_COUNT = 5;
+const FIELD_COUNT = 6;
 const FIELD_INDEX = {
   desktopImage: 0,
   mobileImage: 1,
   heading: 2,
   subtext: 3,
   button: 4,
+  buttonText: 5,
 };
 
 const getCell = (row) => row?.firstElementChild || row;
@@ -132,10 +133,10 @@ const createCards = (rows) => {
   return list;
 };
 
-const createButton = (cell) => {
+const createButton = (cell, labelCell) => {
   const source = cell?.querySelector('a');
   const href = source?.getAttribute('href');
-  const label = getText(source);
+  const label = getText(labelCell) || getText(source);
   if (!href || !label) return null;
 
   const button = createElement('a', 'vida-pdp-connected-button');
@@ -171,7 +172,7 @@ export default function decorate(block) {
   }
   if (text.children.length) fragment.append(text);
 
-  const button = createButton(cell('button'));
+  const button = createButton(cell('button'), cell('buttonText'));
   if (button) {
     const action = createElement('div', 'vida-pdp-connected-action');
     action.append(button);
