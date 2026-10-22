@@ -594,12 +594,6 @@
         "multi": false
       },
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "desktopImage_alt",
-        "label": "Image Alt Text (used for desktop and mobile)"
-      },
-      {
         "component": "reference",
         "valueType": "string",
         "name": "mobileImage",
@@ -613,7 +607,7 @@
         "label": "Heading"
       },
       {
-        "component": "textarea",
+        "component": "text-area",
         "valueType": "string",
         "name": "subtext",
         "label": "Subtext"
@@ -649,7 +643,7 @@
         "label": "Title"
       },
       {
-        "component": "textarea",
+        "component": "text-area",
         "valueType": "string",
         "name": "description",
         "label": "Description"
