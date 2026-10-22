@@ -63,16 +63,10 @@
           "label": "Subtext"
         },
         {
-          "component": "aem-content",
+          "component": "richtext",
           "valueType": "string",
           "name": "button",
-          "label": "Button Link"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "button_text",
-          "label": "Button Text"
+          "label": "Button"
         }
       ]
     },
