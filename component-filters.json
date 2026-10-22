@@ -81,11 +81,5 @@
     "components": [
       "vida-blog-card"
     ]
-  },
-  {
-    "id": "vida-pdp-connected",
-    "components": [
-      "vida-pdp-connected-card"
-    ]
   }
 ]

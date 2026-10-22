@@ -9,23 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "VIDA PDP Connected",
-              "model": "vida-pdp-connected",
-              "filter": "vida-pdp-connected"
-            }
-          }
-        }
-      }
-    },
-    {
-      "title": "VIDA PDP Connected Card",
-      "id": "vida-pdp-connected-card",
-      "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "VIDA PDP Connected Card",
-              "model": "vida-pdp-connected-card"
+              "model": "vida-pdp-connected"
             }
           }
         }
@@ -67,40 +51,161 @@
           "valueType": "string",
           "name": "button",
           "label": "Button"
-        }
-      ]
-    },
-    {
-      "id": "vida-pdp-connected-card",
-      "fields": [
+        },
         {
           "component": "reference",
           "valueType": "string",
-          "name": "icon",
-          "label": "Icon",
+          "name": "card1_icon",
+          "label": "Card 1 Icon",
           "multi": false
         },
         {
           "component": "text",
           "valueType": "string",
-          "name": "title",
-          "label": "Title"
+          "name": "card1_title",
+          "label": "Card 1 Title"
         },
         {
           "component": "text-area",
           "valueType": "string",
-          "name": "description",
-          "label": "Description"
+          "name": "card1_description",
+          "label": "Card 1 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card2_icon",
+          "label": "Card 2 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card2_title",
+          "label": "Card 2 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card2_description",
+          "label": "Card 2 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card3_icon",
+          "label": "Card 3 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card3_title",
+          "label": "Card 3 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card3_description",
+          "label": "Card 3 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card4_icon",
+          "label": "Card 4 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card4_title",
+          "label": "Card 4 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card4_description",
+          "label": "Card 4 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card5_icon",
+          "label": "Card 5 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card5_title",
+          "label": "Card 5 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card5_description",
+          "label": "Card 5 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card6_icon",
+          "label": "Card 6 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card6_title",
+          "label": "Card 6 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card6_description",
+          "label": "Card 6 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card7_icon",
+          "label": "Card 7 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card7_title",
+          "label": "Card 7 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card7_description",
+          "label": "Card 7 Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "card8_icon",
+          "label": "Card 8 Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "card8_title",
+          "label": "Card 8 Title"
+        },
+        {
+          "component": "text-area",
+          "valueType": "string",
+          "name": "card8_description",
+          "label": "Card 8 Description"
         }
       ]
     }
   ],
-  "filters": [
-    {
-      "id": "vida-pdp-connected",
-      "components": [
-        "vida-pdp-connected-card"
-      ]
-    }
-  ]
+  "filters": []
 }
