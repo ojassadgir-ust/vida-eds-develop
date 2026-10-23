@@ -183,7 +183,6 @@ async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/common-components.css`);
   loadFonts();
   initCtaTracking();
-  loadLaunch();
 }
 
 /**
@@ -193,7 +192,7 @@ async function loadLazy(doc) {
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
   window.setTimeout(() => import('./delayed.js'), 3000);
-  // load anything that can be postponed to the latest here
+  window.setTimeout(loadLaunch, 5000);
 }
 
 async function loadPage() {

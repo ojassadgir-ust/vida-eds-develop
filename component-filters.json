@@ -26,7 +26,8 @@
       "dirte-k3-banner",
       "variant-selector",
       "web-popup",
-      "vida-blog"
+      "vida-blog",
+      "performance-ride-experience"
     ]
   },
   {
@@ -67,6 +68,12 @@
     "components": [
       "dirte-k3-content",
       "dirte-k3-specification"
+    ]
+  },
+  {
+    "id": "performance-ride-experience",
+    "components": [
+      "performance-ride-experience-card"
     ]
   },
   {
