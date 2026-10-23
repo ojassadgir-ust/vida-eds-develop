@@ -26,18 +26,17 @@ main .section > .performance-ride-experience-wrapper {
   display: block;
 }
 
-/* ---------- heading ---------- */
 .performance-ride-experience .performance-ride-experience-heading {
   max-width: 440px;
   margin: 0 auto 32px;
   padding: 0 48px;
   text-align: center;
   text-wrap: balance;
-  font-size: var(--heading-m-font-size, 32px);
+  font-size: var(--fs-heading-xl);
   font-weight: 530;
   font-style: var(--pdp-mobile-font-style);
-  line-height: var(--heading-m-line-height, 40px);
-  letter-spacing: var(--heading-m-letter-spacing, -0.01em);
+  line-height: var(--lh-heading-xl);
+  letter-spacing: var(--ls-heading-xl);
   color: var(--content-primary, #1d1b1b);
 }
 
@@ -49,7 +48,6 @@ main .section > .performance-ride-experience-wrapper {
   display: inline;
 }
 
-/* ---------- big image ---------- */
 .performance-ride-experience .performance-ride-experience-hero {
   margin: 0 16px;
   aspect-ratio: 408 / 625;
@@ -69,7 +67,6 @@ main .section > .performance-ride-experience-wrapper {
   object-fit: cover;
 }
 
-/* ---------- cards: mobile carousel ---------- */
 .performance-ride-experience .performance-ride-experience-cards {
   display: flex;
   gap: 16px;
@@ -148,26 +145,25 @@ main .section > .performance-ride-experience-wrapper {
 
 .performance-ride-experience .performance-ride-experience-card-title {
   margin: 0;
-  font-size: var(--heading-xs-font-size, 18px);
+  font-size: var(--fs-heading-sm);
   font-weight: 530;
   font-style: var(--pdp-mobile-font-style);
-  line-height: var(--heading-xs-line-height, 24px);
-  letter-spacing: var(--heading-xs-letter-spacing, 0);
+  line-height: var(--lh-heading-sm);
+  letter-spacing: var(--ls-heading-sm);
   color: var(--content-primary, #1d1b1b);
 }
 
 .performance-ride-experience .performance-ride-experience-card-text {
   margin: 0;
-  font-size: var(--body-m-font-size, 16px);
+  font-size: var(--fs-body-md);
   font-weight: 450;
   font-style: var(--pdp-mobile-font-style);
-  line-height: var(--body-m-line-height, 24px);
-  letter-spacing: var(--body-m-letter-spacing, 0);
+  line-height: var(--lh-body-md);
+  letter-spacing: var(--ls-body-md);
   color: var(--content-primary, #1d1b1b);
 }
 
-/* ---------- desktop ---------- */
-@media (width >= 900px) {
+@media (width >= 1024px) {
   .performance-ride-experience {
     max-width: none;
     padding: 64px;
@@ -177,10 +173,10 @@ main .section > .performance-ride-experience-wrapper {
     max-width: 659px;
     margin: 0 auto 66px;
     padding: 0;
-    font-size: var(--heading-xl-font-size, 48px);
+    font-size: var(--fs-heading-xl);
     font-style: normal;
-    line-height: var(--heading-xl-line-height, 56px);
-    letter-spacing: var(--heading-xl-letter-spacing, -0.02em);
+    line-height: var(--lh-heading-xl);
+    letter-spacing: var(--ls-heading-xl);
   }
 
   .performance-ride-experience .performance-ride-experience-heading-desktop {
@@ -228,16 +224,16 @@ main .section > .performance-ride-experience-wrapper {
   }
 
   .performance-ride-experience .performance-ride-experience-card-title {
-    font-size: var(--heading-sm-font-size, 24px);
+    font-size: var(--fs-heading-sm);
     font-style: normal;
-    line-height: var(--heading-sm-line-height, 32px);
-    letter-spacing: var(--heading-sm-letter-spacing, 0);
+    line-height: var(--lh-heading-sm);
+    letter-spacing: var(--ls-heading-sm);
   }
 
   .performance-ride-experience .performance-ride-experience-card-text {
-    font-size: var(--body-lg-font-size, 18px);
+    font-size: var(--fs-body-lg);
     font-style: normal;
-    line-height: var(--body-lg-line-height, 28px);
-    letter-spacing: var(--body-lg-letter-spacing, 0);
+    line-height: var(--lh-body-lg);
+    letter-spacing: var(--ls-body-lg);
   }
 }

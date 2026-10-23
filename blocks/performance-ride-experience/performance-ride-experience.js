@@ -1,8 +1,8 @@
-/* Must match the breakpoint used in performance-ride-experience.css */
-const DESKTOP_MQ = '(min-width: 900px)';
-const MOBILE_MQ = '(max-width: 899px)';
+/* Keep image and carousel behavior aligned with the CSS desktop breakpoint. */
+const DESKTOP_MQ = '(min-width: 1024px)';
+const MOBILE_MQ = '(max-width: 1023px)';
 const DEFAULT_TIMEOUT_SECONDS = 0; // 0 = no auto scroll unless an author sets a timeout
-const DRAG_THRESHOLD = 40; // px a mouse drag must travel to move to the next / previous card
+const DRAG_THRESHOLD = 40;
 
 /* Local copy so the block never breaks if scripts.js does not export it */
 function moveInstrumentation(from, to) {
@@ -18,10 +18,6 @@ function moveInstrumentation(from, to) {
 function getText(cell) {
   return cell?.textContent.trim() || '';
 }
-
-/* ------------------------------------------------------------------ */
-/* Images                                                              */
-/* ------------------------------------------------------------------ */
 
 function describeImage(img) {
   if (!img) return null;
@@ -45,8 +41,8 @@ const toSrcset = (base, widths, format) => widths
   .join(', ');
 
 /**
- * Builds ONE <picture>: desktop image from 900px up, mobile image below.
- * Right-sized srcsets keep the payload (and Lighthouse) happy.
+ * Builds ONE <picture>: desktop image from 1024px up, mobile image below.
+ * Right-sized srcsets keep the payload (and Lighthouse)
  */
 function buildPicture(desktopCell, mobileCell, opts) {
   const {
@@ -113,10 +109,6 @@ function buildPicture(desktopCell, mobileCell, opts) {
   return picture;
 }
 
-/* ------------------------------------------------------------------ */
-/* Mobile carousel: swipe (native), mouse drag, keyboard, auto scroll  */
-/* ------------------------------------------------------------------ */
-
 function setupCarousel(track, seconds) {
   const cards = [...track.children];
   if (!cards.length) return;
@@ -139,7 +131,6 @@ function setupCarousel(track, seconds) {
     track.scrollTo({ left: pos[i], behavior: reducedMotion.matches ? 'auto' : 'smooth' });
   };
 
-  /* keyboard access (mobile only) */
   const syncA11y = () => {
     if (mobile.matches) track.setAttribute('tabindex', '0');
     else track.removeAttribute('tabindex');
@@ -158,7 +149,6 @@ function setupCarousel(track, seconds) {
     }
   });
 
-  /* mouse drag (touch already scrolls natively) */
   let dragId = null;
   let dragStartX = 0;
   let dragStartLeft = 0;
@@ -237,17 +227,14 @@ function setupCarousel(track, seconds) {
   }, { threshold: 0.4 }).observe(track);
 }
 
-/* ------------------------------------------------------------------ */
-/* Decorate                                                            */
-/*                                                                     */
-/* Parent rows (1 cell each):                                          */
-/*   DA  : heading | desktopImage | desktopImageAlt | mobileImage | timeout */
-/*   xwalk (alt collapsed into the image): heading | desktopImage | mobileImage | timeout */
-/* Card rows:                                                          */
-/*   DA  : desktopImage | alt | mobileImage | title | subtext          */
-/*   xwalk: desktopImage | mobileImage | title | subtext               */
-/* ------------------------------------------------------------------ */
-
+/*
+ * Parent rows (1 cell each):
+ * DA: heading | desktopImage | desktopImageAlt | mobileImage | timeout
+ * Xwalk: heading | desktopImage | mobileImage | timeout
+ * Card rows:
+ * DA: desktopImage | alt | mobileImage | title | subtext
+ * Xwalk: desktopImage | mobileImage | title | subtext
+ */
 export default function decorate(block) {
   const rows = [...block.children];
   let parentCount = rows.findIndex((row) => row.children.length > 1);
@@ -271,7 +258,6 @@ export default function decorate(block) {
 
   const isFirstSection = block.closest('.section') === document.querySelector('main .section');
 
-  /* heading: desktop reads "Ride Experience", mobile reads "Riding Experience" */
   const heading = document.createElement('h2');
   heading.className = 'performance-ride-experience-heading';
   const headingText = getText(cellOf(headingRow));
@@ -286,7 +272,6 @@ export default function decorate(block) {
     moveInstrumentation(cellOf(headingRow).firstElementChild || cellOf(headingRow), heading);
   }
 
-  /* big image */
   const hero = document.createElement('div');
   hero.className = 'performance-ride-experience-hero';
   const heroPicture = buildPicture(cellOf(desktopRow), cellOf(mobileRow), {
@@ -299,7 +284,6 @@ export default function decorate(block) {
   });
   if (heroPicture) hero.append(heroPicture);
 
-  /* cards */
   const track = document.createElement('ul');
   track.className = 'performance-ride-experience-cards';
   track.setAttribute('aria-label', headingText || 'Performance and ride experience');
