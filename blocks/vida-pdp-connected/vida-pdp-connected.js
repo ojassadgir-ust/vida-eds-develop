@@ -4,6 +4,7 @@ import { moveInstrumentation, toWebp } from '../../scripts/scripts.js';
 const DESKTOP_MEDIA_QUERY = '(min-width: 1024px)';
 const DESKTOP_IMAGE_WIDTH = 1300;
 const MOBILE_IMAGE_WIDTH = 800;
+const PARENT_FIELD_COUNT = 5;
 
 const FIELD_INDEX = {
   desktopImage: 0,
@@ -16,6 +17,14 @@ const FIELD_INDEX = {
 const getCell = (row) => row?.firstElementChild || row;
 
 const getText = (cell) => cell?.textContent.trim() || '';
+
+const getCardCells = (row) => {
+  const cells = [...row.children];
+  if (cells.length > 1) return cells;
+
+  const nestedCells = [...(cells[0]?.children || [])];
+  return nestedCells.length > 1 ? nestedCells : cells;
+};
 
 const createElement = (tagName, className) => {
   const element = document.createElement(tagName);
@@ -89,7 +98,7 @@ const createIcon = (cell) => {
 };
 
 const createCard = (row) => {
-  const [iconCell, titleCell, descriptionCell] = [...row.children];
+  const [iconCell, titleCell, descriptionCell] = getCardCells(row);
   const card = document.createElement('li');
   card.className = 'vida-pdp-connected-card';
   moveInstrumentation(row, card);
@@ -147,11 +156,11 @@ const createButton = (cell) => {
 
 export default function decorate(block) {
   const rows = [...block.children];
-  const firstCardRow = rows.findIndex((row) => row.children.length > 1);
-  const cardRows = firstCardRow === -1 ? [] : rows.slice(firstCardRow);
+  const cardRows = rows.slice(PARENT_FIELD_COUNT);
   const cell = (name) => getCell(rows[FIELD_INDEX[name]]);
 
   const fragment = document.createDocumentFragment();
+  const intro = createElement('div', 'vida-pdp-connected-intro');
 
   const text = createElement('div', 'vida-pdp-connected-text');
   const headingText = getText(cell('heading'));
@@ -169,20 +178,22 @@ export default function decorate(block) {
     moveInstrumentation(cell('subtext'), subtext);
     text.append(subtext);
   }
-  if (text.children.length) fragment.append(text);
+  if (text.children.length) intro.append(text);
 
   const button = createButton(cell('button'));
   if (button) {
     const action = createElement('div', 'vida-pdp-connected-action');
     action.append(button);
-    fragment.append(action);
+    intro.append(action);
   }
+  if (intro.children.length) fragment.append(intro);
 
   const media = createMedia(cell('desktopImage'), cell('mobileImage'));
-  if (media) fragment.append(media);
-
   const cards = createCards(cardRows);
-  if (cards) fragment.append(cards);
+  const feature = createElement('div', 'vida-pdp-connected-feature');
+  if (media) feature.append(media);
+  if (cards) feature.append(cards);
+  if (feature.children.length) fragment.append(feature);
 
   block.replaceChildren(fragment);
 }
