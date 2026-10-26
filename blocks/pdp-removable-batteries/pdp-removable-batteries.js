@@ -1,5 +1,5 @@
 /* Must match the breakpoint used in pdp-removable-batteries.css */
-const DESKTOP_MQ = '(min-width: 768px)';
+const DESKTOP_MQ = '(min-width: 1024px)';
 
 /* Local copy so the block never breaks if scripts.js does not export it */
 function moveInstrumentation(from, to) {
@@ -34,7 +34,7 @@ const toSrcset = (base, widths, format) => widths
   .map((w) => `${base}?width=${w}&format=${format}&optimize=medium ${w}w`)
   .join(', ');
 
-/** One <picture>: desktop image from 768px up, mobile image below. */
+/** One <picture>: desktop image from 1024px up, mobile image below. */
 function buildPicture(desktopCell, mobileCell, alt, eager) {
   const desktopImg = desktopCell?.querySelector('img');
   const mobileImg = mobileCell?.querySelector('img');
@@ -164,7 +164,7 @@ export default function decorate(block) {
   inner.append(heading);
   if (sub.textContent) inner.append(sub);
 
-  /* image (mobile: in flow under the text, desktop: pinned to the right) */
+  /* image (mobile: overlaps the text, desktop: in the right grid column) */
   const picture = buildPicture(
     cellOf(desktopRow),
     cellOf(mobileRow),
@@ -227,7 +227,7 @@ export default function decorate(block) {
   const href = linkEl?.getAttribute('href') || getText(cellOf(ctaLinkRow));
   if (label && href) {
     const cta = document.createElement('a');
-    cta.className = 'pdp-removable-batteries-cta';
+    cta.className = 'button button-primary button-sm pdp-removable-batteries-cta';
     cta.href = href;
     cta.textContent = label;
     if (linkEl) moveInstrumentation(linkEl, cta);

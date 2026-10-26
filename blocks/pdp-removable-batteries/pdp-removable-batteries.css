@@ -18,7 +18,8 @@ main .section > .pdp-removable-batteries-wrapper {
 }
 
 .pdp-removable-batteries .pdp-removable-batteries-inner {
-  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
   margin: 0 auto;
   padding: 48px 0;
@@ -27,7 +28,6 @@ main .section > .pdp-removable-batteries-wrapper {
 
 .pdp-removable-batteries .pdp-removable-batteries-heading,
 .pdp-removable-batteries .pdp-removable-batteries-subheading {
-  position: relative;
   z-index: 1;
   padding: 0 16px;
   text-align: center;
@@ -52,9 +52,10 @@ main .section > .pdp-removable-batteries-wrapper {
 }
 
 .pdp-removable-batteries .pdp-removable-batteries-media {
-  position: relative;
   z-index: 0;
   width: 100%;
+  max-width: 440px;
+  margin-inline: auto;
   margin-top: -46px;
   overflow: hidden;
   aspect-ratio: 88 / 81;
@@ -141,7 +142,7 @@ main .section > .pdp-removable-batteries-wrapper {
   color: var(--content-secondary);
 }
 
-.pdp-removable-batteries .pdp-removable-batteries-cta {
+.pdp-removable-batteries .pdp-removable-batteries-cta.button-sm {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,21 +150,9 @@ main .section > .pdp-removable-batteries-wrapper {
   min-height: 48px;
   margin: 32px 16px 0;
   padding: 0 24px;
-  border-radius: 999px;
-  background: var(--action-primary);
-  color: var(--content-inverse);
-  font-family: var(--ff-primary);
-  font-size: var(--fs-label-lg);
   font-style: italic;
   font-weight: 600;
-  line-height: var(--lh-label-lg);
-  letter-spacing: -0.25px;
   text-align: center;
-  text-decoration: none;
-}
-
-.pdp-removable-batteries .pdp-removable-batteries-cta:hover {
-  background: var(--action-primary-hover);
 }
 
 .pdp-removable-batteries .pdp-removable-batteries-cta:focus-visible {
@@ -171,13 +160,21 @@ main .section > .pdp-removable-batteries-wrapper {
   outline-offset: 3px;
 }
 
-@media (width >= 768px) {
+@media (width >= 1024px) {
   .pdp-removable-batteries .pdp-removable-batteries-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 44.444%) minmax(0, 55.556%);
+    grid-template-areas:
+      "heading media"
+      "subheading media"
+      "cards media"
+      "cta media";
     max-width: 1440px;
     padding: 64px;
   }
 
   .pdp-removable-batteries .pdp-removable-batteries-heading {
+    grid-area: heading;
     width: min(430px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
     margin-left: 0;
     padding: 0;
@@ -188,6 +185,7 @@ main .section > .pdp-removable-batteries-wrapper {
   }
 
   .pdp-removable-batteries .pdp-removable-batteries-subheading {
+    grid-area: subheading;
     width: min(503px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
     margin-top: 10px;
     padding: 0;
@@ -198,9 +196,9 @@ main .section > .pdp-removable-batteries-wrapper {
   }
 
   .pdp-removable-batteries .pdp-removable-batteries-media {
-    position: absolute;
-    inset: 0 0 0 auto;
-    width: 55.556%;
+    grid-area: media;
+    width: 100%;
+    max-width: none;
     height: 100%;
     margin: 0;
     aspect-ratio: auto;
@@ -213,6 +211,7 @@ main .section > .pdp-removable-batteries-wrapper {
   }
 
   .pdp-removable-batteries .pdp-removable-batteries-cards {
+    grid-area: cards;
     width: min(547px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
     margin: 40px 0 0;
     gap: 24px;
@@ -251,32 +250,11 @@ main .section > .pdp-removable-batteries-wrapper {
     letter-spacing: var(--ls-body-md);
   }
 
-  .pdp-removable-batteries .pdp-removable-batteries-cta {
+  .pdp-removable-batteries .pdp-removable-batteries-cta.button-sm {
+    grid-area: cta;
     display: inline-flex;
+    align-self: start;
     width: 164px;
     margin: 56px 0 0;
-  }
-}
-
-@media (width >= 768px) and (width < 1200px) {
-  .pdp-removable-batteries .pdp-removable-batteries-inner {
-    padding: clamp(24px, 4.444vw, 64px);
-  }
-
-  .pdp-removable-batteries .pdp-removable-batteries-heading {
-    width: min(430px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
-    margin-left: 0;
-    font-size: clamp(var(--fs-heading-md), 3.3333vw, var(--fs-heading-xl));
-    line-height: 1.1;
-  }
-
-  .pdp-removable-batteries .pdp-removable-batteries-subheading {
-    width: min(503px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
-    font-size: clamp(var(--fs-body-sm), 1.6667vw, var(--fs-body-xl));
-    line-height: 1.3;
-  }
-
-  .pdp-removable-batteries .pdp-removable-batteries-cards {
-    width: min(547px, calc(44.444vw - clamp(24px, 4.444vw, 64px) - 29px));
   }
 }
