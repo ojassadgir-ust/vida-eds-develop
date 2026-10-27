@@ -1,0 +1,198 @@
+{
+  "definitions": [
+    {
+      "title": "VIDA Savings Calculator",
+      "id": "vida-savings-calculator",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "VIDA Savings Calculator",
+              "model": "vida-savings-calculator"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "vida-savings-calculator",
+      "fields": [
+        {
+          "component": "tab",
+          "name": "content",
+          "label": "Content"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description"
+        },
+        {
+          "component": "tab",
+          "name": "slider",
+          "label": "Slider"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sliderLabel",
+          "label": "Slider Title",
+          "description": "Shown before the live value, e.g. \"Daily Distance\""
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "sliderMin",
+          "label": "Slider Min Value",
+          "value": 0
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "sliderMax",
+          "label": "Slider Max Value",
+          "value": 100
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "sliderDefault",
+          "label": "Slider Default Value",
+          "value": 15
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sliderUnit",
+          "label": "Slider Unit",
+          "description": "Appended to the live value, e.g. \"km\"",
+          "value": "km"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sliderLeftLabel",
+          "label": "Slider Left Label",
+          "description": "Defaults to the min value and unit when empty"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sliderRightLabel",
+          "label": "Slider Right Label",
+          "description": "Defaults to the max value and unit when empty"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "sliderColor",
+          "label": "Slider Theme Color",
+          "description": "Any CSS color, e.g. #00B348",
+          "value": "#00B348"
+        },
+        {
+          "component": "tab",
+          "name": "labels",
+          "label": "Labels"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "petrolLabel",
+          "label": "Petrol Label"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "evLabel",
+          "label": "EV Label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "savingsLabel",
+          "label": "Savings Label"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "assumptionLabel",
+          "label": "Assumption Text",
+          "description": "Bold lead-in, e.g. \"Assumptions:\""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "assumptionDetails",
+          "label": "Assumption Details"
+        },
+        {
+          "component": "tab",
+          "name": "calculation",
+          "label": "Calculation"
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "daysPerYear",
+          "label": "Days Per Year",
+          "value": 365
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "petrolMileage",
+          "label": "Petrol Mileage (km/l)",
+          "value": 40
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "petrolFuelCost",
+          "label": "Petrol Fuel Cost Per Litre",
+          "value": 100
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "evRange",
+          "label": "Electric Range Per Unit (km/unit)",
+          "value": 35
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "evCostPerUnit",
+          "label": "Electric Cost Per Unit",
+          "value": 10
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "currencySymbol",
+          "label": "Currency Symbol",
+          "value": "₹"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "currencyLocale",
+          "label": "Currency Locale",
+          "description": "BCP 47 tag used for digit grouping, e.g. en-IN",
+          "value": "en-IN"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}
