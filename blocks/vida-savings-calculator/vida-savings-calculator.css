@@ -356,7 +356,7 @@
   }
 
   .vida-savings-calculator .vida-savings-calculator__row--petrol .vida-savings-calculator__row-value {
-    color: var(--content-secondary);
+    color: var(--content-primary, #1D1B1B);
     font-weight: var(--fw-regular);
   }
 
