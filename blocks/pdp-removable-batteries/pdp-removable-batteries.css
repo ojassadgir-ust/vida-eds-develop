@@ -170,7 +170,7 @@ main .section > .pdp-removable-batteries-wrapper {
       "cards media"
       "cta media";
     max-width: 1440px;
-    padding: 64px;
+    padding: 64px 0 64px 64px;
   }
 
   .pdp-removable-batteries .pdp-removable-batteries-heading {
