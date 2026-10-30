@@ -1,0 +1,106 @@
+{
+  "definitions": [
+    {
+      "title": "Accessories Teaser",
+      "id": "accessories-teaser",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Accessories Teaser",
+              "model": "accessories-teaser",
+              "filter": "accessories-teaser"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Accessories Teaser Card",
+      "id": "accessories-teaser-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Accessories Teaser Card",
+              "model": "accessories-teaser-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "accessories-teaser",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "heading",
+          "label": "Heading"
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "cta",
+          "label": "CTA Link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaText",
+          "label": "CTA Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "ctaIcon",
+          "label": "CTA Icon",
+          "multi": false
+        }
+      ]
+    },
+    {
+      "id": "accessories-teaser-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Title"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "desktopImage",
+          "label": "Desktop Image",
+          "multi": false
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobileImage",
+          "label": "Mobile Image",
+          "multi": false
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "accessories-teaser",
+      "components": [
+        "accessories-teaser-item"
+      ]
+    }
+  ]
+}

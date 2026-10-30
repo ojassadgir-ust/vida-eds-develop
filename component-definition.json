@@ -83,6 +83,37 @@
       "id": "blocks",
       "components": [
         {
+          "title": "Accessories Teaser",
+          "id": "accessories-teaser",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Accessories Teaser",
+                  "model": "accessories-teaser",
+                  "filter": "accessories-teaser"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Accessories Teaser Card",
+          "id": "accessories-teaser-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Accessories Teaser Card",
+                  "model": "accessories-teaser-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "App Promo",
           "id": "app-promo",
           "plugins": {
