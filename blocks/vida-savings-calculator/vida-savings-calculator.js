@@ -104,33 +104,38 @@ const resolveSettings = (config) => {
 };
 
 const createCurrencyFormatter = (symbol, locale) => {
-  const options = { maximumFractionDigits: 0 };
-  let numberFormat;
+  const numberFormats = new Map();
 
-  try {
-    numberFormat = new Intl.NumberFormat(locale || DEFAULTS.currencyLocale, options);
-  } catch (e) {
-    numberFormat = new Intl.NumberFormat(DEFAULTS.currencyLocale, options);
-  }
+  return (amount, fractionDigits = 0) => {
+    let numberFormat = numberFormats.get(fractionDigits);
 
-  return (amount) => {
+    if (!numberFormat) {
+      const options = {
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits,
+      };
+
+      try {
+        numberFormat = new Intl.NumberFormat(locale || DEFAULTS.currencyLocale, options);
+      } catch (e) {
+        numberFormat = new Intl.NumberFormat(DEFAULTS.currencyLocale, options);
+      }
+      numberFormats.set(fractionDigits, numberFormat);
+    }
+
     const digits = numberFormat
       .formatToParts(Math.abs(amount))
       .map(({ type, value }) => (type === 'group' ? NBSP : value))
       .join('');
 
-    return `${amount < 0 ? '-' : ''}${symbol}${digits}`;
+    return `${amount < 0 ? '-' : ''}${symbol}${digits}/-`;
   };
 };
 
 const calculateCosts = (distance, settings) => {
   const yearlyDistance = distance * settings.daysPerYear;
-  const petrol = Math.round(
-    (yearlyDistance / settings.petrolMileage) * settings.petrolFuelCost,
-  );
-  const electric = Math.round(
-    (yearlyDistance / settings.evRange) * settings.evCostPerUnit,
-  );
+  const petrol = (yearlyDistance / settings.petrolMileage) * settings.petrolFuelCost;
+  const electric = (yearlyDistance / settings.evRange) * settings.evCostPerUnit;
 
   return { petrol, electric, savings: petrol - electric };
 };
@@ -276,7 +281,7 @@ export default function decorate(block) {
     results.update({
       petrol: formatCurrency(costs.petrol),
       electric: formatCurrency(costs.electric),
-      savings: formatCurrency(costs.savings),
+      savings: formatCurrency(costs.savings, 2),
     });
   });
 

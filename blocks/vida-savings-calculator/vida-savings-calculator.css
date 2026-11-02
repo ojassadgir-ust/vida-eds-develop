@@ -28,10 +28,10 @@
   margin: 0;
   color: var(--content-primary);
   font-family: inherit;
-  font-size: 32px;
+  font-size: var(--fs-heading-xl);
   font-weight: var(--fw-medium);
-  line-height: 40px;
-  letter-spacing: var(--ls-heading-lg);
+  line-height: var(--lh-heading-xl);
+  letter-spacing: var(--ls-heading-xl);
   text-align: center;
 }
 
@@ -55,10 +55,10 @@
 
 .vida-savings-calculator .vida-savings-calculator__description {
   color: var(--content-primary);
-  font-size: var(--fs-body-lg);
-  font-weight: var(--fw-regular);
-  line-height: var(--lh-body-lg);
-  letter-spacing: var(--ls-body-lg);
+  font-size: var(--fs-heading-md);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading-md);
+  letter-spacing: var(--ls-heading-md);
   text-align: left;
 }
 
@@ -71,15 +71,16 @@
 
 .vida-savings-calculator .vida-savings-calculator__slider-heading {
   color: var(--content-primary);
-  font-size: var(--fs-body-lg);
+  font-size: var(--fs-heading-md);
   font-weight: var(--fw-medium);
-  line-height: var(--lh-body-lg);
+  line-height: var(--lh-heading-md);
+  letter-spacing: var(--ls-heading-md);
   text-align: left;
 }
 
 .vida-savings-calculator .vida-savings-calculator__slider-value {
   color: var(--savings-calculator-color);
-  font-weight: 600;
+  font-weight: var(--fw-medium);
 }
 
 .vida-savings-calculator .vida-savings-calculator__slider-input {
@@ -118,10 +119,10 @@
   width: var(--thumb-size);
   height: var(--thumb-size);
   margin-top: calc((var(--track-height) - var(--thumb-size)) / 2);
-  border: 1px solid var(--color-neutral-200);
+  border: 3px solid var(--border-strong, #D4D4D4);
   border-radius: 50%;
   background: var(--surface-primary);
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+  box-shadow: none;
   appearance: none;
 }
 
@@ -129,10 +130,10 @@
   box-sizing: border-box;
   width: var(--thumb-size);
   height: var(--thumb-size);
-  border: 1px solid var(--color-neutral-200);
+  border: 3px solid var(--border-strong, #D4D4D4);
   border-radius: 50%;
   background: var(--surface-primary);
-  box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+  box-shadow: none;
 }
 
 .vida-savings-calculator .vida-savings-calculator__slider-input:focus-visible {
@@ -154,6 +155,7 @@
   justify-content: space-between;
   gap: 16px;
   color: var(--content-primary);
+  font-weight: var(--fw-medium);
   font-size: var(--fs-body-sm);
   line-height: var(--lh-body-sm);
   letter-spacing: var(--ls-body-sm);
@@ -181,7 +183,7 @@
 
 .vida-savings-calculator .vida-savings-calculator__savings {
   padding-top: 16px;
-  border-top: 1px solid var(--border-default);
+  border-top: 1px solid var(--content-secondary);
 }
 
 .vida-savings-calculator .vida-savings-calculator__row {
@@ -210,7 +212,7 @@
   margin: 0;
   color: var(--content-primary);
   font-size: var(--fs-heading-xs);
-  font-weight: 600;
+  font-weight: var(--fw-medium);
   line-height: var(--lh-heading-xs);
   text-align: right;
   white-space: nowrap;
@@ -220,24 +222,28 @@
   color: var(--status-positive-intense);
 }
 
+.vida-savings-calculator .vida-savings-calculator__row--savings .vida-savings-calculator__row-label {
+  font-weight: var(--fw-medium);
+}
+
 /* Assumptions */
 .vida-savings-calculator .vida-savings-calculator__assumptions {
-  color: var(--color-neutral-700);
-  font-size: var(--fs-body-xs);
-  line-height: var(--lh-body-xs);
-  letter-spacing: var(--ls-body-xs);
+  color: var(--content-secondary);
+  font-size: var(--fs-label-sm);
+  line-height: var(--lh-label-sm);
+  letter-spacing: var(--ls-label-sm);
   text-align: left;
 }
 
 .vida-savings-calculator .vida-savings-calculator__assumptions-label {
   display: block;
   color: var(--content-primary);
-  font-weight: 600;
+  font-weight: var(--fw-medium);
 }
 
 .vida-savings-calculator .vida-savings-calculator__assumptions-details strong,
 .vida-savings-calculator .vida-savings-calculator__assumptions-details b {
-  font-weight: 600;
+  font-weight: var(--fw-medium);
 }
 
 /* Tablet */
@@ -264,14 +270,15 @@
   }
 
   .vida-savings-calculator .vida-savings-calculator__description {
-    font-size: var(--fs-body-xl);
-    line-height: var(--lh-body-xl);
-    letter-spacing: var(--ls-body-xl);
+    font-size: var(--fs-heading-md);
+    line-height: var(--lh-heading-md);
+    letter-spacing: var(--ls-heading-md);
   }
 
   .vida-savings-calculator .vida-savings-calculator__slider-heading {
-    font-size: var(--fs-body-xl);
-    line-height: var(--lh-body-xl);
+    font-size: var(--fs-heading-md);
+    line-height: var(--lh-heading-md);
+    letter-spacing: var(--ls-heading-md);
   }
 
   .vida-savings-calculator .vida-savings-calculator__slider-input {
@@ -289,10 +296,6 @@
     gap: 48px;
     padding: 32px;
     border-radius: var(--radius-modal);
-  }
-
-  .vida-savings-calculator .vida-savings-calculator__costs {
-    gap: 32px;
   }
 
   .vida-savings-calculator .vida-savings-calculator__savings {
@@ -353,6 +356,16 @@
   .vida-savings-calculator .vida-savings-calculator__slider-input {
     --track-height: 32px;
     --thumb-size: 40px;
+  }
+
+  .vida-savings-calculator .vida-savings-calculator__costs {
+    gap: 64px;
+  }
+
+  .vida-savings-calculator .vida-savings-calculator__row--petrol .vida-savings-calculator__row-label {
+    font-size: var(--fs-body-lg);
+    line-height: var(--lh-body-lg);
+    letter-spacing: var(--ls-body-lg);
   }
 
   .vida-savings-calculator .vida-savings-calculator__row--petrol .vida-savings-calculator__row-value {
