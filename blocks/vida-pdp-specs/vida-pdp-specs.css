@@ -1,261 +1,821 @@
+/*
+ * VIDA PDP Specs block
+ * AEM Edge Delivery Services block: blocks/vida-pdp-specs/vida-pdp-specs.css
+ */
+
+
 .vida-pdp-specs {
-  --pdp-accent: #f26b21;
-  --pdp-text: #111;
-  --pdp-muted: #6b6b6b;
-  --pdp-beige: #f8f4ee;
-  --pdp-border: #e3e3e3;
-  --pdp-tag: #12a150;
+  --vida-ink: #1d1b1b;
+  --vida-orange: #ff5310;
+  --vida-cream: #f9f5ee;
+  --vida-border: #eaeaea;
+  --vida-muted: #777;
 
-  font-family: inherit;
-  color: var(--pdp-text);
-}
-
-.vida-pdp-specs__container {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 32px 20px;
-}
-
-.vida-pdp-specs__title {
-  margin: 0 0 24px;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-/* Tabs */
-.vida-pdp-specs__tabs {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  border-bottom: 1px solid var(--pdp-border);
-  margin-bottom: 24px;
-  overflow-x: auto;
-}
-
-.vida-pdp-specs__tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 8px 0 12px;
-  border: 0;
-  border-bottom: 2px solid transparent;
-  background: none;
-  font-size: 1rem;
-  color: var(--pdp-muted);
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.vida-pdp-specs__tab[aria-selected='true'] {
-  color: var(--pdp-text);
-  font-weight: 600;
-  border-bottom-color: var(--pdp-accent);
-}
-
-.vida-pdp-specs__tag {
-  background: var(--pdp-tag);
-  color: #fff;
-  font-size: 0.6rem;
-  font-weight: 700;
-  padding: 1px 4px;
-  border-radius: 3px;
-  text-transform: uppercase;
-}
-
-/* Price card */
-.vida-pdp-specs__price {
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-  gap: 16px;
-  background: var(--pdp-beige);
-  border-radius: 12px;
-  padding: 20px 24px;
-  flex-wrap: wrap;
-}
-
-.vida-pdp-specs__price-info {
-  flex: 1 1 260px;
-}
-
-.vida-pdp-specs__price-heading {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-.vida-pdp-specs__price-subheading,
-.vida-pdp-specs__location {
-  margin: 6px 0 0;
-  font-size: 0.85rem;
-  color: var(--pdp-muted);
-}
-
-.vida-pdp-specs__location-name {
-  color: var(--pdp-accent);
-  font-weight: 600;
-  margin-left: 4px;
-}
-
-.vida-pdp-specs__link {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 0.85rem;
-  color: var(--pdp-text);
-}
-
-.vida-pdp-specs__price-value {
-  flex: 0 1 240px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 16px 20px;
-  text-align: center;
-}
-
-.vida-pdp-specs__price-amount {
-  font-size: 1.75rem;
-  font-weight: 600;
-}
-
-.vida-pdp-specs__breakdown {
-  margin-top: 8px;
-  font-size: 0.8rem;
-  text-align: left;
-}
-
-.vida-pdp-specs__breakdown-list {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-.vida-pdp-specs__breakdown-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--pdp-border);
-}
-
-.vida-pdp-specs__note {
-  flex-basis: 100%;
-  font-size: 0.8rem;
-  color: var(--pdp-muted);
-}
-
-.vida-pdp-specs__note p {
-  margin: 0;
-}
-
-/* Gallery */
-.vida-pdp-specs__gallery {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin: 32px 0;
-}
-
-.vida-pdp-specs__image {
+  box-sizing: border-box;
+  color: var(--vida-ink);
+  font-family: brand-font, "PP Neue Montreal", Arial, sans-serif;
+  margin-inline: auto;
   max-width: 100%;
-  height: auto;
+  padding: 100px 5%;
 }
 
-.vida-pdp-specs__color-label {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--pdp-muted);
-}
 
-.vida-pdp-specs__swatches {
-  display: flex;
-  gap: 10px;
-}
-
-.vida-pdp-specs__swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 0 1px var(--pdp-border);
-  cursor: pointer;
-  padding: 0;
-}
-
-.vida-pdp-specs__swatch[aria-pressed='true'] {
-  box-shadow: 0 0 0 2px var(--pdp-text);
-}
-
-/* Specifications */
-.vida-pdp-specs__specs {
-  border-top: 1px solid var(--pdp-border);
-  border-bottom: 1px solid var(--pdp-border);
-  padding: 20px 0;
-}
-
-.vida-pdp-specs__spec-list {
-  display: flex;
-  gap: 24px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  overflow-x: auto;
-}
-
-.vida-pdp-specs__spec-list.is-expanded {
-  flex-wrap: wrap;
-  overflow: visible;
-}
-
-.vida-pdp-specs__spec {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 140px;
-}
-
-.vida-pdp-specs__spec-icon {
-  width: 40px;
-  height: 40px;
-  padding: 10px;
-  border-radius: 50%;
-  background: var(--pdp-beige);
+.vida-pdp-specs *,
+.vida-pdp-specs *::before,
+.vida-pdp-specs *::after {
   box-sizing: border-box;
 }
 
-.vida-pdp-specs__spec-text {
+
+/* .vida-pdp-specs button,
+.vida-pdp-specs input {
+  color: inherit; */
+
+  /* font: inherit;
+} */
+
+
+.vida-pdp-specs button {
+  cursor: pointer;
+}
+
+
+.vida-pdp-specs__title {
+  font-family: brand-font, Arial, sans-serif;
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0 0 60px;
+  text-align: center;
+}
+
+
+.vida-pdp-specs__tabs {
+  align-items: stretch;
+  border-bottom: 1px solid #c8c8c8;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin: 0 auto 66px;
+  max-width: max-content;
+}
+
+
+.vida-pdp-specs__tab {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  display: inline-flex;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 600;
+  gap: 8px;
+  line-height: 1.2;
+  margin-bottom: -1px;
+  padding: 0 0 16px;
+  white-space: nowrap;
+}
+
+
+.vida-pdp-specs__tab.is-active {
+  border-bottom-color: var(--vida-orange);
+}
+
+
+.vida-pdp-specs__new-tag {
+  background: #00a651;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 5px;
+}
+
+
+.vida-pdp-specs__price-panel {
+  align-items: stretch;
+  background: var(--vida-cream);
+  border-radius: 20px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 30%);
+  margin-bottom: 24px;
+  padding: 8px 8px 8px 40px;
+  position: relative;
+}
+
+
+.vida-pdp-specs__price-copy {
+  align-self: center;
+  min-width: 0;
+  padding-block: 24px;
+  position: relative;
+}
+
+
+.vida-pdp-specs__price-title {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: clamp(1.35rem, 2.4vw, 2.25rem);
+  font-style: italic;
+  font-weight: 600;
+  gap: 0 8px;
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+  margin: 0 0 10px;
+}
+
+
+.vida-pdp-specs__model-label {
+  display: none;
+}
+
+
+.vida-pdp-specs__city-trigger {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--vida-orange);
+  display: inline-flex;
+  font-size: inherit;
+  font-style: italic;
+  font-weight: inherit;
+  gap: 8px;
+  padding: 0;
+}
+
+
+.vida-pdp-specs__city-arrow,
+.vida-pdp-specs__city-arrow svg {
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
+
+.vida-pdp-specs__city-arrow svg,
+.vida-pdp-specs__search-icon svg,
+.vida-pdp-specs__info-button svg,
+.vida-pdp-specs__spec-icon svg,
+.vida-pdp-specs__arrow svg {
+  fill: none;
+  stroke: currentcolor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+
+.vida-pdp-specs__subtitle {
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1;
+  margin: 0 0 16px;
+}
+
+
+.vida-pdp-specs__dealership {
+  color: var(--vida-ink);
+  display: inline-block;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 11%;
+  text-decoration-thickness: 10%;
+}
+
+
+.vida-pdp-specs__price-card {
+  align-items: center;
+  align-self: stretch;
+  background: #fff;
+  border-radius: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  min-height: 136px;
+  padding: 24px;
+  position: relative;
+}
+
+
+.vida-pdp-specs__price-value {
+  font-size: clamp(2rem, 3.3vw, 3rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+
+.vida-pdp-specs__info-button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: #999;
+  display: inline-flex;
+  flex: 0 0 32px;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  width: 32px;
+}
+
+
+.vida-pdp-specs__info-button svg {
+  height: 24px;
+  width: 24px;
+}
+
+
+.vida-pdp-specs__price-popover,
+.vida-pdp-specs__city-popover {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px #0000001a;
+  z-index: 5;
+}
+
+
+.vida-pdp-specs__price-popover {
+  min-width: min(330px, 88vw);
+  padding: 16px;
+  position: absolute;
+  right: 0;
+  top: calc(70%);
+}
+
+
+.vida-pdp-specs__price-popover-header {
+  align-items: center;
+  border-bottom: 1px solid var(--vida-border);
+  display: flex;
+  font-size: 14px;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+
+
+.vida-pdp-specs__close {
+  background: transparent;
+  border: 0;
+  font-size: 24px;
+  line-height: 1;
+  padding: 0 2px;
+}
+
+
+.vida-pdp-specs__price-row,
+.vida-pdp-specs__price-total {
+  align-items: baseline;
+  display: flex;
+  font-size: 14px;
+  gap: 12px;
+  justify-content: space-between;
+  padding-top: 12px;
+}
+
+
+.vida-pdp-specs__price-row strong,
+.vida-pdp-specs__price-total strong {
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+
+
+.vida-pdp-specs__price-total {
+  border-top: 1px solid var(--vida-border);
+  font-size: 16px;
+  margin-top: 12px;
+  padding-bottom: 8px;
+}
+
+
+.vida-pdp-specs__price-total strong {
+  font-size: 22px;
+}
+
+
+.vida-pdp-specs__price-note {
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 530;
+  line-height: 1.35;
+  margin: 8px 0 0;
+}
+
+
+.vida-pdp-specs__city-popover {
+  left: 36%;
+  max-width: min(320px, 90vw);
+  min-width: 220px;
+  padding: 8px;
+  position: absolute;
+  top: calc(45%);
+  width: 100%;
+  z-index: 6;
+}
+
+
+.vida-pdp-specs__search-wrap {
+  align-items: center;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  display: flex;
+  gap: 8px;
+  padding: 0 8px;
+}
+
+
+.vida-pdp-specs__city-search {
+  background: transparent;
+  border: 0;
+  min-width: 0;
+  outline-offset: 2px;
+  padding: 10px 0;
+  width: 100%;
+}
+
+
+.vida-pdp-specs__search-icon,
+.vida-pdp-specs__search-icon svg {
+  color: #999;
+  flex: 0 0 18px;
+  height: 18px;
+  width: 18px;
+}
+
+
+.vida-pdp-specs__city-list {
+  max-height: 240px;
+  overflow-y: auto;
+  padding-top: 4px;
+}
+
+
+.vida-pdp-specs__city-option {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  display: block;
+  font-size: 14px;
+  padding: 10px 8px;
+  text-align: left;
+  width: 100%;
+}
+
+
+.vida-pdp-specs__city-option-state {
+  color: var(--vida-muted);
+  display: block;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+
+.vida-pdp-specs__city-option:hover,
+.vida-pdp-specs__city-option.is-selected {
+  background: #fbf5f2;
+  color: var(--vida-orange);
+}
+
+
+.vida-pdp-specs__city-hint {
+  color: var(--vida-muted);
+  font-size: 13px;
+  margin: 10px 8px;
+}
+
+
+.vida-pdp-specs__product-media {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 24px;
+  min-height: 220px;
+  width: 70%;
+}
+
+
+.vida-pdp-specs__product-image {
+  display: block;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+
+  /* width: 100%; */
+}
+
+
+.vida-pdp-specs__color-picker {
+  align-items: center;
   display: flex;
   flex-direction: column;
+  margin: 0 auto 65px;
+  max-width: 100%;
 }
 
-.vida-pdp-specs__spec-title {
-  font-size: 0.8rem;
-  color: var(--pdp-muted);
+
+.vida-pdp-specs__color-name {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px #00000012;
+  font-size: 24px;
+  font-style: italic;
+  line-height: 1;
+  margin-bottom: 10px;
+  padding: 10px 16px;
+  text-align: center;
 }
+
+
+.vida-pdp-specs__swatches {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+
+.vida-pdp-specs__swatch {
+  background: var(--swatch-color, #ddd);
+  border: 1px solid #00000008;
+  border-radius: 52px;
+  box-shadow: inset 0 2px 2px #0000001f;
+  flex: 0 0 36px;
+  height: 36px;
+  padding: 0;
+  transition: width 160ms ease;
+  width: 36px;
+}
+
+
+.vida-pdp-specs__swatch.is-selected {
+  flex-basis: 120px;
+  width: 120px;
+}
+
+
+.vida-pdp-specs__specs {
+  border-bottom: 1px solid var(--vida-border);
+  border-top: 1px solid var(--vida-border);
+  display: grid;
+  gap: 32px 5%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 40px 0;
+}
+
+
+.vida-pdp-specs__spec {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  min-width: 0;
+}
+
+
+.vida-pdp-specs__spec-icon {
+  align-items: center;
+  background: var(--vida-cream);
+  border-radius: 50%;
+  color: var(--vida-orange);
+  display: inline-flex;
+  flex: 0 0 64px;
+  height: 64px;
+  justify-content: center;
+  padding: 18px;
+  width: 64px;
+}
+
+
+.vida-pdp-specs__spec-icon svg {
+  height: 28px;
+  width: 28px;
+}
+
+
+.vida-pdp-specs__spec-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+
+.vida-pdp-specs__spec-title,
+.vida-pdp-specs__spec-value {
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 530;
+  line-height: 1.3;
+}
+
 
 .vida-pdp-specs__spec-value {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 18px;
 }
 
-.vida-pdp-specs__all-link {
-  display: block;
-  margin: 20px auto 0;
-  border: 0;
-  background: none;
-  font-weight: 600;
-  cursor: pointer;
+
+.vida-pdp-specs__all-specs {
+  align-items: center;
+  color: var(--vida-ink);
+  display: flex;
+  font-family: "PP Neue Montreal", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 530;
+  gap: 8px;
+  justify-content: center;
+  margin: 24px auto 0;
   text-decoration: none;
+  width: fit-content;
 }
 
-/* Responsive */
-@media (width <= 600px) {
-  .vida-pdp-specs__title {
-    font-size: 1.5rem;
+
+.vida-pdp-specs__arrow,
+.vida-pdp-specs__arrow svg {
+  display: block;
+  height: 20px;
+  width: 20px;
+}
+
+
+.vida-pdp-specs__visually-hidden {
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+
+.vida-pdp-specs [hidden] {
+  display: none !important;
+}
+
+
+@media (width >= 768px) and (width <= 1023px) {
+  .vida-pdp-specs {
+    padding: 80px 32px;
   }
 
+
+  .vida-pdp-specs__title {
+    margin-bottom: 56px;
+  }
+
+
+  .vida-pdp-specs__tab {
+    font-size: 28px;
+  }
+
+
+  .vida-pdp-specs__tabs {
+    margin-bottom: 48px;
+  }
+
+
+  .vida-pdp-specs__price-panel {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 34%);
+    padding-left: 28px;
+  }
+
+
+  .vida-pdp-specs__product-media {
+    width: 82%;
+  }
+
+
+  .vida-pdp-specs__specs {
+    gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+
+  .vida-pdp-specs__spec-icon {
+    flex-basis: 56px;
+    height: 56px;
+    width: 56px;
+  }
+}
+
+
+@media (width <= 767px) {
+  .vida-pdp-specs {
+    padding: 48px 16px;
+  }
+
+
+  .vida-pdp-specs__title {
+    font-size: 32px;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    margin-bottom: 40px;
+  }
+
+
+  .vida-pdp-specs__tabs {
+    gap: 24px;
+    margin-bottom: 24px;
+    max-width: 100%;
+  }
+
+
+  .vida-pdp-specs__tab {
+    font-size: 24px;
+    font-weight: 400;
+    padding-bottom: 16px;
+  }
+
+
+  .vida-pdp-specs__price-panel {
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+    margin-bottom: 24px;
+    padding: 8px 16px 24px;
+  }
+
+
+  .vida-pdp-specs__price-copy {
+    padding: 0;
+    text-align: center;
+  }
+
+
+  .vida-pdp-specs__price-title {
+    border-top: 1px solid #dadada;
+    display: block;
+    font-size: 24px;
+    line-height: 1;
+    margin: 0;
+    padding: 24px 0 0;
+    text-align: center;
+  }
+
+
+  .vida-pdp-specs__model-label {
+    display: inline;
+  }
+
+
+  .vida-pdp-specs__city-trigger {
+    display: inline-flex;
+    margin-top: 16px;
+  }
+
+
+  .vida-pdp-specs__subtitle {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0 0 16px;
+    order: 0;
+  }
+
+
+  .vida-pdp-specs__dealership {
+    border-top: 1px solid #dadada;
+    display: block;
+    font-size: 16px;
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+
+  .vida-pdp-specs__price-card {
+    border-radius: 16px;
+    flex: 0 0 auto;
+    justify-content: center;
+    margin-bottom: 24px;
+    min-height: 104px;
+    padding: 16px 8px;
+    width: 100%;
+  }
+
+
   .vida-pdp-specs__price-value {
-    flex-basis: 100%;
+    font-size: 40px;
+  }
+
+
+  .vida-pdp-specs__info-button {
+    flex-basis: 28px;
+    height: 28px;
+    width: 28px;
+  }
+
+
+  .vida-pdp-specs__price-popover {
+    max-width: 100%;
+    right: 0;
+    top: calc(100% - 8px);
+  }
+
+
+  .vida-pdp-specs__city-popover {
+    left: 50%;
+    max-width: 100%;
+    top: calc(100% + 4px);
+    transform: translateX(-50%);
+    width: min(320px, 100%);
+  }
+
+
+  .vida-pdp-specs__product-media {
+    margin-bottom: 24px;
+    min-height: 0;
+    width: 100%;
+  }
+
+
+  .vida-pdp-specs__product-image {
+    max-height: none;
+  }
+
+
+  .vida-pdp-specs__color-picker {
+    margin-bottom: 48px;
+  }
+
+
+  .vida-pdp-specs__color-name {
+    font-size: 24px;
+  }
+
+
+  .vida-pdp-specs__swatches {
+    gap: 10px;
+  }
+
+
+  .vida-pdp-specs__swatch.is-selected {
+    flex-basis: 96px;
+    width: 96px;
+  }
+
+
+  .vida-pdp-specs__specs {
+    gap: 28px 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 28px 0;
+  }
+
+
+  .vida-pdp-specs__spec {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+
+  .vida-pdp-specs__spec-icon {
+    flex-basis: 40px;
+    height: 40px;
+    padding: 11px;
+    width: 40px;
+  }
+
+
+  .vida-pdp-specs__spec-icon svg {
+    height: 20px;
+    width: 20px;
+  }
+
+
+  .vida-pdp-specs__spec-copy {
+    gap: 4px;
+  }
+
+
+  .vida-pdp-specs__spec-title {
+    font-size: 13px;
+  }
+
+
+  .vida-pdp-specs__spec-value {
+    font-size: 15px;
+  }
+
+
+  .vida-pdp-specs__all-specs {
+    font-size: 15px;
+    margin-top: 24px;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .vida-pdp-specs__swatch {
+    transition: none;
   }
 }

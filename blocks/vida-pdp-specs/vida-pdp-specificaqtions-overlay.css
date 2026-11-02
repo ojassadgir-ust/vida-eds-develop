@@ -1,0 +1,433 @@
+/*
+ * VIDA PDP specifications comparison overlay.
+ * Additive styles only; existing .vida-pdp-specs styles remain untouched.
+ */
+
+
+.vida-specs-overlay {
+  --vida-specs-ink: #1d1b1b;
+  --vida-specs-cream: #f9f5ee;
+  --vida-specs-border: #e8e6e3;
+
+  align-items: center;
+  background: rgb(0 0 0 / 54%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 10000;
+}
+
+
+.vida-specs-overlay[hidden] {
+  display: none !important;
+}
+
+
+body.vida-specs-overlay-open {
+  overflow: hidden;
+}
+
+
+.vida-specs-overlay__dialog {
+  background: #fff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: var(--vida-specs-ink);
+  display: flex;
+  flex-direction: column;
+  font-family: "PP Neue Montreal", brand-font, Arial, sans-serif;
+  max-height: calc(100dvh - 48px);
+  max-width: 1318px;
+  overflow: hidden;
+  padding: 32px 38px 36px;
+  width: 100%;
+}
+
+
+.vida-specs-overlay__header {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: space-between;
+  margin: 0 0 22px;
+}
+
+
+.vida-specs-overlay__heading {
+  font-family: "PP Neue Montreal", brand-font, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 530;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin: 0;
+  text-align: left;
+}
+
+
+.vida-specs-overlay__close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--vida-specs-ink);
+  display: inline-flex;
+  flex: 0 0 40px;
+  font-family: Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+}
+
+
+.vida-specs-overlay__table-wrap {
+  border: 1px solid var(--vida-specs-border);
+  border-radius: 22px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+
+.vida-specs-overlay__table-host {
+  min-width: 0;
+  width: 100%;
+}
+
+
+.vida-specs-overlay__table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--vida-specs-ink);
+  font-family: "PP Neue Montreal", brand-font, Arial, sans-serif;
+  font-size: 14px;
+  table-layout: fixed;
+  width: 100%;
+}
+
+
+.vida-specs-overlay__table thead th {
+  background: var(--vida-specs-cream);
+  font-size: 13px;
+  font-weight: 530;
+  line-height: 1.35;
+  padding: 19px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.vida-specs-overlay__table tbody th,
+.vida-specs-overlay__table tbody td {
+  border-bottom: 1px solid var(--vida-specs-border);
+  font-family: "PP Neue Montreal", brand-font, Arial, sans-serif;
+  line-height: 1.35;
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+
+.vida-specs-overlay__table thead th:last-child {
+  border-top-right-radius: 21px;
+}
+
+
+.vida-specs-overlay__table thead th:first-child {
+  border-top-left-radius: 21px;
+  width: 38%;
+}
+
+
+.vida-specs-overlay__table tbody tr:last-child th,
+.vida-specs-overlay__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+
+.vida-specs-overlay__row-label {
+  font-size: 13px;
+  font-weight: 530;
+  width: 38%;
+}
+
+
+.vida-specs-overlay__value {
+  font-size: 13px;
+  font-weight: 450;
+  overflow-wrap: anywhere;
+}
+
+
+.vida-specs-overlay__model-header {
+  min-width: 0;
+}
+
+
+.vida-specs-overlay__model-select {
+  appearance: none;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 14 8'%3E%3Cpath d='m1 1 6 6 6-6' fill='none' stroke='%231d1b1b' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 12px 7px;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  max-width: 100%;
+  outline-offset: 3px;
+  padding: 0 20px 0 0;
+}
+
+
+.vida-specs-overlay__colors {
+  align-items: center;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0;
+  vertical-align: middle;
+}
+
+
+.vida-specs-overlay__color {
+  background: var(--spec-swatch-color, #ddd);
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--spec-swatch-color, #ddd);
+  display: inline-block;
+  height: 13px;
+  margin-right: -2px;
+  width: 13px;
+}
+
+
+.vida-specs-overlay__footer {
+  align-items: center;
+  display: grid;
+  flex: 0 0 auto;
+  gap: 16px;
+  grid-template-columns: 1fr auto 1fr;
+  margin-top: 20px;
+}
+
+
+.vida-specs-overlay__download {
+  align-items: center;
+  color: var(--vida-specs-ink);
+  display: inline-flex;
+  font-size: 11px;
+  font-weight: 530;
+  gap: 6px;
+  justify-self: start;
+  text-underline-offset: 3px;
+}
+
+
+.vida-specs-overlay__download-icon {
+  font-size: 16px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+
+.vida-specs-overlay__compare {
+  background: var(--vida-specs-ink);
+  border: 0;
+  border-radius: 24px;
+  color: #fff;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 600;
+  justify-content: center;
+  min-width: 164px;
+  padding: 10px 24px;
+  text-decoration: none;
+}
+
+
+.vida-specs-overlay__terms {
+  font-size: 10px;
+  font-weight: 530;
+  justify-self: end;
+  white-space: nowrap;
+}
+
+
+.vida-specs-overlay__error {
+  font-size: 14px;
+  margin: 24px;
+}
+
+
+@media (width >= 768px) and (width <= 1023px) {
+  .vida-specs-overlay {
+    padding: 24px;
+  }
+
+
+  .vida-specs-overlay__dialog {
+    max-height: calc(100dvh - 48px);
+    padding: 28px 24px;
+  }
+
+
+  .vida-specs-overlay__table thead th,
+  .vida-specs-overlay__table tbody th,
+  .vida-specs-overlay__table tbody td {
+    padding: 13px 12px;
+  }
+
+
+  .vida-specs-overlay__table thead th:first-child,
+  .vida-specs-overlay__row-label {
+    width: 34%;
+  }
+}
+
+
+@media (width <= 767px) {
+  .vida-specs-overlay {
+    align-items: stretch;
+    background: #444;
+    padding: 2px;
+  }
+
+
+  .vida-specs-overlay__dialog {
+    border-radius: 8px;
+    margin: 0;
+    max-height: calc(100dvh - 4px);
+    padding: 16px 10px 14px;
+    width: 100%;
+  }
+
+
+  .vida-specs-overlay__header {
+    margin: 0 0 14px;
+    padding: 0 0 0 1px;
+  }
+
+
+  .vida-specs-overlay__heading {
+    font-size: 18px;
+    line-height: 1.2;
+  }
+
+
+  .vida-specs-overlay__close {
+    flex-basis: 30px;
+    font-size: 27px;
+    height: 30px;
+    width: 30px;
+  }
+
+
+  .vida-specs-overlay__table-wrap {
+    border-radius: 12px;
+    flex: 1 1 auto;
+  }
+
+
+  .vida-specs-overlay__table {
+    font-size: 10px;
+    table-layout: fixed;
+  }
+
+
+  .vida-specs-overlay__table thead th {
+    font-size: 11px;
+    padding: 10px 7px;
+  }
+
+
+  .vida-specs-overlay__table tbody th,
+  .vida-specs-overlay__table tbody td {
+    padding: 12px 7px;
+  }
+
+
+  .vida-specs-overlay__table thead th:first-child {
+    width: 43%;
+  }
+
+
+  .vida-specs-overlay__row-label {
+    font-size: 12px;
+    font-weight: 530;
+    width: 43%;
+  }
+
+
+  .vida-specs-overlay__value {
+    font-size: 10px;
+    overflow-wrap: anywhere;
+  }
+
+
+  .vida-specs-overlay__model-select {
+    background-size: 9px 5px;
+    background-position: right center;
+    font-size: 10px;
+    padding-right: 13px;
+    width: 100%;
+  }
+
+
+  .vida-specs-overlay__color {
+    height: 9px;
+    margin-right: -2px;
+    width: 9px;
+  }
+
+
+  .vida-specs-overlay__footer {
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+
+  .vida-specs-overlay__download {
+    align-self: center;
+    font-size: 10px;
+    order: 0;
+  }
+
+
+  .vida-specs-overlay__compare {
+    align-self: stretch;
+    border-radius: 24px;
+    font-size: 11px;
+    min-height: 34px;
+    order: 1;
+    padding: 8px 16px;
+    width: 100%;
+  }
+
+
+  .vida-specs-overlay__terms {
+    align-self: center;
+    font-size: 9px;
+    order: 2;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .vida-specs-overlay *,
+  .vida-specs-overlay *::before,
+  .vida-specs-overlay *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
