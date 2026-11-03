@@ -232,9 +232,18 @@ body.vida-specs-overlay-open {
 
 
 .vida-specs-overlay__download-icon {
-  font-size: 16px;
-  line-height: 1;
+  display: inline-flex;
+  flex: 0 0 14px;
+  height: 14px;
   text-decoration: none;
+  width: 14px;
+}
+
+
+.vida-specs-overlay__download-icon svg {
+  display: block;
+  height: 14px;
+  width: 14px;
 }
 
 
@@ -405,13 +414,14 @@ body.vida-specs-overlay-open {
 
 
   .vida-specs-overlay__compare {
-    align-self: stretch;
+    align-self: center;
     border-radius: 24px;
     font-size: 11px;
-    min-height: 34px;
+    min-height: 44px;
+    min-width: 200px;
     order: 1;
     padding: 8px 16px;
-    width: 100%;
+    width: auto;
   }
 
 

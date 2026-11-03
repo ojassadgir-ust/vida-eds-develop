@@ -9,8 +9,9 @@
  */
 
 /* eslint-disable no-console */
+import { API_OPTIONS, getVx2ContentUrl } from '../../scripts/config.js';
+
 const CONFIG = {
-  apiUrl: 'https://dev.vidaworld.com/content/vida/language-masters/en/vx2-plus-colors-specifications/jcr:content/root/container/container.10.json',
   selectors: {
     block: '.vida-pdp-specs',
     trigger: '.vida-pdp-specs__all-specs',
@@ -49,10 +50,6 @@ const CONFIG = {
   mobileColumns: 2,
   breakpoints: {
     mobile: '(max-width: 767px)',
-  },
-  fetch: {
-    credentials: 'include',
-    timeoutMs: 10000,
   },
 };
 
@@ -236,11 +233,14 @@ const resolveActionUrl = (trigger, block, dataAttribute) => (
 );
 
 const fetchSpecifications = async () => {
+  const apiUrl = getVx2ContentUrl();
+  if (!apiUrl) throw new Error('VX2 content API URL is unavailable for this environment.');
+
   const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), CONFIG.fetch.timeoutMs);
+  const timeout = window.setTimeout(() => controller.abort(), API_OPTIONS.timeoutMs);
   try {
-    const response = await fetch(CONFIG.apiUrl, {
-      credentials: CONFIG.fetch.credentials,
+    const response = await fetch(apiUrl, {
+      credentials: API_OPTIONS.credentials,
       headers: { Accept: 'application/json' },
       signal: controller.signal,
     });
@@ -301,7 +301,26 @@ const attachOverlay = (trigger) => {
           console.warn('[VIDA][specifications] Configure data-specifications-pdf-url on the trigger or block.');
         });
       }
-      download.append(makeElement('span', 'vida-specs-overlay__download-icon', '⇩'));
+      const downloadIcon = makeElement('span', 'vida-specs-overlay__download-icon');
+      const downloadSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      downloadSvg.setAttribute('width', '14');
+      downloadSvg.setAttribute('height', '14');
+      downloadSvg.setAttribute('viewBox', '0 0 14 14');
+      downloadSvg.setAttribute('fill', 'none');
+      downloadSvg.setAttribute('aria-hidden', 'true');
+      const downloadPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      downloadPath.setAttribute('d', [
+        'M6.66667 10L2.5 5.83333L3.66667 4.625L5.83333 6.79167V0H7.5V6.79167L',
+        '9.66667 4.625L10.8333 5.83333L6.66667 10ZM1.66667 13.3333C1.20833 13.3333',
+        ' 0.815972 13.1701 0.489583 12.8438C0.163194 12.5174 0 12.125 0 11.6667',
+        'V9.16667H1.66667V11.6667H11.6667V9.16667H13.3333V11.6667C13.3333 12.125',
+        ' 13.1701 12.5174 12.8438 12.8438C12.5174 13.1701 12.125 13.3333 11.6667',
+        ' 13.3333H1.66667Z',
+      ].join(''));
+      downloadPath.setAttribute('fill', '#1C1B1F');
+      downloadSvg.append(downloadPath);
+      downloadIcon.append(downloadSvg);
+      download.append(downloadIcon);
       const compare = makeElement('a', CONFIG.classes.compare, CONFIG.labels.compare);
       compare.href = compareUrl || '#';
       if (!compareUrl) {
