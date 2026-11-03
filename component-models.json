@@ -573,6 +573,35 @@
     ]
   },
   {
+    "id": "vida-faq",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "FAQ Heading",
+        "value": "Frequently Asked Questions"
+      }
+    ]
+  },
+  {
+    "id": "vida-faq-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "question",
+        "label": "FAQ Question"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "answer",
+        "label": "FAQ Answer"
+      }
+    ]
+  },
+  {
     "id": "vida-footer",
     "fields": [
       {

@@ -80,5 +80,11 @@
     "components": [
       "vida-blog-card"
     ]
+  },
+  {
+    "id": "vida-faq",
+    "components": [
+      "vida-faq-item"
+    ]
   }
 ]
