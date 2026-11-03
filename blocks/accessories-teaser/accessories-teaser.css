@@ -53,7 +53,7 @@
   aspect-ratio: 408 / 287;
   overflow: hidden;
   border-radius: 12px;
-  background: var(--surface-primary);
+  background: #A7A6A6;
 }
 
 .accessories-teaser-media picture {
