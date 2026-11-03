@@ -133,6 +133,8 @@ const buildCta = (ctaCell, iconCell) => {
   const text = createElement('span', `${BLOCK}-cta-text`);
 
   cta.href = href;
+  cta.target = '_blank';
+  cta.rel = 'noopener noreferrer';
   text.textContent = label;
   cta.append(text);
   moveInstrumentation(ctaCell, cta);
