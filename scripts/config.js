@@ -5,29 +5,16 @@ const CONFIG = {
   BASE_URLS,
   API_ENDPOINTS: {
     headerApi:
-      '/content/experience-fragments/vida/language-masters/en/vida2_0_site/header-vida-v2-0/master.10.json',
+            '/content/experience-fragments/vida/language-masters/en/vida2_0_site/header-vida-v2-0/master.10.json',
     countrySelectorApi:
-      '/content/experience-fragments/vida/language-masters/en/vida2_0_site/country-selector/master.10.json',
+            '/content/experience-fragments/vida/language-masters/en/vida2_0_site/country-selector/master.10.json',
     footerApi:
-      '/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json',
-    faqApi: '/content/vida/language-masters/en/faq-data.10.json',
-    testRideCitiesApi:
-      '/content/dam/vida/config/availableTestRideCities.INDIA.json',
-    sendOtpPostApi:
-      '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
-    verifyOtpPostApi:
-      '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
+            '/content/experience-fragments/vida/language-masters/en/vida2_0_site/footer-vida-v2-0/home-footer-vida.10.json',
+    testRideCitiesApi: '/content/dam/vida/config/availableTestRideCities.INDIA.json',
+    sendOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
+    verifyOtpPostApi: '/content/vida/in/en/sf-master/jcr:content.vida-commerce.json',
   },
   ANALYTICS_URL,
-};
-const API_OPTIONS = {
-  // Change to 'include' only when the API uses cookies and supports credentialed CORS.
-
-  credentials: 'include',
-
-  timeoutMs: 10000,
-
-  retries: 1,
 };
 
 /**
@@ -50,4 +37,4 @@ const getAPIEndpoint = (path, fallbackKey) => {
 };
 
 export default CONFIG;
-export { getAPIEndpoint, API_OPTIONS };
+export { getAPIEndpoint };
