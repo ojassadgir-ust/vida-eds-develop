@@ -102,16 +102,11 @@
   flex: 0 0 auto;
   width: 32px;
   height: 32px;
-  transition: transform 0.2s ease;
 }
 
 .vida-faq .vida-faq-toggle .vida-faq-arrow {
   width: 24px;
   height: 24px;
-}
-
-.vida-faq .vida-faq-trigger[aria-expanded='true'] .vida-faq-arrow {
-  transform: rotate(180deg);
 }
 
 /* ==================================================
@@ -192,10 +187,6 @@
   appearance: none;
 }
 
-.vida-faq .vida-faq-toggle.vida-faq-toggle-expanded .vida-faq-arrow {
-  transform: rotate(180deg);
-}
-
 /* ==================================================
    ACCESSIBILITY
    ================================================== */
@@ -205,12 +196,6 @@
 .vida-faq .vida-faq-answer a:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vida-faq .vida-faq-arrow {
-    transition: none;
-  }
 }
 
 /* ==================================================
@@ -243,5 +228,11 @@
     --vida-faq-panel-padding-x: 38px;
     --vida-faq-item-padding-y: 32px;
     --vida-faq-toggle-size: var(--fs-label-sm);
+  }
+
+  .vida-faq .vida-faq-heading {
+    font-size: var(--fs-heading-xl);
+    line-height: var(--lh-heading-xl);
+    letter-spacing: var(--ls-heading-xl);
   }
 }

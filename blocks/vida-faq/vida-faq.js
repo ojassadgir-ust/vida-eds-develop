@@ -1,6 +1,8 @@
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import CONFIG, { getAPIEndpoint } from '../../scripts/config.js';
 
-const CONFIG = {
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+const CONFIG_FAQ = {
   classes: {
     header: 'vida-faq-header',
     heading: 'vida-faq-heading',
@@ -13,12 +15,17 @@ const CONFIG = {
     answer: 'vida-faq-answer',
     toggle: 'vida-faq-toggle',
     toggleLabel: 'vida-faq-toggle-label',
-    toggleExpanded: 'vida-faq-toggle-expanded',
   },
   visibleCount: 6,
+  defaultHeading: 'Frequently Asked Questions',
   labels: {
     viewMore: 'View more',
     viewLess: 'View less',
+  },
+  /* chevron-down (collapsed) / chevron-up (expanded) */
+  icons: {
+    down: 'M24 12L16 20L8 12',
+    up: 'M8 20L16 12L24 20',
   },
 };
 
@@ -34,35 +41,142 @@ function createElement(tagName, className) {
   return element;
 }
 
-function getCellText(cell) {
-  return cell?.textContent?.replace(/\u00a0/gu, ' ').trim() || '';
-}
-
-function getItemCells(row) {
-  const cells = [...row.children];
-
-  if (cells.length > 1) {
-    return cells;
+/**
+ * AEM returns text with HTML entities (&nbsp;, &amp; ...).
+ * Decode them so they can be safely set with textContent.
+ */
+function decodeText(value) {
+  if (!value || typeof value !== 'string') {
+    return '';
   }
 
-  const nestedRow = [...row.querySelectorAll('div')].find((element) => (
-    element.children.length > 1
-    && [...element.children].every((child) => child.tagName === 'DIV')
-  ));
+  const doc = new DOMParser().parseFromString(value, 'text/html');
 
-  return nestedRow ? [...nestedRow.children] : cells;
+  return doc.body.textContent.replace(/\s+/gu, ' ').trim();
+}
+
+/**
+ * Convert AEM item0, item1, item2... objects into an array.
+ */
+function getIndexedItems(object) {
+  if (!object || typeof object !== 'object') {
+    return [];
+  }
+
+  return Object.keys(object)
+    .filter((key) => /^item\d+$/u.test(key))
+    .sort((a, b) => Number(a.replace('item', '')) - Number(b.replace('item', '')))
+    .map((key) => object[key])
+    .filter(Boolean);
+}
+
+/**
+ * Find the FAQ component node anywhere inside the page JSON.
+ * The node is the one that owns a `questions` object.
+ */
+function findFaqNode(node) {
+  if (!node || typeof node !== 'object') {
+    return null;
+  }
+
+  if (node.questions && typeof node.questions === 'object') {
+    return node;
+  }
+
+  const children = Object.values(node).filter((value) => value && typeof value === 'object');
+
+  for (let i = 0; i < children.length; i += 1) {
+    const found = findFaqNode(children[i]);
+
+    if (found) {
+      return found;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Turn an AEM relative url (/content/...) into a usable url.
+ */
+function normalizeUrl(url) {
+  if (url.startsWith('/') && !url.startsWith('//')) {
+    return `${CONFIG.BASE_URLS[CONFIG.ENV]}${url}`;
+  }
+
+  return url;
+}
+
+/**
+ * Answers are authored rich text (<br>, <b>, <a>...).
+ * The markup is kept, but anything executable is removed.
+ */
+function sanitizeAnswer(html) {
+  const doc = new DOMParser().parseFromString(html || '', 'text/html');
+
+  doc.querySelectorAll('script, style, iframe, object, embed, link, meta, form')
+    .forEach((element) => element.remove());
+
+  doc.body.querySelectorAll('*').forEach((element) => {
+    [...element.attributes].forEach((attribute) => {
+      const name = attribute.name.toLowerCase();
+      const isScriptUrl = /^\s*javascript:/iu.test(attribute.value);
+
+      if (name.startsWith('on') || (['href', 'src'].includes(name) && isScriptUrl)) {
+        element.removeAttribute(attribute.name);
+      }
+    });
+  });
+
+  doc.body.querySelectorAll('a[href]').forEach((link) => {
+    link.setAttribute('href', normalizeUrl(link.getAttribute('href')));
+  });
+
+  return doc.body.innerHTML.trim();
+}
+
+/**
+ * Fetch the AEM page JSON and map it to { heading, showMoreText, items }.
+ * Only ONE API request is made.
+ */
+async function getFaqData(endpoint) {
+  const response = await fetch(endpoint);
+
+  if (!response.ok) {
+    throw new Error(`VIDA FAQ API error: ${response.status}`);
+  }
+
+  const apiData = await response.json();
+  const faqNode = findFaqNode(apiData);
+
+  if (!faqNode) {
+    return { heading: '', showMoreText: '', items: [] };
+  }
+
+  const items = getIndexedItems(faqNode.questions)
+    .map((item) => ({
+      question: decodeText(item.question),
+      answer: sanitizeAnswer(item.answer),
+    }))
+    .filter((item) => item.question);
+
+  return {
+    heading: decodeText(faqNode.heading),
+    showMoreText: decodeText(faqNode.showMoreText),
+    items,
+  };
 }
 
 function createArrow(className) {
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  const path = document.createElementNS(SVG_NS, 'path');
 
   svg.setAttribute('class', className);
   svg.setAttribute('viewBox', '0 0 32 32');
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
 
-  path.setAttribute('d', 'M24 12L16 20L8 12');
+  path.setAttribute('d', CONFIG_FAQ.icons.down);
   path.setAttribute('fill', 'none');
   path.setAttribute('stroke', 'currentColor');
   path.setAttribute('stroke-width', '2');
@@ -74,22 +188,19 @@ function createArrow(className) {
   return svg;
 }
 
-function createItem(row, id) {
-  const [questionCell, answerCell] = getItemCells(row);
-  const question = getCellText(questionCell);
-  const answerHTML = answerCell?.innerHTML.trim() || '';
+function setArrowState(arrow, isExpanded) {
+  arrow
+    .querySelector('path')
+    .setAttribute('d', isExpanded ? CONFIG_FAQ.icons.up : CONFIG_FAQ.icons.down);
+}
 
-  if (!question) {
-    return null;
-  }
-
-  const item = createElement('li', CONFIG.classes.item);
-  const trigger = createElement('button', CONFIG.classes.trigger);
-  const title = createElement('span', CONFIG.classes.question);
-  const panel = createElement('div', CONFIG.classes.panel);
-  const answer = createElement('div', CONFIG.classes.answer);
-
-  moveInstrumentation(row, item);
+function createItem({ question, answer }, id) {
+  const item = createElement('li', CONFIG_FAQ.classes.item);
+  const trigger = createElement('button', CONFIG_FAQ.classes.trigger);
+  const title = createElement('span', CONFIG_FAQ.classes.question);
+  const arrow = createArrow(CONFIG_FAQ.classes.arrow);
+  const panel = createElement('div', CONFIG_FAQ.classes.panel);
+  const answerElement = createElement('div', CONFIG_FAQ.classes.answer);
 
   title.textContent = question;
 
@@ -97,21 +208,22 @@ function createItem(row, id) {
   trigger.id = `${id}-trigger`;
   trigger.setAttribute('aria-expanded', 'false');
   trigger.setAttribute('aria-controls', `${id}-panel`);
-  trigger.append(title, createArrow(CONFIG.classes.arrow));
+  trigger.append(title, arrow);
 
   panel.id = `${id}-panel`;
   panel.setAttribute('role', 'region');
   panel.setAttribute('aria-labelledby', trigger.id);
   panel.hidden = true;
 
-  answer.innerHTML = answerHTML;
-  panel.append(answer);
+  answerElement.innerHTML = answer;
+  panel.append(answerElement);
 
   trigger.addEventListener('click', () => {
     const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
 
     trigger.setAttribute('aria-expanded', String(!isExpanded));
     panel.hidden = isExpanded;
+    setArrowState(arrow, !isExpanded);
   });
 
   item.append(trigger, panel);
@@ -119,78 +231,86 @@ function createItem(row, id) {
   return item;
 }
 
-function createToggle(items, list) {
-  const toggle = createElement('button', CONFIG.classes.toggle);
-  const label = createElement('span', CONFIG.classes.toggleLabel);
+function createToggle(items, list, viewMoreText) {
+  const toggle = createElement('button', CONFIG_FAQ.classes.toggle);
+  const label = createElement('span', CONFIG_FAQ.classes.toggleLabel);
+  const arrow = createArrow(CONFIG_FAQ.classes.arrow);
 
-  label.textContent = CONFIG.labels.viewMore;
+  label.textContent = viewMoreText;
 
   toggle.type = 'button';
   toggle.setAttribute('aria-expanded', 'false');
   toggle.setAttribute('aria-controls', list.id);
-  toggle.append(label, createArrow(CONFIG.classes.arrow));
+  toggle.append(label, arrow);
 
   toggle.addEventListener('click', () => {
     const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
 
-    items.slice(CONFIG.visibleCount).forEach((item) => {
+    items.slice(CONFIG_FAQ.visibleCount).forEach((item) => {
       item.hidden = isExpanded;
     });
 
     toggle.setAttribute('aria-expanded', String(!isExpanded));
-    toggle.classList.toggle(CONFIG.classes.toggleExpanded, !isExpanded);
-    label.textContent = isExpanded
-      ? CONFIG.labels.viewMore
-      : CONFIG.labels.viewLess;
+    setArrowState(arrow, !isExpanded);
+    label.textContent = isExpanded ? viewMoreText : CONFIG_FAQ.labels.viewLess;
   });
 
   return toggle;
 }
 
-export default function decorate(block) {
-  const rows = [...block.children];
-  const firstRow = rows[0];
-  const headingRow = firstRow?.children.length === 1
-    && getItemCells(firstRow).length === 1
-    ? firstRow
-    : null;
-  const itemRows = rows.filter((row) => row !== headingRow);
+/**
+ * loads and decorates the block
+ *
+ * The only authored value is the AEM FAQ API endpoint (first row).
+ * Heading, questions, answers and the "view more" label come from the API.
+ * @param {Element} block The block element
+ */
+export default async function decorate(block) {
+  const endpointRow = block.firstElementChild;
+  const rawPath = endpointRow?.textContent?.trim();
+
+  endpointRow?.remove();
+
+  const endpoint = getAPIEndpoint(rawPath);
+
+  if (!endpoint) {
+    return;
+  }
+
+  let data;
+
+  try {
+    data = await getFaqData(endpoint);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+    return;
+  }
+
+  if (!data.items.length) {
+    return;
+  }
 
   blockCount += 1;
 
   const blockId = `vida-faq-${blockCount}`;
-  const headingText = getCellText(headingRow);
+  const header = createElement('div', CONFIG_FAQ.classes.header);
+  const heading = createElement('h2', CONFIG_FAQ.classes.heading);
+  const list = createElement('ul', CONFIG_FAQ.classes.list);
+  const items = data.items.map((item, index) => createItem(item, `${blockId}-${index}`));
 
-  const items = itemRows
-    .map((row, index) => createItem(row, `${blockId}-${index}`))
-    .filter(Boolean);
-
-  block.replaceChildren();
-
-  if (headingText) {
-    const header = createElement('div', CONFIG.classes.header);
-    const heading = createElement('h2', CONFIG.classes.heading);
-
-    moveInstrumentation(headingRow, heading);
-    heading.textContent = headingText;
-    header.append(heading);
-    block.append(header);
-  }
-
-  if (!items.length) {
-    return;
-  }
-
-  const list = createElement('ul', CONFIG.classes.list);
+  heading.textContent = data.heading || CONFIG_FAQ.defaultHeading;
+  header.append(heading);
 
   list.id = `${blockId}-list`;
   items.forEach((item, index) => {
-    item.hidden = index >= CONFIG.visibleCount;
+    item.hidden = index >= CONFIG_FAQ.visibleCount;
   });
   list.append(...items);
-  block.append(list);
 
-  if (items.length > CONFIG.visibleCount) {
-    block.append(createToggle(items, list));
+  block.replaceChildren(header, list);
+
+  if (items.length > CONFIG_FAQ.visibleCount) {
+    block.append(createToggle(items, list, data.showMoreText || CONFIG_FAQ.labels.viewMore));
   }
 }
