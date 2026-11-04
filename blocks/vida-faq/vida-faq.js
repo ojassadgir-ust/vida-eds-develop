@@ -140,7 +140,10 @@ function sanitizeAnswer(html) {
  * Only ONE API request is made.
  */
 async function getFaqData(endpoint) {
-  const response = await fetch(endpoint);
+  const isLocal = window.location.hostname === 'localhost';
+  const response = await fetch(endpoint, {
+    credentials: isLocal ? 'include' : 'same-origin',
+  });
 
   if (!response.ok) {
     throw new Error(`VIDA FAQ API error: ${response.status}`);
@@ -268,7 +271,6 @@ function createToggle(items, list, viewMoreText) {
 export default async function decorate(block) {
   const endpointRow = block.firstElementChild;
   const rawPath = endpointRow?.textContent?.trim();
-
   endpointRow?.remove();
 
   const endpoint = getAPIEndpoint(rawPath, 'faqApi');
