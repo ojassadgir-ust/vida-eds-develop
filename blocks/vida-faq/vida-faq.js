@@ -271,7 +271,7 @@ export default async function decorate(block) {
 
   endpointRow?.remove();
 
-  const endpoint = getAPIEndpoint(rawPath);
+  const endpoint = getAPIEndpoint(rawPath, 'faqApi');
 
   if (!endpoint) {
     return;
