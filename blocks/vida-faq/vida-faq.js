@@ -38,6 +38,21 @@ function getCellText(cell) {
   return cell?.textContent?.replace(/\u00a0/gu, ' ').trim() || '';
 }
 
+function getItemCells(row) {
+  const cells = [...row.children];
+
+  if (cells.length > 1) {
+    return cells;
+  }
+
+  const nestedRow = [...row.querySelectorAll('div')].find((element) => (
+    element.children.length > 1
+    && [...element.children].every((child) => child.tagName === 'DIV')
+  ));
+
+  return nestedRow ? [...nestedRow.children] : cells;
+}
+
 function createArrow(className) {
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -60,7 +75,7 @@ function createArrow(className) {
 }
 
 function createItem(row, id) {
-  const [questionCell, answerCell] = row.children;
+  const [questionCell, answerCell] = getItemCells(row);
   const question = getCellText(questionCell);
   const answerHTML = answerCell?.innerHTML.trim() || '';
 
@@ -134,7 +149,11 @@ function createToggle(items, list) {
 
 export default function decorate(block) {
   const rows = [...block.children];
-  const headingRow = rows.find((row) => row.children.length === 1);
+  const firstRow = rows[0];
+  const headingRow = firstRow?.children.length === 1
+    && getItemCells(firstRow).length === 1
+    ? firstRow
+    : null;
   const itemRows = rows.filter((row) => row !== headingRow);
 
   blockCount += 1;
