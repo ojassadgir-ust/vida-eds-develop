@@ -24,6 +24,7 @@ const CONFIG = {
     tableWrap: 'vida-specs-overlay__table-wrap',
     table: 'vida-specs-overlay__table',
     rowLabel: 'vida-specs-overlay__row-label',
+    featureRow: 'vida-specs-overlay__feature-row',
     modelHeader: 'vida-specs-overlay__model-header',
     modelSelect: 'vida-specs-overlay__model-select',
     value: 'vida-specs-overlay__value',
@@ -151,20 +152,22 @@ const getModelValue = (model, id) => {
 };
 
 const buildTable = (content, isMobile, classes) => {
-  const visibleIndexes = getSelectedModelIndexes(content.models, isMobile);
+  const selectedIndexes = getSelectedModelIndexes(content.models, isMobile);
   const table = makeElement('table', classes.table);
   table.setAttribute('aria-label', CONFIG.labels.heading);
 
   const thead = document.createElement('thead');
   const headerRow = document.createElement('tr');
-  headerRow.append(document.createElement('th'));
+  if (!isMobile) headerRow.append(document.createElement('th'));
 
   const selects = [];
-  visibleIndexes.forEach((modelIndex, columnIndex) => {
+  selectedIndexes.forEach((modelIndex, columnIndex) => {
     const th = makeElement('th', classes.modelHeader);
     const currentModel = content.models[modelIndex];
-    const shouldOfferSelect = content.models.length > visibleIndexes.length
-      && columnIndex >= visibleIndexes.length - 2;
+    const shouldOfferSelect = content.models.length > selectedIndexes.length
+      && (isMobile
+        ? columnIndex === 1
+        : columnIndex >= selectedIndexes.length - 2);
     if (shouldOfferSelect) {
       const select = makeElement('select', classes.modelSelect);
       select.setAttribute('aria-label', `${CONFIG.labels.selectModel} ${columnIndex + 1}`);
@@ -185,42 +188,41 @@ const buildTable = (content, isMobile, classes) => {
   table.append(thead);
 
   const tbody = document.createElement('tbody');
-  content.labels.forEach(({ id, label }) => {
-    const row = document.createElement('tr');
-    row.append(makeElement('th', classes.rowLabel, label));
-    visibleIndexes.forEach((modelIndex) => {
-      const cell = makeElement('td', classes.value);
-      const model = content.models[modelIndex];
-      const value = getModelValue(model, id);
-      if (isColorRow(id, model.values[id])) {
-        cell.append(renderColorSwatches(value, classes));
-      } else {
-        cell.textContent = value;
+  const renderBody = () => {
+    tbody.replaceChildren();
+    content.labels.forEach(({ id, label }) => {
+      if (isMobile) {
+        const featureRow = makeElement('tr', classes.featureRow);
+        const featureName = makeElement('th', classes.rowLabel, label);
+        featureName.colSpan = selectedIndexes.length;
+        featureRow.append(featureName);
+        tbody.append(featureRow);
       }
-      row.append(cell);
+
+      const row = document.createElement('tr');
+      if (!isMobile) row.append(makeElement('th', classes.rowLabel, label));
+      selectedIndexes.forEach((modelIndex) => {
+        const cell = makeElement('td', classes.value);
+        const model = content.models[modelIndex];
+        const value = getModelValue(model, id);
+        if (isColorRow(id, model.values[id])) {
+          cell.append(renderColorSwatches(value, classes));
+        } else {
+          cell.textContent = value;
+        }
+        row.append(cell);
+      });
+      tbody.append(row);
     });
-    tbody.append(row);
-  });
+  };
+  renderBody();
   table.append(tbody);
 
-  const refreshColumn = (columnIndex, modelIndex) => {
-    const rows = Array.from(tbody.rows);
-    rows.forEach((row, rowIndex) => {
-      const cell = row.cells[columnIndex + 1];
-      if (!cell) return;
-      const { id } = content.labels[rowIndex];
-      const model = content.models[modelIndex];
-      const value = getModelValue(model, id);
-      cell.replaceChildren();
-      if (isColorRow(id, model.values[id])) cell.append(renderColorSwatches(value, classes));
-      else cell.textContent = value;
-    });
-    const header = headerRow.cells[columnIndex + 1];
-    if (header && !header.querySelector('select')) header.textContent = content.models[modelIndex].title;
-  };
-
   selects.forEach(({ select, columnIndex }) => {
-    select.addEventListener('change', () => refreshColumn(columnIndex, Number(select.value)));
+    select.addEventListener('change', () => {
+      selectedIndexes[columnIndex] = Number(select.value);
+      renderBody();
+    });
   });
 
   return table;
