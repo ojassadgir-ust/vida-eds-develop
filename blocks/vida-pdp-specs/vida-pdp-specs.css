@@ -782,7 +782,6 @@
 
   .vida-pdp-specs__city-selector {
     position: relative;
-    display: inline-flex;
     margin-top: 16px;
     display: block;
   }

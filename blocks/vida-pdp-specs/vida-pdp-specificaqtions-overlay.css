@@ -352,7 +352,10 @@ body.vida-specs-overlay-open {
 
 
   .vida-specs-overlay__table thead th {
-    font-size: 11px;
+    font-size: 18.43px;
+    font-weight: 800;
+    letter-spacing: 0.09px;
+    line-height: 29.49px;
     padding: 10px 7px;
   }
 
@@ -373,12 +376,12 @@ body.vida-specs-overlay-open {
 
 
   .vida-specs-overlay__table tbody .vida-specs-overlay__feature-row + tr td {
+    font-family: "PP Neue Montreal", brand-font, Arial, sans-serif;
+    font-size: 14.75px;
+    font-weight: 400;
+    letter-spacing: 0.23px;
+    line-height: 22.12px;
     padding: 8px 18px 22px;
-    font-family: brand-font;
-font-size: 14.75px;
-line-height: 22.12px;
-letter-spacing: 0.23px;
-font-weight: 400;
   }
 
 
@@ -386,21 +389,12 @@ font-weight: 400;
     width: 50%;
   }
 
-  .vida-specs-overlay__table thead th{
-font-weight: 800;
-font-style: Bold;
-font-size: 18.43px;
-line-height: 29.49px;
-letter-spacing: 0.09px;
-
-  }
-
   .vida-specs-overlay__row-label {
-font-weight: 600;
-font-style: Italic;
-font-size: 18.43px;
-line-height: 25.8px;
-letter-spacing: 0.14px;
+    font-size: 18.43px;
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: 0.14px;
+    line-height: 25.8px;
   }
 
 

@@ -84,8 +84,6 @@
   },
   {
     "id": "vida-pdp-specs-filter",
-    "components": [
-      "vida-pdp-variant"
-    ]
+    "components": []
   }
 ]

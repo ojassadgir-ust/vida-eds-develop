@@ -450,51 +450,6 @@
           }
         },
         {
-          "title": "PDP Product Variant",
-          "id": "vida-pdp-variant",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "PDP Product Variant",
-                  "model": "vida-pdp-variant"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "PDP Color",
-          "id": "vida-pdp-color",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "PDP Color",
-                  "model": "vida-pdp-color"
-                }
-              }
-            }
-          }
-        },
-        {
-          "title": "PDP Specification",
-          "id": "vida-pdp-spec",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/block/v1/block/item",
-                "template": {
-                  "name": "PDP Specification",
-                  "model": "vida-pdp-spec"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "VIDA Removable Battery",
           "id": "vida-removable-battery",
           "plugins": {

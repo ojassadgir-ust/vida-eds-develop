@@ -588,180 +588,59 @@
     "fields": [
       {
         "component": "text",
+        "valueType": "string",
         "name": "pageTitle",
-        "label": "Page Title",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "vida-pdp-variant",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Title",
-        "valueType": "string"
+        "label": "Specs component title",
+        "value": "Vida VX2 Plus does it all"
       },
       {
         "component": "text",
-        "name": "tag",
-        "label": "Tag",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "skuId",
-        "label": "SKU ID",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "priceHeading",
-        "label": "Price Heading",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "priceSubheading",
-        "label": "Price Subheading",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "priceLinkName",
-        "label": "Price Link Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "priceLinkUrl",
-        "label": "Price Link URL",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "exShowroomTitle",
-        "label": "Ex-Showroom Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "pmEDriveSubsidyTitle",
-        "label": "PM E-Drive Subsidy Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "stateSubsidyTitle",
-        "label": "State Subsidy Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "currentDiscountTitle",
-        "label": "Current Discount Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "effectivePriceTitle",
-        "label": "Effective Price Title",
-        "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "priceNote",
-        "label": "Price Note",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "stateApiUrl",
-        "label": "State API URL",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "priceApiUrl",
-        "label": "Price API URL",
-        "valueType": "string"
-      },
-      {
-        "component": "multifield",
-        "name": "colors",
-        "label": "Colors",
-        "fields": [
-          "vida-pdp-color"
-        ]
-      },
-      {
-        "component": "multifield",
-        "name": "specifications",
-        "label": "Specifications",
-        "fields": [
-          "vida-pdp-spec"
-        ]
-      },
-      {
-        "component": "text",
-        "name": "specAllLinkTitle",
-        "label": "All Specifications Link Title",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "specAllLinkName",
-        "label": "All Specifications Link Name",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "vida-pdp-color",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "colorImage",
-        "label": "Image",
         "valueType": "string",
-        "multi": false
+        "name": "subtitle",
+        "label": "Specs price subtitle",
+        "value": "Select your location to see the most accurate on-road starting price."
       },
       {
         "component": "text",
-        "name": "colorName",
-        "label": "Color Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "colorCode",
-        "label": "Color Code",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "vida-pdp-spec",
-    "fields": [
-      {
-        "component": "reference",
-        "name": "specImage",
-        "label": "Spec Image",
         "valueType": "string",
-        "multi": false
+        "name": "dealershipTitle",
+        "label": "View dealerships title",
+        "value": "View Dealerships"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "dealershipUrl",
+        "label": "View dealerships link",
+        "value": "#dealerships"
       },
       {
         "component": "text",
-        "name": "specTitle",
-        "label": "Spec Title",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "vx2ContentApi",
+        "label": "Specifications model API",
+        "value": "/content/vida/language-masters/en/vx2-plus-colors-specifications/jcr:content/root/container/container.10.json"
       },
       {
         "component": "text",
-        "name": "specValue",
-        "label": "Spec Value",
-        "valueType": "string"
+        "valueType": "string",
+        "name": "cityMasterApi",
+        "label": "City API",
+        "value": "/content/dam/vida/config/city-master.json.gzip"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "priceMasterApi",
+        "label": "Price API",
+        "value": "/content/dam/vida/config/price-master.json.gzip"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "detailedPriceApiPrefix",
+        "label": "Price distribution API prefix",
+        "value": "/content/vida/in/en/vx2-plus-electric-scooter/jcr:content.detailed-Product-Price"
       }
     ]
   },

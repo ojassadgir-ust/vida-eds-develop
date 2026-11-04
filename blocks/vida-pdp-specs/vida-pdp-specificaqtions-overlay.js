@@ -1,13 +1,3 @@
-/*
- * VIDA PDP Specifications comparison overlay
- *
- * Import this module from blocks/vida-pdp-specs/vida-pdp-specs.js.
- *
- * This module is additive: it does not replace or re-render the existing PDP block.
- * It listens for the existing "View all Specifications" link and builds an overlay
- * from the same AEM content endpoint used by the PDP.
- */
-
 /* eslint-disable no-console */
 import { API_OPTIONS, getVx2ContentUrl } from '../../scripts/config.js';
 
@@ -234,8 +224,8 @@ const resolveActionUrl = (trigger, block, dataAttribute) => (
   || ''
 );
 
-const fetchSpecifications = async () => {
-  const apiUrl = getVx2ContentUrl();
+const fetchSpecifications = async (apiPath) => {
+  const apiUrl = getVx2ContentUrl(apiPath);
   if (!apiUrl) throw new Error('VX2 content API URL is unavailable for this environment.');
 
   const controller = new AbortController();
@@ -262,7 +252,7 @@ const ensureOverlayStyles = () => {
   document.head.append(stylesheet);
 };
 
-const attachOverlay = (trigger) => {
+const attachOverlay = (trigger, apiPath) => {
   if (trigger.dataset.vidaSpecsOverlayBound === 'true') return;
   trigger.dataset.vidaSpecsOverlayBound = 'true';
   ensureOverlayStyles();
@@ -367,7 +357,7 @@ const attachOverlay = (trigger) => {
     }
 
     try {
-      if (!contentPromise) contentPromise = fetchSpecifications();
+      if (!contentPromise) contentPromise = fetchSpecifications(apiPath);
       overlayController.open();
       const loading = makeElement('p', CONFIG.classes.error, CONFIG.labels.loading);
       const host = document.querySelector(`.${CONFIG.classes.overlay} .vida-specs-overlay__table-host`);

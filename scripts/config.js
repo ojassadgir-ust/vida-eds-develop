@@ -7,19 +7,8 @@ const VX2_CONTENT_PATH = [
 const CITY_MASTER_PATH = '/content/dam/vida/config/city-master.json.gzip';
 const PRICE_MASTER_PATH = '/content/dam/vida/config/price-master.json.gzip';
 const DETAILED_PRICE_PATH = '/content/vida/in/en/vx2-plus-electric-scooter/jcr:content.detailed-Product-Price';
-
-/*
- * API options shared by vida-pdp-specs.
- *
- * CORS note:
- * `credentials: 'include'` does not bypass CORS. For cross-origin credentials,
- * the API must return Access-Control-Allow-Credentials: true and an
- * Access-Control-Allow-Origin header containing the exact page origin (not *).
- * Do not use mode: 'no-cors' for JSON APIs: it creates an opaque response that
- * JavaScript cannot read or parse.
- */
+const USE_PRODUCTION_PRICE_MASTER = false;
 const API_OPTIONS = {
-  // Change to 'include' only when the API uses cookies and supports credentialed CORS.
   credentials: 'include',
   timeoutMs: 10000,
   retries: 1,
@@ -72,13 +61,20 @@ const getAPIEndpoint = (path, fallbackKey) => {
  * Returns the full city-master URL for the current environment.
  * @returns {string|null}
  */
-const getCityMasterUrl = () => getAPIEndpoint(CITY_MASTER_PATH, 'cityMasterApi');
+const getCityMasterUrl = (path = CITY_MASTER_PATH) => getAPIEndpoint(path, 'cityMasterApi');
 
 /**
  * Returns the full price-master URL for the current environment.
  * @returns {string|null}
  */
-const getPriceMasterUrl = () => getAPIEndpoint(PRICE_MASTER_PATH, 'priceMasterApi');
+const getPriceMasterUrl = (path = PRICE_MASTER_PATH) => {
+  if (USE_PRODUCTION_PRICE_MASTER) {
+    if (/^https?:\/\//i.test(path)) return path;
+    const origin = BASE_URLS.prod;
+    return `${String(origin).replace(/\/+$/, '')}/${String(path).replace(/^\/+/, '')}`;
+  }
+  return getAPIEndpoint(path, 'priceMasterApi');
+};
 
 /**
  * Builds the detailed price endpoint for a city and variant.
@@ -87,12 +83,11 @@ const getPriceMasterUrl = () => getAPIEndpoint(PRICE_MASTER_PATH, 'priceMasterAp
  * @param {string} variantSfId - Variant Salesforce ID.
  * @returns {string|null}
  */
-const getDetailedPriceUrl = (cityName, itemSfId, variantSfId) => {
+const getDetailedPriceUrl = (cityName, itemSfId, variantSfId, endpoint = DETAILED_PRICE_PATH) => {
   const city = String(cityName || '').trim();
   if (!city || !itemSfId || !variantSfId) return null;
 
-  const path = `${[
-    DETAILED_PRICE_PATH,
+  const path = `${String(endpoint).replace(/\.+$/, '')}.${[
     encodeURIComponent(city),
     encodeURIComponent(itemSfId),
     encodeURIComponent(variantSfId),
@@ -106,7 +101,7 @@ const getDetailedPriceUrl = (cityName, itemSfId, variantSfId) => {
  * are resolved from its item in priceandspec.specifications.
  * @returns {string|null}
  */
-const getVx2ContentUrl = () => getAPIEndpoint(VX2_CONTENT_PATH, 'vx2ContentApi');
+const getVx2ContentUrl = (path = VX2_CONTENT_PATH) => getAPIEndpoint(path, 'vx2ContentApi');
 
 export default CONFIG;
 export {
@@ -116,4 +111,8 @@ export {
   getPriceMasterUrl,
   getDetailedPriceUrl,
   getVx2ContentUrl,
+  VX2_CONTENT_PATH,
+  CITY_MASTER_PATH,
+  PRICE_MASTER_PATH,
+  DETAILED_PRICE_PATH,
 };
