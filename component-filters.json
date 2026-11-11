@@ -43,7 +43,7 @@
   {
     "id": "vida-multi-teaser",
     "components": [
-      "vida-multi-teaser"
+      "vida-teaser"
     ]
   }
 ]

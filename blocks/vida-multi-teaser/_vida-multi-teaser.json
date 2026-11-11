@@ -1,16 +1,31 @@
 {
   "definitions": [
     {
-      "title": "VIDA Multi Teaser",
+      "title": "Vida Multi Teaser",
       "id": "vida-multi-teaser",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "VIDA Multi Teaser",
+              "name": "Vida Multi Teaser",
               "model": "vida-multi-teaser",
               "filter": "vida-multi-teaser"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Vida Teaser",
+      "id": "vida-teaser",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Teaser",
+              "model": "vida-teaser"
             }
           }
         }
@@ -24,59 +39,62 @@
         {
           "component": "text",
           "name": "heading",
-          "label": "Page heading",
+          "label": "Page Heading",
           "valueType": "string",
-          "required": false
+          "description": "Heading shown above the teasers"
+        }
+      ]
+    },
+    {
+      "id": "vida-teaser",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "required": false,
+          "rootPath": "/content/dam"
         },
         {
-          "component": "container",
-          "name": "teasers",
-          "label": "Teasers",
-          "multi": true,
-          "fields": [
-            {
-              "component": "reference",
-              "name": "image",
-              "label": "Image (fallback)",
-              "valueType": "string",
-              "required": false
-            },
-            {
-              "component": "reference",
-              "name": "desktopImage",
-              "label": "Desktop image",
-              "valueType": "string",
-              "required": false
-            },
-            {
-              "component": "reference",
-              "name": "tabletImage",
-              "label": "Tablet image",
-              "valueType": "string",
-              "required": false
-            },
-            {
-              "component": "reference",
-              "name": "mobileImage",
-              "label": "Mobile image",
-              "valueType": "string",
-              "required": false
-            },
-            {
-              "component": "text",
-              "name": "title",
-              "label": "Title",
-              "valueType": "string",
-              "required": false
-            },
-            {
-              "component": "text",
-              "name": "kicker",
-              "label": "Kicker",
-              "valueType": "string",
-              "required": false
-            }
-          ]
+          "component": "reference",
+          "valueType": "string",
+          "name": "desktopImage",
+          "label": "Desktop Image",
+          "multi": false,
+          "required": false,
+          "rootPath": "/content/dam"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "tabletImage",
+          "label": "Tablet Image",
+          "multi": false,
+          "required": false,
+          "rootPath": "/content/dam"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "mobileImage",
+          "label": "Mobile Image",
+          "multi": false,
+          "required": false,
+          "rootPath": "/content/dam"
+        },
+        {
+          "component": "text",
+          "name": "title",
+          "label": "Title",
+          "valueType": "string"
+        },
+        {
+          "component": "text",
+          "name": "kicker",
+          "label": "Kicker",
+          "valueType": "string"
         }
       ]
     }
@@ -84,9 +102,7 @@
   "filters": [
     {
       "id": "vida-multi-teaser",
-      "components": [
-        "vida-multi-teaser"
-      ]
+      "components": ["vida-teaser"]
     }
   ]
 }
