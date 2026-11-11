@@ -214,5 +214,67 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+    "id": "vida-multi-teaser",
+    "fields": [
+      {
+        "component": "text",
+        "name": "heading",
+        "label": "Page heading",
+        "valueType": "string",
+        "required": false
+      },
+      {
+        "component": "container",
+        "name": "teasers",
+        "label": "Teasers",
+        "multi": true,
+        "fields": [
+          {
+            "component": "reference",
+            "name": "image",
+            "label": "Image (fallback)",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "reference",
+            "name": "desktopImage",
+            "label": "Desktop image",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "reference",
+            "name": "tabletImage",
+            "label": "Tablet image",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "reference",
+            "name": "mobileImage",
+            "label": "Mobile image",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "text",
+            "name": "title",
+            "label": "Title",
+            "valueType": "string",
+            "required": false
+          },
+          {
+            "component": "text",
+            "name": "kicker",
+            "label": "Kicker",
+            "valueType": "string",
+            "required": false
+          }
+        ]
+      }
+    ]
   }
 ]
