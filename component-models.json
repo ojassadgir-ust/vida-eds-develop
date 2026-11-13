@@ -232,6 +232,30 @@
     ]
   },
   {
+    "id": "breadcrumb",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "breadcrumb-text-1",
+        "label": "Breadcrumb Text 1",
+        "value": "Home"
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "breadcrumb-url-1",
+        "label": "Breadcrumb URL 1"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "breadcrumb-text-2",
+        "label": "Breadcrumb Text 2"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
